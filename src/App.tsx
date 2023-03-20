@@ -1,9 +1,9 @@
 import React, { type FC } from 'react';
 import './App.scss';
-import Home from './components/Reports';
+import Home from './components/Home';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ReportTable from './components/Reports/reportTable';
+import ReportTable from './components/Home/reportTable';
 
 const App: FC = () => {
   return (
