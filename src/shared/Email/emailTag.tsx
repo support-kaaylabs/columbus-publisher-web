@@ -45,7 +45,7 @@ const EmailTag:FC<EmailProps> = ({emailList, handleInputChange, handleSwitch, em
         <div style={{ float: 'right' }}>
           Include Me:
           {' '}
-          <Switch value={emailSwitch} onChange={handleSwitch} />
+          <Switch  onChange={handleSwitch} />
         </div>
       </Row>
     </>

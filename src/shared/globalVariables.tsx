@@ -42,6 +42,14 @@ export const errorNotification = (data:any) => {
   });
 };
 
+export const successNotification = (data: any) => {
+  notification.success({
+    message: "Success",
+    description: data,
+    duration: 5,
+  });
+};
+
 export const weekDays = [
   { key: 0, value: 'Monday' },
   { key: 1, value: 'Tuesday' },

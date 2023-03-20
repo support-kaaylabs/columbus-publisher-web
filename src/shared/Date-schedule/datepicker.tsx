@@ -82,15 +82,15 @@ const DateSchedule = (props:any) => {
     }
     if (Schedule_Days.includes(value)) {
       const uniqValue = Schedule_Days.filter((item:any) => item !== value);
-      setScheduleDays(uniqBy([uniqValue]));
+      setScheduleDays(uniqBy(uniqValue,[uniqValue]));
     } else {
-      setScheduleDays(uniqBy([...Schedule_Days, value]));
+      setScheduleDays(uniqBy(Schedule_Days,[...Schedule_Days, value]));
     }
   };
 
   const handleSelectAll = () => {
     setIsSelectAll(!isSelectAll);
-    setScheduleDays(isSelectAll ? [] : uniqBy([...Schedule_Days, ...weekDays.map((id:any) => id.key)]));
+    setScheduleDays(isSelectAll ? [] : uniqBy(Schedule_Days,[...Schedule_Days, ...weekDays.map((id:any) => id.key)]));
   };
 
   const disabledDate = (current:any) => current && current < moment().startOf('day');
