@@ -26,8 +26,8 @@ const Home: FC = (props) => {
   //   }  }, []);
 
  const handleSubmit= (e : any) => {
-  console.log(e, 'hits=============>');
     // e.preventDefault();
+    navigate('/Dashboard');
     const params = {
       emailId,
       password,
@@ -45,19 +45,19 @@ const Home: FC = (props) => {
         console.log(resp, 'responses==========>');        
         const { User_Name, User_ID, User_Type, Image, User_Uid } = resp.data && resp.data[0];
         const { token } = resp;
-        localStorage.setItem("User_Name", User_Name);
-        localStorage.setItem("User_ID", User_ID);
-        localStorage.setItem("User_Uid", User_Uid);
-        localStorage.setItem("User_Type", User_Type);
-        localStorage.setItem("Image", Image);
-        localStorage.setItem("token", token);
-        localStorage.setItem("adminLogin", `${true}`);
-        localStorage.setItem("menu_collapse", `${false}`);
-        if (resp.success && (User_Type === "Merchant" || User_Type === "S-Admin")) {
-          const deviceParams = {
-            Device_ID: localStorage.getItem('fcmToken')
-          }
-        }
+        // localStorage.setItem("User_Name", User_Name);
+        // localStorage.setItem("User_ID", User_ID);
+        // localStorage.setItem("User_Uid", User_Uid);
+        // localStorage.setItem("User_Type", User_Type);
+        // localStorage.setItem("Image", Image);
+        // localStorage.setItem("token", token);
+        // localStorage.setItem("adminLogin", `${true}`);
+        // localStorage.setItem("menu_collapse", `${false}`);
+        // if (resp.success && (User_Type === "Merchant" || User_Type === "S-Admin")) {
+        //   const deviceParams = {
+        //     Device_ID: localStorage.getItem('fcmToken')
+        //   }
+        // }
         console.log(localStorage.getItem('fcmToken'), 'devicesParams');
         
         //   updateUserInfo(User_ID, deviceParams).then(res => {
