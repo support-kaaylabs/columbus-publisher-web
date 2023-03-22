@@ -6,7 +6,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { uniqBy, isEmpty } from 'lodash';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import {
   Modal, DatePicker, TimePicker, Row, Col,
 } from 'antd';
