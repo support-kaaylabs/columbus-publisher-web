@@ -1,12 +1,11 @@
 import React, { useState, type FC } from 'react';
 import { Tabs, Row, Col, Select, Space } from "antd";
-import './Chart.css';
+import './Chart.scss';
 import Chart from 'react-apexcharts';
 
 
 const { TabPane } = Tabs;
 const Charts: FC = () => {
-
   const [chartData, setChartData] = useState({
     options: {
       chart: {
@@ -36,9 +35,6 @@ const Charts: FC = () => {
         },
         y: {
           formatter: undefined,
-          title: {
-            // formatter: (seriesName) => seriesName,
-          },
         },
         z: {
           formatter: undefined,
@@ -46,9 +42,6 @@ const Charts: FC = () => {
         },
         marker: {
           show: true,
-        },
-        items: {
-          //  display: "flex",
         },
         fixed: {
           enabled: false,
@@ -139,9 +132,6 @@ const Charts: FC = () => {
         },
         y: {
           formatter: undefined,
-          title: {
-            // formatter: (seriesName) => seriesName,
-          },
         },
         z: {
           formatter: undefined,
@@ -149,9 +139,6 @@ const Charts: FC = () => {
         },
         marker: {
           show: true,
-        },
-        items: {
-          //  display: "flex",
         },
         fixed: {
           enabled: false,
@@ -244,9 +231,6 @@ const Charts: FC = () => {
         },
         y: {
           formatter: undefined,
-          title: {
-            // formatter: (seriesName) => seriesName,
-          },
         },
         z: {
           formatter: undefined,
@@ -254,9 +238,6 @@ const Charts: FC = () => {
         },
         marker: {
           show: true,
-        },
-        items: {
-          //  display: "flex",
         },
         fixed: {
           enabled: false,
@@ -324,10 +305,14 @@ const Charts: FC = () => {
                 </div>
               </TabPane>
               <TabPane tab="Clicks" key="Clicks">
-                <Chart options={clickChartData.options} series={clickChartData.series} type="area" width={1000} height={320} />
+                <div id="chart">
+                  <Chart options={clickChartData.options} series={clickChartData.series} type="area" width={1000} height={320} />
+                </div>
               </TabPane>
               <TabPane tab="Favourite" key="Favourite">
-                <Chart options={favouriteChartData.options} series={favouriteChartData.series} type="area" width={1000} height={320} />
+                <div id="chart">
+                  <Chart options={favouriteChartData.options} series={favouriteChartData.series} type="area" width={1000} height={320} />
+                </div>
               </TabPane>
             </Tabs>
           </li>
