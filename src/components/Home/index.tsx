@@ -2,11 +2,10 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState, type FC } from 'react';
-import { Row, Col, Card, Button, Form, Input } from 'antd';
+import { Card, Button, Form, Input } from 'antd';
 import { EyeOutlined } from '@ant-design/icons';
 import '../Home/login.scss';
 import { getJbReports, authenticate } from '../../shared/urlHelper';
-import Meta from 'antd/es/card/Meta';
 import '../../stylesheet/style.scss';
 import { errorNotification } from '../../shared/globalVariables';
 import { useNavigate } from 'react-router-dom';
@@ -31,7 +30,7 @@ const Home: FC = (props) => {
       password,
       userType: 'Merchant',
     };
-    console.log(params, 'params----------->');
+    console.log(params, 'params----------->', e);
     if (emailId === '' && password === '') {
       errorNotification('Please Enter the Email and Password');
     } else {

@@ -1,9 +1,7 @@
 import React, { useEffect, useState, type FC } from 'react';
-import Charts from '../../components/Chart/Chart';
 import Impression from '../../components/Dashboard';
 
 const Dashboard: FC = (props) => {
-  // const [value, setValue] = useState<number>(0);
   type dashboardInfo = {
     title: string;
     todayPercentage: number;
@@ -65,19 +63,12 @@ const Dashboard: FC = (props) => {
   return (
     <div>
       {/* ************** Impression *************** */}
-      <div>
-        <h1>Dashboard Page</h1>
-        {dummyData.map((item, index) => (
-          <div key={index}>
-            <Impression data={item} />
-          </div>
-        ))}
-      </div>
-      {/* ************** Chart *************** */}
-      <div>
-        <h1>Chart</h1>
-        <Charts />
-      </div>
+      <h1>Dashboard Page</h1>
+      {dummyData.map((item, index) => (
+        <div key={index}>
+          <Impression data={item} />
+        </div>
+      ))}
     </div>
   );
 };
