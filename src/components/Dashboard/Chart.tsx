@@ -397,8 +397,7 @@ const Charts: FC = () => {
     value: DatePickerProps['value'] | RangePickerProps['value'],
     dateString: [string, string] | string
   ) => {
-    console.log('Selected Time: ', value);
-    console.log('Formatted Selected Time: ', dateString);
+   
   };
 
  
