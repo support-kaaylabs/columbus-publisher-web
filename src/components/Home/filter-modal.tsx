@@ -46,9 +46,7 @@ const FilterModal: FC<FilterModalProps> = ({ open, setOpen, data }) => {
   const [eventLoading, setEventLoading] = useState(false);
   const [eventData, setEventData] = useState([]);
   const [loading, setLoading] = useState({ field: '', loading: false });
-  // const [buttonLoading, setButtonLoading] = useState(false);
   const [apiData, setApiData] = useState({});
-
   const filterData = get(data, 'Filter_List', '');
 
   console.log('filterData', filterData);
@@ -206,7 +204,6 @@ const FilterModal: FC<FilterModalProps> = ({ open, setOpen, data }) => {
       } = obj;
       if (reportId) {
         setEventLoading(true);
-        //let fetchParams:any = { reportId };
         const response = await searchModules(reportId);
         setEventData(response.data.resp);
         setEventLoading(false);
@@ -258,7 +255,6 @@ const FilterModal: FC<FilterModalProps> = ({ open, setOpen, data }) => {
 
   const handleSubmit = async () => {
     try {
-      // setButtonLoading(true);
       const params: any = {
         Related_ID: _.get(data, 'Report_ID'),
         Execution_Type: 'reports',
@@ -271,8 +267,6 @@ const FilterModal: FC<FilterModalProps> = ({ open, setOpen, data }) => {
       if (emailList.length > 0) params.To_Email = emailList.toString();
       if (!_.isEmpty(scheduleObj)) params.scheduleObj = scheduleObj;
       await executeProgram(params);
-      // setButtonLoading(false);
-      //  refreshReport();
       setVisible(false);
     } catch (error: any) {
       console.error(error);
@@ -385,13 +379,6 @@ const FilterModal: FC<FilterModalProps> = ({ open, setOpen, data }) => {
         handleSwitch={handleSwitch}
         emailSwitch={emailSwitch}
       />
-      {/*<DateSchedule
-        showDate={showDate}
-        handleOk={handleOk}
-        handleCancel={handleCancel}
-        scheduleObj={scheduleObj}
-        isEdit={false}
-      />*/}
     </Modal>
   );
 };

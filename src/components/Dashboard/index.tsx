@@ -4,14 +4,23 @@ import { Col, Row, Card } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 
 interface dashboardDetails {
-  data: any;
+  data: {
+    title:string,
+    todayPercentage:number,
+    todayDifference:number,
+    weekDifference:number,
+    weekPercentage:number,
+    monthDifference:number,
+    monthPercentage:number,
+    quaterDifference:number,
+    quaterPercentage:number,
+  };
 }
 
 const Dashboard = (props: dashboardDetails) => {
   const { data } = props;
 
   return (
-    // <div className='dashboard-page'>
     <div className="dashboard-page">
       <div
         className={
@@ -124,8 +133,6 @@ const Dashboard = (props: dashboardDetails) => {
           </Col>
         </Row>
       </div>
-      {/* <img width="100%" height="200vh" src={require('../Images/pink-bg-image.png')} alt="Impression-bg" /> */}
-      {/* </div> */}
     </div>
   );
 };

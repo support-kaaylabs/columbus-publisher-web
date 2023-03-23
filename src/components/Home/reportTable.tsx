@@ -1,4 +1,4 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
+
 import React, { FC, useState } from 'react';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Button, Row } from 'antd';
@@ -7,8 +7,6 @@ import FilterModal from './filter-modal';
 
 const ReportTable: FC = () => {
   const navigate = useNavigate();
-
-  //  const [tableName , setTableName] = useState('');
   const [open, setOpen] = useState<boolean>(false);
   const [modalData, setModalData] = useState({});
   const location = useLocation();
@@ -27,7 +25,6 @@ const ReportTable: FC = () => {
     setModalData(data);
   };
 
-  console.log('open', open);
 
   return (
     <div

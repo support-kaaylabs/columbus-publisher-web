@@ -1,29 +1,5 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
+
 import { notification } from 'antd';
-
-//export const scheduleArr = [
-//  { label: 'Schedule Once', value: 'date' },
-//  { label: 'Weekly', value: 'weekly' },
-//  { label: 'Monthly', value: 'monthly' },
-//];
-
-//export const scheduleArr: MenuProps['items'] = [
-//  {
-//	  label: 'Schedule Once',
-//    //  value: 'date',
-//	  key: 'date'
-//  },
-//  {
-//	  label: 'Weekly',
-//    //  value: 'weekly',
-//	  key: 'weekly'
-//  },
-//  {
-//	  label: 'Monthly',
-//    //  value: 'monthly',
-//	  key: 'monthly'
-//  }
-//];
 
 export const defaultPagination = {
   current: 1,
