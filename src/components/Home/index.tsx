@@ -27,7 +27,7 @@ const Home: FC = (props) => {
 
  const handleSubmit= (e : any) => {
     // e.preventDefault();
-    navigate('/Dashboard');
+    navigate('/insight');
     const params = {
       emailId,
       password,
