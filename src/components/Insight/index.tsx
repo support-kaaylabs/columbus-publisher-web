@@ -1,20 +1,11 @@
 import React, {  type FC } from 'react';
 import { Col, Row, DatePicker, Collapse, Space, Table } from 'antd';
-import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 import { EyeOutlined, ArrowRightOutlined, SendOutlined } from '@ant-design/icons';
 import { DownloadOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import './Insight.scss';
 
 const { Panel } = Collapse;
-
-const onChange = (
-  value: DatePickerProps['value'] | RangePickerProps['value'],
-  dateString: [string, string] | string
-) => {
- 
-};
-
 
 interface DataType {
   key: string;
@@ -94,9 +85,6 @@ const genExtra = () => (
   />
 );
 
-const onChangeCollapse = (key: string | string[]) => {
-
-};
 
 const Insight: FC = () => {
   return (
@@ -111,12 +99,12 @@ const Insight: FC = () => {
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} >
           <Col className="gutter-row" span={6}>
             <Space size={12} style={{ width: '100%' }}>
-              <DatePicker onChange={onChange} placeholder="From Date" style={{ width: '100%' }} />
+              <DatePicker  placeholder="From Date" style={{ width: '100%' }} />
             </Space>
           </Col>
           <Col className="gutter-row" span={6}>
             <Space size={12}>
-              <DatePicker onChange={onChange} placeholder="To Date" />
+              <DatePicker  placeholder="To Date" />
             </Space>
           </Col>
           <Col className="gutter-row" span={6}>
@@ -173,7 +161,7 @@ const Insight: FC = () => {
         {/* Collapse Section */}
         <div>
           <Space direction="vertical">
-            <Collapse defaultActiveKey={['1']} onChange={onChangeCollapse}>
+            <Collapse defaultActiveKey={['1']}>
               <Panel header="Geography" key="1" extra={genExtra()}>
                 <Table columns={columns} dataSource={data} />
               </Panel>

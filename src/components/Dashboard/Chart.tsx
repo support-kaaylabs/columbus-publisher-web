@@ -1,7 +1,6 @@
 import React, { useState, type FC } from 'react';
 import { Tabs, Row, Select, Space,DatePicker } from 'antd';
 import './Chart.scss';
-import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 import Chart from 'react-apexcharts';
 import moment from 'moment';
 
@@ -393,14 +392,7 @@ const Charts: FC = () => {
     }]
   });
 
-  const onChange = (
-    value: DatePickerProps['value'] | RangePickerProps['value'],
-    dateString: [string, string] | string
-  ) => {
-   
-  };
-
- 
+  
   return (
     <>
       <Row className="mt-4" style={{ margin: "30px" }}>
@@ -429,7 +421,7 @@ const Charts: FC = () => {
         <div className='charts-datas'>
           <div>
             <Space size={12} style={{ width: '100%' }}>
-              <DatePicker placeholder="From Date" onChange={onChange} style={{ width: '100%' }}
+              <DatePicker placeholder="From Date"  style={{ width: '100%' }}
                 disabledDate={(current) => {
                   let customDate = moment().format("YYYY-MM-DD");
                   return current && current > moment(customDate, "YYYY-MM-DD");
@@ -439,7 +431,7 @@ const Charts: FC = () => {
           </div>
           <div>
             <Space size={12} style={{ width: '100%' }}>
-              <DatePicker onChange={onChange}  placeholder="To Date" style={{ width: '100%' }}
+              <DatePicker  placeholder="To Date" style={{ width: '100%' }}
                 disabledDate={(current) => {
                   let customDate = moment().format("YYYY-MM-DD");
                   return current && current > moment(customDate, "YYYY-MM-DD");
