@@ -15,7 +15,7 @@ const Home: FC = () => {
   const navigate = useNavigate();
   const [emailId, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [btnLoading, setBtnLoading] = useState(false);
+
 
   // useEffect(() => {
   //   const adminLogin = localStorage.getItem('adminLogin');
@@ -23,7 +23,6 @@ const Home: FC = () => {
   //     navigate('/');
   //   }  }, []);
 
-  console.log('btnLoading',btnLoading);
   const handleSubmit = (e: any) => {
     console.log(e, 'hits=============>');
     // e.preventDefault();
@@ -40,7 +39,6 @@ const Home: FC = () => {
       //   this.setState({
       //     btnLoading: true
       //   });
-      setBtnLoading(true);
       authenticate(params)
         .then((resp) => {
           console.log(resp, 'responses==========>');
@@ -79,10 +77,8 @@ const Home: FC = () => {
         .catch((resp: any) => {
           if (resp.success === false && resp.error.mailError) {
             errorNotification(resp.error.mailError);
-            setBtnLoading(false);
           } else if (resp.success === false && resp.error.passwordError) {
             errorNotification(resp.error.passwordError);
-            setBtnLoading(false);
           }
         });
     }
@@ -150,7 +146,7 @@ const Home: FC = () => {
             <Form.Item>
               <div className="login-button">
                 <Button
-                  loading={btnLoading}
+                  loading={false}
                   htmlType="submit"
                   // size="default"
                   className="login-form-button"

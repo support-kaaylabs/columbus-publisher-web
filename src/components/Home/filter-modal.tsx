@@ -34,7 +34,6 @@ interface FilterModalProps {
 }
 const FilterModal: FC<FilterModalProps> = ({ open, setOpen, data }) => {
   console.log('data---', data);
-  const [visible, setVisible] = useState<boolean>(false);
   const [formData, setFormData] = useState<any>({});
   const [autoComplete, setAutoComplete] = useState<any>({});
   const [scheduleObj, setScheduleObj] = useState({});
@@ -51,7 +50,6 @@ const FilterModal: FC<FilterModalProps> = ({ open, setOpen, data }) => {
 
   console.log('filterData', filterData);
   console.log('showDate', showDate);
-  console.log('visible',visible);
 
   const onClick: MenuProps['onClick'] = ({ key }) => {
     console.log(key);
@@ -268,7 +266,6 @@ const FilterModal: FC<FilterModalProps> = ({ open, setOpen, data }) => {
       if (emailList.length > 0) params.To_Email = emailList.toString();
       if (!_.isEmpty(scheduleObj)) params.scheduleObj = scheduleObj;
       await executeProgram(params);
-      setVisible(false);
     } catch (error: any) {
       console.error(error);
     }
@@ -314,9 +311,7 @@ const FilterModal: FC<FilterModalProps> = ({ open, setOpen, data }) => {
           </span>
         </Dropdown>
       )}
-      <Button key="back" onClick={() => setVisible(false)}>
-        Cancel
-      </Button>
+      
       <Button key="submit" type="primary">
         Submit
       </Button>
