@@ -1,50 +1,24 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
+
 import { notification } from 'antd';
-
-//export const scheduleArr = [
-//  { label: 'Schedule Once', value: 'date' },
-//  { label: 'Weekly', value: 'weekly' },
-//  { label: 'Monthly', value: 'monthly' },
-//];
-
-
-//export const scheduleArr: MenuProps['items'] = [
-//  {
-//	  label: 'Schedule Once',
-//    //  value: 'date',
-//	  key: 'date'
-//  },
-//  {
-//	  label: 'Weekly',
-//    //  value: 'weekly',
-//	  key: 'weekly'
-//  },
-//  {
-//	  label: 'Monthly',
-//    //  value: 'monthly',
-//	  key: 'monthly'
-//  }
-//];
-
 
 export const defaultPagination = {
   current: 1,
   pageSize: 10,
   showSizeChanger: true,
-  total:null
+  total: null,
 };
 
-export const errorNotification = (data:any) => {
+export const errorNotification = (data: any) => {
   notification.error({
-	  message: 'Error',
-	  description: data,
-	  duration: 3,
+    message: 'Error',
+    description: data,
+    duration: 3,
   });
 };
 
 export const successNotification = (data: any) => {
   notification.success({
-    message: "Success",
+    message: 'Success',
     description: data,
     duration: 5,
   });
@@ -59,7 +33,8 @@ export const weekDays = [
   { key: 5, value: 'Saturday' },
   { key: 6, value: 'Sunday' },
 ];
-  
+
 export const dateArr = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+  23, 24, 25, 26, 27, 28, 29, 30, 31,
 ];

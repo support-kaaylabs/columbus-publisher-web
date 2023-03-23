@@ -2,14 +2,14 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable prefer-const */
 import React, { FC, useRef, useEffect, useState } from 'react';
-import { Table, Button,  Input, DatePicker, Select, Checkbox } from 'antd';
+import { Table, Button, Input, DatePicker, Select, Checkbox } from 'antd';
 import { FilterOutlined } from '@ant-design/icons';
 import { defaultPagination } from './globalVariables';
 import _ from 'lodash';
 
 const { RangePicker } = DatePicker;
 
-const usePrevious = (value:any) => {
+const usePrevious = (value: any) => {
   const ref = useRef();
   useEffect(() => {
     ref.current = value;
@@ -17,32 +17,29 @@ const usePrevious = (value:any) => {
   return ref.current;
 };
 
-
-const CustomTable:FC = (props: any)=> {
+const CustomTable: FC = (props: any) => {
   const { rowClassName } = props;
   const prevProps = usePrevious(props);
   const [columnData, setColumnData] = useState([]);
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [sorter, setSorter] = useState< {key: any; order: string}| never[] >([]);
+  const [sorter, setSorter] = useState<{ key: any; order: string } | never[]>(
+    []
+  );
   const [filterData, setFilterData] = useState<any>({});
   const [pagination, setPagination] = useState<{
     current: number;
     pageSize: number;
     showSizeChanger: boolean;
-	total:number | null;
-}>(defaultPagination);
+    total: number | null;
+  }>(defaultPagination);
   const Filter_Ok = 1;
   const Filter_Reset = 0;
   let paginationFlag = true;
 
-
   const getFilterData = (columnName: any, dataIndex: any, type: any) => ({
-    filterDropdown: (param:any) => {
-      const {setSelectedKeys,
-        selectedKeys,
-        confirm,
-        clearFilters} = param;
+    filterDropdown: (param: any) => {
+      const { setSelectedKeys, selectedKeys, confirm, clearFilters } = param;
       const addData = {
         [dataIndex]: selectedKeys,
         type: type,
@@ -54,7 +51,7 @@ const CustomTable:FC = (props: any)=> {
               format={['DD-MM-YYYY', 'DD-MM-YYYY']}
               style={{ width: '100%' }}
               value={selectedKeys}
-              onChange={(e:any) => setSelectedKeys(e ? formatDate(e) : [])}
+              onChange={(e: any) => setSelectedKeys(e ? formatDate(e) : [])}
               className="filter-date-select"
             />
           ) : ['multiTag'].includes(type) ? (
@@ -64,7 +61,7 @@ const CustomTable:FC = (props: any)=> {
               className="search-input"
               placeholder={`Filter by ${columnName}`}
               value={selectedKeys[0]}
-              getPopupContainer={triggerNode => triggerNode.parentElement}
+              getPopupContainer={(triggerNode) => triggerNode.parentElement}
               onChange={(value) => setSelectedKeys(value ? [value] : [])}
             ></Select>
           ) : ['checkbox'].includes(type) ? (
@@ -116,12 +113,11 @@ const CustomTable:FC = (props: any)=> {
       );
     },
     filterIcon: (filtered: any) => (
-	  <FilterOutlined style={{ color: filtered ? '#1890ff' : '#909090' }}/>
+      <FilterOutlined style={{ color: filtered ? '#1890ff' : '#909090' }} />
     ),
   });
 
-
-  const fetchData = (props:any, paginationSwitch:any) => {
+  const fetchData = (props: any, paginationSwitch: any) => {
     const { apiData, columns, additionalParams } = props;
     const finalPagination = paginationSwitch ? defaultPagination : pagination;
     const { current, pageSize } = finalPagination;
@@ -153,7 +149,7 @@ const CustomTable:FC = (props: any)=> {
     }
     setLoading(true);
     apiData(params)
-      .then((resp:any) => {
+      .then((resp: any) => {
         setDataSource(resp.data.rows);
         setColumnData(columns);
         setPagination({ ...finalPagination, total: resp.data.count });
@@ -164,21 +160,21 @@ const CustomTable:FC = (props: any)=> {
       .catch(() => {
         setLoading(false);
         paginationFlag = false;
-      }); 
+      });
   };
-
 
   useEffect(() => {
     const currentAdditionalParams = _.get(props, 'additionalParams', {});
     const prevAdditionalParams = _.get(prevProps, 'additionalParams', {});
-    if (Object.keys(currentAdditionalParams).length > 0 && !_.isEqual(currentAdditionalParams, prevAdditionalParams)) {
+    if (
+      Object.keys(currentAdditionalParams).length > 0 &&
+      !_.isEqual(currentAdditionalParams, prevAdditionalParams)
+    ) {
       paginationFlag = true;
       fetchData(props, paginationFlag);
-    }
-    else if (JSON.stringify(props) !== JSON.stringify(prevProps)) {
+    } else if (JSON.stringify(props) !== JSON.stringify(prevProps)) {
       fetchData(props, paginationFlag);
-    }
-    else if(props.loading){
+    } else if (props.loading) {
       fetchData(props, paginationFlag);
     }
   }, [props]);
@@ -189,9 +185,9 @@ const CustomTable:FC = (props: any)=> {
     }
   }, [sorter]);
 
-  const handleTableData = (columns:any) => {
-    let preData:any = {};
-    let columns_data = columns.map((obj:any) => {
+  const handleTableData = (columns: any) => {
+    let preData: any = {};
+    let columns_data = columns.map((obj: any) => {
       preData[obj.key] = '';
       let column_obj = {
         title: obj.title,
@@ -200,13 +196,15 @@ const CustomTable:FC = (props: any)=> {
         type: obj.filterType,
         render: obj.render,
         attrFilterKey: obj.attrFilterKey,
-        sorter:obj.sorter || false,
+        sorter: obj.sorter || false,
       };
       if (obj.sorter === true) {
         column_obj.sorter = true;
       }
-      if (obj.filter === true) {   
-        const attrFilter = column_obj['attrFilterKey'] ? column_obj['attrFilterKey'] : column_obj['key'];
+      if (obj.filter === true) {
+        const attrFilter = column_obj['attrFilterKey']
+          ? column_obj['attrFilterKey']
+          : column_obj['key'];
         column_obj = {
           ...column_obj,
           ...getFilterData(obj.title, attrFilter, obj.filterType),
@@ -218,14 +216,11 @@ const CustomTable:FC = (props: any)=> {
     setColumnData(columns_data);
   };
 
-  const onFilterTrigger = (filterStatus: any, action: any, dataSet:any) => {
+  const onFilterTrigger = (filterStatus: any, action: any, dataSet: any) => {
     let newFilterData: any = {};
     const { dataIndex, addData } = dataSet;
     const operation = () => {
-      return(
-        setFilterData(newFilterData),
-        action()
-      );
+      return setFilterData(newFilterData), action();
     };
     newFilterData = Object.assign(filterData, _.omit(addData, ['type']));
     if (filterStatus === Filter_Ok) {
@@ -242,20 +237,22 @@ const CustomTable:FC = (props: any)=> {
     }
   };
 
-  const formatDate = (e:any) => {
+  const formatDate = (e: any) => {
     return _.reduce(
       e,
-      function (result:any, value:any, key: any) {
+      function (result: any, value: any, key: any) {
         key === 0
           ? result.push(value.startOf('day'))
           : result.push(value.endOf('day'));
         return result;
-      },[]);
+      },
+      []
+    );
   };
 
-  const onTableChange = (pagination:any, sorter:any) => {
+  const onTableChange = (pagination: any, sorter: any) => {
     const attrSorter = sorter['column'] && sorter['column']['attrFilterKey'];
-    const sorterField:any = attrSorter ? attrSorter : sorter.field;
+    const sorterField: any = attrSorter ? attrSorter : sorter.field;
     if (Object.keys(sorter).length > 0) {
       setSorter({
         key: sorterField,
@@ -268,7 +265,7 @@ const CustomTable:FC = (props: any)=> {
     }
   };
 
-  return(
+  return (
     <Table
       loading={loading}
       bordered={true}
@@ -279,9 +276,7 @@ const CustomTable:FC = (props: any)=> {
       //  pagination={pagination}
       rowClassName={rowClassName}
     />
-		
   );
-
 };
 
 export default CustomTable;
