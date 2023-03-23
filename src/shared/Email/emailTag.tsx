@@ -5,14 +5,13 @@ interface EmailProps {
   emailList: any;
   handleInputChange: any;
   handleSwitch: any;
-  emailSwitch: any;
+  emailSwitch?: any;
 }
 
 const EmailTag: FC<EmailProps> = ({
   emailList,
   handleInputChange,
   handleSwitch,
-  emailSwitch,
 }) => {
   const tagRender = (tagValues: any): React.ReactElement => {
     const { label, closable, onClose } = tagValues;

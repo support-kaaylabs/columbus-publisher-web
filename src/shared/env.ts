@@ -1,5 +1,5 @@
 const { protocol, hostname } = window.location;
-const { port } = window.location;
+// const { port } = window.location;
 
 export const getAPIUrl = () => {
   const apiPath = '/api/v1/';
