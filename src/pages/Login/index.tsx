@@ -23,6 +23,7 @@ const Home: FC = () => {
   //     navigate('/');
   //   }  }, []);
 
+  console.log('btnLoading',btnLoading);
   const handleSubmit = (e: any) => {
     console.log(e, 'hits=============>');
     // e.preventDefault();

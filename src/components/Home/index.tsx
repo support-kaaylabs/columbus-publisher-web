@@ -13,7 +13,7 @@ const Home: FC = (props) => {
   const [password, setPassword] = useState('');
   const [btnLoading, setBtnLoading] = useState(false);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = () => {
     navigate('/dashboard');
     const params = {
       emailId,

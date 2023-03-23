@@ -51,6 +51,7 @@ const FilterModal: FC<FilterModalProps> = ({ open, setOpen, data }) => {
 
   console.log('filterData', filterData);
   console.log('showDate', showDate);
+  console.log('visible',visible);
 
   const onClick: MenuProps['onClick'] = ({ key }) => {
     console.log(key);

@@ -17,12 +17,12 @@ const ReportTable: FC = () => {
   const data = location.state;
   console.log('location.state', data);
 
-  const goBack = (): any => {
+  const goBack = () => {
     console.log('check-button');
     navigate('/');
   };
 
-  const openModel = (): any => {
+  const openModel = () => {
     setOpen(true);
     setModalData(data);
   };
