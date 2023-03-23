@@ -1,11 +1,8 @@
-import React, { useState, type FC } from 'react';
-import { Col, Row } from 'antd';
-import { DatePicker } from 'antd';
+import React, {  type FC } from 'react';
+import { Col, Row, DatePicker, Collapse, Space, Table } from 'antd';
 import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 import { EyeOutlined, ArrowRightOutlined, SendOutlined } from '@ant-design/icons';
-import { Collapse, Space } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
-import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import './Insight.scss';
 
@@ -120,7 +117,7 @@ const Insight: FC = () => {
           </Col>
           <Col className="gutter-row" span={6}>
             <Space size={12}>
-              <DatePicker onChange={onChange}  placeholder="To Date" />
+              <DatePicker onChange={onChange} placeholder="To Date" />
             </Space>
           </Col>
           <Col className="gutter-row" span={6}>

@@ -1,11 +1,9 @@
 import React, { useState, type FC } from 'react';
-import { Tabs, Row, Select, Space } from 'antd';
+import { Tabs, Row, Select, Space,DatePicker } from 'antd';
 import './Chart.scss';
-import { DatePicker } from 'antd';
 import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 import Chart from 'react-apexcharts';
 import moment from 'moment';
-
 
 const { TabPane } = Tabs;
 
