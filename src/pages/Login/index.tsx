@@ -6,7 +6,7 @@ import { Row, Col, Card, Button, Form, Input } from 'antd';
 import {
   EyeOutlined
 } from '@ant-design/icons';
-import '../Home/login.scss';
+import './login.scss';
 import { getJbReports, authenticate } from '../../shared/urlHelper';
 import Meta from 'antd/es/card/Meta';
 import '../../stylesheet/style.scss';
