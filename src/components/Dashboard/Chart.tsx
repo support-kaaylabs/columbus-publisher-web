@@ -1,8 +1,7 @@
 import React, { useState, type FC } from 'react';
-import { Tabs, Row, Col, Select, Space } from "antd";
+import { Tabs, Row, Col, Select, Space } from 'antd';
 import './Chart.scss';
 import Chart from 'react-apexcharts';
-
 
 const { TabPane } = Tabs;
 const Charts: FC = () => {
@@ -20,10 +19,10 @@ const Charts: FC = () => {
         inverseOrder: false,
         custom: undefined,
         fillSeriesColor: false,
-        theme: "dark",
+        theme: 'dark',
         style: {
           fontSize: '12px',
-          fontFamily: undefined
+          fontFamily: undefined,
         },
         onDatasetHover: {
           highlightDataSeries: false,
@@ -38,7 +37,7 @@ const Charts: FC = () => {
         },
         z: {
           formatter: undefined,
-          title: 'Size: '
+          title: 'Size: ',
         },
         marker: {
           show: true,
@@ -51,56 +50,58 @@ const Charts: FC = () => {
         },
       },
       dataLabels: {
-        enabled: false
+        enabled: false,
       },
       grid: {
         show: true,
         strokeDashArray: 6,
       },
-      colors: ["#e53935"],
+      colors: ['#e53935'],
       fill: {
-        colors: ['#F44336', '#E91E63', '#9C27B0']
+        colors: ['#F44336', '#E91E63', '#9C27B0'],
       },
-      yaxis: [{
-        axisTicks: {
-          show: true
+      yaxis: [
+        {
+          axisTicks: {
+            show: true,
+          },
+          labels: {
+            style: {
+              colors: 'grey',
+              fontSize: '18px',
+            },
+          },
+          axisBorder: {
+            show: true,
+            color: '#000000',
+            width: 2.5,
+          },
         },
-        labels: {
-          style: {
-            colors: "grey",
-            fontSize: "18px",
-          }
-        },
-        axisBorder: {
-          show: true,
-          color: "#000000",
-          width: 2.5
-        }
-      }],
+      ],
       xaxis: {
         categories: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         axisTicks: {
-          show: true
+          show: true,
         },
         labels: {
           style: {
-            colors: "grey",
-            fontSize: "18px",
-          }
+            colors: 'grey',
+            fontSize: '18px',
+          },
         },
         axisBorder: {
           show: true,
-          color: "#000000",
-          height: 2.5
-        }
-      }
-
+          color: '#000000',
+          height: 2.5,
+        },
+      },
     },
-    series: [{
-      name: 'series-1',
-      data: [30, 40, 35, 50, 49, 60, 70, 91, 125],
-    }],
-
+    series: [
+      {
+        name: 'series-1',
+        data: [30, 40, 35, 50, 49, 60, 70, 91, 125],
+      },
+    ],
   });
 
   const [clickChartData, setClickChartData] = useState({
@@ -117,10 +118,10 @@ const Charts: FC = () => {
         inverseOrder: false,
         custom: undefined,
         fillSeriesColor: false,
-        theme: "dark",
+        theme: 'dark',
         style: {
           fontSize: '12px',
-          fontFamily: undefined
+          fontFamily: undefined,
         },
         onDatasetHover: {
           highlightDataSeries: false,
@@ -135,7 +136,7 @@ const Charts: FC = () => {
         },
         z: {
           formatter: undefined,
-          title: 'Size: '
+          title: 'Size: ',
         },
         marker: {
           show: true,
@@ -148,56 +149,60 @@ const Charts: FC = () => {
         },
       },
       dataLabels: {
-        enabled: false
+        enabled: false,
       },
       grid: {
         show: true,
         strokeDashArray: 6,
       },
       fill: {
-        colors: ['#AFBCFB']
+        colors: ['#AFBCFB'],
       },
-      yaxis: [{
-        axisTicks: {
-          show: true
+      yaxis: [
+        {
+          axisTicks: {
+            show: true,
+          },
+          labels: {
+            style: {
+              colors: 'grey',
+              fontSize: '18px',
+            },
+          },
+          axisBorder: {
+            show: true,
+            color: '#000000',
+            width: 2.5,
+          },
         },
-        labels: {
-          style: {
-            colors: "grey",
-            fontSize: "18px",
-          }
-        },
-        axisBorder: {
-          show: true,
-          color: "#000000",
-          width: 2.5
-        }
-      }],
+      ],
       xaxis: {
         categories: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         axisTicks: {
-          show: true
+          show: true,
         },
         stroke: {
-          curve: ['smooth', 'straight', 'stepline']
+          curve: ['smooth', 'straight', 'stepline'],
         },
         labels: {
           style: {
-            colors: "grey",
-            fontSize: "18px",
-          }
+            colors: 'grey',
+            fontSize: '18px',
+          },
         },
         axisBorder: {
           show: true,
-          color: "#000000",
-          height: 2.5
-        }
-      }
+          color: '#000000',
+          height: 2.5,
+        },
+      },
     },
-    series: [{
-      name: 'series-1',
-      data: [70, 60, 35, 50, 49, 20, 70, 31, 125]
-    }]
+    series: [
+      {
+        name: 'series-1',
+        data: [70, 60, 35, 50, 49, 20, 70, 31, 125],
+      },
+    ],
   });
   const [favouriteChartData, setFavouriteClickChartData] = useState({
     options: {
@@ -205,7 +210,7 @@ const Charts: FC = () => {
         id: 'apexchart-example',
       },
       dataLabels: {
-        enabled: false
+        enabled: false,
       },
       tooltip: {
         enabled: true,
@@ -216,10 +221,10 @@ const Charts: FC = () => {
         inverseOrder: false,
         custom: undefined,
         fillSeriesColor: false,
-        theme: "dark",
+        theme: 'dark',
         style: {
           fontSize: '12px',
-          fontFamily: undefined
+          fontFamily: undefined,
         },
         onDatasetHover: {
           highlightDataSeries: false,
@@ -234,7 +239,7 @@ const Charts: FC = () => {
         },
         z: {
           formatter: undefined,
-          title: 'Size: '
+          title: 'Size: ',
         },
         marker: {
           show: true,
@@ -251,73 +256,95 @@ const Charts: FC = () => {
         strokeDashArray: 6,
       },
       fill: {
-        colors: ['#79DE8D']
+        colors: ['#79DE8D'],
       },
-      yaxis: [{
-        axisTicks: {
-          show: true
+      yaxis: [
+        {
+          axisTicks: {
+            show: true,
+          },
+          labels: {
+            style: {
+              colors: 'grey',
+              fontSize: '18px',
+            },
+          },
+          axisBorder: {
+            show: true,
+            color: '#000000',
+            width: 2.5,
+          },
         },
-        labels: {
-          style: {
-            colors: "grey",
-            fontSize: "18px",
-          }
-        },
-        axisBorder: {
-          show: true,
-          color: "#000000",
-          width: 2.5
-        }
-      }],
+      ],
       xaxis: {
         categories: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         axisTicks: {
-          show: true
+          show: true,
         },
         labels: {
           style: {
-            colors: "grey",
-            fontSize: "18px",
-          }
+            colors: 'grey',
+            fontSize: '18px',
+          },
         },
         axisBorder: {
           show: true,
-          color: "#000000",
-          height: 2.5
-        }
-      }
+          color: '#000000',
+          height: 2.5,
+        },
+      },
     },
-    series: [{
-      name: 'series-1',
-      data: [30, 40, 35, 50, 39, 60, 10, 91, 15],
-    }]
+    series: [
+      {
+        name: 'series-1',
+        data: [30, 40, 35, 50, 39, 60, 10, 91, 15],
+      },
+    ],
   });
 
   return (
     <>
-      <Row className="mt-4" style={{ margin: "30px" }}>
-        <ul className='charts-tabs'>
+      <Row className="mt-4" style={{ margin: '30px' }}>
+        <ul className="charts-tabs">
           <li>
             <Tabs>
               <TabPane tab="Impressions" key="Impressions">
                 <div id="chart">
-                  <Chart options={chartData.options} series={chartData.series} type="area" width={1000} height={320} />
+                  <Chart
+                    options={chartData.options}
+                    series={chartData.series}
+                    type="area"
+                    width={1000}
+                    height={320}
+                  />
                 </div>
               </TabPane>
               <TabPane tab="Clicks" key="Clicks">
                 <div id="chart">
-                  <Chart options={clickChartData.options} series={clickChartData.series} type="area" width={1000} height={320} />
+                  <Chart
+                    options={clickChartData.options}
+                    series={clickChartData.series}
+                    type="area"
+                    width={1000}
+                    height={320}
+                  />
                 </div>
               </TabPane>
               <TabPane tab="Favourite" key="Favourite">
                 <div id="chart">
-                  <Chart options={favouriteChartData.options} series={favouriteChartData.series} type="area" width={1000} height={320} />
+                  <Chart
+                    options={favouriteChartData.options}
+                    series={favouriteChartData.series}
+                    type="area"
+                    width={1000}
+                    height={320}
+                  />
                 </div>
               </TabPane>
             </Tabs>
           </li>
           <li>
-            <Space wrap className='drop-btn'>
+            <Space wrap className="drop-btn">
               <Select
                 defaultValue="Monthly"
                 style={{ width: 140 }}
@@ -330,9 +357,8 @@ const Charts: FC = () => {
             </Space>
           </li>
         </ul>
-
       </Row>
     </>
-  )
-}
+  );
+};
 export default Charts;

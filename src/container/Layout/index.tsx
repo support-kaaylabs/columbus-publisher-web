@@ -23,48 +23,49 @@ const App: React.FC = () => {
       key: '1',
       icon: <UserOutlined />,
       label: 'nav 1',
-      to: "/dashboard",
-      name: "Dashboard"
+      to: '/dashboard',
+      name: 'Dashboard',
     },
     {
       key: '2',
       icon: <VideoCameraOutlined />,
       label: 'nav 2',
-      to: "/dashboard",
-      name: "Products"
+      to: '/dashboard',
+      name: 'Products',
     },
     {
       key: '3',
       icon: <UploadOutlined />,
       label: 'nav 3',
-      to: "/dashboard",
-      name: "Insights"
+      to: '/dashboard',
+      name: 'Insights',
     },
-  ]
+  ];
 
   return (
     <Layout>
       <Sider trigger={true} collapsed={collapsed}>
         <div className="logo" />
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={['0']}
-        >
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={['0']}>
           {menus.map((item, index) => (
             <Menu.Item key={index}>
               <Link to={item.to}></Link>
-              <span>{item.icon} &nbsp; &nbsp;{item.name}</span>
+              <span>
+                {item.icon} &nbsp; &nbsp;{item.name}
+              </span>
             </Menu.Item>
           ))}
         </Menu>
       </Sider>
       <Layout className="site-layout">
         <Header style={{ padding: 0, background: colorBgContainer }}>
-          {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-            className: 'trigger',
-            onClick: () => setCollapsed(!collapsed),
-          })}
+          {React.createElement(
+            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+            {
+              className: 'trigger',
+              onClick: () => setCollapsed(!collapsed),
+            }
+          )}
         </Header>
         <Content
           style={{

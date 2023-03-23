@@ -1,8 +1,8 @@
-import { appRegistry } from "./registry";
-import _ from "lodash"
+import { appRegistry } from './registry';
+import _ from 'lodash';
 const fetchHandler = async (res) => {
-  const history = appRegistry.getObject("history");
-  const content = res.headers.get("content-disposition");
+  const history = appRegistry.getObject('history');
+  const content = res.headers.get('content-disposition');
   if (content) return res;
   if (res.ok) {
     return res.json();
@@ -14,17 +14,17 @@ const fetchHandler = async (res) => {
     } catch {
       data = res;
     }
-    if (data.error === "Permission Denied") {
-      sessionStorage.removeItem("href");
-      sessionStorage.removeItem("referrer");
-      return history.push("/unauthorized");
+    if (data.error === 'Permission Denied') {
+      sessionStorage.removeItem('href');
+      sessionStorage.removeItem('referrer');
+      return history.push('/unauthorized');
     }
   }
   return Promise.reject(res);
 };
 
 const checkSuccess = (res) => {
-  const content = res.headers && res.headers.get("content-disposition");
+  const content = res.headers && res.headers.get('content-disposition');
   if (content) return res;
   if (res.success) {
     return res;
@@ -36,21 +36,22 @@ const fetchErrorHandler = (res) => {
   return Promise.reject(res);
 };
 
-const getToken = () => window.localStorage.getItem("token");
+const getToken = () => window.localStorage.getItem('token');
 const createHeaders = (url, isMultipart = false) => {
   const token = getToken();
   const headers = new Headers();
   if (token) {
-    headers.set("Authorization", `Bearer ${token}`);
+    headers.set('Authorization', `Bearer ${token}`);
   }
-  headers.set("Pragma", "no-cache");
-  headers.set("Cache-Control", "no-cache");
-  headers.set("Accept", "application/json");
+  headers.set('Pragma', 'no-cache');
+  headers.set('Cache-Control', 'no-cache');
+  headers.set('Accept', 'application/json');
   headers.set('isuseralias', 'false');
   headers.set('version', '2.2.93');
   if (isMultipart) {
+    /* empty */
   } else {
-    headers.set("Content-Type", "application/json");
+    headers.set('Content-Type', 'application/json');
   }
   return new Headers(headers);
 };
@@ -59,10 +60,10 @@ class Http {
   constructor(baseUrl) {
     this.defaultOptions = {
       headers: null,
-      mode: "cors",
-      cache: "default",
+      mode: 'cors',
+      cache: 'default',
     };
-    this.baseUrl = baseUrl || "";
+    this.baseUrl = baseUrl || '';
   }
 
   createQueryString = (obj) => {
@@ -89,12 +90,12 @@ class Http {
     if (queryParams) {
       qs = Object.keys(queryParams)
         .map((k) => `${esc(k)}=${esc(queryParams[k])}`)
-        .join("&");
+        .join('&');
       newUrl = `${this.baseUrl}${url}/?${qs}`;
     } else {
       newUrl = `${this.baseUrl}${url}`;
     }
-    const getOptions = { method: "GET" };
+    const getOptions = { method: 'GET' };
     options = Object.assign({}, options, getOptions);
     const optionsWithHeaders = this.createOptions(url, options);
     return fetch(newUrl, optionsWithHeaders)
@@ -104,7 +105,7 @@ class Http {
   }
 
   post(url, body, options = {}) {
-    const postOptions = { method: "POST", body: JSON.stringify(body) };
+    const postOptions = { method: 'POST', body: JSON.stringify(body) };
     options = Object.assign({}, options, postOptions);
     const optionsWithHeaders = this.createOptions(url, options);
     return fetch(`${this.baseUrl}${url}`, optionsWithHeaders)
@@ -114,7 +115,7 @@ class Http {
   }
 
   patch(url, body, options = {}) {
-    const patchOptions = { method: "PATCH", body: JSON.stringify(body) };
+    const patchOptions = { method: 'PATCH', body: JSON.stringify(body) };
     options = Object.assign({}, options, patchOptions);
     const optionsWithHeaders = this.createOptions(url, options);
     return fetch(`${this.baseUrl}${url}`, optionsWithHeaders)
@@ -124,7 +125,7 @@ class Http {
   }
 
   put(url, body, options = {}) {
-    const putOptions = { method: "PUT", body: JSON.stringify(body) };
+    const putOptions = { method: 'PUT', body: JSON.stringify(body) };
     options = Object.assign({}, options, putOptions);
     const optionsWithHeaders = this.createOptions(url, options);
     return fetch(`${this.baseUrl}${url}`, optionsWithHeaders)
@@ -134,7 +135,7 @@ class Http {
   }
 
   del(url, options = {}) {
-    const deleteOptions = { method: "DELETE", body: JSON.stringify(options) };
+    const deleteOptions = { method: 'DELETE', body: JSON.stringify(options) };
     options = Object.assign({}, options, deleteOptions);
     const optionsWithHeaders = this.createOptions(url, options);
     return fetch(`${this.baseUrl}${url}`, optionsWithHeaders)
@@ -147,10 +148,10 @@ class Http {
     const formData = new FormData();
     if (obj) Object.keys(obj).forEach((key) => formData.append(key, obj[key]));
     file.map((obj, index) => {
-      formData.append("file", obj || '');
-      if (!_.get(options, "removeProductID", false)) {
-        let productId = obj && obj.name.substring(0, obj.name.indexOf("-"));
-        formData.append("Product_ID", productId);
+      formData.append('file', obj || '');
+      if (!_.get(options, 'removeProductID', false)) {
+        let productId = obj && obj.name.substring(0, obj.name.indexOf('-'));
+        formData.append('Product_ID', productId);
       }
       return obj;
     });
@@ -166,7 +167,7 @@ class Http {
   download(method, url, body = null, options = {}) {
     let downloadUrl = `${this.baseUrl}${url}`;
     let baseOptions;
-    if (["POST", "PUT", "PATCH"].indexOf(method) >= 0) {
+    if (['POST', 'PUT', 'PATCH'].indexOf(method) >= 0) {
       baseOptions = { method, body: JSON.stringify(body) };
     } else {
       baseOptions = { method };
@@ -182,9 +183,9 @@ class Http {
       .then(fetchHandler)
       .then(checkSuccess)
       .then((data) => {
-        const contentHeader = data.headers.get("content-disposition");
+        const contentHeader = data.headers.get('content-disposition');
         if (!contentHeader)
-          throw new Error("Could not parse content header from download.");
+          throw new Error('Could not parse content header from download.');
         fileName = decodeURIComponent(
           contentHeader.match(/filename="(.+)"/)[1]
         );
@@ -192,7 +193,7 @@ class Http {
       })
       .then((blob) => {
         const objectUrl = window.URL.createObjectURL(blob);
-        const aTag = document.createElement("a");
+        const aTag = document.createElement('a');
         aTag.href = objectUrl;
         aTag.download = fileName;
         aTag.click();
@@ -200,15 +201,15 @@ class Http {
       })
       .catch((e) => fetchErrorHandler(e));
   }
-  
+
   handleMultipartWithDownload(url, obj, file, method, options = {}) {
     const formData = new FormData();
     if (obj) Object.keys(obj).forEach((key) => formData.append(key, obj[key]));
     file.map((obj, index) => {
-      formData.append("file", obj || '');
-      if (!_.get(options, "removeProductID", false)) {
-        let productId = obj && obj.name.substring(0, obj.name.indexOf("-"));
-        formData.append("Product_ID", productId);
+      formData.append('file', obj || '');
+      if (!_.get(options, 'removeProductID', false)) {
+        let productId = obj && obj.name.substring(0, obj.name.indexOf('-'));
+        formData.append('Product_ID', productId);
       }
       return obj;
     });
@@ -220,19 +221,19 @@ class Http {
       .then(fetchHandler)
       .then(checkSuccess)
       .then((data) => {
-        if (data.disableDownload) return data
-        const contentHeader = data.headers.get("content-disposition");
+        if (data.disableDownload) return data;
+        const contentHeader = data.headers.get('content-disposition');
         if (!contentHeader)
-          throw new Error("Could not parse content header from download.");
+          throw new Error('Could not parse content header from download.');
         fileName = decodeURIComponent(
           contentHeader.match(/filename="(.+)"/)[1]
         );
         return data.blob();
       })
       .then((data) => {
-        if (data.disableDownload) return data
+        if (data.disableDownload) return data;
         const objectUrl = window.URL.createObjectURL(data);
-        const aTag = document.createElement("a");
+        const aTag = document.createElement('a');
         aTag.href = objectUrl;
         aTag.download = fileName;
         aTag.click();

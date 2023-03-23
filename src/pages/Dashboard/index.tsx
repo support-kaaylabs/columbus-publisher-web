@@ -1,23 +1,23 @@
 import React, { useEffect, useState, type FC } from 'react';
 import Charts from '../../components/Chart/Chart';
-import Impression from "../../components/Dashboard";
+import Impression from '../../components/Dashboard';
 
 const Dashboard: FC = (props) => {
   // const [value, setValue] = useState<number>(0);
   type dashboardInfo = {
-    title: string,
-    todayPercentage: Number,
-    weekPercentage: Number,
-    monthPercentage: Number,
-    quaterPercentage: Number,
-    todayDifference: Number,
-    weekDifference: Number,
-    monthDifference: Number,
-    quaterDifference: Number,
-  }
+    title: string;
+    todayPercentage: number;
+    weekPercentage: number;
+    monthPercentage: number;
+    quaterPercentage: number;
+    todayDifference: number;
+    weekDifference: number;
+    monthDifference: number;
+    quaterDifference: number;
+  };
   const dummyData: dashboardInfo[] = [
     {
-      title: "Impressions",
+      title: 'Impressions',
       todayPercentage: 26.5,
       weekPercentage: 45.5,
       monthPercentage: 52.5,
@@ -28,7 +28,7 @@ const Dashboard: FC = (props) => {
       quaterDifference: 8952,
     },
     {
-      title: "Clicks",
+      title: 'Clicks',
       todayPercentage: 26.5,
       weekPercentage: 45.5,
       monthPercentage: 52.5,
@@ -39,7 +39,7 @@ const Dashboard: FC = (props) => {
       quaterDifference: 8952,
     },
     {
-      title: "Favourite",
+      title: 'Favourite',
       todayPercentage: 26.5,
       weekPercentage: 45.5,
       monthPercentage: 52.5,
@@ -50,7 +50,7 @@ const Dashboard: FC = (props) => {
       quaterDifference: 8952,
     },
     {
-      title: "Call to action",
+      title: 'Call to action',
       todayPercentage: 26.5,
       weekPercentage: 45.5,
       monthPercentage: 52.5,
@@ -60,7 +60,7 @@ const Dashboard: FC = (props) => {
       monthDifference: 6782,
       quaterDifference: 8952,
     },
-  ]
+  ];
 
   return (
     <div>
@@ -68,9 +68,9 @@ const Dashboard: FC = (props) => {
       <div>
         <h1>Dashboard Page</h1>
         {dummyData.map((item, index) => (
-          <Impression
-            data={item}
-          />
+          <div key={index}>
+            <Impression data={item} />
+          </div>
         ))}
       </div>
       {/* ************** Chart *************** */}
@@ -79,7 +79,7 @@ const Dashboard: FC = (props) => {
         <Charts />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

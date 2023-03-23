@@ -1,11 +1,10 @@
 import React, { useState, type FC } from 'react';
-import { Tabs, Row, Col, Select, Space } from "antd";
+import { Tabs, Row, Col, Select, Space } from 'antd';
 import './Chart.scss';
-import { DatePicker } from "antd";
-import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
+import { DatePicker } from 'antd';
+import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 import Chart from 'react-apexcharts';
-import moment from "moment";
-
+import moment from 'moment';
 
 const { TabPane } = Tabs;
 const { RangePicker } = DatePicker;
@@ -25,10 +24,10 @@ const Charts: FC = () => {
         inverseOrder: false,
         custom: undefined,
         fillSeriesColor: false,
-        theme: "dark",
+        theme: 'dark',
         style: {
           fontSize: '12px',
-          fontFamily: undefined
+          fontFamily: undefined,
         },
         onDatasetHover: {
           highlightDataSeries: false,
@@ -43,7 +42,7 @@ const Charts: FC = () => {
         },
         z: {
           formatter: undefined,
-          title: 'Size: '
+          title: 'Size: ',
         },
         marker: {
           show: true,
@@ -56,56 +55,58 @@ const Charts: FC = () => {
         },
       },
       dataLabels: {
-        enabled: false
+        enabled: false,
       },
       grid: {
         show: true,
         strokeDashArray: 6,
       },
-      colors: ["#e53935"],
+      colors: ['#e53935'],
       fill: {
-        colors: ['#F44336', '#E91E63', '#9C27B0']
+        colors: ['#F44336', '#E91E63', '#9C27B0'],
       },
-      yaxis: [{
-        axisTicks: {
-          show: true
+      yaxis: [
+        {
+          axisTicks: {
+            show: true,
+          },
+          labels: {
+            style: {
+              colors: 'grey',
+              fontSize: '18px',
+            },
+          },
+          axisBorder: {
+            show: true,
+            color: '#000000',
+            width: 2.5,
+          },
         },
-        labels: {
-          style: {
-            colors: "grey",
-            fontSize: "18px",
-          }
-        },
-        axisBorder: {
-          show: true,
-          color: "#000000",
-          width: 2.5
-        }
-      }],
+      ],
       xaxis: {
         categories: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         axisTicks: {
-          show: true
+          show: true,
         },
         labels: {
           style: {
-            colors: "grey",
-            fontSize: "18px",
-          }
+            colors: 'grey',
+            fontSize: '18px',
+          },
         },
         axisBorder: {
           show: true,
-          color: "#000000",
-          height: 2.5
-        }
-      }
-
+          color: '#000000',
+          height: 2.5,
+        },
+      },
     },
-    series: [{
-      name: 'series-1',
-      data: [30, 40, 35, 50, 49, 60, 70, 91, 125],
-    }],
-
+    series: [
+      {
+        name: 'series-1',
+        data: [30, 40, 35, 50, 49, 60, 70, 91, 125],
+      },
+    ],
   });
 
   const [clickChartData, setClickChartData] = useState({
@@ -122,10 +123,10 @@ const Charts: FC = () => {
         inverseOrder: false,
         custom: undefined,
         fillSeriesColor: false,
-        theme: "dark",
+        theme: 'dark',
         style: {
           fontSize: '12px',
-          fontFamily: undefined
+          fontFamily: undefined,
         },
         onDatasetHover: {
           highlightDataSeries: false,
@@ -140,7 +141,7 @@ const Charts: FC = () => {
         },
         z: {
           formatter: undefined,
-          title: 'Size: '
+          title: 'Size: ',
         },
         marker: {
           show: true,
@@ -153,57 +154,61 @@ const Charts: FC = () => {
         },
       },
       dataLabels: {
-        enabled: false
+        enabled: false,
       },
       grid: {
         show: true,
         strokeDashArray: 6,
       },
-      colors: ["#AFBCFB"],
+      colors: ['#AFBCFB'],
       fill: {
-        colors: ['#AFBCFB']
+        colors: ['#AFBCFB'],
       },
-      yaxis: [{
-        axisTicks: {
-          show: true
+      yaxis: [
+        {
+          axisTicks: {
+            show: true,
+          },
+          labels: {
+            style: {
+              colors: 'grey',
+              fontSize: '18px',
+            },
+          },
+          axisBorder: {
+            show: true,
+            color: '#000000',
+            width: 2.5,
+          },
         },
-        labels: {
-          style: {
-            colors: "grey",
-            fontSize: "18px",
-          }
-        },
-        axisBorder: {
-          show: true,
-          color: "#000000",
-          width: 2.5
-        }
-      }],
+      ],
       xaxis: {
         categories: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         axisTicks: {
-          show: true
+          show: true,
         },
         stroke: {
-          curve: ['smooth', 'straight', 'stepline']
+          curve: ['smooth', 'straight', 'stepline'],
         },
         labels: {
           style: {
-            colors: "grey",
-            fontSize: "18px",
-          }
+            colors: 'grey',
+            fontSize: '18px',
+          },
         },
         axisBorder: {
           show: true,
-          color: "#000000",
-          height: 2.5
-        }
-      }
+          color: '#000000',
+          height: 2.5,
+        },
+      },
     },
-    series: [{
-      name: 'series-1',
-      data: [70, 60, 35, 50, 49, 20, 70, 31, 125]
-    }]
+    series: [
+      {
+        name: 'series-1',
+        data: [70, 60, 35, 50, 49, 20, 70, 31, 125],
+      },
+    ],
   });
 
   const [favouriteChartData, setFavouriteClickChartData] = useState({
@@ -212,7 +217,7 @@ const Charts: FC = () => {
         id: 'apexchart-example',
       },
       dataLabels: {
-        enabled: false
+        enabled: false,
       },
       tooltip: {
         enabled: true,
@@ -223,10 +228,10 @@ const Charts: FC = () => {
         inverseOrder: false,
         custom: undefined,
         fillSeriesColor: false,
-        theme: "dark",
+        theme: 'dark',
         style: {
           fontSize: '12px',
-          fontFamily: undefined
+          fontFamily: undefined,
         },
         onDatasetHover: {
           highlightDataSeries: false,
@@ -241,7 +246,7 @@ const Charts: FC = () => {
         },
         z: {
           formatter: undefined,
-          title: 'Size: '
+          title: 'Size: ',
         },
         marker: {
           show: true,
@@ -257,48 +262,52 @@ const Charts: FC = () => {
         show: true,
         strokeDashArray: 6,
       },
-      colors: ["#79DE8D"],
+      colors: ['#79DE8D'],
       fill: {
-        colors: ['#79DE8D']
+        colors: ['#79DE8D'],
       },
-      yaxis: [{
-        axisTicks: {
-          show: true
+      yaxis: [
+        {
+          axisTicks: {
+            show: true,
+          },
+          labels: {
+            style: {
+              colors: 'grey',
+              fontSize: '18px',
+            },
+          },
+          axisBorder: {
+            show: true,
+            color: '#000000',
+            width: 2.5,
+          },
         },
-        labels: {
-          style: {
-            colors: "grey",
-            fontSize: "18px",
-          }
-        },
-        axisBorder: {
-          show: true,
-          color: "#000000",
-          width: 2.5
-        }
-      }],
+      ],
       xaxis: {
         categories: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         axisTicks: {
-          show: true
+          show: true,
         },
         labels: {
           style: {
-            colors: "grey",
-            fontSize: "18px",
-          }
+            colors: 'grey',
+            fontSize: '18px',
+          },
         },
         axisBorder: {
           show: true,
-          color: "#000000",
-          height: 2.5
-        }
-      }
+          color: '#000000',
+          height: 2.5,
+        },
+      },
     },
-    series: [{
-      name: 'series-1',
-      data: [30, 40, 35, 50, 39, 60, 10, 91, 15],
-    }]
+    series: [
+      {
+        name: 'series-1',
+        data: [30, 40, 35, 50, 39, 60, 10, 91, 15],
+      },
+    ],
   });
 
   const [callActionChartData, setCallActionChartData] = useState({
@@ -307,7 +316,7 @@ const Charts: FC = () => {
         id: 'apexchart-example',
       },
       dataLabels: {
-        enabled: false
+        enabled: false,
       },
       tooltip: {
         enabled: true,
@@ -318,10 +327,10 @@ const Charts: FC = () => {
         inverseOrder: false,
         custom: undefined,
         fillSeriesColor: false,
-        theme: "dark",
+        theme: 'dark',
         style: {
           fontSize: '12px',
-          fontFamily: undefined
+          fontFamily: undefined,
         },
         onDatasetHover: {
           highlightDataSeries: false,
@@ -336,7 +345,7 @@ const Charts: FC = () => {
         },
         z: {
           formatter: undefined,
-          title: 'Size: '
+          title: 'Size: ',
         },
         marker: {
           show: true,
@@ -352,111 +361,140 @@ const Charts: FC = () => {
         show: true,
         strokeDashArray: 6,
       },
-      colors: ["#f2eaca"],
+      colors: ['#f2eaca'],
       fill: {
-        colors: ['#f2eaca']
+        colors: ['#f2eaca'],
       },
-      yaxis: [{
-        axisTicks: {
-          show: true
+      yaxis: [
+        {
+          axisTicks: {
+            show: true,
+          },
+          labels: {
+            style: {
+              colors: 'grey',
+              fontSize: '18px',
+            },
+          },
+          axisBorder: {
+            show: true,
+            color: '#000000',
+            width: 2.5,
+          },
         },
-        labels: {
-          style: {
-            colors: "grey",
-            fontSize: "18px",
-          }
-        },
-        axisBorder: {
-          show: true,
-          color: "#000000",
-          width: 2.5
-        }
-      }],
+      ],
       xaxis: {
         categories: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         axisTicks: {
-          show: true
+          show: true,
         },
         labels: {
           style: {
-            colors: "grey",
-            fontSize: "18px",
-          }
+            colors: 'grey',
+            fontSize: '18px',
+          },
         },
         axisBorder: {
           show: true,
-          color: "#000000",
-          height: 2.5
-        }
-      }
+          color: '#000000',
+          height: 2.5,
+        },
+      },
     },
-    series: [{
-      name: 'series-1',
-      data: [30, 40, 35, 50, 39, 60, 10, 91, 15],
-    }]
+    series: [
+      {
+        name: 'series-1',
+        data: [30, 40, 35, 50, 39, 60, 10, 91, 15],
+      },
+    ],
   });
 
   const onChange = (
-    value: DatePickerProps["value"] | RangePickerProps["value"],
+    value: DatePickerProps['value'] | RangePickerProps['value'],
     dateString: [string, string] | string
   ) => {
-    console.log("Selected Time: ", value);
-    console.log("Formatted Selected Time: ", dateString);
+    console.log('Selected Time: ', value);
+    console.log('Formatted Selected Time: ', dateString);
   };
-
-  const onOk = (value: DatePickerProps["value"] | RangePickerProps["value"]) => {
-    console.log("onOk: ", value);
-  };
-
 
   return (
     <>
-      <Row className="mt-4" style={{ margin: "30px" }}>
+      <Row className="mt-4" style={{ margin: '30px' }}>
         <Tabs>
           <TabPane tab="Impressions" key="Impressions">
             <div id="chart">
-              <Chart options={chartData.options} series={chartData.series} type="area" width={1000} height={320} />
+              <Chart
+                options={chartData.options}
+                series={chartData.series}
+                type="area"
+                width={1000}
+                height={320}
+              />
             </div>
           </TabPane>
           <TabPane tab="Clicks" key="Clicks">
             <div id="chart">
-              <Chart options={clickChartData.options} series={clickChartData.series} type="area" width={1000} height={320} />
+              <Chart
+                options={clickChartData.options}
+                series={clickChartData.series}
+                type="area"
+                width={1000}
+                height={320}
+              />
             </div>
           </TabPane>
           <TabPane tab="Favourite" key="Favourite">
             <div id="chart">
-              <Chart options={favouriteChartData.options} series={favouriteChartData.series} type="area" width={1000} height={320} />
+              <Chart
+                options={favouriteChartData.options}
+                series={favouriteChartData.series}
+                type="area"
+                width={1000}
+                height={320}
+              />
             </div>
           </TabPane>
           <TabPane tab="Call To Action" key="Call To Action">
             <div id="chart">
-              <Chart options={callActionChartData.options} series={callActionChartData.series} type="area" width={1000} height={320} />
+              <Chart
+                options={callActionChartData.options}
+                series={callActionChartData.series}
+                type="area"
+                width={1000}
+                height={320}
+              />
             </div>
           </TabPane>
         </Tabs>
-        <div className='charts-datas'>
+        <div className="charts-datas">
           <div>
             <Space size={12} style={{ width: '100%' }}>
-              <DatePicker onOk={onOk} placeholder="From Date" onChange={onChange} style={{ width: '100%' }}
+              <DatePicker
+                placeholder="From Date"
+                onChange={onChange}
+                style={{ width: '100%' }}
                 disabledDate={(current) => {
-                  let customDate = moment().format("YYYY-MM-DD");
-                  return current && current > moment(customDate, "YYYY-MM-DD");
+                  const customDate = moment().format('YYYY-MM-DD');
+                  return current && current > moment(customDate, 'YYYY-MM-DD');
                 }}
               />
             </Space>
           </div>
           <div>
             <Space size={12} style={{ width: '100%' }}>
-              <DatePicker onChange={onChange} onOk={onOk} placeholder="To Date" style={{ width: '100%' }}
+              <DatePicker
+                onChange={onChange}
+                placeholder="To Date"
+                style={{ width: '100%' }}
                 disabledDate={(current) => {
-                  let customDate = moment().format("YYYY-MM-DD");
-                  return current && current > moment(customDate, "YYYY-MM-DD");
+                  const customDate = moment().format('YYYY-MM-DD');
+                  return current && current > moment(customDate, 'YYYY-MM-DD');
                 }}
               />
             </Space>
           </div>
           <div>
-            <Space wrap className='drop-btn'>
+            <Space wrap className="drop-btn">
               <Select
                 defaultValue="Monthly"
                 style={{ width: 140 }}
@@ -471,6 +509,6 @@ const Charts: FC = () => {
         </div>
       </Row>
     </>
-  )
-}
+  );
+};
 export default Charts;

@@ -7,9 +7,7 @@
 import React, { useState, useEffect } from 'react';
 import { uniqBy, isEmpty } from 'lodash';
 import moment from 'moment';
-import {
-  Modal, DatePicker, TimePicker, Row, Col,
-} from 'antd';
+import { Modal, DatePicker, TimePicker, Row, Col } from 'antd';
 import { weekDays, dateArr } from '../globalVariables';
 import { errorNotification } from '../globalVariables';
 
@@ -20,9 +18,15 @@ const initialObj = {
   Scheduled_At: moment().format('YYYY-MM-DD HH:mm:ss'),
 };
 
-const DateSchedule = (props:any) => {
+const DateSchedule = (props: any) => {
   const {
-    showDate, handleOk, handleCancel, scheduleObj, isEdit = false, handleUpdate, buttonLoading = false,
+    showDate,
+    handleOk,
+    handleCancel,
+    scheduleObj,
+    isEdit = false,
+    handleUpdate,
+    buttonLoading = false,
   } = props;
   const { Schedule_Type } = scheduleObj;
   const [isSelectAll, setIsSelectAll] = useState(false);
@@ -31,22 +35,20 @@ const DateSchedule = (props:any) => {
   const [scheduleDetails, setScheduleDetails] = useState<{
     Scheduled_Time: any;
     Scheduled_At: any;
-}>(initialObj);
+  }>(initialObj);
   const { Scheduled_Time, Scheduled_At } = scheduleDetails;
 
-  const momentScheduleTime:any = moment(Scheduled_Time);
+  const momentScheduleTime: any = moment(Scheduled_Time);
 
-  const momentScheduleAt:any = moment(Scheduled_At);
+  const momentScheduleAt: any = moment(Scheduled_At);
 
-  const isValidDate = (date:any) => {
+  const isValidDate = (date: any) => {
     const result = moment(date).isValid();
     return result;
   };
 
-  const getTime = (obj:any) => {
-    const {
-      Scheduled_Time, From,
-    } = obj;
+  const getTime = (obj: any) => {
+    const { Scheduled_Time, From } = obj;
     if (isValidDate(From)) {
       return `${moment(From).format('YYYY-MM-DD')} ${Scheduled_Time}`;
     }
@@ -55,10 +57,10 @@ const DateSchedule = (props:any) => {
 
   useEffect(() => {
     if (isEdit) {
-      const {
-        Schedule_Days = '', From, To,
-      } = scheduleObj;
-      const dates = !isEmpty(Schedule_Days) ? Schedule_Days.split(',').map((val:any) => Number(val)) : '';
+      const { Schedule_Days = '', From, To } = scheduleObj;
+      const dates = !isEmpty(Schedule_Days)
+        ? Schedule_Days.split(',').map((val: any) => Number(val))
+        : '';
       setScheduleDetails({
         ...scheduleObj,
         Scheduled_Time: moment.utc(getTime(scheduleObj)).local(),
@@ -69,37 +71,49 @@ const DateSchedule = (props:any) => {
     }
   }, [scheduleObj]);
 
-  const handleChangeDate = (name:any, date:any, dateString:any) => {
+  const handleChangeDate = (name: any, date: any, dateString: any) => {
     setScheduleDetails({ ...scheduleDetails, [name]: date });
   };
 
-  const handlePanelChange = (value:any, dateString:any) => {
+  const handlePanelChange = (value: any, dateString: any) => {
     setScheduleRange(value);
   };
-  const handleSelect = (day:any, value:any) => {
+  const handleSelect = (day: any, value: any) => {
     if (isSelectAll && Schedule_Days.length <= 7) {
       setIsSelectAll(false);
     }
     if (Schedule_Days.includes(value)) {
-      const uniqValue = Schedule_Days.filter((item:any) => item !== value);
-      setScheduleDays(uniqBy(uniqValue,[uniqValue]));
+      const uniqValue = Schedule_Days.filter((item: any) => item !== value);
+      setScheduleDays(uniqBy(uniqValue, [uniqValue]));
     } else {
-      setScheduleDays(uniqBy(Schedule_Days,[...Schedule_Days, value]));
+      setScheduleDays(uniqBy(Schedule_Days, [...Schedule_Days, value]));
     }
   };
 
   const handleSelectAll = () => {
     setIsSelectAll(!isSelectAll);
-    setScheduleDays(isSelectAll ? [] : uniqBy(Schedule_Days,[...Schedule_Days, ...weekDays.map((id:any) => id.key)]));
+    setScheduleDays(
+      isSelectAll
+        ? []
+        : uniqBy(Schedule_Days, [
+          ...Schedule_Days,
+          ...weekDays.map((id: any) => id.key),
+        ])
+    );
   };
 
-  const disabledDate = (current:any) => current && current < moment().startOf('day');
+  const disabledDate = (current: any) =>
+    current && current < moment().startOf('day');
 
   const DayPicker = () => (
     <>
-      {(dateArr || []).map((day:any) => (
+      {(dateArr || []).map((day: any) => (
         <div
-          className={`${Schedule_Days.includes(day) ? 'custom-date custom-week-selected' : 'custom-date'}`}
+          className={`${
+            Schedule_Days.includes(day)
+              ? 'custom-date custom-week-selected'
+              : 'custom-date'
+          }`}
           onClick={() => handleSelect('day', day)}
         >
           {day}
@@ -111,14 +125,20 @@ const DateSchedule = (props:any) => {
   const WeekPicker = () => (
     <>
       <div
-        className={isSelectAll ? 'custom-week custom-week-selected' : 'custom-week'}
+        className={
+          isSelectAll ? 'custom-week custom-week-selected' : 'custom-week'
+        }
         onClick={handleSelectAll}
       >
         {isSelectAll ? 'De-Select All' : 'Select All'}
       </div>
-      {(weekDays || []).map((day:any) => (
+      {(weekDays || []).map((day: any) => (
         <div
-          className={`${Schedule_Days.includes(day.key) ? 'custom-week custom-week-selected' : 'custom-week'}`}
+          className={`${
+            Schedule_Days.includes(day.key)
+              ? 'custom-week custom-week-selected'
+              : 'custom-week'
+          }`}
           onClick={() => handleSelect('day', day.key)}
         >
           {day.value}
@@ -136,18 +156,27 @@ const DateSchedule = (props:any) => {
 
   const handleSave = () => {
     const { Scheduled_At = '', Scheduled_Time = '' } = scheduleDetails;
-    if (Schedule_Type !== 'date' && isEmpty(scheduleRange)) return errorNotification('Please select a date range');
+    if (Schedule_Type !== 'date' && isEmpty(scheduleRange))
+      return errorNotification('Please select a date range');
     if (Schedule_Type === 'weekly' && isEmpty(Schedule_Days)) {
       return errorNotification('Please select a day to schedule');
     }
-    if (Schedule_Type === 'date' && isEmpty(Scheduled_At)) return errorNotification('Please select a date to schedule');
-    if (Schedule_Type === 'weekly' && isEmpty(Scheduled_Time)) return errorNotification('Please select a time to schedule');
-    const scheduleYear = Schedule_Type === 'date' ? moment(Scheduled_At).format('YYYY') : '';
+    if (Schedule_Type === 'date' && isEmpty(Scheduled_At))
+      return errorNotification('Please select a date to schedule');
+    if (Schedule_Type === 'weekly' && isEmpty(Scheduled_Time))
+      return errorNotification('Please select a time to schedule');
+    const scheduleYear =
+      Schedule_Type === 'date' ? moment(Scheduled_At).format('YYYY') : '';
     const params = {
       Schedule_Type,
-      Scheduled_At: Schedule_Type === 'date' ? moment(Scheduled_At).utc().format('YYYY-MM-DD') : '',
+      Scheduled_At:
+        Schedule_Type === 'date'
+          ? moment(Scheduled_At).utc().format('YYYY-MM-DD')
+          : '',
       Scheduled_Time: moment(Scheduled_Time).utc().format('HH:mm'),
-      range: scheduleRange.map((val:any) => moment(val).utc().format('YYYY-MM-DD')),
+      range: scheduleRange.map((val: any) =>
+        moment(val).utc().format('YYYY-MM-DD')
+      ),
       Schedule_Days,
     };
     if (Schedule_Type === 'date') params.range = [scheduleYear, scheduleYear];
@@ -192,7 +221,9 @@ const DateSchedule = (props:any) => {
                 </Row>
                 <Row>
                   <DatePicker
-                    onChange={(date, dateString) => handleChangeDate('Scheduled_At', date, dateString)}
+                    onChange={(date, dateString) =>
+                      handleChangeDate('Scheduled_At', date, dateString)
+                    }
                     value={momentScheduleTime}
                     disabledDate={disabledDate}
                   />
@@ -207,7 +238,9 @@ const DateSchedule = (props:any) => {
                 <TimePicker
                   format="HH:mm"
                   style={{ width: '100%', float: 'right' }}
-                  onChange={(date, dateString) => handleChangeDate('Scheduled_Time', date, dateString)}
+                  onChange={(date, dateString) =>
+                    handleChangeDate('Scheduled_Time', date, dateString)
+                  }
                   value={momentScheduleAt}
                 />
               </Row>
@@ -217,7 +250,9 @@ const DateSchedule = (props:any) => {
           {Schedule_Type !== 'date' && (
             <Row gutter={[16, 16]}>
               <Row className="mb_10">
-                <b>{`Schedule ${Schedule_Type === 'weekly' ? 'Day' : 'Date'}:`}</b>
+                <b>{`Schedule ${
+                  Schedule_Type === 'weekly' ? 'Day' : 'Date'
+                }:`}</b>
               </Row>
               <Row>
                 {Schedule_Type === 'weekly' && <WeekPicker />}

@@ -1,19 +1,20 @@
 import React, { FC } from 'react';
-import {
-  Switch, Select, Row, Tag,
-} from 'antd';
+import { Switch, Select, Row, Tag } from 'antd';
 
 interface EmailProps {
-		emailList:any,
-		handleInputChange:any,
-		handleSwitch:any,
-		emailSwitch:any
-	
+  emailList: any;
+  handleInputChange: any;
+  handleSwitch: any;
+  emailSwitch: any;
 }
 
-const EmailTag:FC<EmailProps> = ({emailList, handleInputChange, handleSwitch, emailSwitch}) => {
-
-  const tagRender = (tagValues: any):React.ReactElement  => {
+const EmailTag: FC<EmailProps> = ({
+  emailList,
+  handleInputChange,
+  handleSwitch,
+  emailSwitch,
+}) => {
+  const tagRender = (tagValues: any): React.ReactElement => {
     const { label, closable, onClose } = tagValues;
     if (label) {
       return (
@@ -38,14 +39,12 @@ const EmailTag:FC<EmailProps> = ({emailList, handleInputChange, handleSwitch, em
           style={{ width: '100%' }}
           options={emailList}
           placeholder="Enter your email address"
-          getPopupContainer={triggerNode => triggerNode.parentElement}
+          getPopupContainer={(triggerNode) => triggerNode.parentElement}
         />
       </Row>
       <Row>
         <div style={{ float: 'right' }}>
-          Include Me:
-          {' '}
-          <Switch  onChange={handleSwitch} />
+          Include Me: <Switch onChange={handleSwitch} />
         </div>
       </Row>
     </>

@@ -8,9 +8,9 @@ export const getJbReports = () => http.get('/get-jb-reports-list');
 
 export const getUserProfile = () => http.get('user-profile');
 
-export const searchModules = (id:string) => http.get(`search-modules?reportId=${id}`);
+export const searchModules = (id: string) => http.get(`search-modules?reportId=${id}`);
 
-export const executeProgram = (data:any) => http.post('program-execution', data);
+export const executeProgram = (data: any) => http.post('program-execution', data);
 
 export const getAllReports = () => http.get('/reports');
 
