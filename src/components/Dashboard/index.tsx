@@ -1,4 +1,4 @@
-import React, { useEffect, useState, type FC } from 'react';
+import React from 'react';
 import '../Dashboard/dashboard.scss';
 import { Col, Row, Card } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';

@@ -2,7 +2,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState, type FC } from 'react';
-import { Row, Col, Card, Button, Form, Input } from 'antd';
+import {  Card, Button, Form, Input } from 'antd';
 import { EyeOutlined } from '@ant-design/icons';
 import './login.scss';
 import { getJbReports, authenticate } from '../../shared/urlHelper';
@@ -11,7 +11,7 @@ import '../../stylesheet/style.scss';
 import { errorNotification } from '../../shared/globalVariables';
 import { useNavigate } from 'react-router-dom';
 
-const Home: FC = (props) => {
+const Home: FC = () => {
   const navigate = useNavigate();
   const [emailId, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -149,7 +149,7 @@ const Home: FC = (props) => {
             <Form.Item>
               <div className="login-button">
                 <Button
-                  loading={false}
+                  loading={btnLoading}
                   htmlType="submit"
                   // size="default"
                   className="login-form-button"

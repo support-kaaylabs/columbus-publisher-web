@@ -46,7 +46,7 @@ const FilterModal: FC<FilterModalProps> = ({ open, setOpen, data }) => {
   const [eventLoading, setEventLoading] = useState(false);
   const [eventData, setEventData] = useState([]);
   const [loading, setLoading] = useState({ field: '', loading: false });
-  const [buttonLoading, setButtonLoading] = useState(false);
+  // const [buttonLoading, setButtonLoading] = useState(false);
   const [apiData, setApiData] = useState({});
 
   const filterData = get(data, 'Filter_List', '');
@@ -258,7 +258,7 @@ const FilterModal: FC<FilterModalProps> = ({ open, setOpen, data }) => {
 
   const handleSubmit = async () => {
     try {
-      setButtonLoading(true);
+      // setButtonLoading(true);
       const params: any = {
         Related_ID: _.get(data, 'Report_ID'),
         Execution_Type: 'reports',
@@ -271,7 +271,7 @@ const FilterModal: FC<FilterModalProps> = ({ open, setOpen, data }) => {
       if (emailList.length > 0) params.To_Email = emailList.toString();
       if (!_.isEmpty(scheduleObj)) params.scheduleObj = scheduleObj;
       await executeProgram(params);
-      setButtonLoading(false);
+      // setButtonLoading(false);
       //  refreshReport();
       setVisible(false);
     } catch (error: any) {

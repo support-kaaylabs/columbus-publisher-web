@@ -71,11 +71,11 @@ const DateSchedule = (props: any) => {
     }
   }, [scheduleObj]);
 
-  const handleChangeDate = (name: any, date: any, dateString: any) => {
+  const handleChangeDate = (name: any, date: any) => {
     setScheduleDetails({ ...scheduleDetails, [name]: date });
   };
 
-  const handlePanelChange = (value: any, dateString: any) => {
+  const handlePanelChange = (value: any) => {
     setScheduleRange(value);
   };
   const handleSelect = (day: any, value: any) => {
@@ -221,8 +221,8 @@ const DateSchedule = (props: any) => {
                 </Row>
                 <Row>
                   <DatePicker
-                    onChange={(date, dateString) =>
-                      handleChangeDate('Scheduled_At', date, dateString)
+                    onChange={(date) =>
+                      handleChangeDate('Scheduled_At', date)
                     }
                     value={momentScheduleTime}
                     disabledDate={disabledDate}
@@ -238,8 +238,8 @@ const DateSchedule = (props: any) => {
                 <TimePicker
                   format="HH:mm"
                   style={{ width: '100%', float: 'right' }}
-                  onChange={(date, dateString) =>
-                    handleChangeDate('Scheduled_Time', date, dateString)
+                  onChange={(date) =>
+                    handleChangeDate('Scheduled_Time', date)
                   }
                   value={momentScheduleAt}
                 />

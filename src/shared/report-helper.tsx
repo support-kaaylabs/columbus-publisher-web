@@ -60,7 +60,6 @@ export const getLayoutByType: React.FC<any> = (props) => {
     name = '',
     label,
     filter = {},
-    data,
   } = props;
   let layout = <></>;
   switch (type) {
