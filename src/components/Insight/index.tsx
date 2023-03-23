@@ -1,7 +1,7 @@
 import React, { useState, type FC } from 'react';
 import { Col, Row } from 'antd';
-import { DatePicker } from "antd";
-import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
+import { DatePicker } from 'antd';
+import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 import { EyeOutlined, ArrowRightOutlined, SendOutlined } from '@ant-design/icons';
 import { Collapse, Space } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
@@ -12,16 +12,13 @@ import './Insight.scss';
 const { Panel } = Collapse;
 
 const onChange = (
-  value: DatePickerProps["value"] | RangePickerProps["value"],
+  value: DatePickerProps['value'] | RangePickerProps['value'],
   dateString: [string, string] | string
 ) => {
   console.log("Selected Time: ", value);
   console.log("Formatted Selected Time: ", dateString);
 };
 
-const onOk = (value: DatePickerProps["value"] | RangePickerProps["value"]) => {
-  console.log("onOk: ", value);
-};
 
 interface DataType {
   key: string;
@@ -118,12 +115,12 @@ const Insight: FC = () => {
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} >
           <Col className="gutter-row" span={6}>
             <Space size={12} style={{ width: '100%' }}>
-              <DatePicker onChange={onChange} onOk={onOk} placeholder="From Date" style={{ width: '100%' }} />
+              <DatePicker onChange={onChange} placeholder="From Date" style={{ width: '100%' }} />
             </Space>
           </Col>
           <Col className="gutter-row" span={6}>
             <Space size={12}>
-              <DatePicker onChange={onChange} onOk={onOk} placeholder="To Date" />
+              <DatePicker onChange={onChange}  placeholder="To Date" />
             </Space>
           </Col>
           <Col className="gutter-row" span={6}>

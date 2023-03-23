@@ -1,10 +1,10 @@
 import React, { useState, type FC } from 'react';
-import { Tabs, Row, Select, Space } from "antd";
+import { Tabs, Row, Select, Space } from 'antd';
 import './Chart.scss';
-import { DatePicker } from "antd";
-import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
+import { DatePicker } from 'antd';
+import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 import Chart from 'react-apexcharts';
-import moment from "moment";
+import moment from 'moment';
 
 
 const { TabPane } = Tabs;
@@ -158,7 +158,7 @@ const Charts: FC = () => {
         show: true,
         strokeDashArray: 6,
       },
-      colors: ["#AFBCFB"],
+      colors: ['#AFBCFB'],
       fill: {
         colors: ['#AFBCFB']
       },
@@ -256,7 +256,7 @@ const Charts: FC = () => {
         show: true,
         strokeDashArray: 6,
       },
-      colors: ["#79DE8D"],
+      colors: ['#79DE8D'],
       fill: {
         colors: ['#79DE8D']
       },
@@ -351,7 +351,7 @@ const Charts: FC = () => {
         show: true,
         strokeDashArray: 6,
       },
-      colors: ["#f2eaca"],
+      colors: ['#f2eaca'],
       fill: {
         colors: ['#f2eaca']
       },
