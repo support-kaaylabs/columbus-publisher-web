@@ -6,7 +6,7 @@ import { Row, Col, Card, Button, Form, Input } from 'antd';
 import {
   EyeOutlined
 } from '@ant-design/icons';
-import '../Home/login.scss';
+import './login.scss';
 import { getJbReports, authenticate } from '../../shared/urlHelper';
 import Meta from 'antd/es/card/Meta';
 import '../../stylesheet/style.scss';
@@ -15,9 +15,9 @@ import { useNavigate } from 'react-router-dom';
 
 const Home: FC = (props) => {
   const navigate = useNavigate();
-  const [emailId, setEmail] = useState('');
+  const [emailId, setEmail] = useState('')
   const [password, setPassword] = useState('');
-  const [btnLoading, setBtnLoading] = useState(false);
+  const [btnLoading, setBtnLoading] = useState(false)
 
   // useEffect(() => {
   //   const adminLogin = localStorage.getItem('adminLogin');
@@ -25,22 +25,23 @@ const Home: FC = (props) => {
   //     navigate('/');
   //   }  }, []);
 
-  const handleSubmit= (e : any) => {
+ const handleSubmit= (e : any) => {
+  console.log(e, 'hits=============>');
     // e.preventDefault();
-    navigate('/Dashboard');
+    navigate('/dashboard');
     const params = {
       emailId,
       password,
-      userType: 'Merchant',
+      userType: "Merchant",
     };
     console.log(params, 'params----------->');   
-    if (emailId === '' && password === '') {
-      errorNotification('Please Enter the Email and Password');
+    if (emailId === "" && password === "") {
+      errorNotification("Please Enter the Email and Password")
     } else {
     //   this.setState({
     //     btnLoading: true
     //   });
-      setBtnLoading(true); 
+    setBtnLoading(true); 
       authenticate(params).then((resp) => {
         console.log(resp, 'responses==========>');        
         // const { User_Name, User_ID, User_Type, Image, User_Uid } = resp.data && resp.data[0];
@@ -80,7 +81,7 @@ const Home: FC = (props) => {
           setBtnLoading(false);
         } else if (resp.success === false && resp.error.passwordError) {
           errorNotification(resp.error.passwordError);
-          setBtnLoading(false);
+          setBtnLoading(false)
         }
       });
     }
@@ -118,7 +119,7 @@ const Home: FC = (props) => {
                     className="input-text"
                     onChange={(e)=>setEmail(e.target.value)}
                     value={emailId} 
-                  />
+                    />
                 </div>
               )}
             </Form.Item>
@@ -130,10 +131,10 @@ const Home: FC = (props) => {
                     name="password"
                     placeholder="Password"
                     className="password-text"
-                    suffix={<EyeOutlined onClick={()=>{return null;}} />}
+                    suffix={<EyeOutlined onClick={()=>{}} />}
                     onChange={(e)=>setPassword(e.target.value)}
                     value={password} 
-                  />
+                    />
                 </div>
               )}
             </Form.Item>
