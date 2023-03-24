@@ -1,22 +1,21 @@
 import React, { type FC } from 'react';
 
-import classes from './Content.module.scss';
+import classes from './content.module.scss';
 import { Col, Row } from 'antd';
-import imageOne from './Images/shoes.png';
-
-import imageTwo from './Images/apple.png';
-import imageThree from './Images/headphone.avif';
-import { TodoItem } from './Types';
+import ShoeImg from './Images/shoeImgSmall.png';
+import AppleImg from './Images/appleImgSmall.png';
+import SonyImg from './Images/sonyImgSmall.png';
+import { ProductInfo } from './types';
 import { Link } from 'react-router-dom';
-import Eye from './Images/eye1.png';
-import Hand from './Images/hand.png';
-import Arrow from './Images/arrow.png';
+import Eye from './Images/eyeImg.svg';
+import Hand from './Images/nounClickImg.svg';
+import Arrow from './Images/nounCursorImg.svg';
 
 const ProductList: FC = () => {
 
-    const Todos: TodoItem[] = [{
+    const Todos: ProductInfo[] = [{
         id: 1,
-        src: imageOne,
+        src: ShoeImg,
         impression: '40,00000',
         clicks: '400',
         cta: '40',
@@ -26,76 +25,83 @@ const ProductList: FC = () => {
     },
     {
         id: 2,
-        src: imageTwo,
+        src: SonyImg,
         impression: '60,00000',
         clicks: '654',
         cta: '78',
         paraOne: 'SONY',
         paraTwo: 'WH-XB910N Active Noise Cancellation enabled ..'  ,
-         
+        slug: 'sony'
     },
     {
         id: 3,
-        src: imageThree,
+        src: AppleImg,
         impression: '78,458',
         clicks: '852',
         cta: '85',
         paraOne: 'APPLE',
-        paraTwo: 'iPhone 14 Pro (Deep Purple, 128 GB)'
+        paraTwo: 'iPhone 14 Pro (Deep Purple, 128 GB)',
+        slug: 'Apple'
     },
     {
         id: 4,
-        src: imageThree,
+        src: SonyImg,
         impression: '78,458',
         clicks: '852',
         cta: '85',
         paraOne: 'APPLE',
-        paraTwo: 'iPhone 14 Pro (Deep Purple, 128 GB)'
+        paraTwo: 'iPhone 14 Pro (Deep Purple, 128 GB)',
+        slug: 'Apple'
     },
     {
         id: 5,
-        src: imageOne,
+        src: ShoeImg,
         impression: '40,00000',
         clicks: '400',
         cta: '40',
         paraOne: 'Unitted color of Benniton',
-        paraTwo: 'KNITTED LACE UP LIFESTYLE SNEAKER'    
+        paraTwo: 'KNITTED LACE UP LIFESTYLE SNEAKER', 
+        slug: 'Shoe'   
     },
     {
         id: 6,
-        src: imageTwo,
+        src: AppleImg,
         impression: '60,00000',
         clicks: '654',
         cta: '78',
         paraOne: 'SONY',
-        paraTwo: 'WH-XB910N Active Noise Cancellation enabled ..'   
+        paraTwo: 'WH-XB910N Active Noise Cancellation enabled ..' , 
+        slug: 'Sony' 
     },
     {
       id: 7,
-      src: imageTwo,
+      src: AppleImg,
       impression: '60,00000',
       clicks: '654',
       cta: '78',
       paraOne: 'SONY',
-      paraTwo: 'WH-XB910N Active Noise Cancellation enabled ..' 
+      paraTwo: 'WH-XB910N Active Noise Cancellation enabled ..',
+      slug: 'Sony'
   },
   {
       id: 8,
-      src: imageThree,
+      src: SonyImg,
       impression: '78,458',
       clicks: '852',
       cta: '85',
       paraOne: 'APPLE',
-      paraTwo: 'iPhone 14 Pro (Deep Purple, 128 GB)'        
-  },
+      paraTwo: 'iPhone 14 Pro (Deep Purple, 128 GB)',     
+      slug: 'Apple'
+    },
   {
       id: 9,
-      src: imageOne,
+      src: ShoeImg,
       impression: '40,00000',
       clicks: '400',
       cta: '40',
       paraOne: 'Unitted color of Benniton',
-      paraTwo: 'KNITTED LACE UP LIFESTYLE SNEAKER'    
+      paraTwo: 'KNITTED LACE UP LIFESTYLE SNEAKER',    
+      slug: 'Shoe'
   }];
 
     return(
@@ -105,7 +111,7 @@ const ProductList: FC = () => {
                 <Col span={8}>         
                 <div className={classes.content_head}>
                     <div className={classes.content_logo}>
-                        <img src={item.src} alt='Shoes' />
+                        <img src={item.src} alt={item.slug} />
                     </div>
                     <div className={classes.content_main}>
                         <div className={classes.content_paraButton}>

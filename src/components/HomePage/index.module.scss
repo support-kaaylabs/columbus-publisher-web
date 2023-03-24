@@ -1,0 +1,99 @@
+.homePage{
+    height: 100vh;
+    background-color: #ffffff;
+   
+    .homePageHeader{
+        padding-right:27px;
+        height: 80px;
+        display: flex;
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: 0px 3px 6px #00000029;
+        align-items: center;
+        .homePageHeader_head{
+            display: flex;
+            .homePage_head_logo{
+                width: 75px;
+                height: 40px;
+                display: inline;
+                img{
+                    margin-top: 10px;
+                }
+                }
+            .homePage_head_menuButton{
+                margin-left: 121px;
+                button{
+                    background-color: transparent;
+                    border: none;
+                    cursor: pointer;
+                img {
+                        margin: 0px;
+                    }
+                    
+                }
+            }
+            .homePage_head_name{
+                width: 86px;
+                height: 22px;
+                margin-left: 42px;
+                p{
+                text-align: left;
+                font-weight: bold;
+                font-size: 18px;
+                letter-spacing: 0px;
+                color: #222222;
+                text-transform: uppercase;
+                }
+            }
+        }
+            .menuItem{
+                display: flex;
+                align-items: center;
+                margin-left: 916px;
+                .notification{                
+                    position: relative;
+                    margin-top: 10px;
+                    svg{
+                        width: 25px;
+                        height: 25px;
+                        
+                        color: #000000;
+                    }
+                    .notificationCount{
+                        position: absolute;
+                        top: 10px;
+                        right: 0;
+                        width: 11px;
+                        height: 11px;
+                        background: #FF0600 0% 0% no-repeat padding-box;
+                        border-radius: 7px;
+                    }
+                }
+            }
+            .imageLogo{
+                width: 43px;
+                height: 43px;
+                /* UI Properties */
+                background: #E53935 0% 0% no-repeat padding-box;
+                box-shadow: 0px 0px 7px #E53935;
+                border-radius: 20px;
+                margin-left: 39px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                img{
+                    width: 39px;
+                    height: 39px;
+                    border-radius: 20px;
+                    background: transparent 0% 0% no-repeat padding-box;
+                }
+            }
+    }
+    .sideBarMenu{
+        .sideBarMenuItem{    
+            min-height: 90vh;
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            box-shadow: 3px 0px 6px #00000029;
+
+        }
+    }
+    }

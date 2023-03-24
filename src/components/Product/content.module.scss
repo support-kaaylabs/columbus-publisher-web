@@ -4,35 +4,42 @@ $color_3: #0909DC;
 $color_4: #03781B;
 $color_5: #222222;
 $color_6: #FFFFFF;
+$color_7: #ECECEC;
+$color_8: #BBBBBB;
+$color_9: #F9DEDE;
+$color_10: #D8DEFC;
+$color_11: #CBF3D3;
 
 .head {
 	width: 1159px;
 	height: 688px;
 }
+
 .content_head {
 	margin: 0px 10px;
 	width: 335px;
 	height: 299px;
-	background: #FFFFFF 0% 0% no-repeat padding-box;
+	background: $color_6 0% 0% no-repeat padding-box;
 	box-shadow: 0px 3px 6px #00000029;
-	border: 1px solid #BBBBBB;
+	border: 1px solid $color_8;
 	border-radius: 12px;
 	margin-top: 20px;
 }
+
 .content_logo {
 	width: 335px;
 	height: 130px;
-	background: #ECECEC 0% 0% no-repeat padding-box;
+	background: $color_7 0% 0% no-repeat padding-box;
 	border-radius: 12px;
-	text-align: center;
-	img {
-		width: 163px;
-		height: 111px;
-	}
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
+
 .impression {
 	width: 111px;
 	height: 46px;
+
 	p {
 		color: $color_1;
 		width: 66px;
@@ -45,46 +52,48 @@ $color_6: #FFFFFF;
 		text-transform: uppercase;
 		margin-bottom: 7px;
 	}
+
 	button {
 		width: 111px;
 		height: 26px;
-		background: #F9DEDE 0% 0% no-repeat padding-box;
+		background: $color_9 0% 0% no-repeat padding-box;
 		border-radius: 13px;
 		border: none;
-	
-		span {		
+
+		span {
 			width: 18px;
 			height: 12px;
 			display: flex;
 			justify-content: start;
-			
-			p{
+
+			p {
 				margin: 0;
 				padding: 0;
 				display: inline;
 				float: right;
-				color: #E53935;
-				font-weight: bold;	
+				color: $color_1;
+				font-weight: bold;
 				margin-left: 10px;
 
 			}
 		}
-		img{
+
+		img {
 			width: 18px;
 			height: 12px;
-
-			
 		}
 	}
-	
+
 }
+
 p {
 	margin: 0px;
 }
+
 .clicks {
 	width: 97px;
 	height: 46px;
-	
+
 	p {
 		width: 37px;
 		height: 13px;
@@ -97,12 +106,13 @@ p {
 		margin-bottom: 7px;
 		margin-left: 4px;
 	}
+
 	button {
 		width: 97px;
 		margin-left: 4px;
 		height: 26px;
 		color: $color_3;
-		background: #D8DEFC 0% 0% no-repeat padding-box;
+		background: $color_10 0% 0% no-repeat padding-box;
 		border-radius: 13px;
 		border: none;
 		font-weight: bold;
@@ -112,28 +122,32 @@ p {
 			height: 12px;
 			display: flex;
 			justify-content: start;
-			p{
+
+			p {
 				margin: 0;
 				padding: 0;
 				display: inline;
 				float: right;
-				color: #0909DC;
-				font-weight: bold;	
+				color: $color_3;
+				font-weight: bold;
 				margin-left: 10px;
 			}
 		}
-		img{
+
+		img {
 			width: 18px;
 			height: 12px;
-	
+
 		}
-	
+
 	}
-	
+
 }
+
 .cta {
 	width: 89px;
 	height: 46px;
+
 	p {
 		width: 14px;
 		height: 15px;
@@ -144,44 +158,47 @@ p {
 		letter-spacing: 0px;
 		color: $color_2;
 		text-transform: uppercase;
-		margin-bottom: 7px;		
+		margin-bottom: 7px;
 	}
+
 	button {
 		width: 89px;
 		margin-left: 8px;
 		height: 26px;
 		color: $color_4;
-		background: #CBF3D3 0% 0% no-repeat padding-box;
+		background: $color_11 0% 0% no-repeat padding-box;
 		border-radius: 13px;
 		border: none;
 		font-weight: bold;
-		
-		
+
+
 		span {
 			width: 18px;
 			height: 12px;
-			
+
 			display: flex;
 			justify-content: start;
-			p{
+
+			p {
 				margin: 0;
 				padding: 0;
 				display: inline;
 				margin-left: 10px;
-				color: #03781B;
-				font-weight: bold;	
+				color: $color_4;
+				font-weight: bold;
 				margin-left: 10px;
 			}
-			
+
 		}
-		img{
+
+		img {
 			width: 18px;
 			height: 12px;
-			
+
 		}
-		
+
 	}
-	
+
 }
 
 .content_main {
@@ -189,29 +206,33 @@ p {
 	height: 146px;
 	margin: auto;
 	margin-top: 10px;
+
 	.content_paraButton {
 		display: flex;
 		justify-content: center;
 	}
 }
+
 .unitted {
 	width: 149px;
 	height: 16px;
 	text-align: left;
 	font-size: 13px;
-	color: #707070;
+	color: $color_2;
 	letter-spacing: 0px;
 	color: $color_2;
 }
+
 .knitted {
 	height: 17px;
 	text-align: left;
 	font-size: 14px;
 	letter-spacing: 0px;
-	color: #222222;
-	
-	
+	color: $color_5;
+
+
 }
+
 .buttonDiv {
 	button {
 		display: flex;
@@ -225,24 +246,27 @@ p {
 		justify-content: center;
 		text-align: center;
 		color: $color_6;
-		background: #222222 0% 0% no-repeat padding-box;
+		background: $color_5 0% 0% no-repeat padding-box;
 		border-radius: 16px;
 		align-items: center;
 		padding-top: 8px;
 		padding-bottom: 8px;
 		font-family: 'Lato', sans-serif;
-  		font-weight: 500.2;
+		font-weight: 500.2;
 	}
+
 	a {
-		color: #FFFFFF;
+		color: $color_6;
 	}
 }
+
 .para {
-	
+
 	margin-top: 15px;
 	margin-bottom: 15px;
+
 	p {
 		margin-top: 5px;
-		
+
 	}
 }
