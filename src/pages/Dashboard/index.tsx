@@ -1,4 +1,4 @@
-import React, { useEffect, useState, type FC } from 'react';
+import React, { type FC } from 'react';
 import Impression from '../../components/Dashboard';
 
 const Dashboard: FC = (props) => {
@@ -62,7 +62,6 @@ const Dashboard: FC = (props) => {
 
   return (
     <div>
-      {/* ************** Impression *************** */}
       <h1>Dashboard Page</h1>
       {dummyData.map((item, index) => (
         <div key={index}>

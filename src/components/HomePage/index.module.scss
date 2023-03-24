@@ -1,0 +1,74 @@
+.header{
+    height: 100vh;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    .layoutRight{
+        .header_content{
+            display: flex;
+            align-items: center;
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            height: 80px;
+            box-shadow: 3px 0px 6px #00000029;
+            .header_content_icon{
+                cursor: pointer;
+            }
+            .header_content_name{
+                
+                font-size: 18px;
+                font-weight: 500px;
+                letter-spacing: 0px;
+                color: #222222;
+                text-transform: uppercase;
+            }
+            .notification{                
+                position: relative;
+                svg{
+                    width: 25px;
+                    height: 25px;
+                    
+                    color: #000000;
+                }
+                .notificationCount{
+                    position: absolute;
+                    top: 10px;
+                    right: 0;
+                    width: 11px;
+                    height: 11px;
+                    background: #FF0600 0% 0% no-repeat padding-box;
+                    border-radius: 7px;
+                }
+            }
+            .imageLogo{
+                width: 43px;
+                height: 43px;
+                background: #E53935 0% 0% no-repeat padding-box;
+                box-shadow: 0px 0px 7px #E53935;
+                border-radius: 20px;
+                display: flex;
+                justify-content: center;
+                
+            }
+        }
+    }
+    
+    .header_sider{
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        .sider_logo_head{
+            width: 281px;            
+        }
+        .sider_menu{
+            margin-top: 20px;
+            width: 281px;
+            text-align: left;
+            background-color: transparent;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0px;
+            color: #222222;
+            text-transform: uppercase;
+            .sider_menuItem{
+            }
+        }
+
+    }
+    
+}
