@@ -1,8 +1,8 @@
 
 export type HomePageInfo = {
   id: number,
-  src: any,
-  gallery?: any,
+  src: string,
+  gallery?: Array<string>,
   impression: string,
   clicks: string,
   cta: string,

@@ -5,7 +5,6 @@ import Arrow from './Images/leftArrowIconLarge.png';
 import Eye from './Images/eyeImg.svg';
 import Hand from './Images/nounClickImg.svg';
 import Arrow1 from './Images/nounCursorImg.svg';
-import { ProductInfo } from './types';
 import { Collapse } from 'antd';
 import Shoes1 from './Images/shoes1.png';
 import Shoes2 from './Images/shoes2.png';
@@ -14,13 +13,27 @@ import { useNavigate } from 'react-router-dom';
 type ExpandIconPosition = 'end';
 
 const ProductDetail: FC = () => {
-  const [expandIconPosition, setIcon] = useState<ExpandIconPosition>('end');
-  const [identifiedImageId, setIdentifiedImageId] = useState(0);
+  const [expandIconPosition, setExpandIconPosition] = useState<ExpandIconPosition>('end');
+  const [identifiedImageId, setIdentifiedImageId] = useState(ShoeImg);
   const navigate = useNavigate();
   const text = ` - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 
   since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, 
   but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software `;
   const { Panel } = Collapse;
+  interface ProductInfo {
+    id: number,
+  src: string,
+  gallery?: string[],
+  impression: string,
+  clicks: string,
+  cta: string,
+  paraOne: string,
+  paraTwo: string,
+  slug?: string,
+  regularPrice?: string,
+  discount?: string,
+  finalPrice?: string,
+  }
   const todos: ProductInfo[] = [{
     id: 0,
     src: ShoeImg,
@@ -40,20 +53,19 @@ const ProductDetail: FC = () => {
       <div className={classes.arrow} onClick={() => navigate('/Products')}>
         <img src={Arrow} alt='Left Arrow' />
       </div>
-      
-      {todos.map((item,index) => (
+
+      {todos.map((item, index) => (        
         <div key={index} className={classes.content}>
           <div className={classes.leftContent}>
-            <div className={classes.largeImage}>
-              <button type='button'><img src={item.gallery[identifiedImageId]} alt={item.slug} /></button>
+            <div className={classes.largeImage}><button><img src={identifiedImageId} alt={item.slug} /></button> 
               <div className={classes.largeImageContent}>
-                <button className={classes.button1} onClick={() => setIdentifiedImageId(0)}>
+                <button className={classes.button1} onClick={() => setIdentifiedImageId(ShoeImg)}>
                   <img src={ShoeImg} alt='Phone' />
                 </button>
-                <button className={classes.button2} onClick={() => setIdentifiedImageId(1)}>
+                <button className={classes.button2} onClick={() => setIdentifiedImageId(Shoes1)}>
                   <img src={Shoes1} alt='Shoe' />
                 </button>
-                <button className={classes.button3} onClick={() => setIdentifiedImageId(2)}>
+                <button className={classes.button3} onClick={() => setIdentifiedImageId(Shoes2)}>
                   <img src={Shoes2} alt='HeadPhone' />
                 </button>
               </div>
