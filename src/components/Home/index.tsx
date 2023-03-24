@@ -8,6 +8,7 @@ import { errorNotification } from '../../shared/globalVariables';
 import { useNavigate } from 'react-router-dom';
 
 const Home: FC = (props) => {
+  
   const navigate = useNavigate();
   const [emailId, setEmail] = useState('');
   const [password, setPassword] = useState('');
