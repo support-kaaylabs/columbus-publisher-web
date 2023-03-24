@@ -202,7 +202,6 @@ const FilterModal: FC<FilterModalProps> = ({ open, setOpen, data }) => {
         searchField,
         extraQuery,
         reportId,
-        name,
       } = obj;
       if (reportId) {
         setEventLoading(true);

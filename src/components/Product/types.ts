@@ -1,6 +1,6 @@
 
 export type ProductInfo = {
-  id: Number,
+  id: number,
   src?: any,
   gallery?: any,
   impression: string,

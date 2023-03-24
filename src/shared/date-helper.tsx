@@ -1,4 +1,4 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
+
 import moment from 'moment';
 import _ from 'lodash';
 

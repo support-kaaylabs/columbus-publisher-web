@@ -9,7 +9,7 @@ import HomePage from './components/HomePage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ReportTable from './components/Home/reportTable';
 import ProductList from './components/Product';
-import ProductDetail from './components/Product/Detail';
+import ProductDetail from './components/Product/detail';
 
 
 const App: FC = () => {

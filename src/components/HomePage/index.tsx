@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import MenuIcon from './Images/menuIconSmall.png';
-import CloseIcon from './Images/closeIconSmall.png';
-import Logo from './Images/logoImgSmall.png';
+import Logo from './Images/logoImgLarge.png';
+import LogoSymbol from './Images/logoSymbol.svg';
 import classes from './index.module.scss';
 import Image from './Images/photo.jpg';
+import CloseIcon from './Images/closeIconSmall.png';
+import MenuIcon from './Images/menuIconSmall.png';
 
 import {
   SettingOutlined,
@@ -14,87 +15,91 @@ import {
   WalletOutlined,
   CustomerServiceOutlined,
 } from '@ant-design/icons';
-import { MenuProps, Menu, Layout } from 'antd';
+import { Layout, Menu } from 'antd';
 
-type MenuItem = Required<MenuProps>['items'][number];
+const { Header, Sider, Content } = Layout;
 
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[],
-  type?: 'group',
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    type,
-  } as MenuItem;
-}
-
-const items: MenuItem[] = [
-  getItem('PRODUCT', '1', <DeliveredProcedureOutlined />),
-  getItem('DASH BOARD', '2', <AppstoreOutlined />),
-  getItem('INSIGHTS', '3', <AlertOutlined />),
-  getItem('WALLET', '4', <WalletOutlined />),
-  getItem('SETTING', '5', <SettingOutlined />),
-  getItem('HELP', '6', <CustomerServiceOutlined />)
-];
-
-const { Header } = Layout;
-const App: React.FC = () => {
+const HomePage: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
-
-  const toggleCollapsed = () => {
-    setCollapsed(!collapsed);
-  };
-
   return (
-    <Layout className={classes.homePage}>
-
-      <Header className={classes.homePageHeader}>
-        <div className={classes.homePageHeader_head}>
-
-          <div className={classes.homePage_head_logo}>
-            <img src={Logo} alt='JINGLS' />
-          </div>
-          <div className={classes.homePage_head_menuButton}>
-            <button onClick={toggleCollapsed} style={{ marginBottom: 16 }}>
-              {collapsed ? <img src={CloseIcon} alt='Close' /> : <img src={MenuIcon} alt='Menu' />}
-            </button>
-          </div>
-          <div className={classes.homePage_head_name}>
-            <p>PRODUCT</p>
+    <Layout className={classes.header}>
+      <Sider theme='light' trigger={null} collapsible collapsed={collapsed} className={classes.header_sider}>
+        <div className={classes.sider_logo_head}>
+          <div className={classes.sider_logo}>
+            {collapsed ? <img src={LogoSymbol} alt='LogoSymbol' /> : <img src={Logo} alt='JINGLS' />}
           </div>
         </div>
-        <div>
-          <div className={classes.menuItem}>
+        <div className={classes.sider_menu}>
+          <Menu
+            className={classes.sider_menuItem}
+            defaultSelectedKeys={['1']}
+            items={[
+              {
+                key: '1',
+                icon: <DeliveredProcedureOutlined />,
+                label: 'PRODUCT',
+              },
+              {
+                key: '2',
+                icon: <AppstoreOutlined />,
+                label: 'DASH BOARD',
+              },
+              {
+                key: '3',
+                icon: <AlertOutlined />,
+                label: 'INSIGHTS',
+              },
+              {
+                key: '4',
+                icon: <WalletOutlined />,
+                label: 'WALLET',
+              },
+              {
+                key: '5',
+                icon: <SettingOutlined />,
+                label: 'SETTING',
+              },
+              {
+                key: '6',
+                icon: <CustomerServiceOutlined />,
+                label: 'HELP',
+              }
+            ]}
+          />
+        </div>
+      </Sider>
+      <Layout className={classes.layoutRight}>
+        <Header className={classes.header_content}>
+          <span onClick={() => setCollapsed(!(collapsed))} className={classes.header_content_icon}>
+            {collapsed ? <img src={CloseIcon} alt='closeicon' /> : <img src={MenuIcon} alt='MenuIcon' />}
+          </span>
+          <span className={classes.header_content_name}>Product</span>
+          <span>
             <div className={classes.notification}>
               <BellOutlined />
               <div className={classes.notificationCount} />
             </div>
+          </span>
+          <span>
             <div className={classes.imageLogo}>
               <img src={Image} alt='image1' />
             </div>
-          </div>
-        </div>
+          </span>
 
 
-      </Header>
-      <div className={classes.sideBarMenu}>
-        <Menu
-          defaultSelectedKeys={['1']}
-          mode="inline"
-          inlineCollapsed={collapsed}
-          items={items}
-          className={classes.sideBarMenuItem}
-        />
-      </div>
-
+        </Header>
+        <Content
+          style={{
+            margin: '24px 16px',
+            padding: 24,
+            minHeight: 280,
+          }}
+        >
+          Content
+        </Content>
+      </Layout>
     </Layout>
   );
 };
 
-export default App;
+export default HomePage;

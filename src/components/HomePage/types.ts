@@ -1,6 +1,6 @@
 
 export type HomePageInfo = {
-  id: Number,
+  id: number,
   src: any,
   gallery?: any,
   impression: string,
