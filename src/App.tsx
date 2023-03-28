@@ -13,7 +13,7 @@ const App: FC = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:reportname" element={<ReportTable />} />
-        <Route path="/Dashboard" element={<Chats/>} />
+        <Route path="/chart" element={<Chats/>} />
         <Route path="/insight" element={<Insight/>} />
       </Routes>
     </BrowserRouter>
