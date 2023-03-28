@@ -5,6 +5,8 @@ import Dashboard from './pages/Dashboard';
 import Layout from './container/Layout';
 import Home from './components/Home';
 import HomePage from './components/HomePage';
+import Chats from './components/Dashboard/Chart';
+import Insight from './components/Insight';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ReportTable from './components/Home/reportTable';
@@ -19,11 +21,8 @@ const App: FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/:reportname" element={<ReportTable />} />
-        <Route path="/layout" element={<Layout />} />
-        <Route path="/products" element={<ProductList />} />
-        
-        <Route path='/homePage' element={<HomePage />} />
-        <Route path='/products/:slug' element={<ProductDetail />} />
+        <Route path="/chart" element={<Chats/>} />
+        <Route path="/insight" element={<Insight/>} />
       </Routes>
     </BrowserRouter>
   );
