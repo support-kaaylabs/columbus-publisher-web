@@ -23,7 +23,6 @@ interface dashboardDetails {
 
 const Dashboard = (props: dashboardDetails) => {
   const { data } = props;
-  console.log(data, 'propsss==========>');
   
   return (
     <div className="dashboard-page">
