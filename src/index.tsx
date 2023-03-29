@@ -9,7 +9,6 @@ import ProductList from './components/Product';
 import ProductDetail from './components/Product/detail';
 import Dashboard from './pages/Dashboard';
 import { MyProvider } from './components/store/dataStore';
-import Login from './components/Login';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

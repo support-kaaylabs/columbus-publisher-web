@@ -2,87 +2,115 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-image: url('./Images/bgImgLarge.png');
   background-repeat: no-repeat;
   height: 90vh;
   max-height: 100vh;
 
   .main-component {
-    input {
-      border: white;
-      border-bottom: 2px solid #d8d8d8;
-      border-radius: unset;
-      font-size: 15px;
-      font-weight: 500;
-    }
-
-    .ant-input:focus {
-      outline: white !important;
-      box-shadow: none;
-    }
-
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 3px 3px 9px 6px #fdebeb;
+    border-radius: 20px;
+    padding: 20px;
+    width: 480px;
+    height: 430px;
     .welcome-title {
-      padding-left: 127px !important;
       font-size: 24px !important;
+      text-align: center;
       font-weight: bolder !important;
     }
 
-    .title {
-      display: flex;
-      align-items: center;
-      //   justify-content: center;
-      font-family: var(--montserrat-font);
-      color: #000;
-      margin-left: 90px;
-      margin-bottom: 55px;
-
-      img {
-        width: 120px;
-      }
-    }
-
-    .password-input {
-      margin-top: -2%;
-
+    .login {
+      border: none;
+      width: 480px;
       input {
-        width: 300px;
+        border: none;
+        border-bottom: 2px solid #d8d8d8;
+        border-radius: unset;
+        font-size: 15px;
+
+        font-weight: 500;
+        width: 100%;
       }
-    }
 
-    .login-button {
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+      .ant-input:focus {
+        outline: white !important;
+        box-shadow: none;
+      }
 
-    .ant-card-body {
-      padding: 40px !important;
-      transition: all .2s linear;
-      border-bottom: -30px;
-    }
-
-    .ant-card-bordered {
-      border: none !important;
-    }
-
-    .user-create {
-      span {
+      .title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--montserrat-font);
         color: #000;
+        text-align: center;
+      }
+      .username-input {
+        border: none;
+        margin-top: 10px;
+        label {
+          font-size: 14px;
+          margin-left: 35px;
+          font-weight: bold;
+        }
+        .ant-input-affix-wrapper {
+          border: none;
+        }
+      }
+
+      .password-input {
+        margin-top: 10px;
+        label {
+          font-size: 14px;
+          margin-left: 35px;
+          font-weight: bold;
+        }
+        .ant-input-affix-wrapper {
+          border: none;
+        }
+      }
+
+      .login-button {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .ant-card-body {
+        transition: all 0.2s linear;
+        padding: 0px;
+      }
+
+      .ant-card-bordered {
+        border: none !important;
+      }
+
+      .user-create {
+        span {
+          color: #000;
+        }
       }
     }
-  }
 
-  .login-form {
-    max-width: 500px;
-    margin-top: 1rem;
-  }
+    .login-form {
+      margin-top: 2rem;
+      border: none;
+    }
 
-  .login-form-button {
-    height: 38px;
-    border-radius: 19px;
-    color: white;
-    box-shadow: 0 0 0 2px rgba(82, 116, 251, 0.18);
-    background-color: #364FB3;
-    margin: 5px;
+    .login-form-button {
+      border-radius: 19px;
+      font-size: 16px;
+      height: 40px;
+      color: #fef8f8;
+      border: none;
+      margin-top: 30px;
+      padding: 8px 0px;
+      box-shadow: 0 0 0 2px rgba(82, 116, 251, 0.18);
+      background-color: #e53935;
+    }
   }
 }

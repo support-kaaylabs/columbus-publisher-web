@@ -2,13 +2,12 @@ import React, { createContext, useState } from 'react';
 
 interface MyContextProps {
   name: string;
-  readonly text?: string;
   sideBarHandler: (c: string) => void;
 }
 
 export const MyContext = createContext<MyContextProps>({
   name: '',
-  sideBarHandler: (c) => {
+  sideBarHandler: (c: string) => {
     console.log(c);
   },
 });
@@ -26,7 +25,6 @@ export const MyProvider: React.FC<MyComponentProps> = ({ children }) => {
   const data = {
     name: name,
     sideBarHandler: sideBarHandler,
-    text: '#222222',
   };
 
   return <MyContext.Provider value={data}>{children}</MyContext.Provider>;
