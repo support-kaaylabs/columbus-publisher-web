@@ -131,7 +131,7 @@ const App: FC = () => {
                     <Menu.Item
                       key={1}
                       className={classes.products}
-                      onClick={() => ctx.sideBarHandler('PRODUCTS')}
+                      onClick={() => ctx.sideBarHandler('PRODUCT')}
                     >
                       <Link to="products">
                         <span>
