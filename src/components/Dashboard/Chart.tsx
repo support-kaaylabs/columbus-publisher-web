@@ -19,12 +19,11 @@ const Charts: FC = () => {
   }, [chartType, chartMode]);
 
   const fetchData = () => {
-    const sellerId = 7447;
-    // localStorage.getItem('User_ID');
+    const sellerId = localStorage.getItem('User_ID');
     const params = {sellerId, eventName: chartType, chartMode}; 
     getChartData(params).then((resp)=>{
       if(resp.success) {        
-        const counts = resp.data.map((id: any) => id.count);
+        const counts = resp.data.map((id: any) => id.Count);
         const dates = resp.data.map((id: any) => id.date);
         setCounts(counts);
         setDates(dates);

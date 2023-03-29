@@ -13,8 +13,7 @@ const Dashboard: FC = (props) => {
   }, []);
 
   const fetchData = () => {
-    const sellerId = 7447;
-    // localStorage.getItem('User_ID');  
+    const sellerId = localStorage.getItem('User_ID');  
     const params = {sellerId}; 
     getDashboardData(params).then((data)=>{
       if(data.success) {
