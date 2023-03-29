@@ -19,10 +19,10 @@ import {
   AppstoreOutlined,
   WalletOutlined,
   CustomerServiceOutlined,
-  LogoutOutlined, 
+  LogoutOutlined,
 
 } from '@ant-design/icons';
-import {updateUserInfo} from './shared/urlHelper';
+import { updateUserInfo } from './shared/urlHelper';
 import { Layout, Menu } from 'antd';
 const { Header, Sider, Content } = Layout;
 
@@ -32,7 +32,7 @@ const App: FC = () => {
   const ctx = useContext(MyContext);
 
   const logoutClick = () => {
-    const userId:any = localStorage.getItem('User_ID');
+    const userId: any = localStorage.getItem('User_ID');
     const params = {
       Device_ID: null,
     };
@@ -151,7 +151,7 @@ const App: FC = () => {
                       <Link to="products">
                         <span className='menuStyle'>
                           <DeliveredProcedureOutlined />
-                        PRODUCT
+                          PRODUCT
                         </span>
                       </Link>
                     </Menu.Item>
@@ -163,7 +163,7 @@ const App: FC = () => {
                       <Link to="dashboard">
                         <span className='menuStyle'>
                           <AppstoreOutlined />
-                        DASHBOARD
+                          DASHBOARD
                         </span>
                       </Link>
                     </Menu.Item>
@@ -175,7 +175,7 @@ const App: FC = () => {
                       <Link to="insight">
                         <span className='menuStyle'>
                           <AlertOutlined />
-                        INSIGHTS
+                          INSIGHTS
                         </span>
                       </Link>
                     </Menu.Item>
@@ -187,7 +187,7 @@ const App: FC = () => {
                       <Link to="wallet">
                         <span className='menuStyle'>
                           <WalletOutlined />
-                        WALLET
+                          WALLET
                         </span>
                       </Link>
                     </Menu.Item>
@@ -199,7 +199,7 @@ const App: FC = () => {
                       <Link to="setting">
                         <span className='menuStyle'>
                           <SettingOutlined />
-                        SETTING
+                          SETTING
                         </span>
                       </Link>
                     </Menu.Item>
@@ -211,7 +211,7 @@ const App: FC = () => {
                       <Link to="help">
                         <span className='menuStyle'>
                           <CustomerServiceOutlined />
-                        HELP
+                          HELP
                         </span>
                       </Link>
                     </Menu.Item>
@@ -223,7 +223,7 @@ const App: FC = () => {
                       <Link to="/">
                         <span className='menuStyle'>
                           <LogoutOutlined />
-                        LOGOUT
+                          LOGOUT
                         </span>
                       </Link>
                     </Menu.Item>

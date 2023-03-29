@@ -16,7 +16,6 @@ const Dashboard: FC = (props) => {
     const sellerId = localStorage.getItem('User_ID');  
     const params = {sellerId}; 
     getDashboardData(params).then((data)=>{
-      
       if(data.success) {
         setDashboardData(get(data, 'data', []));     
       }

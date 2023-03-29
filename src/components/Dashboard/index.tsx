@@ -5,18 +5,18 @@ import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 
 interface dashboardDetails {
   data: {
-    eventName:string,
+    Event_Name:string,
     todayPercent:number,
-    today:number,
-    preDate: number,
-    week:number,
-    preWeek: number,
+    Today:number,
+    Predate: number,
+    Week:number,
+    Preweek: number,
     weekPercent:number,
-    preMonth: number,
-    month:number,
+    Premonth: number,
+    Month:number,
     monthPercent:number,
-    quarter:number,
-    preQuarter:number,
+    Quarter:number,
+    Prequarter:number,
     quarterPercent:number,
   };
 }
@@ -28,13 +28,13 @@ const Dashboard = (props: dashboardDetails) => {
     <div className="dashboard-page">
       <div
         className={
-          data?.eventName === 'views'
+          data?.Event_Name === 'PRODUCT_VIEWS'
             ? 'impression-img'
-            : null || data?.eventName === 'click'
+            : null || data?.Event_Name === 'PRODUCT_CLICK'
               ? 'clicks-img'
-              : null || data?.eventName === 'favs'
+              : null || data?.Event_Name === 'FAVOURITES_CLICK'
                 ? 'favourite-img'
-                : null || data?.eventName === 'cta'
+                : null || data?.Event_Name === 'CALL_TO_ACTION'
                   ? 'call-to-action-img'
                   : ''
         }
@@ -48,16 +48,16 @@ const Dashboard = (props: dashboardDetails) => {
           >
             <div className="icon-img">
               <img
-                src={require(`../Images/${data.eventName}.png`)}
+                src={require(`../Images/${data.Event_Name}.png`)}
                 alt="eye-icon"
               />
-              <p>{data?.eventName === 'views'
+              <p>{data?.Event_Name === 'PRODUCT_VIEWS'
                 ? 'Impressions'
-                : null || data?.eventName === 'click'
+                : null || data?.Event_Name === 'PRODUCT_CLICK'
                   ? 'Clicks'
-                  : null || data?.eventName === 'favs'
+                  : null || data?.Event_Name === 'FAVOURITES_CLICK'
                     ? 'Favourites'
-                    : null || data?.eventName === 'cta'
+                    : null || data?.Event_Name === 'CALL_TO_ACTION'
                       ? 'Call to Auction'
                       : ''}</p>
             </div>
@@ -75,8 +75,8 @@ const Dashboard = (props: dashboardDetails) => {
               <b>Today</b>
               <p className="percentage">{data.todayPercent}%</p>
               <div className="d-flex">
-                <span className="diffrence">{data.today}</span> &nbsp;
-                {data.today < data.preDate ? (
+                <span className="diffrence">{data.Today}</span> &nbsp;
+                {data.Today < data.Predate ? (
                   <ArrowDownOutlined
                     style={{ fontSize: '16px', color: '#EE1313' }}
                   />
@@ -101,8 +101,8 @@ const Dashboard = (props: dashboardDetails) => {
               <b>This Week</b>
               <p className="percentage">{data.weekPercent}%</p>
               <div className="d-flex">
-                <span className="diffrence">{data.week}</span> &nbsp;
-                {data.week < data.preWeek ? (
+                <span className="diffrence">{data.Week}</span> &nbsp;
+                {data.Week < data.Preweek ? (
                   <ArrowDownOutlined
                     style={{ fontSize: '16px', color: '#EE1313' }}
                   />
@@ -127,8 +127,8 @@ const Dashboard = (props: dashboardDetails) => {
               <b>This Month</b>
               <p className="percentage">{data.monthPercent}%</p>
               <div className="d-flex">
-                <span className="diffrence">{data.month}</span> &nbsp;
-                {data.month < data.preMonth ? (
+                <span className="diffrence">{data.Month}</span> &nbsp;
+                {data.Month < data.Premonth ? (
                   <ArrowDownOutlined
                     style={{ fontSize: '16px', color: '#EE1313' }}
                   />
@@ -153,9 +153,9 @@ const Dashboard = (props: dashboardDetails) => {
               <b>Quarter</b>
               <p className="percentage">{data.quarterPercent}%</p>
               <div className="d-flex">
-                <span className="diffrence">{data.quarter}</span>{' '}
+                <span className="diffrence">{data.Quarter}</span>{' '}
                 &nbsp;
-                {data.quarter < data.preQuarter ? (
+                {data.Quarter < data.Prequarter ? (
                   <ArrowDownOutlined
                     style={{ fontSize: '16px', color: '#EE1313' }}
                   />

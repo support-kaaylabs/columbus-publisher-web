@@ -10,7 +10,7 @@ const { TabPane } = Tabs;
 const Charts: FC = () => {
   const [counts, setCounts] = useState([]);
   const [dates, setDates] = useState([]);
-  const [chartType, setChartType] = useState('Impressions');
+  const [chartType, setChartType] = useState('PRODUCT_VIEWS');
   const [chartMode, setChartMode] = useState('Daily');
   const [chartColor, setChartColor] = useState('');
 
@@ -22,19 +22,19 @@ const Charts: FC = () => {
     const sellerId = localStorage.getItem('User_ID');
     const params = {sellerId, eventName: chartType, chartMode}; 
     getChartData(params).then((resp)=>{
-      if(resp.success) {
-        const counts = resp.data.map((id: any) => id.count);
+      if(resp.success) {        
+        const counts = resp.data.map((id: any) => id.Count);
         const dates = resp.data.map((id: any) => id.date);
         setCounts(counts);
         setDates(dates);
         setChartColor(
-          chartType === 'views'
+          chartType === 'PRODUCT_VIEWS'
             ? '#e53935'
-            : null || chartType === 'click'
+            : null || chartType === 'PRODUCT_CLICK'
               ? '#AFBCFB'
-              : null || chartType === 'favs'
+              : null || chartType === 'FAVOURITES_CLICK'
                 ? '#79DE8D'
-                : null || chartType === 'cta'
+                : null || chartType === 'CALL_TO_ACTION'
                   ? '#f2eaca'
                   : '');
       }
@@ -163,22 +163,22 @@ const Charts: FC = () => {
             </Space>
            
           } className='chartStyle'>
-            <TabPane tab="Impressions" key="Impressions">
+            <TabPane tab="Impressions" key="PRODUCT_VIEWS">
               <div id="chart">
                 <Chart options={options} series={series} type="area" width={1000} height={320} />
               </div>
             </TabPane>
-            <TabPane tab="Clicks" key="Clicks">
+            <TabPane tab="Clicks" key="PRODUCT_CLICK">
               <div id="chart">
                 <Chart options={options} series={series} type="area" width={1000} height={320} />
               </div>
             </TabPane>
-            <TabPane tab="Call To Action" key="Call_To_Action">
+            <TabPane tab="Call To Action" key="CALL_TO_ACTION">
               <div id="chart">
                 <Chart options={options} series={series} type="area" width={1000} height={320} />
               </div>
             </TabPane>
-            <TabPane tab="Favourite" key="Favourite">
+            <TabPane tab="Favourite" key="FAVOURITES_CLICK">
               <div id="chart">
                 <Chart options={options} series={series} type="area" width={1000} height={320} />
               </div>

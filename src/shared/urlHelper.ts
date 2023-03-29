@@ -22,4 +22,4 @@ export const getChartData = (data: any) => http.get('get-chart-data', data);
 
 export const updateUserInfo = (userId: number, data: any) => http.put(`Users/${userId}`, data);
 
-export const authenticate = (data: any) => http.post('/login/authenticateSeller', data);
+export const authenticate = (data: any) => http.post('/authenticate-seller', data);
