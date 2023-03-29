@@ -19,18 +19,6 @@ RUN ls -ltr
 
 # Confirm the working directory
 
-RUN ls -ltr build/
+EXPOSE  3000
 
-# Production Environment
-
-FROM nginx:1.19.6-alpine
-
-COPY --from=build /apps/build /usr/share/nginx/html
-
-RUN rm -rf /etc/nginx/conf.d/default.conf
-
-COPY default.conf /etc/nginx/conf.d/
-
-EXPOSE  80
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "start"]
