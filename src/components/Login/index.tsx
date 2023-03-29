@@ -1,6 +1,5 @@
 import React from 'react';
-import { Input, Form } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { Input } from 'antd';
 import classes from './index.module.scss';
 import Logo from './Images/logoSmall.png';
 import UserLogo from './Images/userIconSmall.png';
