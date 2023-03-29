@@ -8,14 +8,13 @@ import { errorNotification } from '../../shared/globalVariables';
 import { useNavigate } from 'react-router-dom';
 
 const Home: FC = () => {
-  
   const navigate = useNavigate();
   const [emailId, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [btnLoading, setBtnLoading] = useState(false);
 
   const handleSubmit = () => {
-    navigate('/dashboard');
+    navigate('/homePage/products');
     const params = {
       emailId,
       password,

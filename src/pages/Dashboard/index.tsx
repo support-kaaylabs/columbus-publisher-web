@@ -62,7 +62,6 @@ const Dashboard: FC = (props) => {
 
   return (
     <div>
-      <h1>Dashboard Page</h1>
       {dummyData.map((item, index) => (
         <div key={index}>
           <Impression data={item} />

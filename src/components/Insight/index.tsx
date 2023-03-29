@@ -1,6 +1,10 @@
-import React, {  type FC } from 'react';
+import React, { type FC } from 'react';
 import { Col, Row, DatePicker, Collapse, Space, Table } from 'antd';
-import { EyeOutlined, ArrowRightOutlined, SendOutlined } from '@ant-design/icons';
+import {
+  EyeOutlined,
+  ArrowRightOutlined,
+  SendOutlined,
+} from '@ant-design/icons';
 import { DownloadOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import './Insight.scss';
@@ -35,7 +39,6 @@ const columns: ColumnsType<DataType> = [
     title: 'CTA',
     key: 'tags',
     dataIndex: 'tags',
-
   },
 ];
 
@@ -78,39 +81,43 @@ const data: DataType[] = [
 ];
 const genExtra = () => (
   <DownloadOutlined
-    className='download-icons'
+    className="download-icons"
     onClick={(event) => {
       event.stopPropagation();
     }}
   />
 );
 
-
 const Insight: FC = () => {
   return (
     <>
-      <div className='header-insight'>
-        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} >
+      <div className="header-insight">
+        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
           <Col className="gutter-row" span={6}></Col>
           <Col className="gutter-row" span={6}></Col>
-          <Col className="gutter-row" span={6}> <div className='impres-title'>Impression to Click %</div> </Col>
-          <Col className="gutter-row" span={6}> <div className='click-cta'>Click to CTA %</div>        </Col>
+          <Col className="gutter-row" span={6}>
+            {' '}
+            <div className="impres-title">Impression to Click %</div>{' '}
+          </Col>
+          <Col className="gutter-row" span={6}>
+            {' '}
+            <div className="click-cta">Click to CTA %</div>{' '}
+          </Col>
         </Row>
-        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} >
+        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
           <Col className="gutter-row" span={6}>
             <Space size={12} style={{ width: '100%' }}>
-              <DatePicker  placeholder="From Date" style={{ width: '100%' }} />
+              <DatePicker placeholder="From Date" style={{ width: '100%' }} />
             </Space>
           </Col>
           <Col className="gutter-row" span={6}>
             <Space size={12}>
-              <DatePicker  placeholder="To Date" />
+              <DatePicker placeholder="To Date" />
             </Space>
           </Col>
           <Col className="gutter-row" span={6}>
-
             <Space size={12}>
-              <div className='click-head'>
+              <div className="click-head">
                 <div>
                   <p>
                     <EyeOutlined />
@@ -134,7 +141,7 @@ const Insight: FC = () => {
           </Col>
           <Col className="gutter-row" span={6}>
             <Space size={12}>
-              <div className='click-Cta-head'>
+              <div className="click-Cta-head">
                 <div>
                   <p>
                     <EyeOutlined />
@@ -158,7 +165,6 @@ const Insight: FC = () => {
           </Col>
         </Row>
         <br />
-        {/* Collapse Section */}
         <div>
           <Space direction="vertical">
             <Collapse defaultActiveKey={['1']}>
@@ -166,7 +172,7 @@ const Insight: FC = () => {
                 <Table columns={columns} dataSource={data} />
               </Panel>
             </Collapse>
-            <Collapse >
+            <Collapse>
               <Panel header="Category" key="2" extra={genExtra()}>
                 <Table columns={columns} dataSource={data} />
               </Panel>

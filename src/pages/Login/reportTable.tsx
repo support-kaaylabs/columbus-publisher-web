@@ -7,8 +7,6 @@ import FilterModal from './filter-modal';
 
 const ReportTable: FC = () => {
   const navigate = useNavigate();
-
-  //  const [tableName , setTableName] = useState('');
   const [open, setOpen] = useState<boolean>(false);
   const [modalData, setModalData] = useState({});
   const location = useLocation();
