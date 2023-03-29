@@ -28,13 +28,13 @@ const Dashboard = (props: dashboardDetails) => {
     <div className="dashboard-page">
       <div
         className={
-          data?.eventName === 'views'
+          data?.eventName === 'PRODUCT_VIEWS'
             ? 'impression-img'
-            : null || data?.eventName === 'click'
+            : null || data?.eventName === 'PRODUCT_CLICK'
               ? 'clicks-img'
-              : null || data?.eventName === 'favs'
+              : null || data?.eventName === 'FAVOURITES_CLICK'
                 ? 'favourite-img'
-                : null || data?.eventName === 'cta'
+                : null || data?.eventName === 'CALL_TO_ACTION'
                   ? 'call-to-action-img'
                   : ''
         }
@@ -51,13 +51,13 @@ const Dashboard = (props: dashboardDetails) => {
                 src={require(`../Images/${data.eventName}.png`)}
                 alt="eye-icon"
               />
-              <p>{data?.eventName === 'views'
+              <p>{data?.eventName === 'PRODUCT_VIEWS'
                 ? 'Impressions'
-                : null || data?.eventName === 'click'
+                : null || data?.eventName === 'PRODUCT_CLICK'
                   ? 'Clicks'
-                  : null || data?.eventName === 'favs'
+                  : null || data?.eventName === 'FAVOURITES_CLICK'
                     ? 'Favourites'
-                    : null || data?.eventName === 'cta'
+                    : null || data?.eventName === 'CALL_TO_ACTION'
                       ? 'Call to Auction'
                       : ''}</p>
             </div>
