@@ -5,8 +5,8 @@
 		"name": "jingls-publisher-web",
 		"image": "454552690810.dkr.ecr.ap-south-1.amazonaws.com/jingls-publisher-web:GIT_COMMIT",
 		"cpu": 300,
-		"memory": 300,
-		"memoryReservation": 200,
+		"memory": 500,
+		"memoryReservation": 400,
 		"volumesFrom": [],
 		"portMappings": [{
 			"hostPort": 0,
