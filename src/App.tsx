@@ -16,11 +16,13 @@ import {
   SettingOutlined,
   AlertOutlined,
   DeliveredProcedureOutlined,
-  BellOutlined,
   AppstoreOutlined,
   WalletOutlined,
   CustomerServiceOutlined,
+  LogoutOutlined, 
+
 } from '@ant-design/icons';
+import {updateUserInfo} from './shared/urlHelper';
 import { Layout, Menu } from 'antd';
 const { Header, Sider, Content } = Layout;
 
@@ -28,6 +30,19 @@ const App: FC = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   const ctx = useContext(MyContext);
+
+  const logoutClick = () => {
+    const userId:any = localStorage.getItem('User_ID');
+    const params = {
+      Device_ID: null,
+    };
+    updateUserInfo(userId, params).then((res) => {
+      if (res.success) {
+        localStorage.clear();
+        window.location.href = '/';
+      }
+    });
+  };
 
   return (
     <Layout className={classes.header} style={{ minHeight: '100vh' }}>
@@ -134,10 +149,10 @@ const App: FC = () => {
                       onClick={() => ctx.sideBarHandler('PRODUCT')}
                     >
                       <Link to="products">
-                        <span>
+                        <span className='menuStyle'>
                           <DeliveredProcedureOutlined />
-                        </span>
                         PRODUCT
+                        </span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item
@@ -146,10 +161,10 @@ const App: FC = () => {
                       onClick={() => ctx.sideBarHandler('DASHBOARD')}
                     >
                       <Link to="dashboard">
-                        <span>
+                        <span className='menuStyle'>
                           <AppstoreOutlined />
-                        </span>
                         DASHBOARD
+                        </span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item
@@ -158,10 +173,10 @@ const App: FC = () => {
                       onClick={() => ctx.sideBarHandler('INSIGHTS')}
                     >
                       <Link to="insight">
-                        <span>
+                        <span className='menuStyle'>
                           <AlertOutlined />
-                        </span>
                         INSIGHTS
+                        </span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item
@@ -170,10 +185,10 @@ const App: FC = () => {
                       onClick={() => ctx.sideBarHandler('WALLET')}
                     >
                       <Link to="wallet">
-                        <span>
+                        <span className='menuStyle'>
                           <WalletOutlined />
-                        </span>
                         WALLET
+                        </span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item
@@ -182,10 +197,10 @@ const App: FC = () => {
                       onClick={() => ctx.sideBarHandler('SETTING')}
                     >
                       <Link to="setting">
-                        <span>
+                        <span className='menuStyle'>
                           <SettingOutlined />
-                        </span>
                         SETTING
+                        </span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item
@@ -194,10 +209,22 @@ const App: FC = () => {
                       onClick={() => ctx.sideBarHandler('HELP')}
                     >
                       <Link to="help">
-                        <span>
+                        <span className='menuStyle'>
                           <CustomerServiceOutlined />
-                        </span>
                         HELP
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                    <Menu.Item
+                      key={7}
+                      className={classes.help}
+                      onClick={() => logoutClick}
+                    >
+                      <Link to="/">
+                        <span className='menuStyle'>
+                          <LogoutOutlined />
+                        LOGOUT
+                        </span>
                       </Link>
                     </Menu.Item>
                   </>
@@ -231,16 +258,6 @@ const App: FC = () => {
               )}
             </span>
             <span className={classes.header_content_name}>{ctx.name}</span>
-          </span>
-
-          <span className={classes.header_content_logo}>
-            <div className={classes.notification}>
-              <BellOutlined />
-              <div className={classes.notificationCount} />
-            </div>
-            <div className={classes.imageLogo}>
-              <img src={Image} alt="image1" />
-            </div>
           </span>
         </Header>
         <Content className={classes.content}>

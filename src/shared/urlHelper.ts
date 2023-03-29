@@ -16,7 +16,10 @@ export const getAllReports = () => http.get('/reports');
 
 export const getTenant = () => http.get('/tenant');
 
-export const authenticate = (data: any) => http.get('/login/authenticateSeller', data);
+export const getDashboardData = (data: any) => http.get('get-dashboard-data', data);
 
+export const getChartData = (data: any) => http.get('get-chart-data', data);
 
-// export const getOneReports = (parameters:any) =>  getAPI(`${baseUrl}/reports/report-details`, parameters);
+export const updateUserInfo = (userId: number, data: any) => http.put(`Users/${userId}`, data);
+
+export const authenticate = (data: any) => http.post('/login/authenticateSeller', data);

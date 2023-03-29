@@ -1,54 +1,43 @@
-.apexcharts-toolbar {
+apexcharts-toolbar {
   display: none !important;
 }
-
 .ant-tabs-tab.ant-tabs-tab-active {
   border-bottom: 2px solid #F44336 !important;
   color: black !important;
   z-index: 2;
 }
-
 .testing {
   border-bottom: 2px solid #F44336 !important;
   color: black !important;
   z-index: 2;
 }
-
 .ant-tabs-ink-bar {
   height: 5px;
   background: #F44336 !important;
 }
-
 .drop-btn {
   border: 1px solid black;
   border-radius: 40px;
 }
-
 .charts-datas {
-  display: flex;
-  position: absolute;
   right: 330px;
   top: 61px;
-
   div {
     margin: 0px 2px ;
   }
 }
-
 :where(.css-dev-only-do-not-override-ph9edi).ant-tabs {
   background: rgb(246 246 246);
   padding: 20px;
   border-radius: 9px;
   position: relative;
 }
-
 :where(.css-dev-only-do-not-override-ph9edi).ant-tabs .ant-tabs-tab-btn {
   outline: none;
   transition: all 0.3s;
   font-size: 17px;
   color: grey;
 }
-
 :where(.css-dev-only-do-not-override-ph9edi).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: #000000;
   font-size: 17px;

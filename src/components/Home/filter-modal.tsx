@@ -33,7 +33,6 @@ interface FilterModalProps {
   data: any;
 }
 const FilterModal: FC<FilterModalProps> = ({ open, setOpen, data }) => {
-  console.log('data---', data);
   const [formData, setFormData] = useState<any>({});
   const [autoComplete, setAutoComplete] = useState<any>({});
   const [scheduleObj, setScheduleObj] = useState({});
@@ -48,8 +47,7 @@ const FilterModal: FC<FilterModalProps> = ({ open, setOpen, data }) => {
   const [apiData, setApiData] = useState({});
   const filterData = get(data, 'Filter_List', '');
 
-  console.log('filterData', filterData);
-  console.log('showDate', showDate);
+
 
   const onClick: MenuProps['onClick'] = ({ key }) => {
     console.log(key);
