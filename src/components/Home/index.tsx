@@ -1,11 +1,13 @@
 import React, { useState, type FC } from 'react';
 import { Card, Button, Form, Input } from 'antd';
-import { EyeOutlined } from '@ant-design/icons';
 import '../Home/login.scss';
+import Logo from './Images/logoSmall.png';
 import { authenticate } from '../../shared/urlHelper';
 import '../../stylesheet/style.scss';
 import { errorNotification } from '../../shared/globalVariables';
 import { useNavigate } from 'react-router-dom';
+import UserLogo from './Images/userIconSmall.png';
+import PswdLogo from './Images/passwordIconSmall.png';
 
 const Home: FC = () => {
   const navigate = useNavigate();
@@ -40,19 +42,24 @@ const Home: FC = () => {
   return (
     <div className="login-page">
       <div className="main-component">
-        <div className="welcome-title">WELCOME</div>
+        <div className="welcome-title">
+          <img src={Logo} alt="JINGLS" />
+        </div>
         <Card className="login">
           <div className="title">
-            <img src={require('./Jingle.png')} alt="logo" />
+            <b>PUBLISHER</b>
           </div>
           <Form onFinish={handleSubmit} className="login-form">
             <Form.Item>
               {
                 <div className="username-input">
+                  <label>Username</label>
                   <Input
                     type="email"
                     name="emailId"
-                    placeholder="Email"
+                    prefix={<img src={UserLogo} alt="UserIcon" />}
+                    size="large"
+                    placeholder="Enter Your Name"
                     className="input-text"
                     onChange={(e) => setEmail(e.target.value)}
                     value={emailId}
@@ -63,18 +70,14 @@ const Home: FC = () => {
             <Form.Item>
               {
                 <div className="password-input">
+                  <label>Password</label>
                   <Input
                     type="password"
                     name="password"
-                    placeholder="Password"
+                    size="large"
+                    prefix={<img src={PswdLogo} alt="PasswordIcon" />}
+                    placeholder="Enter Your Password"
                     className="password-text"
-                    suffix={
-                      <EyeOutlined
-                        onClick={() => {
-                          return null;
-                        }}
-                      />
-                    }
                     onChange={(e) => setPassword(e.target.value)}
                     value={password}
                   />
