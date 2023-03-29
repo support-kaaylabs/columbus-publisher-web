@@ -84,19 +84,13 @@ apexcharts-toolbar {
     color: black !important;
     z-index: 2;
   }
-  .ant-tabs-ink-bar {
-    height: 5px;
-    background: #F44336 !important;
-  }
+
   .drop-btn {
     border: 1px solid black;
     border-radius: 40px;
   }
   .charts-datas {
-    // display: flex;
-    // position: absolute;
-    right: 330px;
-    top: 61px;
+    position: relative;
     div {
       margin: 0px 2px ;
     }

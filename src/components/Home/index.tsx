@@ -34,11 +34,12 @@ const Home: FC = () => {
         localStorage.setItem('Image', Image);
         localStorage.setItem('token', token);
         localStorage.setItem('adminLogin', typeof true);
-        localStorage.setItem('menu_collapse',typeof false);    
-        navigate('/dashboard');
+        localStorage.setItem('menu_collapse',typeof false);  
+        setBtnLoading(false);  
+        navigate('/homepage/products');
       }).catch((err: any) =>{
-        console.log(err, 'erro===========>');
-        
+        errorNotification('Please Enter valid Email and Password');
+        setBtnLoading(false);
       });
     }
   };

@@ -7,6 +7,7 @@ import { getChartData } from '../../shared/urlHelper';
 import moment from 'moment';
 import grid from 'antd/es/grid';
 import tooltip from 'antd/es/tooltip';
+import { errorNotification } from '../../shared/globalVariables';
 
 const { TabPane } = Tabs;
 
@@ -42,7 +43,7 @@ const Charts: FC = () => {
                   : '');
       }
     }).catch((err)=>{
-      console.log(err);
+      errorNotification(err);
     });
   };
 
@@ -150,30 +151,8 @@ const Charts: FC = () => {
   return (
     <>
       <Row className="mt-4" style={{ margin: '30px', justifyContent:'center' }}>
-        <Tabs onChange={handleTab}>
-          <TabPane tab="Impressions" key="views">
-            <div id="chart">
-              <Chart options={options} series={series} type="area" width={1000} height={320} />
-            </div>
-          </TabPane>
-          <TabPane tab="Clicks" key="click">
-            <div id="chart">
-              <Chart options={options} series={series} type="area" width={1000} height={320} />
-            </div>
-          </TabPane>
-          <TabPane tab="Call To Action" key="cta">
-            <div id="chart">
-              <Chart options={options} series={series} type="area" width={1000} height={320} />
-            </div>
-          </TabPane>
-          <TabPane tab="Favourite" key="favs">
-            <div id="chart">
-              <Chart options={options} series={series} type="area" width={1000} height={320} />
-            </div>
-          </TabPane>
-        </Tabs>
-        <div className='charts-datas'>
-          <div>
+        <div className='chartStyle'>
+          <Tabs onChange={handleTab} tabBarExtraContent={
             <Space className='drop-btn'>
               <Select
                 defaultValue="Daily"
@@ -183,10 +162,32 @@ const Charts: FC = () => {
                 options={[
                   { value: 'Monthly', label: 'Monthly' },
                   { value: 'Daily', label: 'Daily' },
-                ]}
+                ]} 
               />
             </Space>
-          </div>
+           
+          } className='chartStyle'>
+            <TabPane tab="Impressions" key="views">
+              <div id="chart">
+                <Chart options={options} series={series} type="area" width={1000} height={320} />
+              </div>
+            </TabPane>
+            <TabPane tab="Clicks" key="click">
+              <div id="chart">
+                <Chart options={options} series={series} type="area" width={1000} height={320} />
+              </div>
+            </TabPane>
+            <TabPane tab="Call To Action" key="cta">
+              <div id="chart">
+                <Chart options={options} series={series} type="area" width={1000} height={320} />
+              </div>
+            </TabPane>
+            <TabPane tab="Favourite" key="favs">
+              <div id="chart">
+                <Chart options={options} series={series} type="area" width={1000} height={320} />
+              </div>
+            </TabPane>
+          </Tabs>
         </div>
       </Row>
     </>
