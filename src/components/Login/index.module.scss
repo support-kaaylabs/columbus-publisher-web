@@ -1,0 +1,91 @@
+.login_head {
+  background: transparent;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('./Images/bgImgLarge.png');
+  background-repeat: no-repeat;
+  .login_head_content {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 3px 3px 9px 6px #fdebeb;
+    border-radius: 20px;
+    width: 380px;
+    height: 330px;
+    padding: 50px;
+    .login_head_content_logo {
+      text-align: center;
+    }
+    .login_head_content_text {
+      text-align: center;
+      margin: 0px;
+      margin-top: 10px;
+      font-size: 16px;
+      color: #000000;
+      font-weight: bold;
+    }
+    .login_head_content_form {
+      margin: 20px 0px;
+      .login_head_content_form_nameHead {
+        label {
+          margin-left: 55px;
+          font-size: 14px;
+          font-weight: bold;
+        }
+        .login_head_content_form_name {
+          width: 100%;
+          margin-bottom: 20px;
+          border-radius: 0px;
+          outline: none;
+          border: none;
+          border-bottom: 1px solid gray;
+          span {
+            img {
+            }
+          }
+          input {
+            margin-left: 19px;
+          }
+        }
+      }
+      .login_head_content_form_passwordHead {
+        label {
+          font-size: 14px;
+          margin-left: 55px;
+          font-weight: bold;
+        }
+        .login_head_content_form_password {
+          width: 100%;
+          margin-bottom: 20px;
+          border: none;
+          border-radius: 0px;
+          outline-style: none;
+          border-bottom: 1px solid gray;
+
+          span {
+            img {
+            }
+          }
+          input {
+            margin-left: 19px;
+          }
+        }
+      }
+    }
+    .login_head_content_button {
+      button {
+        background-color: #e53935;
+        border-radius: 15px;
+        border: none;
+        color: #fef8f8;
+        font-size: 16px;
+        font-weight: 500px;
+        padding: 10px 0px;
+        width: 100%;
+      }
+    }
+  }
+}

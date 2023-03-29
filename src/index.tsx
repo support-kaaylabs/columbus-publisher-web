@@ -9,6 +9,7 @@ import ProductList from './components/Product';
 import ProductDetail from './components/Product/detail';
 import Dashboard from './pages/Dashboard';
 import { MyProvider } from './components/store/dataStore';
+import Login from './components/Login';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -17,7 +18,8 @@ root.render(
   <MyProvider>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
         <Route path="homePage" element={<App />}>
           <Route path="products" element={<ProductList />} />
           <Route path="products/:slug" element={<ProductDetail />} />
