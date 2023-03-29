@@ -1,5 +1,9 @@
 import React, { type FC } from 'react';
-import Impression from '../../components/Dashboard';
+import PublisherDashboard from '../../components/Dashboard';
+import {getDashboardData} from '../../shared/urlHelper';
+import { useEffect, useState } from 'react';
+import {get} from 'lodash';
+import Charts from '../../components/Dashboard/Chart';
 
 const Dashboard: FC = (props) => {
   type dashboardInfo = {
@@ -13,6 +17,7 @@ const Dashboard: FC = (props) => {
     monthDifference: number;
     quaterDifference: number;
   };
+  const [dashboardData , setDashboardData] = useState([]);
   const dummyData: dashboardInfo[] = [
     {
       title: 'Impressions',
@@ -59,14 +64,36 @@ const Dashboard: FC = (props) => {
       quaterDifference: 8952,
     },
   ];
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  return (
+  const fetchData = () => {
+    const sellerId = localStorage.getItem('User_ID');
+    console.log(sellerId, 'sellerID');    
+    const params = {sellerId}; 
+    getDashboardData(params).then((data)=>{
+      console.log(data, 'datatta==========>');
+      
+      if(data.success) {
+        setDashboardData(get(data, 'data', []));     
+      }
+    }).catch((err)=>{
+      console.log(err);
+    });
+  };
+
+  return (    
     <div>
-      {dummyData.map((item, index) => (
+      <h1>Dashboard Page</h1>
+      {dashboardData.map((item, index) => (
         <div key={index}>
-          <Impression data={item} />
+          <PublisherDashboard data={item} />
         </div>
       ))}
+      <div>
+        <Charts />
+      </div>
     </div>
   );
 };
