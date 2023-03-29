@@ -1,0 +1,28 @@
+{ 
+    "family": "jingls-publisher-web",
+	"taskRoleArn": "arn:aws:iam::454552690810:role/task_role",
+	"containerDefinitions": [{
+		"name": "jinglebid-admin",
+		"image": "454552690810.dkr.ecr.ap-south-1.amazonaws.com/jingls-publisher-web:GIT_COMMIT",
+		"cpu": 300,
+		"memory": 300,
+		"memoryReservation": 200,
+		"volumesFrom": [],
+		"portMappings": [{
+			"hostPort": 0,
+			"containerPort": 3000,
+			"protocol": "tcp"
+		}],
+		"essential": true,
+		"logConfiguration": {
+			"logDriver": "awslogs",
+			"options": {
+			  "awslogs-group": "GROUP_NAME",
+			  "awslogs-region": "ap-south-1",
+			  "awslogs-stream-prefix": "jingls-publisher-web"
+			}
+		  },
+		"environment": [],
+		"mountPoints": []
+	}]
+}
