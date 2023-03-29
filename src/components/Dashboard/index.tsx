@@ -5,15 +5,15 @@ import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 
 interface dashboardDetails {
   data: {
-    title:string,
-    todayPercentage:number,
-    todayDifference:number,
-    weekDifference:number,
-    weekPercentage:number,
-    monthDifference:number,
-    monthPercentage:number,
-    quaterDifference:number,
-    quaterPercentage:number,
+    title: string;
+    todayPercentage: number;
+    todayDifference: number;
+    weekDifference: number;
+    weekPercentage: number;
+    monthDifference: number;
+    monthPercentage: number;
+    quaterDifference: number;
+    quaterPercentage: number;
   };
 }
 
@@ -22,19 +22,17 @@ const Dashboard = (props: dashboardDetails) => {
 
   return (
     <div className="dashboard-page">
-      <div
-        className={
-          data?.title === 'Impressions'
-            ? 'impression-img'
-            : null || data?.title === 'Clicks'
-              ? 'clicks-img'
-              : null || data?.title === 'Favourite'
-                ? 'favourite-img'
-                : null || data?.title === 'Call to action'
-                  ? 'call-to-action-img'
-                  : ''
-        }
-      >
+      <div>
+        {/* className=
+        {data?.title === 'Impressions'
+          ? 'impression-img'
+          : null || data?.title === 'Clicks'
+          ? 'clicks-img'
+          : null || data?.title === 'Favourite'
+          ? 'favourite-img'
+          : null || data?.title === 'Call to action'
+          ? 'call-to-action-img'
+          : ''} */}
         <Row justify="space-around" className="card-alignment">
           <Col
             xs={{ span: 4 }}
