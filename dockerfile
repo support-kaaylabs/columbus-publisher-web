@@ -7,17 +7,15 @@ RUN node --version
 
 RUN npm --version
 
-RUN apk add git
-
 COPY package*.json /apps/
 
-RUN yarn install 
+RUN npm install 
 
 COPY . /apps
 
-RUN yarn run build
+RUN npm run build
 
-RUN ls
+RUN ls -ltr
 
 # Confirm the working directory
 
