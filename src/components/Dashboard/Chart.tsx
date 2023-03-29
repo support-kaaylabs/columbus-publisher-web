@@ -1,12 +1,8 @@
 import React, { useState, useEffect, type FC } from 'react';
-import { Tabs, Row, Select, Space,DatePicker } from 'antd';
+import { Tabs, Row, Select, Space } from 'antd';
 import './Chart.scss';
-import get, { fill } from 'lodash';
 import Chart from 'react-apexcharts';
 import { getChartData } from '../../shared/urlHelper';
-import moment from 'moment';
-import grid from 'antd/es/grid';
-import tooltip from 'antd/es/tooltip';
 import { errorNotification } from '../../shared/globalVariables';
 
 const { TabPane } = Tabs;
@@ -14,7 +10,7 @@ const { TabPane } = Tabs;
 const Charts: FC = () => {
   const [counts, setCounts] = useState([]);
   const [dates, setDates] = useState([]);
-  const [chartType, setChartType] = useState('views');
+  const [chartType, setChartType] = useState('Impressions');
   const [chartMode, setChartMode] = useState('Daily');
   const [chartColor, setChartColor] = useState('');
 
@@ -167,22 +163,22 @@ const Charts: FC = () => {
             </Space>
            
           } className='chartStyle'>
-            <TabPane tab="Impressions" key="views">
+            <TabPane tab="Impressions" key="Impressions">
               <div id="chart">
                 <Chart options={options} series={series} type="area" width={1000} height={320} />
               </div>
             </TabPane>
-            <TabPane tab="Clicks" key="click">
+            <TabPane tab="Clicks" key="Clicks">
               <div id="chart">
                 <Chart options={options} series={series} type="area" width={1000} height={320} />
               </div>
             </TabPane>
-            <TabPane tab="Call To Action" key="cta">
+            <TabPane tab="Call To Action" key="Call_To_Action">
               <div id="chart">
                 <Chart options={options} series={series} type="area" width={1000} height={320} />
               </div>
             </TabPane>
-            <TabPane tab="Favourite" key="favs">
+            <TabPane tab="Favourite" key="Favourite">
               <div id="chart">
                 <Chart options={options} series={series} type="area" width={1000} height={320} />
               </div>
@@ -193,3 +189,6 @@ const Charts: FC = () => {
     </>
   );
 };
+
+export default Charts;
+

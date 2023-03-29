@@ -37,7 +37,7 @@ const Home: FC = () => {
         localStorage.setItem('menu_collapse',typeof false);  
         setBtnLoading(false);  
         navigate('/homepage/products');
-      }).catch((err: any) =>{
+      }).catch(() =>{
         errorNotification('Please Enter valid Email and Password');
         setBtnLoading(false);
       });
