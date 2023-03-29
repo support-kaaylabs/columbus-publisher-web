@@ -1,5 +1,5 @@
 # build environment
-FROM node:16.0.0-alpine3.11 as build
+FROM node:16.14.1-alpine3.11 as build
 
 WORKDIR /apps
 
@@ -8,6 +8,8 @@ RUN node --version
 RUN npm --version
 
 COPY package*.json .npmrc /apps/
+
+RUN npm install -g serve
 
 RUN npm install 
 
@@ -21,4 +23,4 @@ RUN ls -ltr
 
 EXPOSE  3000
 
-CMD ["npm", "start"]
+CMD ["serve", "-s", "build"]
