@@ -1,5 +1,5 @@
 # build environment
-FROM node:14.16.1-alpine3.11 as build
+FROM node:16.0.0-alpine3.11 as build
 
 WORKDIR /apps
 
@@ -7,7 +7,7 @@ RUN node --version
 
 RUN npm --version
 
-COPY package*.json /apps/
+COPY package*.json .npmrc /apps/
 
 RUN npm install 
 
