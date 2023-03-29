@@ -5,34 +5,41 @@ import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 
 interface dashboardDetails {
   data: {
-    title: string;
-    todayPercentage: number;
-    todayDifference: number;
-    weekDifference: number;
-    weekPercentage: number;
-    monthDifference: number;
-    monthPercentage: number;
-    quaterDifference: number;
-    quaterPercentage: number;
+    eventName:string,
+    todayPercent:number,
+    today:number,
+    preDate: number,
+    week:number,
+    preWeek: number,
+    weekPercent:number,
+    preMonth: number,
+    month:number,
+    monthPercent:number,
+    quarter:number,
+    preQuarter:number,
+    quarterPercent:number,
   };
 }
 
 const Dashboard = (props: dashboardDetails) => {
   const { data } = props;
-
+  console.log(data, 'propsss==========>');
+  
   return (
     <div className="dashboard-page">
-      <div>
-        {/* className=
-        {data?.title === 'Impressions'
-          ? 'impression-img'
-          : null || data?.title === 'Clicks'
-          ? 'clicks-img'
-          : null || data?.title === 'Favourite'
-          ? 'favourite-img'
-          : null || data?.title === 'Call to action'
-          ? 'call-to-action-img'
-          : ''} */}
+      <div
+        className={
+          data?.eventName === 'views'
+            ? 'impression-img'
+            : null || data?.eventName === 'click'
+              ? 'clicks-img'
+              : null || data?.eventName === 'favs'
+                ? 'favourite-img'
+                : null || data?.eventName === 'cta'
+                  ? 'call-to-action-img'
+                  : ''
+        }
+      >
         <Row justify="space-around" className="card-alignment">
           <Col
             xs={{ span: 4 }}
@@ -42,10 +49,18 @@ const Dashboard = (props: dashboardDetails) => {
           >
             <div className="icon-img">
               <img
-                src={require(`../Images/${data.title}.png`)}
+                src={require(`../Images/${data.eventName}.png`)}
                 alt="eye-icon"
               />
-              <p>{data.title}</p>
+              <p>{data?.eventName === 'views'
+                ? 'Impressions'
+                : null || data?.eventName === 'click'
+                  ? 'Clicks'
+                  : null || data?.eventName === 'favs'
+                    ? 'Favourites'
+                    : null || data?.eventName === 'cta'
+                      ? 'Call to Auction'
+                      : ''}</p>
             </div>
           </Col>
           <Col
@@ -59,12 +74,18 @@ const Dashboard = (props: dashboardDetails) => {
               bordered={false}
             >
               <b>Today</b>
-              <p className="percentage">{data.todayPercentage}%</p>
+              <p className="percentage">{data.todayPercent}%</p>
               <div className="d-flex">
-                <span className="diffrence">{data.todayDifference}</span> &nbsp;
-                <ArrowDownOutlined
-                  style={{ fontSize: '16px', color: '#EE1313' }}
-                />
+                <span className="diffrence">{data.today}</span> &nbsp;
+                {data.today < data.preDate ? (
+                  <ArrowDownOutlined
+                    style={{ fontSize: '16px', color: '#EE1313' }}
+                  />
+                ): (
+                  <ArrowUpOutlined
+                    style={{ fontSize: '16px', color: '#27AE07' }}
+                  />
+                )}
               </div>
             </Card>
           </Col>
@@ -79,12 +100,18 @@ const Dashboard = (props: dashboardDetails) => {
               bordered={false}
             >
               <b>This Week</b>
-              <p className="percentage">{data.weekPercentage}%</p>
+              <p className="percentage">{data.weekPercent}%</p>
               <div className="d-flex">
-                <span className="diffrence">{data.weekDifference}</span> &nbsp;
-                <ArrowUpOutlined
-                  style={{ fontSize: '16px', color: '#27AE07' }}
-                />
+                <span className="diffrence">{data.week}</span> &nbsp;
+                {data.week < data.preWeek ? (
+                  <ArrowDownOutlined
+                    style={{ fontSize: '16px', color: '#EE1313' }}
+                  />
+                ): (
+                  <ArrowUpOutlined
+                    style={{ fontSize: '16px', color: '#27AE07' }}
+                  />
+                )}
               </div>
             </Card>
           </Col>
@@ -99,12 +126,18 @@ const Dashboard = (props: dashboardDetails) => {
               bordered={false}
             >
               <b>This Month</b>
-              <p className="percentage">{data.monthPercentage}%</p>
+              <p className="percentage">{data.monthPercent}%</p>
               <div className="d-flex">
-                <span className="diffrence">{data.monthDifference}</span> &nbsp;
-                <ArrowUpOutlined
-                  style={{ fontSize: '16px', color: '#27AE07' }}
-                />
+                <span className="diffrence">{data.month}</span> &nbsp;
+                {data.month < data.preMonth ? (
+                  <ArrowDownOutlined
+                    style={{ fontSize: '16px', color: '#EE1313' }}
+                  />
+                ): (
+                  <ArrowUpOutlined
+                    style={{ fontSize: '16px', color: '#27AE07' }}
+                  />
+                )}
               </div>
             </Card>
           </Col>
@@ -119,13 +152,19 @@ const Dashboard = (props: dashboardDetails) => {
               bordered={false}
             >
               <b>Quarter</b>
-              <p className="percentage">{data.quaterPercentage}%</p>
+              <p className="percentage">{data.quarterPercent}%</p>
               <div className="d-flex">
-                <span className="diffrence">{data.quaterDifference}</span>{' '}
+                <span className="diffrence">{data.quarter}</span>{' '}
                 &nbsp;
-                <ArrowUpOutlined
-                  style={{ fontSize: '16px', color: '#27AE07' }}
-                />
+                {data.quarter < data.preQuarter ? (
+                  <ArrowDownOutlined
+                    style={{ fontSize: '16px', color: '#EE1313' }}
+                  />
+                ): (
+                  <ArrowUpOutlined
+                    style={{ fontSize: '16px', color: '#27AE07' }}
+                  />
+                )}
               </div>
             </Card>
           </Col>

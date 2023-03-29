@@ -14,7 +14,6 @@ const Home: FC = () => {
   const [btnLoading, setBtnLoading] = useState(false);
 
   const handleSubmit = () => {
-    navigate('/homePage/products');
     const params = {
       emailId,
       password,
@@ -25,14 +24,21 @@ const Home: FC = () => {
       errorNotification('Please Enter the Email and Password');
     } else {
       setBtnLoading(true);
-      authenticate(params).catch((resp: any) => {
-        if (resp.success === false && resp.error.mailError) {
-          errorNotification(resp.error.mailError);
-          setBtnLoading(false);
-        } else if (resp.success === false && resp.error.passwordError) {
-          errorNotification(resp.error.passwordError);
-          setBtnLoading(false);
-        }
+      authenticate(params).then((resp: any) => {
+        const { User_Name, User_ID, User_Type, Image, User_Uid } = resp.data && resp.data[0];
+        const { token } = resp;
+        localStorage.setItem('User_Name', User_Name);
+        localStorage.setItem('User_ID', User_ID);
+        localStorage.setItem('User_Uid', User_Uid);
+        localStorage.setItem('User_Type', User_Type);
+        localStorage.setItem('Image', Image);
+        localStorage.setItem('token', token);
+        localStorage.setItem('adminLogin', typeof true);
+        localStorage.setItem('menu_collapse',typeof false);    
+        navigate('/dashboard');
+      }).catch((err: any) =>{
+        console.log(err, 'erro===========>');
+        
       });
     }
   };
