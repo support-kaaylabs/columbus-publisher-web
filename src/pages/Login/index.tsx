@@ -17,32 +17,10 @@ const Home: FC = () => {
 
 
 
-  const handleSubmit = (e: any) => {
+  const onFinish = (e: any) => {
     console.log(e, 'hits=============>');
-    navigate('/dashboard');
-    const params = {
-      emailId,
-      password,
-      userType: 'Merchant',
-    };
-    console.log(params, 'params----------->');
-    if (emailId === '' && password === '') {
-      errorNotification('Please Enter the Email and Password');
-    } else {
-      authenticate(params)
-        .then((resp) => {
-          console.log(resp, 'responses==========>');
-          console.log(localStorage.getItem('fcmToken'), 'devicesParams');
-        })
-        .catch((resp: any) => {
-          if (resp.success === false && resp.error.mailError) {
-            errorNotification(resp.error.mailError);
-          } else if (resp.success === false && resp.error.passwordError) {
-            errorNotification(resp.error.passwordError);
-          }
-        });
-    }
   };
+  
   return (
     <div className="login-page">
       <div className="main-component">
@@ -51,7 +29,7 @@ const Home: FC = () => {
           <div className="title">
             <img src={require('./Jingle.png')} alt="logo" />
           </div>
-          <Form onFinish={handleSubmit} className="login-form">
+          <Form onFinish={onFinish} className="login-form">
             <Form.Item>
               {
                 <div className="username-input">
