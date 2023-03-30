@@ -58,7 +58,7 @@ const Dashboard = (props: dashboardDetails) => {
                   : null || data?.Event_Name === 'FAVOURITES_CLICK'
                     ? 'Favourites'
                     : null || data?.Event_Name === 'CALL_TO_ACTION'
-                      ? 'Call to Auction'
+                      ? 'Call to Action'
                       : ''}</p>
             </div>
           </Col>
