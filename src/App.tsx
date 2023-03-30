@@ -68,7 +68,7 @@ const App: FC = () => {
               <nav>
                 {collapsed ? (
                   <>
-                    <Menu.Item
+                    {/* <Menu.Item
                       key={1}
                       title="PRODUCT"
                       className={classes.products}
@@ -79,7 +79,7 @@ const App: FC = () => {
                           <DeliveredProcedureOutlined />
                         </span>
                       </Link>
-                    </Menu.Item>
+                    </Menu.Item> */}
                     <Menu.Item
                       key={2}
                       title="DASHBOARD"
@@ -92,7 +92,7 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item>
-                    <Menu.Item
+                    {/* <Menu.Item
                       key={3}
                       title="INSIGHT"
                       className={classes.insights}
@@ -103,8 +103,8 @@ const App: FC = () => {
                           <AlertOutlined />
                         </span>
                       </Link>
-                    </Menu.Item>
-                    <Menu.Item
+                    </Menu.Item> */}
+                    {/* <Menu.Item
                       key={4}
                       title="WALLET"
                       className={classes.wallet}
@@ -115,7 +115,7 @@ const App: FC = () => {
                           <WalletOutlined />
                         </span>
                       </Link>
-                    </Menu.Item>
+                    </Menu.Item> */}
                     <Menu.Item
                       key={5}
                       title="SETTING"
@@ -143,7 +143,7 @@ const App: FC = () => {
                   </>
                 ) : (
                   <>
-                    <Menu.Item
+                    {/* <Menu.Item
                       key={1}
                       className={classes.products}
                       onClick={() => ctx.sideBarHandler('PRODUCT')}
@@ -154,7 +154,7 @@ const App: FC = () => {
                           PRODUCT
                         </span>
                       </Link>
-                    </Menu.Item>
+                    </Menu.Item> */}
                     <Menu.Item
                       key={2}
                       className={classes.dashboard}
@@ -167,7 +167,7 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item>
-                    <Menu.Item
+                    {/* <Menu.Item
                       key={3}
                       className={classes.insights}
                       onClick={() => ctx.sideBarHandler('INSIGHTS')}
@@ -190,7 +190,7 @@ const App: FC = () => {
                           WALLET
                         </span>
                       </Link>
-                    </Menu.Item>
+                    </Menu.Item> */}
                     <Menu.Item
                       key={5}
                       className={classes.setting}

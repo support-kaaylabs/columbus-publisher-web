@@ -17,7 +17,7 @@ interface MyComponentProps {
 }
 
 export const MyProvider: React.FC<MyComponentProps> = ({ children }) => {
-  const [name, setName] = useState<string>('PRODUCT');
+  const [name, setName] = useState<string>('DASHBOARD');
 
   const sideBarHandler = (prop: string) => {
     setName(prop);
