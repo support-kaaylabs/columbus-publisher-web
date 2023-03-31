@@ -17,14 +17,14 @@ const Dashboard: FC = (props) => {
     const params = {sellerId}; 
     getDashboardData(params).then((data)=>{
       if(data.success) {
-        setDashboardData(get(data, 'data', []));     
+        setDashboardData(get(data, 'data', []));  
       }
     }).catch((err)=>{
       errorNotification(err);
     });
   };
 
-  return (    
+  return (  
     <div>
       {dashboardData.map((item, index) => (
         <div key={index}>
