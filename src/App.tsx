@@ -115,7 +115,7 @@ const App: FC = () => {
                           <WalletOutlined />
                         </span>
                       </Link>
-                    </Menu.Item> */}
+                    </Menu.Item>
                     <Menu.Item
                       key={5}
                       title="SETTING"
@@ -127,7 +127,7 @@ const App: FC = () => {
                           <SettingOutlined />
                         </span>
                       </Link>
-                    </Menu.Item>
+                    </Menu.Item> 
                     <Menu.Item
                       key={6}
                       title="HELP"
@@ -137,6 +137,18 @@ const App: FC = () => {
                       <Link to="help">
                         <span>
                           <CustomerServiceOutlined />
+                        </span>
+                      </Link>
+                    </Menu.Item>   */}
+                    <Menu.Item
+                      key={7}
+                      title="LOGOUT"
+                      className={classes.logout}
+                      onClick={() => logoutClick}
+                    >
+                      <Link to="/">
+                        <span>
+                          <LogoutOutlined />                          
                         </span>
                       </Link>
                     </Menu.Item>
@@ -190,7 +202,7 @@ const App: FC = () => {
                           WALLET
                         </span>
                       </Link>
-                    </Menu.Item> */}
+                    </Menu.Item> 
                     <Menu.Item
                       key={5}
                       className={classes.setting}
@@ -214,10 +226,10 @@ const App: FC = () => {
                           HELP
                         </span>
                       </Link>
-                    </Menu.Item>
+                    </Menu.Item> */}
                     <Menu.Item
                       key={7}
-                      className={classes.help}
+                      className={classes.logout}
                       onClick={() => logoutClick}
                     >
                       <Link to="/">
