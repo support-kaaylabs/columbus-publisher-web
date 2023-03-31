@@ -1,114 +1,115 @@
-
 .dashboard-page {
+  background-repeat: no-repeat;
+  background-size: 100%;
+  display: flex;
+  font-family: 'Lato', sans-serif;
+  flex-direction: column;
+  justify-content: center;
+  margin: 20px;
+
+  .impression-img {
+    background-image: url('../Images/pink-bg-img.png');
     background-repeat: no-repeat;
     background-size: 100%;
+    border-radius: 20px;
+  }
+
+  .clicks-img {
+    background-image: url('../Images/blue-bg-img.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    border-radius: 20px;
+  }
+
+  .favourite-img {
+    background-image: url('../Images/green-bg-img.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    border-radius: 20px;
+  }
+
+  .call-to-action-img {
+    background-image: url('../Images/brown-bg-img.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    border-radius: 20px;
+  }
+
+  .card-alignment {
+    padding: 45px 30px 45px 30px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 20px;
+    align-items: center;
 
-    .impression-img {
-        background-image: url("../Images/pink-bg-img.png");
-        background-repeat: no-repeat;
-        background-size: 100%;
-        border-radius: 20px;
+    .percentage {
+      border-bottom: 1px solid;
+      max-width: fit-content;
+      margin: 18px 0px 5px 0px;
+      color: #bbbbbb;
     }
 
-    .clicks-img {
-        background-image: url("../Images/blue-bg-img.png");
-        background-repeat: no-repeat;
-        background-size: 100%;
-        border-radius: 20px;
+    .diffrence {
+      font-size: 17px;
+      font-weight: bold;
     }
 
-    .favourite-img {
-        background-image: url("../Images/green-bg-img.png");
-        background-repeat: no-repeat;
-        background-size: 100%;
-        border-radius: 20px;
+    .icon-img {
+      text-align: center;
+
+      p {
+        font-size: 21px;
+        color: #222222;
+        font-weight: 600;
+      }
     }
 
-    .call-to-action-img {
-        background-image: url("../Images/brown-bg-img.png");
-        background-repeat: no-repeat;
-        background-size: 100%;
-        border-radius: 20px;
+    .icon-img img {
+      background: white;
+      border-radius: 50%;
+      padding: 10px;
     }
-
-    .card-alignment {
-        padding: 45px 30px 45px 30px;
-        display: flex;
-        align-items: center;
-
-        .percentage {
-            border-bottom: 1px solid;
-            max-width: fit-content;
-            margin: 18px 0px 5px 0px;
-            color: #BBBBBB;
-        }
-
-        .diffrence {
-            font-size: 17px;
-            font-weight: bold;
-        }
-
-        .icon-img {
-            text-align: center;
-
-            p {
-                font-size: 21px;
-                color: #222222;
-                font-weight: 600;
-            }
-        }
-
-        .icon-img img {
-            background: white;
-            border-radius: 50%;
-            padding: 10px;
-        }
-
-    }
+  }
 }
 
 apexcharts-toolbar {
-    display: none !important;
+  display: none !important;
+}
+.ant-tabs-tab.ant-tabs-tab-active {
+  border-bottom: 2px solid #f44336 !important;
+  color: black !important;
+  z-index: 2;
+}
+.testing {
+  border-bottom: 2px solid #f44336 !important;
+  color: black !important;
+  z-index: 2;
+}
+.drop-btn {
+  border: 1px solid black;
+  border-radius: 40px;
+}
+.charts-datas {
+  position: relative;
+  div {
+    margin: 0px 2px;
   }
-  .ant-tabs-tab.ant-tabs-tab-active {
-    border-bottom: 2px solid #F44336 !important;
-    color: black !important;
-    z-index: 2;
-  }
-  .testing {
-    border-bottom: 2px solid #F44336 !important;
-    color: black !important;
-    z-index: 2;
-  }
-  .drop-btn {
-    border: 1px solid black;
-    border-radius: 40px;
-  }
-  .charts-datas {
-    position: relative;
-    div {
-      margin: 0px 2px ;
-    }
-  }
-  :where(.css-dev-only-do-not-override-ph9edi).ant-tabs {
-    background: rgb(246 246 246);
-    padding: 20px;
-    border-radius: 9px;
-    position: relative;
-  }
-  :where(.css-dev-only-do-not-override-ph9edi).ant-tabs .ant-tabs-tab-btn {
-    outline: none;
-    transition: all 0.3s;
-    font-size: 17px;
-    color: grey;
-  }
-  :where(.css-dev-only-do-not-override-ph9edi).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-    color: #000000;
-    font-size: 17px;
-    text-shadow: 0 0 0.25px currentcolor;
-    font-weight: 400;
-  }
+}
+:where(.css-dev-only-do-not-override-ph9edi).ant-tabs {
+  background: rgb(246 246 246);
+  padding: 20px;
+  border-radius: 9px;
+  position: relative;
+}
+:where(.css-dev-only-do-not-override-ph9edi).ant-tabs .ant-tabs-tab-btn {
+  outline: none;
+  transition: all 0.3s;
+  font-size: 17px;
+  color: grey;
+}
+:where(.css-dev-only-do-not-override-ph9edi).ant-tabs
+  .ant-tabs-tab.ant-tabs-tab-active
+  .ant-tabs-tab-btn {
+  color: #000000;
+  font-size: 17px;
+  text-shadow: 0 0 0.25px currentcolor;
+  font-weight: 400;
+}

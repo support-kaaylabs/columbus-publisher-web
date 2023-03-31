@@ -1,7 +1,6 @@
 import React, { useState, useEffect, type FC } from 'react';
-import { Tabs, Row, Select, Space } from 'antd';
+import { Tabs } from 'antd';
 import './Chart.scss';
-import Chart from 'react-apexcharts';
 import { getChartData } from '../../shared/urlHelper';
 import { errorNotification } from '../../shared/globalVariables';
 
@@ -20,34 +19,36 @@ const Charts: FC = () => {
 
   const fetchData = () => {
     const sellerId = localStorage.getItem('User_ID');
-    const params = {sellerId, eventName: chartType, chartMode}; 
-    getChartData(params).then((resp)=>{
-      if(resp.success) {        
-        const counts = resp.data.map((id: any) => id.Count);
-        const dates = resp.data.map((id: any) => id.date);
-        setCounts(counts);
-        setDates(dates);
-        setChartColor(
-          chartType === 'PRODUCT_VIEWS'
-            ? '#e53935'
-            : null || chartType === 'PRODUCT_CLICK'
-              ? '#AFBCFB'
-              : null || chartType === 'FAVOURITES_CLICK'
-                ? '#79DE8D'
-                : null || chartType === 'CALL_TO_ACTION'
-                  ? '#f2eaca'
-                  : '');
-      }
-    }).catch((err)=>{
-      errorNotification(err);
-    });
+    const params = { sellerId, eventName: chartType, chartMode };
+    getChartData(params)
+      .then((resp) => {
+        if (resp.success) {
+          const counts = resp.data.map((id: any) => id.Count);
+          const dates = resp.data.map((id: any) => id.date);
+          setCounts(counts);
+          setDates(dates);
+          // setChartColor();
+          // chartType === 'PRODUCT_VIEWS'
+          //   ? '#e53935'
+          //   : null || chartType === 'PRODUCT_CLICK'
+          //   ? '#AFBCFB'
+          //   : null || chartType === 'FAVOURITES_CLICK'
+          //   ? '#79DE8D'
+          //   : null || chartType === 'CALL_TO_ACTION'
+          //   ? '#f2eaca'
+          //   : ''
+        }
+      })
+      .catch((err) => {
+        errorNotification(err);
+      });
   };
 
-  const handleTab = (key:any) => {
+  const handleTab = (key: any) => {
     setChartType(key);
   };
 
-  const options =  {
+  const options = {
     chart: {
       id: 'apexchart-example',
     },
@@ -63,7 +64,7 @@ const Charts: FC = () => {
       theme: 'dark',
       style: {
         fontSize: '12px',
-        fontFamily: undefined
+        fontFamily: undefined,
       },
       onDatasetHover: {
         highlightDataSeries: false,
@@ -78,7 +79,7 @@ const Charts: FC = () => {
       },
       z: {
         formatter: undefined,
-        title: 'Size: '
+        title: 'Size: ',
       },
       marker: {
         show: true,
@@ -91,7 +92,7 @@ const Charts: FC = () => {
       },
     },
     dataLabels: {
-      enabled: false
+      enabled: false,
     },
     grid: {
       show: true,
@@ -99,96 +100,129 @@ const Charts: FC = () => {
     },
     colors: [chartColor],
     fill: {
-      colors: [chartColor]
+      colors: [chartColor],
     },
-    yaxis: [{
-      axisTicks: {
-        show: true
+    yaxis: [
+      {
+        axisTicks: {
+          show: true,
+        },
+        labels: {
+          style: {
+            colors: 'grey',
+            fontSize: '18px',
+          },
+        },
+        axisBorder: {
+          show: true,
+          color: '#000000',
+          width: 2.5,
+        },
       },
-      labels: {
-        style: {
-          colors: 'grey',
-          fontSize: '18px',
-        }
-      },
-      axisBorder: {
-        show: true,
-        color: '#000000',
-        width: 2.5
-      }
-    }],
+    ],
     xaxis: {
       categories: dates,
       axisTicks: {
-        show: true
+        show: true,
       },
       stroke: {
-        curve: ['smooth', 'straight', 'stepline']
+        curve: ['smooth', 'straight', 'stepline'],
       },
       labels: {
         style: {
           colors: 'grey',
           fontSize: '18px',
-        }
+        },
       },
       axisBorder: {
         show: true,
         color: '#000000',
-        height: 2.5
-      }
-    }
+        height: 2.5,
+      },
+    },
   };
 
-  const series= [{
-    name: 'series-1',
-    data: counts
-  }];
-  
+  const series = [
+    {
+      name: 'series-1',
+      data: counts,
+    },
+  ];
+
   return (
     <>
-      <Row className="mt-4" style={{ margin: '30px', justifyContent:'center' }}>
-        <div className='chartStyle'>
-          <Tabs onChange={handleTab} tabBarExtraContent={
-            <Space className='drop-btn'>
-              <Select
-                defaultValue="Daily"
-                style={{ width: 140 }}
-                bordered={false}
-                onChange={(value)=>setChartMode(value)}
-                options={[
-                  { value: 'Monthly', label: 'Monthly' },
-                  { value: 'Daily', label: 'Daily' },
-                ]} 
-              />
-            </Space>
-           
-          } className='chartStyle'>
+      {/* <Row
+        className="mt-4"
+        style={{ margin: '30px', justifyContent: 'center' }}
+      >
+        <div className="chartStyle">
+          <Tabs
+            onChange={handleTab}
+            tabBarExtraContent={
+              <Space className="drop-btn">
+                <Select
+                  defaultValue="Daily"
+                  style={{ width: 140 }}
+                  bordered={false}
+                  onChange={(value) => setChartMode(value)}
+                  options={[
+                    { value: 'Monthly', label: 'Monthly' },
+                    { value: 'Daily', label: 'Daily' },
+                  ]}
+                />
+              </Space>
+            }
+            className="chartStyle"
+          >
             <TabPane tab="Impressions" key="PRODUCT_VIEWS">
               <div id="chart">
-                <Chart options={options} series={series} type="area" width={1000} height={320} />
+                <Chart
+                  options={options}
+                  series={series}
+                  type="area"
+                  width={1000}
+                  height={320}
+                />
               </div>
             </TabPane>
             <TabPane tab="Clicks" key="PRODUCT_CLICK">
               <div id="chart">
-                <Chart options={options} series={series} type="area" width={1000} height={320} />
+                <Chart
+                  options={options}
+                  series={series}
+                  type="area"
+                  width={1000}
+                  height={320}
+                />
               </div>
             </TabPane>
             <TabPane tab="Call To Action" key="CALL_TO_ACTION">
               <div id="chart">
-                <Chart options={options} series={series} type="area" width={1000} height={320} />
+                <Chart
+                  options={options}
+                  series={series}
+                  type="area"
+                  width={1000}
+                  height={320}
+                />
               </div>
             </TabPane>
             <TabPane tab="Favourite" key="FAVOURITES_CLICK">
               <div id="chart">
-                <Chart options={options} series={series} type="area" width={1000} height={320} />
+                <Chart
+                  options={options}
+                  series={series}
+                  type="area"
+                  width={1000}
+                  height={320}
+                />
               </div>
             </TabPane>
           </Tabs>
         </div>
-      </Row>
+      </Row> */}
     </>
   );
 };
 
 export default Charts;
-

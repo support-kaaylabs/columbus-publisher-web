@@ -4,8 +4,7 @@
   justify-content: center;
   background-image: url('./Images/bgImgLarge.png');
   background-repeat: no-repeat;
-  height: 90vh;
-  max-height: 100vh;
+  height: 100vh;
 
   .main-component {
     background-color: #ffffff;
@@ -14,8 +13,9 @@
     box-shadow: 3px 3px 9px 6px #fdebeb;
     border-radius: 20px;
     padding: 20px;
-    width: 480px;
-    height: 430px;
+    padding-bottom: 0px;
+    width: 450px;
+    height: 370px;
     .welcome-title {
       font-size: 24px !important;
       text-align: center;
@@ -24,7 +24,7 @@
 
     .login {
       border: none;
-      width: 480px;
+      width: 100%;
       input {
         border: none;
         border-bottom: 2px solid #d8d8d8;
@@ -97,8 +97,8 @@
     }
 
     .login-form {
-      margin-top: 2rem;
-      border: none;
+      margin-top: 20px;
+      background: transparent;
     }
 
     .login-form-button {
@@ -107,7 +107,7 @@
       height: 40px;
       color: #fef8f8;
       border: none;
-      margin-top: 30px;
+      margin-top: 10px;
       padding: 8px 0px;
       box-shadow: 0 0 0 2px rgba(82, 116, 251, 0.18);
       background-color: #e53935;
