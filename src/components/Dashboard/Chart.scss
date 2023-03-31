@@ -66,3 +66,14 @@ apexcharts-toolbar {
   right: 520px;
   position: absolute;
 }
+.chartStyle {
+  background-color: #f6f6f6;
+  border-radius: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  min-width: 100% !important;
+}
+:where(.css-1e3x2xa).ant-row {
+  display: block !important;
+  min-width: 0;
+}

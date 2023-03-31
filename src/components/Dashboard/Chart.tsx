@@ -157,7 +157,7 @@ const Charts: FC = () => {
 
   return (
     <>
-      <Row className="mt-4" style={{ margin: '30px', justifyContent: 'center' }}>
+      <Row className="mt-4" style={{ margin: '30px' }}>
         <div className='chartStyle'>
           <Tabs onChange={handleTab} tabBarExtraContent={
             <Space className='drop-btn'>
