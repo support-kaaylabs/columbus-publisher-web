@@ -16,7 +16,7 @@ const Dashboard: FC = (props) => {
     const sellerId = localStorage.getItem('User_ID');  
     const params = {sellerId}; 
     getDashboardData(params).then((data)=>{
-      if(data.success) {
+      if(data?.success) {
         setDashboardData(get(data, 'data', []));  
       }
     }).catch((err)=>{
@@ -26,7 +26,7 @@ const Dashboard: FC = (props) => {
 
   return (  
     <div>
-      {dashboardData.map((item, index) => (
+      {dashboardData?.map((item, index) => (
         <div key={index}>
           <PublisherDashboard data={item} />
         </div>
