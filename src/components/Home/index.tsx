@@ -60,13 +60,13 @@ const Home: FC = () => {
             <Form.Item>
               {
                 <div className="username-input">
-                  <label>Username</label>
+                  <label>Email-Id</label>
                   <Input
                     type="email"
                     name="emailId"
                     prefix={<img src={UserLogo} alt="UserIcon" />}
                     size="large"
-                    placeholder="Enter Your Name"
+                    placeholder="Enter Your Email-Id"
                     className="input-text"
                     onChange={(e) => setEmail(e.target.value)}
                     value={emailId}
