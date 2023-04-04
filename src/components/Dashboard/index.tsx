@@ -56,7 +56,7 @@ const Dashboard = (props: dashboardDetails) => {
                 : null || data?.Event_Name === 'PRODUCT_CLICK'
                   ? 'Clicks'
                   : null || data?.Event_Name === 'FAVOURITES_CLICK'
-                    ? 'Favourites'
+                    ? 'Favourite'
                     : null || data?.Event_Name === 'CALL_TO_ACTION'
                       ? 'Call to Action'
                       : ''}</p>
@@ -73,7 +73,7 @@ const Dashboard = (props: dashboardDetails) => {
               bordered={false}
             >
               <b>Today</b>
-              <p className="percentage">{data.todayPercent}%</p>
+              <p className="percentage">{data?.todayPercent ? data?.todayPercent : '0'} %</p>
               <div className="d-flex">
                 <span className="diffrence">{data.Today}</span> &nbsp;
                 {data.Today < data.Predate ? (
@@ -99,7 +99,7 @@ const Dashboard = (props: dashboardDetails) => {
               bordered={false}
             >
               <b>This Week</b>
-              <p className="percentage">{data.weekPercent}%</p>
+              <p className="percentage">{data.weekPercent ? data.weekPercent : '0'} %</p>
               <div className="d-flex">
                 <span className="diffrence">{data.Week}</span> &nbsp;
                 {data.Week < data.Preweek ? (
@@ -125,7 +125,7 @@ const Dashboard = (props: dashboardDetails) => {
               bordered={false}
             >
               <b>This Month</b>
-              <p className="percentage">{data.monthPercent}%</p>
+              <p className="percentage">{data.monthPercent ? data.monthPercent : '0'} %</p>
               <div className="d-flex">
                 <span className="diffrence">{data.Month}</span> &nbsp;
                 {data.Month < data.Premonth ? (
@@ -151,7 +151,7 @@ const Dashboard = (props: dashboardDetails) => {
               bordered={false}
             >
               <b>Quarter</b>
-              <p className="percentage">{data.quarterPercent}%</p>
+              <p className="percentage">{data.quarterPercent ? data.quarterPercent : '0'} %</p>
               <div className="d-flex">
                 <span className="diffrence">{data.Quarter}</span>{' '}
                 &nbsp;

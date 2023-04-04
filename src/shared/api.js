@@ -147,7 +147,7 @@ class Http {
   handleMultipart(url, obj, file, method, options = {}) {
     const formData = new FormData();
     if (obj) Object.keys(obj).forEach((key) => formData.append(key, obj[key]));
-    file.map((obj, index) => {
+    file.map((obj) => {
       formData.append('file', obj || '');
       if (!_.get(options, 'removeProductID', false)) {
         let productId = obj && obj.name.substring(0, obj.name.indexOf('-'));
@@ -205,7 +205,7 @@ class Http {
   handleMultipartWithDownload(url, obj, file, method, options = {}) {
     const formData = new FormData();
     if (obj) Object.keys(obj).forEach((key) => formData.append(key, obj[key]));
-    file.map((obj, index) => {
+    file.map((obj) => {
       formData.append('file', obj || '');
       if (!_.get(options, 'removeProductID', false)) {
         let productId = obj && obj.name.substring(0, obj.name.indexOf('-'));
