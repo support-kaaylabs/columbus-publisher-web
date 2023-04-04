@@ -5,25 +5,25 @@ import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 
 interface dashboardDetails {
   data: {
-    Event_Name:string,
-    todayPercent:number,
-    Today:number,
+    Event_Name: string,
+    todayPercent: number,
+    Today: number,
     Predate: number,
-    Week:number,
+    Week: number,
     Preweek: number,
-    weekPercent:number,
+    weekPercent: number,
     Premonth: number,
-    Month:number,
-    monthPercent:number,
-    Quarter:number,
-    Prequarter:number,
-    quarterPercent:number,
+    Month: number,
+    monthPercent: number,
+    Quarter: number,
+    Prequarter: number,
+    quarterPercent: number,
   };
 }
 
 const Dashboard = (props: dashboardDetails) => {
   const { data } = props;
-  
+
   return (
     <div className="dashboard-page">
       <div
@@ -47,10 +47,12 @@ const Dashboard = (props: dashboardDetails) => {
             lg={{ span: 4 }}
           >
             <div className="icon-img">
-              <img
-                src={require(`../Images/${data.Event_Name}.png`)}
-                alt="eye-icon"
-              />
+              <div className='icon-img-back'>
+                <img
+                  src={require(`../Images/${data.Event_Name}.png`)}
+                  alt="eye-icon"
+                />
+              </div>
               <p>{data?.Event_Name === 'PRODUCT_VIEWS'
                 ? 'Impressions'
                 : null || data?.Event_Name === 'PRODUCT_CLICK'
@@ -80,7 +82,7 @@ const Dashboard = (props: dashboardDetails) => {
                   <ArrowDownOutlined
                     style={{ fontSize: '16px', color: '#EE1313' }}
                   />
-                ): (
+                ) : (
                   <ArrowUpOutlined
                     style={{ fontSize: '16px', color: '#27AE07' }}
                   />
@@ -106,7 +108,7 @@ const Dashboard = (props: dashboardDetails) => {
                   <ArrowDownOutlined
                     style={{ fontSize: '16px', color: '#EE1313' }}
                   />
-                ): (
+                ) : (
                   <ArrowUpOutlined
                     style={{ fontSize: '16px', color: '#27AE07' }}
                   />
@@ -132,7 +134,7 @@ const Dashboard = (props: dashboardDetails) => {
                   <ArrowDownOutlined
                     style={{ fontSize: '16px', color: '#EE1313' }}
                   />
-                ): (
+                ) : (
                   <ArrowUpOutlined
                     style={{ fontSize: '16px', color: '#27AE07' }}
                   />
@@ -159,7 +161,7 @@ const Dashboard = (props: dashboardDetails) => {
                   <ArrowDownOutlined
                     style={{ fontSize: '16px', color: '#EE1313' }}
                   />
-                ): (
+                ) : (
                   <ArrowUpOutlined
                     style={{ fontSize: '16px', color: '#27AE07' }}
                   />

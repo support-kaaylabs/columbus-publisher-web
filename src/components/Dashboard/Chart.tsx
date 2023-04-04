@@ -55,7 +55,7 @@ const Charts: FC = () => {
     } else if (key === 'PRODUCT_CLICK') {
       setSeriesName('Clicks');
     } else if (key === 'CALL_TO_ACTION') {
-      setSeriesName('Call To Action');
+      setSeriesName('Call to Action');
     } else if (key === 'FAVOURITES_CLICK') {
       setSeriesName('Favourite');
     }
@@ -216,7 +216,7 @@ const Charts: FC = () => {
                 <Chart options={options} series={series} type="area" width={'100%'} height={320} />
               </div>
             </TabPane>
-            <TabPane tab="Call To Action" key="CALL_TO_ACTION">
+            <TabPane tab="Call to Action" key="CALL_TO_ACTION">
               <div id="chart">
                 <Chart options={options} series={series} type="area" width={'100%'} height={320} />
               </div>
