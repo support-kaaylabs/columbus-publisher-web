@@ -14,6 +14,7 @@ const Charts: FC = () => {
   const [chartMode, setChartMode] = useState('Daily');
   const [chartColor, setChartColor] = useState('');
   const [loading, setLoading] = useState(false);
+  const [seriesName, setSeriesName] = useState('Impressions');
 
   useEffect(() => {
     fetchData();
@@ -49,11 +50,23 @@ const Charts: FC = () => {
 
   const handleTab = (key: any) => {
     setChartType(key);
+    if (key === 'PRODUCT_VIEWS') {
+      setSeriesName('Impressions');
+    } else if (key === 'PRODUCT_CLICK') {
+      setSeriesName('Clicks');
+    } else if (key === 'CALL_TO_ACTION') {
+      setSeriesName('Call To Action');
+    } else if (key === 'FAVOURITES_CLICK') {
+      setSeriesName('Favourite');
+    }
   };
 
   const options = {
     chart: {
       id: 'apexchart-example',
+      selection: {
+        enabled: true
+      },
     },
     tooltip: {
       enabled: true,
@@ -96,13 +109,33 @@ const Charts: FC = () => {
       fixed: {
         enabled: false,
         position: 'topRight',
-        offsetX: 0,
-        offsetY: 0,
+        offsetX: 10,
+        offsetY: 10,
       },
     },
-
     dataLabels: {
       enabled: false
+    },
+    states: {
+      normal: {
+        filter: {
+          type: 'none',
+          value: 0,
+        }
+      },
+      hover: {
+        filter: {
+          type: 'lighten',
+          value: 0.15,
+        }
+      },
+      active: {
+        allowMultipleDataPointsSelection: false,
+        filter: {
+          type: 'darken',
+          value: 0.35,
+        }
+      },
     },
     grid: {
       show: true,
@@ -151,7 +184,7 @@ const Charts: FC = () => {
   };
 
   const series = [{
-    name: 'series-1',
+    name: seriesName,
     data: counts
   }];
 
@@ -167,30 +200,30 @@ const Charts: FC = () => {
                 bordered={false}
                 onChange={(value) => setChartMode(value)}
                 options={[
-                  { value: 'Monthly', label: 'Monthly' },
                   { value: 'Daily', label: 'Daily' },
+                  { value: 'Monthly', label: 'Monthly' },
                 ]}
               />
             </Space>
           } className='chartStyle'>
             <TabPane tab="Impressions" key="PRODUCT_VIEWS">
               <div id="chart">
-                <Chart options={options} series={series} type="area" width={940} height={320} />
+                <Chart options={options} series={series} type="area" width={'100%'} height={320} />
               </div>
             </TabPane>
             <TabPane tab="Clicks" key="PRODUCT_CLICK">
               <div id="chart">
-                <Chart options={options} series={series} type="area" width={940} height={320} />
+                <Chart options={options} series={series} type="area" width={'100%'} height={320} />
               </div>
             </TabPane>
             <TabPane tab="Call To Action" key="CALL_TO_ACTION">
               <div id="chart">
-                <Chart options={options} series={series} type="area" width={940} height={320} />
+                <Chart options={options} series={series} type="area" width={'100%'} height={320} />
               </div>
             </TabPane>
             <TabPane tab="Favourite" key="FAVOURITES_CLICK">
               <div id="chart">
-                <Chart options={options} series={series} type="area" width={940} height={320} />
+                <Chart options={options} series={series} type="area" width={'100%'} height={320} />
               </div>
             </TabPane>
           </Tabs>

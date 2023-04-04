@@ -1,4 +1,4 @@
-import React, { type FC, useState, useContext } from 'react';
+import React, { type FC, useState, useContext, useEffect } from 'react';
 import Logo from './components/HomePage/Images/logoImgSmall.png';
 import MenuLogo from './components/HomePage/Images/menuLogo.svg';
 import LogoSymbolLarge from './components/HomePage/Images/logoSymbolLarge.svg';
@@ -8,7 +8,7 @@ import CloseIcon from './components/HomePage/Images/closeIconSmall.png';
 import MenuIcon from './components/HomePage/Images/menuIconSmall.png';
 import classes from './App.module.scss';
 import Dashboard from './pages/Dashboard';
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import ProductList from './components/Product';
 import ProductDetail from './components/Product/detail';
 import { MyContext } from './components/store/dataStore';
@@ -31,6 +31,8 @@ const App: FC = () => {
 
   const ctx = useContext(MyContext);
 
+  const navigate = useNavigate();
+
   const logoutClick = () => {
     const userId: any = localStorage.getItem('User_ID');
     const params = {
@@ -43,6 +45,15 @@ const App: FC = () => {
       }
     });
   };
+
+  const userID: any = localStorage.getItem('User_ID');
+
+  useEffect(() => {
+    if (userID == null || userID == undefined) {
+      navigate('/');
+    }
+  }, []);
+
 
   return (
     <Layout className={classes.header} style={{ minHeight: '100vh' }}>
@@ -148,7 +159,7 @@ const App: FC = () => {
                     >
                       <Link to="/">
                         <span>
-                          <LogoutOutlined />                          
+                          <LogoutOutlined />
                         </span>
                       </Link>
                     </Menu.Item>
