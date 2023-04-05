@@ -8,6 +8,7 @@ import { errorNotification } from '../../shared/globalVariables';
 
 const Dashboard: FC = (props) => {
   const [dashboardData , setDashboardData] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     fetchData();
   }, []);
@@ -15,12 +16,15 @@ const Dashboard: FC = (props) => {
   const fetchData = () => {
     const sellerId = localStorage.getItem('User_ID');  
     const params = {sellerId}; 
+    setLoading(true);
     getDashboardData(params).then((data)=>{
       if(data.success) {
         setDashboardData(get(data, 'data', []));  
+        setLoading(false);
       }
     }).catch((err)=>{
       errorNotification(err);
+      setLoading(false);
     });
   };
 
@@ -32,7 +36,7 @@ const Dashboard: FC = (props) => {
         </div>
       ))}
       <div>
-        <Charts />
+        {!loading && <Charts />}
       </div>
     </div>
   );
