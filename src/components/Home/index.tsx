@@ -19,7 +19,7 @@ const Home: FC = () => {
     const params = {
       emailId,
       password,
-      userType: 'Merchant',
+      userType: 'merchant',
     };
 
     if (emailId === '' && password === '') {
