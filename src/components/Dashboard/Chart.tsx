@@ -113,6 +113,32 @@ const Charts: FC = () => {
         offsetY: 10,
       },
     },
+    plotOptions: {
+      bar: {
+        columnWidth: '50%'
+      }
+    },
+    markers: {
+      size: 6,
+      strokeWidth: 3,
+      fillOpacity: 0,
+      strokeOpacity: 0,
+      hover: {
+        size: 8
+      }
+    },
+    track: {
+      background: '#fff',
+      strokeWidth: '67%',
+      margin: 0,
+      dropShadow: {
+        enabled: true,
+        top: -3,
+        left: 0,
+        blur: 4,
+        opacity: 0.35
+      }
+    },
     dataLabels: {
       enabled: false
     },
