@@ -32,7 +32,7 @@ rm -rf ${JSON_FILE}-${BUILD_NUMBER}.json
 
 if [ "$GIT_BRANCH" == "master" ]
 then
-SERVICE_NAME="dev-jingls-publisher-web"
+SERVICE_NAME="jingls-publisher-web"
 IMAGE_VERSION="${GIT_BRANCH}-${BUILD_NUMBER}"
 TASK_FAMILY="jingls-publisher-web"
 CLUSTER="production"
