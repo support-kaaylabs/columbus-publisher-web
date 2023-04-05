@@ -32,32 +32,12 @@ rm -rf ${JSON_FILE}-${BUILD_NUMBER}.json
 
 if [ "$GIT_BRANCH" == "master" ]
 then
-SERVICE_NAME="jinglebid-admin"
+SERVICE_NAME="dev-jingls-publisher-web"
 IMAGE_VERSION="${GIT_BRANCH}-${BUILD_NUMBER}"
-TASK_FAMILY="jinglebid-admin"
+TASK_FAMILY="jingls-publisher-web"
 CLUSTER="production"
 TASK_ROLE="prod-jinglebid-ecs"
 JSON_FILE="jingls-publisher-web-prod"
-RUNNING_COUNT=1
-startDeploy
-elif [ "$GIT_BRANCH" == "preprod" ]
-then
-SERVICE_NAME="jinglebid-admin"
-IMAGE_VERSION="${GIT_BRANCH}-${BUILD_NUMBER}"
-TASK_FAMILY="jingls-publisher-web"
-CLUSTER="preprod"
-TASK_ROLE="uat-jinglebid-ecs"
-JSON_FILE="jingls-publisher-web"
-RUNNING_COUNT=1
-startDeploy
-elif [ "$GIT_BRANCH" == "qa" ]
-then
-SERVICE_NAME="qa-jinglebid-admin"
-IMAGE_VERSION="${GIT_BRANCH}-${BUILD_NUMBER}"
-TASK_FAMILY="jingls-publisher-web"
-CLUSTER="development"
-TASK_ROLE="qa-jinglebid-ecs"
-JSON_FILE="jingls-publisher-web"
 RUNNING_COUNT=1
 startDeploy
 elif [ "$GIT_BRANCH" == "development" ]

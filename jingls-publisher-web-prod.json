@@ -2,7 +2,7 @@
     "family": "jingls-publisher-web",
 	"taskRoleArn": "arn:aws:iam::454552690810:role/task_role",
 	"containerDefinitions": [{
-		"name": "jinglebid-admin",
+		"name": "jingls-publisher-web",
 		"image": "454552690810.dkr.ecr.ap-south-1.amazonaws.com/jingls-publisher-web:GIT_COMMIT",
 		"cpu": 400,
 		"memory": 700,

@@ -66,7 +66,6 @@ then
 DevBuild
 elif [[ "$GIT_BRANCH" == "master" ]];
 then
-# aws s3 cp s3://jinglebid-configurations/config/v2/production/jinglebid-admin/.env .
 ProdBuild
 else
 echo "Skipping a build process because this branch is not permitted for docker build: ${GIT_BRANCH}"
