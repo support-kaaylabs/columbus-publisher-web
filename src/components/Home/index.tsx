@@ -85,7 +85,7 @@ const Home: FC = () => {
                     prefix={<img src={PswdLogo} alt="PasswordIcon" />}
                     placeholder="Enter Your Password"
                     className="password-text"
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setPassword((e.target.value).trim())}
                     value={password}
                   />
                 </div>

@@ -21,8 +21,7 @@ const Charts: FC = () => {
   }, [chartType, chartMode]);
 
   const fetchData = () => {
-    const sellerId = localStorage.getItem('User_ID');
-    const params = { sellerId, eventName: chartType, chartMode };
+    const params = { eventName: chartType, chartMode };
     setLoading(true);
     getChartData(params).then((resp) => {
       if (resp.success) {
