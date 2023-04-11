@@ -19,30 +19,33 @@ const Home: FC = () => {
     const params = {
       emailId,
       password,
-      userType: 'merchant',
+      userType: 'Merchant',
     };
 
     if (emailId === '' && password === '') {
       errorNotification('Please Enter the Email and Password');
     } else {
       setBtnLoading(true);
-      authenticate(params).then((resp: any) => {
-        const { User_Name, User_ID, User_Type, Image, User_Uid } = resp.data && resp.data[0];
-        const { token } = resp;
-        localStorage.setItem('User_Name', User_Name);
-        localStorage.setItem('User_ID', User_ID);
-        localStorage.setItem('User_Uid', User_Uid);
-        localStorage.setItem('User_Type', User_Type);
-        localStorage.setItem('Image', Image);
-        localStorage.setItem('token', token);
-        localStorage.setItem('adminLogin', typeof true);
-        localStorage.setItem('menu_collapse',typeof false);  
-        setBtnLoading(false);  
-        navigate('/dashboard');
-      }).catch(() =>{
-        errorNotification('Please Enter valid Email and Password');
-        setBtnLoading(false);
-      });
+      authenticate(params)
+        .then((resp: any) => {
+          const { User_Name, User_ID, User_Type, Image, User_Uid } =
+            resp.data && resp.data[0];
+          const { token } = resp;
+          localStorage.setItem('User_Name', User_Name);
+          localStorage.setItem('User_ID', User_ID);
+          localStorage.setItem('User_Uid', User_Uid);
+          localStorage.setItem('User_Type', User_Type);
+          localStorage.setItem('Image', Image);
+          localStorage.setItem('token', token);
+          localStorage.setItem('adminLogin', typeof true);
+          localStorage.setItem('menu_collapse', typeof false);
+          setBtnLoading(false);
+          navigate('/homepage/products');
+        })
+        .catch(() => {
+          errorNotification('Please Enter valid Email and Password');
+          setBtnLoading(false);
+        });
     }
   };
 
@@ -60,13 +63,13 @@ const Home: FC = () => {
             <Form.Item>
               {
                 <div className="username-input">
-                  <label>Email-Id</label>
+                  <label>Email-id</label>
                   <Input
                     type="email"
                     name="emailId"
                     prefix={<img src={UserLogo} alt="UserIcon" />}
                     size="large"
-                    placeholder="Enter Your Email-Id"
+                    placeholder="Enter Your Email-id"
                     className="input-text"
                     onChange={(e) => setEmail(e.target.value)}
                     value={emailId}
@@ -85,7 +88,7 @@ const Home: FC = () => {
                     prefix={<img src={PswdLogo} alt="PasswordIcon" />}
                     placeholder="Enter Your Password"
                     className="password-text"
-                    onChange={(e) => setPassword((e.target.value).trim())}
+                    onChange={(e) => setPassword(e.target.value)}
                     value={password}
                   />
                 </div>

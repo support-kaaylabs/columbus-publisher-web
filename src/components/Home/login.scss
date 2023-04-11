@@ -12,9 +12,10 @@
     flex-direction: column;
     box-shadow: 3px 3px 9px 6px #fdebeb;
     border-radius: 20px;
-    padding: 20px;
-    width: 480px;
-    height: 430px;
+    padding: 50px;
+    padding-bottom: 0px;
+    width: 450px;
+    height: 370px;
     .welcome-title {
       font-size: 24px !important;
       text-align: center;
@@ -23,13 +24,12 @@
 
     .login {
       border: none;
-      width: 480px;
+      width: 100%;
       input {
         border: none;
-        border-bottom: 2px solid #d8d8d8;
         border-radius: unset;
-        font-size: 15px;
-
+        font-size: 13px;
+        margin-left: 20px;
         font-weight: 500;
         width: 100%;
       }
@@ -49,10 +49,11 @@
       }
       .username-input {
         border: none;
+        border-bottom: 2px solid #d8d8d8;
         margin-top: 10px;
         label {
-          font-size: 14px;
-          margin-left: 35px;
+          font-size: 11px;
+          margin-left: 55px;
           font-weight: bold;
         }
         .ant-input-affix-wrapper {
@@ -62,9 +63,10 @@
 
       .password-input {
         margin-top: 10px;
+        border-bottom: 2px solid #d8d8d8;
         label {
-          font-size: 14px;
-          margin-left: 35px;
+          font-size: 11px;
+          margin-left: 55px;
           font-weight: bold;
         }
         .ant-input-affix-wrapper {
@@ -96,8 +98,8 @@
     }
 
     .login-form {
-      margin-top: 2rem;
-      border: none;
+      margin-top: 20px;
+      background: transparent;
     }
 
     .login-form-button {
@@ -106,7 +108,7 @@
       height: 40px;
       color: #fef8f8;
       border: none;
-      margin-top: 30px;
+      margin-top: 10px;
       padding: 8px 0px;
       box-shadow: 0 0 0 2px rgba(82, 116, 251, 0.18);
       background-color: #e53935;

@@ -9,7 +9,7 @@
   .main-component {
     input {
       border: white;
-      border-bottom: 2px solid #d8d8d8;
+
       border-radius: unset;
       font-size: 15px;
       font-weight: 500;
@@ -57,7 +57,7 @@
 
     .ant-card-body {
       padding: 40px !important;
-      transition: all .2s linear;
+      transition: all 0.2s linear;
       border-bottom: -30px;
     }
 
@@ -82,7 +82,7 @@
     border-radius: 19px;
     color: white;
     box-shadow: 0 0 0 2px rgba(82, 116, 251, 0.18);
-    background-color: #364FB3;
+    background-color: #364fb3;
     margin: 5px;
   }
 }

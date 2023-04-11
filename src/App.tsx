@@ -1,43 +1,67 @@
-import React, { type FC, useState, useContext, useEffect } from 'react';
-import Logo from './components/HomePage/Images/logoImgSmall.png';
-import MenuLogo from './components/HomePage/Images/menuLogo.svg';
-import LogoSymbolLarge from './components/HomePage/Images/logoSymbolLarge.svg';
-import LogoSymbolSmall from './components/HomePage/Images/logoSymbolSmall.svg';
-import Image from './components/HomePage/Images/photo.jpg';
-import CloseIcon from './components/HomePage/Images/closeIconSmall.png';
-import MenuIcon from './components/HomePage/Images/menuIconSmall.png';
-import classes from './App.module.scss';
+import React, { type FC, useState, useEffect, useRef } from 'react';
+import Logo from './components/Images/logoImgSmall.png';
+import MenuLogo from './components/Images/bottomLogoImg.png';
+import LogoSymbolLarge from './components/Images/logoSymbolLarge.png';
+import LogoSymbolSmall from './components/Images/logoSymbolSmall.png';
+import CloseIcon from './components/Images/closeIconSmall.png';
+import Notification from './components/Images/notificationIconSmall.png';
+import MenuIcon from './components/Images/menuIconSmall.png';
+import HeaderLogo from './components/Images/EllipseIconSmall.png';
+import './App.scss';
 import Dashboard from './pages/Dashboard';
 import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import ProductList from './components/Product';
 import ProductDetail from './components/Product/detail';
-import { MyContext } from './components/store/dataStore';
+import { updateUserInfo } from './shared/urlHelper';
+import { Layout, Menu, Popover } from 'antd';
 import {
+  LogoutOutlined,
   SettingOutlined,
   AlertOutlined,
-  DeliveredProcedureOutlined,
-  AppstoreOutlined,
   WalletOutlined,
+  AppstoreOutlined,
   CustomerServiceOutlined,
-  LogoutOutlined,
-
+  DeliveredProcedureOutlined,
 } from '@ant-design/icons';
-import { updateUserInfo } from './shared/urlHelper';
-import { Layout, Menu } from 'antd';
+
 const { Header, Sider, Content } = Layout;
 
 const App: FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
-
-  const ctx = useContext(MyContext);
-
+  const [collapsed, setCollapsed] = useState<boolean>(false);
+  const [name, setName] = useState<string>('');
+  const ref = useRef<HTMLHeadingElement>(null);
+  const contentWidth = ref.current?.clientWidth || 0;
   const navigate = useNavigate();
+  const [openLogo, setOpenLogo] = useState(false);
+  const [openNotification, setOpenNotification] = useState(false);
+
+  useEffect(() => {
+    if (contentWidth > -1 && contentWidth < 1000) {
+      setCollapsed(true);
+    } else {
+      setCollapsed(false);
+    }
+  }, [contentWidth]);
+
+  const hideLogo = () => {
+    setOpenLogo(false);
+  };
+  const hideNotification = () => {
+    setOpenNotification(false);
+  };
+  const handleOpenLogo = (newOpen: boolean) => {
+    setOpenLogo(newOpen);
+  };
+  const handleOpenNotification = (newOpen: boolean) => {
+    setOpenNotification(newOpen);
+  };
 
   const logoutClick = () => {
     const userId: any = localStorage.getItem('User_ID');
     const params = {
       Device_ID: null,
     };
+
     updateUserInfo(userId, params).then((res) => {
       if (res.success) {
         localStorage.clear();
@@ -47,25 +71,28 @@ const App: FC = () => {
   };
 
   const userID: any = localStorage.getItem('User_ID');
-
   useEffect(() => {
     if (userID == null || userID == undefined) {
       navigate('/');
     }
   }, []);
 
+  useEffect(() => {
+    const route = window.location.href;
+    setName(route.split('/')[3].toUpperCase() || '');
+  }, [name]);
 
   return (
-    <Layout className={classes.header} style={{ minHeight: '100vh' }}>
+    <Layout className="header" style={{ minHeight: '100vh' }}>
       <Sider
         theme="light"
         collapsible
         collapsed={collapsed}
-        className={classes.header_sider}
+        className="headerSider"
         width="281px"
       >
-        <div className={classes.header_sider_logo}>
-          <div className={classes.sider_logo_head}>
+        <div className="headerSiderLogo">
+          <div className="siderLogoHead">
             {collapsed ? (
               <img src={LogoSymbolLarge} alt="LogoSymbol" />
             ) : (
@@ -73,29 +100,33 @@ const App: FC = () => {
             )}
           </div>
         </div>
-        <div className={classes.sider_menu}>
+        <div className="siderMenu">
           <div>
-            <Menu className={classes.sider_menuItem} mode="inline">
+            <Menu
+              defaultSelectedKeys={[name]}
+              className="siderMenuItem"
+              mode="inline"
+            >
               <nav>
                 {collapsed ? (
                   <>
-                    {/* <Menu.Item
-                      key={1}
+                    <Menu.Item
+                      key="PRODUCT"
                       title="PRODUCT"
-                      className={classes.products}
-                      onClick={() => ctx.sideBarHandler('PRODUCT')}
+                      className={name === 'PRODUCT' ? 'activeMenu' : ' '}
+                      onClick={() => setName('PRODUCT')}
                     >
-                      <Link to="products">
+                      <Link to="product">
                         <span>
                           <DeliveredProcedureOutlined />
                         </span>
                       </Link>
-                    </Menu.Item> */}
+                    </Menu.Item>
                     <Menu.Item
-                      key={2}
+                      key="DASHBOARD"
                       title="DASHBOARD"
-                      className={classes.dashboard}
-                      onClick={() => ctx.sideBarHandler('DASHBOARD')}
+                      className={name === 'DASHBOARD' ? 'activeMenu' : ''}
+                      onClick={() => setName('DASHBOARD')}
                     >
                       <Link to="dashboard">
                         <span>
@@ -103,23 +134,23 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item>
-                    {/* <Menu.Item
-                      key={3}
+                    <Menu.Item
+                      key="INSIGHTS"
                       title="INSIGHT"
-                      className={classes.insights}
-                      onClick={() => ctx.sideBarHandler('INSIGHT')}
+                      className={name === 'INSIGHTS' ? 'activeMenu' : ''}
+                      onClick={() => setName('INSIGHTS')}
                     >
                       <Link to="insight">
                         <span>
                           <AlertOutlined />
                         </span>
                       </Link>
-                    </Menu.Item> */}
-                    {/* <Menu.Item
-                      key={4}
+                    </Menu.Item>
+                    <Menu.Item
+                      key="WALLET"
                       title="WALLET"
-                      className={classes.wallet}
-                      onClick={() => ctx.sideBarHandler('WALLET')}
+                      className={name === 'WALLET' ? 'activeMenu' : ''}
+                      onClick={() => setName('WALLET')}
                     >
                       <Link to="wallet">
                         <span>
@@ -127,135 +158,138 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item>
-                    <Menu.Item
-                      key={5}
-                      title="SETTING"
-                      className={classes.setting}
-                      onClick={() => ctx.sideBarHandler('SETTING')}
-                    >
-                      <Link to="setting">
-                        <span>
-                          <SettingOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item> 
-                    <Menu.Item
-                      key={6}
-                      title="HELP"
-                      className={classes.help}
-                      onClick={() => ctx.sideBarHandler('HELP')}
-                    >
-                      <Link to="help">
-                        <span>
-                          <CustomerServiceOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item>   */}
-                    <Menu.Item
-                      key={7}
-                      title="LOGOUT"
-                      className={classes.logout}
-                      onClick={() => logoutClick}
-                    >
-                      <Link to="/">
-                        <span>
-                          <LogoutOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item>
+                    <div style={{ marginTop: 'auto' }}>
+                      <Menu.Item
+                        key="SETTING"
+                        title="SETTING"
+                        className={name === 'SETTING' ? 'activeMenu' : ''}
+                        onClick={() => setName('SETTING')}
+                      >
+                        <Link to="setting">
+                          <span>
+                            <SettingOutlined />
+                          </span>
+                        </Link>
+                      </Menu.Item>
+                      <Menu.Item
+                        key="HELP"
+                        title="HELP"
+                        className={name === 'HELP' ? 'activeMenu' : ''}
+                        onClick={() => setName('HELP')}
+                      >
+                        <Link to="help">
+                          <span>
+                            <CustomerServiceOutlined />
+                          </span>
+                        </Link>
+                      </Menu.Item>
+                      <Menu.Item
+                        key="LOGOUT"
+                        className="logout"
+                        onClick={() => logoutClick}
+                      >
+                        <Link to="/">
+                          <span>
+                            <LogoutOutlined />
+                          </span>
+                        </Link>
+                      </Menu.Item>
+                    </div>
                   </>
                 ) : (
                   <>
-                    {/* <Menu.Item
-                      key={1}
-                      className={classes.products}
-                      onClick={() => ctx.sideBarHandler('PRODUCT')}
+                    <Menu.Item
+                      key="PRODUCT"
+                      className={name === 'PRODUCT' ? 'activeMenu' : ' '}
+                      onClick={() => setName('PRODUCT')}
                     >
-                      <Link to="products">
-                        <span className='menuStyle'>
+                      <Link to="product">
+                        <span className="menuStyle">
                           <DeliveredProcedureOutlined />
                           PRODUCT
                         </span>
                       </Link>
-                    </Menu.Item> */}
+                    </Menu.Item>
                     <Menu.Item
-                      key={2}
-                      className={classes.dashboard}
-                      onClick={() => ctx.sideBarHandler('DASHBOARD')}
+                      key="DASHBOARD"
+                      className={name === 'DASHBOARD' ? 'activeMenu' : ' '}
+                      onClick={() => setName('DASHBOARD')}
                     >
                       <Link to="dashboard">
-                        <span className='menuStyle'>
+                        <span className="menuStyle">
                           <AppstoreOutlined />
                           DASHBOARD
                         </span>
                       </Link>
                     </Menu.Item>
-                    {/* <Menu.Item
-                      key={3}
-                      className={classes.insights}
-                      onClick={() => ctx.sideBarHandler('INSIGHTS')}
+                    <Menu.Item
+                      key="INSIGHTS"
+                      className={name === 'INSIGHTS' ? 'activeMenu' : ' '}
+                      onClick={() => setName('INSIGHTS')}
                     >
-                      <Link to="insight">
-                        <span className='menuStyle'>
+                      <Link to="insights">
+                        <span className="menuStyle">
                           <AlertOutlined />
                           INSIGHTS
                         </span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item
-                      key={4}
-                      className={classes.wallet}
-                      onClick={() => ctx.sideBarHandler('WALLET')}
+                      key="WALLET"
+                      className={name === 'WALLET' ? 'activeMenu' : ' '}
+                      onClick={() => setName('WALLET')}
                     >
                       <Link to="wallet">
-                        <span className='menuStyle'>
+                        <span className="menuStyle">
                           <WalletOutlined />
                           WALLET
                         </span>
                       </Link>
-                    </Menu.Item> 
-                    <Menu.Item
-                      key={5}
-                      className={classes.setting}
-                      onClick={() => ctx.sideBarHandler('SETTING')}
-                    >
-                      <Link to="setting">
-                        <span className='menuStyle'>
-                          <SettingOutlined />
-                          SETTING
-                        </span>
-                      </Link>
                     </Menu.Item>
-                    <Menu.Item
-                      key={6}
-                      className={classes.help}
-                      onClick={() => ctx.sideBarHandler('HELP')}
-                    >
-                      <Link to="help">
-                        <span className='menuStyle'>
-                          <CustomerServiceOutlined />
-                          HELP
-                        </span>
-                      </Link>
-                    </Menu.Item> */}
-                    <Menu.Item
-                      key={7}
-                      className={classes.logout}
-                      onClick={() => logoutClick}
-                    >
-                      <Link to="/">
-                        <span className='menuStyle'>
-                          <LogoutOutlined />
-                          LOGOUT
-                        </span>
-                      </Link>
-                    </Menu.Item>
+                    <div style={{ marginTop: '260px' }}>
+                      <Menu.Item
+                        key="SETTING"
+                        className={name === 'SETTING' ? 'activeMenu' : ' '}
+                        onClick={() => setName('SETTING')}
+                      >
+                        <Link to="setting">
+                          <span className="menuStyle">
+                            <SettingOutlined />
+                            SETTING
+                          </span>
+                        </Link>
+                      </Menu.Item>
+                      <Menu.Item
+                        key="HELP"
+                        className={name === 'HELP' ? 'activeMenu' : ' '}
+                        onClick={() => setName('HELP')}
+                      >
+                        <Link to="help">
+                          <span className="menuStyle">
+                            <CustomerServiceOutlined />
+                            HELP
+                          </span>
+                        </Link>
+                      </Menu.Item>
+                      <Menu.Item
+                        key="LOGOUT"
+                        className="logout"
+                        onClick={() => logoutClick}
+                      >
+                        <Link to="/">
+                          <span className="menuStyle">
+                            <LogoutOutlined />
+                            LOGOUT
+                          </span>
+                        </Link>
+                      </Menu.Item>
+                    </div>
                   </>
                 )}
               </nav>
             </Menu>
-            <div className={classes.menu_item}>
-              <div className={classes.menu_logo_item}>
+            <div className="menuItem">
+              <div className="menuLogoItem">
                 {collapsed ? (
                   <img src={LogoSymbolSmall} alt="LogoSymbol" />
                 ) : (
@@ -267,12 +301,12 @@ const App: FC = () => {
           </div>
         </div>
       </Sider>
-      <Layout className={classes.layoutRight}>
-        <Header className={classes.header_content}>
+      <Layout className="layoutRight">
+        <Header className="headerContent">
           <span>
             <span
               onClick={() => setCollapsed(!collapsed)}
-              className={classes.header_content_icon}
+              className="headerContentIcon"
             >
               {collapsed ? (
                 <img src={CloseIcon} alt="closeicon" />
@@ -280,14 +314,48 @@ const App: FC = () => {
                 <img src={MenuIcon} alt="MenuIcon" />
               )}
             </span>
-            <span className={classes.header_content_name}>{ctx.name}</span>
+            <span className="headerContentName">{name}</span>
+          </span>
+          <span className="headerContentLogo">
+            <div className="notification">
+              <Popover
+                content={
+                  <a onClick={hideNotification}>
+                    <p>Your order is received</p>
+                    <p>Your Order is received</p>
+                  </a>
+                }
+                title="Today"
+                trigger="click"
+                open={openNotification}
+                onOpenChange={handleOpenNotification}
+              >
+                <img src={Notification} alt="Notification" />
+              </Popover>
+            </div>
+            <div className="imageLogo">
+              <Popover
+                content={
+                  <a onClick={hideLogo}>
+                    <LogoutOutlined />
+                    &nbsp;Logout
+                  </a>
+                }
+                title="D'Souza Genilia"
+                trigger="click"
+                open={openLogo}
+                onOpenChange={handleOpenLogo}
+              >
+                <img src={HeaderLogo} alt="ImageLogo" />
+              </Popover>
+            </div>
           </span>
         </Header>
-        <Content className={classes.content}>
+        <Content className="content" ref={ref}>
           <Routes>
-            <Route path="products" element={<ProductList />} />
+            <Route path="product" element={<ProductList />} />
             <Route path="/:dashboard" element={<Dashboard />} />
-            <Route path="products/:slug" element={<ProductDetail />} />
+            <Route path="product/:slug" element={<ProductDetail />} />
           </Routes>
         </Content>
       </Layout>
