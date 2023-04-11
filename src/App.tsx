@@ -1,4 +1,4 @@
-import React, { type FC, useState } from 'react';
+import React, { type FC, useState, useEffect, useRef } from 'react';
 import Logo from './components/Images/logoImgSmall.png';
 import MenuLogo from './components/Images/bottomLogoImg.png';
 import LogoSymbolLarge from './components/Images/logoSymbolLarge.png';
@@ -9,11 +9,11 @@ import MenuIcon from './components/Images/menuIconSmall.png';
 import HeaderLogo from './components/Images/EllipseIconSmall.png';
 import './App.scss';
 import Dashboard from './pages/Dashboard';
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import ProductList from './components/Product';
 import ProductDetail from './components/Product/detail';
 import { updateUserInfo } from './shared/urlHelper';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Popover } from 'antd';
 import {
   LogoutOutlined,
   SettingOutlined,
@@ -23,17 +23,45 @@ import {
   CustomerServiceOutlined,
   DeliveredProcedureOutlined,
 } from '@ant-design/icons';
+
 const { Header, Sider, Content } = Layout;
 
 const App: FC = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
-  const [name, setName] = useState<string>('PRODUCT');
+  const [name, setName] = useState<string>('');
+  const ref = useRef<HTMLHeadingElement>(null);
+  const contentWidth = ref.current?.clientWidth || 0;
+  const navigate = useNavigate();
+  const [openLogo, setOpenLogo] = useState(false);
+  const [openNotification, setOpenNotification] = useState(false);
+
+  useEffect(() => {
+    if (contentWidth > -1 && contentWidth < 1000) {
+      setCollapsed(true);
+    } else {
+      setCollapsed(false);
+    }
+  }, [contentWidth]);
+
+  const hideLogo = () => {
+    setOpenLogo(false);
+  };
+  const hideNotification = () => {
+    setOpenNotification(false);
+  };
+  const handleOpenLogo = (newOpen: boolean) => {
+    setOpenLogo(newOpen);
+  };
+  const handleOpenNotification = (newOpen: boolean) => {
+    setOpenNotification(newOpen);
+  };
 
   const logoutClick = () => {
     const userId: any = localStorage.getItem('User_ID');
     const params = {
       Device_ID: null,
     };
+
     updateUserInfo(userId, params).then((res) => {
       if (res.success) {
         localStorage.clear();
@@ -41,6 +69,27 @@ const App: FC = () => {
       }
     });
   };
+
+  // useEffect(() => {
+  //   if(widthSize < 1000){
+  //     setCollapsed(true);
+  //   }
+  //   else{
+  //     setCollapsed(false);
+  //   }
+  // }, [ref.current]);
+  // const userID: any = localStorage.getItem('User_ID');
+  // useEffect(() => {
+  //   if (userID == null || userID == undefined) {
+  //     navigate('/');
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    const route = window.location.href;
+    setName(route.split('/')[3].toUpperCase() || '');
+  }, [name]);
+
   return (
     <Layout className="header" style={{ minHeight: '100vh' }}>
       <Sider
@@ -62,7 +111,7 @@ const App: FC = () => {
         <div className="siderMenu">
           <div>
             <Menu
-              defaultSelectedKeys={['PRODUCT']}
+              defaultSelectedKeys={[name]}
               className="siderMenuItem"
               mode="inline"
             >
@@ -70,19 +119,19 @@ const App: FC = () => {
                 {collapsed ? (
                   <>
                     <Menu.Item
-                      key={'PRODUCT'}
+                      key="PRODUCT"
                       title="PRODUCT"
                       className={name === 'PRODUCT' ? 'activeMenu' : ' '}
                       onClick={() => setName('PRODUCT')}
                     >
-                      <Link to="products">
+                      <Link to="product">
                         <span>
                           <DeliveredProcedureOutlined />
                         </span>
                       </Link>
                     </Menu.Item>
                     <Menu.Item
-                      key={'DASHBOARD'}
+                      key="DASHBOARD"
                       title="DASHBOARD"
                       className={name === 'DASHBOARD' ? 'activeMenu' : ''}
                       onClick={() => setName('DASHBOARD')}
@@ -94,7 +143,7 @@ const App: FC = () => {
                       </Link>
                     </Menu.Item>
                     <Menu.Item
-                      key={'INSIGHTS'}
+                      key="INSIGHTS"
                       title="INSIGHT"
                       className={name === 'INSIGHTS' ? 'activeMenu' : ''}
                       onClick={() => setName('INSIGHTS')}
@@ -106,7 +155,7 @@ const App: FC = () => {
                       </Link>
                     </Menu.Item>
                     <Menu.Item
-                      key={'WALLET'}
+                      key="WALLET"
                       title="WALLET"
                       className={name === 'WALLET' ? 'activeMenu' : ''}
                       onClick={() => setName('WALLET')}
@@ -117,9 +166,9 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item>
-                    <div style={{ marginTop: '260px' }}>
+                    <div style={{ marginTop: 'auto' }}>
                       <Menu.Item
-                        key={'SETTING'}
+                        key="SETTING"
                         title="SETTING"
                         className={name === 'SETTING' ? 'activeMenu' : ''}
                         onClick={() => setName('SETTING')}
@@ -131,7 +180,7 @@ const App: FC = () => {
                         </Link>
                       </Menu.Item>
                       <Menu.Item
-                        key={'HELP'}
+                        key="HELP"
                         title="HELP"
                         className={name === 'HELP' ? 'activeMenu' : ''}
                         onClick={() => setName('HELP')}
@@ -143,7 +192,7 @@ const App: FC = () => {
                         </Link>
                       </Menu.Item>
                       <Menu.Item
-                        key={'LOGOUT'}
+                        key="LOGOUT"
                         className="logout"
                         onClick={() => logoutClick}
                       >
@@ -158,11 +207,11 @@ const App: FC = () => {
                 ) : (
                   <>
                     <Menu.Item
-                      key={'PRODUCT'}
+                      key="PRODUCT"
                       className={name === 'PRODUCT' ? 'activeMenu' : ' '}
                       onClick={() => setName('PRODUCT')}
                     >
-                      <Link to="products">
+                      <Link to="product">
                         <span className="menuStyle">
                           <DeliveredProcedureOutlined />
                           PRODUCT
@@ -170,7 +219,7 @@ const App: FC = () => {
                       </Link>
                     </Menu.Item>
                     <Menu.Item
-                      key={'DASHBOARD'}
+                      key="DASHBOARD"
                       className={name === 'DASHBOARD' ? 'activeMenu' : ' '}
                       onClick={() => setName('DASHBOARD')}
                     >
@@ -182,11 +231,11 @@ const App: FC = () => {
                       </Link>
                     </Menu.Item>
                     <Menu.Item
-                      key={'INSIGHTS'}
+                      key="INSIGHTS"
                       className={name === 'INSIGHTS' ? 'activeMenu' : ' '}
                       onClick={() => setName('INSIGHTS')}
                     >
-                      <Link to="insight">
+                      <Link to="insights">
                         <span className="menuStyle">
                           <AlertOutlined />
                           INSIGHTS
@@ -194,7 +243,7 @@ const App: FC = () => {
                       </Link>
                     </Menu.Item>
                     <Menu.Item
-                      key={'WALLET'}
+                      key="WALLET"
                       className={name === 'WALLET' ? 'activeMenu' : ' '}
                       onClick={() => setName('WALLET')}
                     >
@@ -207,7 +256,7 @@ const App: FC = () => {
                     </Menu.Item>
                     <div style={{ marginTop: '260px' }}>
                       <Menu.Item
-                        key={'SETTING'}
+                        key="SETTING"
                         className={name === 'SETTING' ? 'activeMenu' : ' '}
                         onClick={() => setName('SETTING')}
                       >
@@ -219,7 +268,7 @@ const App: FC = () => {
                         </Link>
                       </Menu.Item>
                       <Menu.Item
-                        key={'HELP'}
+                        key="HELP"
                         className={name === 'HELP' ? 'activeMenu' : ' '}
                         onClick={() => setName('HELP')}
                       >
@@ -231,7 +280,7 @@ const App: FC = () => {
                         </Link>
                       </Menu.Item>
                       <Menu.Item
-                        key={'LOGOUT'}
+                        key="LOGOUT"
                         className="logout"
                         onClick={() => logoutClick}
                       >
@@ -277,18 +326,44 @@ const App: FC = () => {
           </span>
           <span className="headerContentLogo">
             <div className="notification">
-              <img src={Notification} alt="Notification" />
+              <Popover
+                content={
+                  <a onClick={hideNotification}>
+                    <p>Your order is received</p>
+                    <p>Your Order is received</p>
+                  </a>
+                }
+                title="Today"
+                trigger="click"
+                open={openNotification}
+                onOpenChange={handleOpenNotification}
+              >
+                <img src={Notification} alt="Notification" />
+              </Popover>
             </div>
             <div className="imageLogo">
-              <img src={HeaderLogo} alt="ImageLogo" />
+              <Popover
+                content={
+                  <a onClick={hideLogo}>
+                    <LogoutOutlined />
+                    &nbsp;Logout
+                  </a>
+                }
+                title="D'Souza Genilia"
+                trigger="click"
+                open={openLogo}
+                onOpenChange={handleOpenLogo}
+              >
+                <img src={HeaderLogo} alt="ImageLogo" />
+              </Popover>
             </div>
           </span>
         </Header>
-        <Content className="content">
+        <Content className="content" ref={ref}>
           <Routes>
-            <Route path="products" element={<ProductList />} />
+            <Route path="product" element={<ProductList />} />
             <Route path="/:dashboard" element={<Dashboard />} />
-            <Route path="products/:slug" element={<ProductDetail />} />
+            <Route path="product/:slug" element={<ProductDetail />} />
           </Routes>
         </Content>
       </Layout>

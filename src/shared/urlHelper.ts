@@ -23,3 +23,5 @@ export const getChartData = (data: any) => http.get('get-chart-data', data);
 export const updateUserInfo = (userId: number, data: any) => http.put(`Users/${userId}`, data);
 
 export const authenticate = (data: any) => http.post('authenticate-seller', data);
+
+export const getProductDetail = (data: any) => http.get('get-autobid-seller-data-detail', data);

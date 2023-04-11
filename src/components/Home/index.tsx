@@ -26,23 +26,26 @@ const Home: FC = () => {
       errorNotification('Please Enter the Email and Password');
     } else {
       setBtnLoading(true);
-      authenticate(params).then((resp: any) => {
-        const { User_Name, User_ID, User_Type, Image, User_Uid } = resp.data && resp.data[0];
-        const { token } = resp;
-        localStorage.setItem('User_Name', User_Name);
-        localStorage.setItem('User_ID', User_ID);
-        localStorage.setItem('User_Uid', User_Uid);
-        localStorage.setItem('User_Type', User_Type);
-        localStorage.setItem('Image', Image);
-        localStorage.setItem('token', token);
-        localStorage.setItem('adminLogin', typeof true);
-        localStorage.setItem('menu_collapse',typeof false);  
-        setBtnLoading(false);  
-        navigate('/homepage/products');
-      }).catch(() =>{
-        errorNotification('Please Enter valid Email and Password');
-        setBtnLoading(false);
-      });
+      authenticate(params)
+        .then((resp: any) => {
+          const { User_Name, User_ID, User_Type, Image, User_Uid } =
+            resp.data && resp.data[0];
+          const { token } = resp;
+          localStorage.setItem('User_Name', User_Name);
+          localStorage.setItem('User_ID', User_ID);
+          localStorage.setItem('User_Uid', User_Uid);
+          localStorage.setItem('User_Type', User_Type);
+          localStorage.setItem('Image', Image);
+          localStorage.setItem('token', token);
+          localStorage.setItem('adminLogin', typeof true);
+          localStorage.setItem('menu_collapse', typeof false);
+          setBtnLoading(false);
+          navigate('/homepage/products');
+        })
+        .catch(() => {
+          errorNotification('Please Enter valid Email and Password');
+          setBtnLoading(false);
+        });
     }
   };
 
@@ -60,13 +63,13 @@ const Home: FC = () => {
             <Form.Item>
               {
                 <div className="username-input">
-                  <label>Username</label>
+                  <label>Email-id</label>
                   <Input
                     type="email"
                     name="emailId"
                     prefix={<img src={UserLogo} alt="UserIcon" />}
                     size="large"
-                    placeholder="Enter Your Name"
+                    placeholder="Enter Your Email-id"
                     className="input-text"
                     onChange={(e) => setEmail(e.target.value)}
                     value={emailId}

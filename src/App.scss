@@ -8,7 +8,7 @@
     width: 100%;
     .content {
       overflow-y: scroll;
-      margin-top: 5px;
+      margin-top: 3px;
       background-color: #ffffff;
     }
     .headerContent {
@@ -44,6 +44,7 @@
           display: flex;
           align-items: center;
           margin-right: 39px;
+          cursor: pointer;
           .notificationCount {
             position: absolute;
             top: 0px;
@@ -59,7 +60,7 @@
           background: #e53935 0% 0% no-repeat padding-box;
           box-shadow: 0px 0px 7px #e53935;
           border-radius: 20px;
-
+          cursor: pointer;
           img {
             width: 43px;
             height: 43px;
