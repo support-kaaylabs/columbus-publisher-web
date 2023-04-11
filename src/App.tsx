@@ -69,21 +69,12 @@ const App: FC = () => {
       }
     });
   };
-
-  // useEffect(() => {
-  //   if(widthSize < 1000){
-  //     setCollapsed(true);
-  //   }
-  //   else{
-  //     setCollapsed(false);
-  //   }
-  // }, [ref.current]);
-  // const userID: any = localStorage.getItem('User_ID');
-  // useEffect(() => {
-  //   if (userID == null || userID == undefined) {
-  //     navigate('/');
-  //   }
-  // }, []);
+  const userID: any = localStorage.getItem('User_ID');
+  useEffect(() => {
+    if (userID == null || userID == undefined) {
+      navigate('/');
+    }
+  }, []);
 
   useEffect(() => {
     const route = window.location.href;
