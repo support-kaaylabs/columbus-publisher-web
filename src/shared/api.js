@@ -145,7 +145,6 @@ class Http {
   }
 
   handleMultipart(url, obj, file, method, options = {}) {
-    console.log(file, 'fileee----------------->');
     const formData = new FormData();
     if (obj) Object.keys(obj).forEach((key) => formData.append(key, obj[key]));
     file.map((obj) => {
