@@ -1,9 +1,8 @@
-import React, { type FC, useState, useContext, useEffect } from 'react';
+import React, { type FC, useState, useContext, useEffect, useRef } from 'react';
 import Logo from './components/HomePage/Images/logoImgSmall.png';
 import MenuLogo from './components/HomePage/Images/menuLogo.svg';
 import LogoSymbolLarge from './components/HomePage/Images/logoSymbolLarge.svg';
 import LogoSymbolSmall from './components/HomePage/Images/logoSymbolSmall.svg';
-import Image from './components/HomePage/Images/photo.jpg';
 import CloseIcon from './components/HomePage/Images/closeIconSmall.png';
 import MenuIcon from './components/HomePage/Images/menuIconSmall.png';
 import classes from './App.module.scss';
@@ -12,26 +11,34 @@ import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import ProductList from './components/Product';
 import ProductDetail from './components/Product/detail';
 import { MyContext } from './components/store/dataStore';
+import { Popover } from 'antd';
+import { getImageLocate } from './shared/urlHelper';
 import {
-  SettingOutlined,
-  AlertOutlined,
-  DeliveredProcedureOutlined,
   AppstoreOutlined,
-  WalletOutlined,
-  CustomerServiceOutlined,
+  UploadOutlined,
   LogoutOutlined,
-
 } from '@ant-design/icons';
-import { updateUserInfo } from './shared/urlHelper';
+import { UserOutlined } from '@ant-design/icons';
+import { updateUserInfo, imageUpload } from './shared/urlHelper';
 import { Layout, Menu } from 'antd';
+import { get } from 'lodash';
 const { Header, Sider, Content } = Layout;
 
 const App: FC = () => {
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState<any>();
+  const [image, setImage] = useState<any>(<UserOutlined />);
+  const logoHandler = useRef<any>(null);
+
   const [collapsed, setCollapsed] = useState(false);
 
   const ctx = useContext(MyContext);
 
   const navigate = useNavigate();
+
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+  };
 
   const logoutClick = () => {
     const userId: any = localStorage.getItem('User_ID');
@@ -51,9 +58,32 @@ const App: FC = () => {
   useEffect(() => {
     if (userID == null || userID == undefined) {
       navigate('/');
+    } else {
+      const userName: string | null = localStorage.getItem('User_Name');
+      console.log(userName, 'jhfjgh');
+      setImage(localStorage.getItem('Image'));
+      setName(localStorage.getItem('User_Name'));
     }
   }, []);
 
+  const clickHandler = () => {
+    logoHandler.current.click();
+  };
+
+  const changeLogoHandler = (event: any) => {
+    const fileUploaded = [event.target.files[0]];
+    const userId: any = localStorage.getItem('User_ID');
+    imageUpload(userId, '', fileUploaded).then((data: any) => {
+      if (data.success) {
+        getImageLocate().then((res: any) => {
+          const Image = get(res, 'data[0].Image', '');
+          localStorage.setItem('Image', Image);
+          setImage(Image);
+        });
+      }
+    });
+    setOpen(false);
+  };
 
   return (
     <Layout className={classes.header} style={{ minHeight: '100vh' }}>
@@ -184,7 +214,7 @@ const App: FC = () => {
                       onClick={() => ctx.sideBarHandler('DASHBOARD')}
                     >
                       <Link to="dashboard">
-                        <span className='menuStyle'>
+                        <span className="menuStyle">
                           <AppstoreOutlined />
                           DASHBOARD
                         </span>
@@ -244,7 +274,7 @@ const App: FC = () => {
                       onClick={() => logoutClick}
                     >
                       <Link to="/">
-                        <span className='menuStyle'>
+                        <span className="menuStyle">
                           <LogoutOutlined />
                           LOGOUT
                         </span>
@@ -269,7 +299,7 @@ const App: FC = () => {
       </Sider>
       <Layout className={classes.layoutRight}>
         <Header className={classes.header_content}>
-          <span>
+          <span className={classes.menuicon}>
             <span
               onClick={() => setCollapsed(!collapsed)}
               className={classes.header_content_icon}
@@ -281,6 +311,43 @@ const App: FC = () => {
               )}
             </span>
             <span className={classes.header_content_name}>{ctx.name}</span>
+          </span>
+          <span className={classes.headerRightContent}>
+            <div className={classes.headerUserName}>{name}</div>
+            <div className={classes.avatar}>
+              <Popover
+                content={
+                  <a onClick={logoutClick}>
+                    <LogoutOutlined /> Logout
+                  </a>
+                }
+                title={
+                  <>
+                    <div style={{ cursor: 'pointer' }} onClick={clickHandler}>
+                      <UploadOutlined /> Upload Profile
+                    </div>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      ref={logoHandler}
+                      onChange={changeLogoHandler}
+                      style={{ display: 'none' }}
+                    />
+                  </>
+                }
+                trigger="click"
+                open={open}
+                onOpenChange={handleOpenChange}
+              >
+                <div>
+                  <img
+                    src={image}
+                    alt="avatar"
+                    className={classes.profileImg}
+                  />
+                </div>
+              </Popover>
+            </div>
           </span>
         </Header>
         <Content className={classes.content}>

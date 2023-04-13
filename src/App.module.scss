@@ -22,12 +22,36 @@
       align-items: center;
       background: #ffffff 0% 0% no-repeat padding-box;
       height: 80px;
+      line-height: 0px;
       box-shadow: 0px 3px 0px 0px #00000029;
       z-index: 1;
-
+      .headerRightContent {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .headerUserName {
+          margin-right: 20px;
+          font-size: 20px;
+          font-weight: bold;
+        }
+      }
+      .avatar {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        .profileImg {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          box-shadow: 0 0 9px #eb6b67;
+          object-fit: cover;
+        }
+      }
       .header_content_icon {
         cursor: pointer;
         position: absolute;
+        top: 35px;
         z-index: 1;
       }
 
@@ -123,12 +147,8 @@
           margin-left: 13px;
 
           li {
-            &.setting {
-              margin-top: 280px;
-            }
-
             &.logout {
-              margin-top: 380px;
+              margin-top: 550px;
             }
           }
 
