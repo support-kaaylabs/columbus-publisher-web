@@ -59,8 +59,6 @@ const App: FC = () => {
     if (userID == null || userID == undefined) {
       navigate('/');
     } else {
-      const userName: string | null = localStorage.getItem('User_Name');
-      console.log(userName, 'jhfjgh');
       setImage(localStorage.getItem('Image'));
       setName(localStorage.getItem('User_Name'));
     }
