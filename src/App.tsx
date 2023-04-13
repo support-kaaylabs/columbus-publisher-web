@@ -16,9 +16,9 @@ import { getImageLocate } from './shared/urlHelper';
 import {
   AppstoreOutlined,
   UploadOutlined,
+  ProfileOutlined,
   LogoutOutlined,
 } from '@ant-design/icons';
-import { UserOutlined } from '@ant-design/icons';
 import { updateUserInfo, imageUpload } from './shared/urlHelper';
 import { Layout, Menu } from 'antd';
 import { get } from 'lodash';
@@ -27,7 +27,7 @@ const { Header, Sider, Content } = Layout;
 const App: FC = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState<any>();
-  const [image, setImage] = useState<any>(<UserOutlined />);
+  const [image, setImage] = useState<any>(<ProfileOutlined />);
   const logoHandler = useRef<any>(null);
 
   const [collapsed, setCollapsed] = useState(false);
