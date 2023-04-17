@@ -1,5 +1,6 @@
 import React, { type FC, useState, useContext, useEffect, useRef } from 'react';
 import Logo from './components/HomePage/Images/logoImgSmall.png';
+import DefaultUser from './components/Images/defaultUser.png';
 import MenuLogo from './components/HomePage/Images/menuLogo.svg';
 import LogoSymbolLarge from './components/HomePage/Images/logoSymbolLarge.svg';
 import LogoSymbolSmall from './components/HomePage/Images/logoSymbolSmall.svg';
@@ -21,13 +22,13 @@ import {
 } from '@ant-design/icons';
 import { updateUserInfo, imageUpload } from './shared/urlHelper';
 import { Layout, Menu } from 'antd';
-import { get } from 'lodash';
+import { get, isEmpty } from 'lodash';
 const { Header, Sider, Content } = Layout;
 
 const App: FC = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState<any>();
-  const [image, setImage] = useState<any>(<ProfileOutlined />);
+  const [image, setImage] = useState<any>(DefaultUser);
   const logoHandler = useRef<any>(null);
 
   const [collapsed, setCollapsed] = useState(false);
@@ -56,10 +57,11 @@ const App: FC = () => {
   const userID: any = localStorage.getItem('User_ID');
 
   useEffect(() => {
-    if (userID == null || userID == undefined) {
+    if (userID === null || userID === undefined) {
       navigate('/');
     } else {
-      setImage(localStorage.getItem('Image'));
+      const profileImg = localStorage.getItem('Image');
+      isEmpty(profileImg) || profileImg ===  null ? setImage(DefaultUser) : setImage(localStorage.getItem('Image'));
       setName(localStorage.getItem('User_Name'));
     }
   }, []);
@@ -75,6 +77,8 @@ const App: FC = () => {
       if (data.success) {
         getImageLocate().then((res: any) => {
           const Image = get(res, 'data[0].Image', '');
+          console.log(Image, 'ghvghcvhcv');
+          
           localStorage.setItem('Image', Image);
           setImage(Image);
         });

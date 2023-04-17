@@ -5,19 +5,19 @@ import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 
 interface dashboardDetails {
   data: {
-    Event_Name: string,
-    todayPercent: number,
-    Today: number,
-    Predate: number,
-    Week: number,
-    Preweek: number,
-    weekPercent: number,
-    Premonth: number,
-    Month: number,
-    monthPercent: number,
-    Quarter: number,
-    Prequarter: number,
-    quarterPercent: number,
+    Event_Name: string;
+    todayPercent: number;
+    Today: number;
+    Predate: number;
+    Week: number;
+    Preweek: number;
+    weekPercent: number;
+    Premonth: number;
+    Month: number;
+    monthPercent: number;
+    Quarter: number;
+    Prequarter: number;
+    quarterPercent: number;
   };
 }
 
@@ -26,7 +26,7 @@ const Dashboard = (props: dashboardDetails) => {
 
   return (
     <div className="dashboard-page">
-      <div
+      <Row
         className={
           data?.Event_Name === 'PRODUCT_VIEWS'
             ? 'impression-img'
@@ -39,21 +39,16 @@ const Dashboard = (props: dashboardDetails) => {
                   : ''
         }
       >
-        <Row justify="space-around" className="card-alignment">
-          <Col
-            xs={{ span: 4 }}
-            sm={{ span: 4 }}
-            md={{ span: 4 }}
-            lg={{ span: 4 }}
-          >
-            <div className="icon-img">
-              <div className='icon-img-back'>
-                <img
-                  src={require(`../Images/${data.Event_Name}.png`)}
-                  alt="eye-icon"
-                />
-              </div>
-              <p>{data?.Event_Name === 'PRODUCT_VIEWS'
+        <Col sm={24} md={24} lg={4} className="column">
+          <div className="icon-img">
+            <div className="icon-img-back">
+              <img
+                src={require(`../Images/${data.Event_Name}.png`)}
+                alt="eye-icon"
+              />
+            </div>
+            <p>
+              {data?.Event_Name === 'PRODUCT_VIEWS'
                 ? 'Impressions'
                 : null || data?.Event_Name === 'PRODUCT_CLICK'
                   ? 'Clicks'
@@ -61,116 +56,103 @@ const Dashboard = (props: dashboardDetails) => {
                     ? 'Favourite'
                     : null || data?.Event_Name === 'CALL_TO_ACTION'
                       ? 'Call to Action'
-                      : ''}</p>
+                      : ''}
+            </p>
+          </div>
+        </Col>
+        <Col sm={12} md={8} lg={4} className="column">
+          <Card
+            style={{ boxShadow: '0px 0px 10px #00000029' }}
+            bordered={false}
+          >
+            <b>Today</b>
+            <p className="percentage">
+              {data?.todayPercent ? data?.todayPercent : '0'} %
+            </p>
+            <div className="d-flex">
+              <span className="diffrence">{data.Today}</span> &nbsp;
+              {data.Today < data.Predate ? (
+                <ArrowDownOutlined
+                  style={{ fontSize: '16px', color: '#EE1313' }}
+                />
+              ) : (
+                <ArrowUpOutlined
+                  style={{ fontSize: '16px', color: '#27AE07' }}
+                />
+              )}
             </div>
-          </Col>
-          <Col
-            xs={{ span: 4 }}
-            sm={{ span: 4 }}
-            md={{ span: 4 }}
-            lg={{ span: 4 }}
+          </Card>
+        </Col>
+        <Col sm={12} md={8} lg={4} className="column">
+          <Card
+            style={{ boxShadow: '0px 0px 10px #00000029' }}
+            bordered={false}
           >
-            <Card
-              style={{ boxShadow: '0px 0px 10px #00000029' }}
-              bordered={false}
-            >
-              <b>Today</b>
-              <p className="percentage">{data?.todayPercent ? data?.todayPercent : '0'} %</p>
-              <div className="d-flex">
-                <span className="diffrence">{data.Today}</span> &nbsp;
-                {data.Today < data.Predate ? (
-                  <ArrowDownOutlined
-                    style={{ fontSize: '16px', color: '#EE1313' }}
-                  />
-                ) : (
-                  <ArrowUpOutlined
-                    style={{ fontSize: '16px', color: '#27AE07' }}
-                  />
-                )}
-              </div>
-            </Card>
-          </Col>
-          <Col
-            xs={{ span: 4 }}
-            sm={{ span: 4 }}
-            md={{ span: 4 }}
-            lg={{ span: 4 }}
+            <b>This Week</b>
+            <p className="percentage">
+              {data.weekPercent ? data.weekPercent : '0'} %
+            </p>
+            <div className="d-flex">
+              <span className="diffrence">{data.Week}</span> &nbsp;
+              {data.Week < data.Preweek ? (
+                <ArrowDownOutlined
+                  style={{ fontSize: '16px', color: '#EE1313' }}
+                />
+              ) : (
+                <ArrowUpOutlined
+                  style={{ fontSize: '16px', color: '#27AE07' }}
+                />
+              )}
+            </div>
+          </Card>
+        </Col>
+        <Col sm={12} md={8} lg={4} className="column">
+          <Card
+            style={{ boxShadow: '0px 0px 10px #00000029' }}
+            bordered={false}
           >
-            <Card
-              style={{ boxShadow: '0px 0px 10px #00000029' }}
-              bordered={false}
-            >
-              <b>This Week</b>
-              <p className="percentage">{data.weekPercent ? data.weekPercent : '0'} %</p>
-              <div className="d-flex">
-                <span className="diffrence">{data.Week}</span> &nbsp;
-                {data.Week < data.Preweek ? (
-                  <ArrowDownOutlined
-                    style={{ fontSize: '16px', color: '#EE1313' }}
-                  />
-                ) : (
-                  <ArrowUpOutlined
-                    style={{ fontSize: '16px', color: '#27AE07' }}
-                  />
-                )}
-              </div>
-            </Card>
-          </Col>
-          <Col
-            xs={{ span: 4 }}
-            sm={{ span: 4 }}
-            md={{ span: 4 }}
-            lg={{ span: 4 }}
+            <b>This Month</b>
+            <p className="percentage">
+              {data.monthPercent ? data.monthPercent : '0'} %
+            </p>
+            <div className="d-flex">
+              <span className="diffrence">{data.Month}</span> &nbsp;
+              {data.Month < data.Premonth ? (
+                <ArrowDownOutlined
+                  style={{ fontSize: '16px', color: '#EE1313' }}
+                />
+              ) : (
+                <ArrowUpOutlined
+                  style={{ fontSize: '16px', color: '#27AE07' }}
+                />
+              )}
+            </div>
+          </Card>
+        </Col>
+        <Col sm={12} md={8} lg={4} className="column">
+          <Card
+            style={{ boxShadow: '0px 0px 10px #00000029' }}
+            bordered={false}
           >
-            <Card
-              style={{ boxShadow: '0px 0px 10px #00000029' }}
-              bordered={false}
-            >
-              <b>This Month</b>
-              <p className="percentage">{data.monthPercent ? data.monthPercent : '0'} %</p>
-              <div className="d-flex">
-                <span className="diffrence">{data.Month}</span> &nbsp;
-                {data.Month < data.Premonth ? (
-                  <ArrowDownOutlined
-                    style={{ fontSize: '16px', color: '#EE1313' }}
-                  />
-                ) : (
-                  <ArrowUpOutlined
-                    style={{ fontSize: '16px', color: '#27AE07' }}
-                  />
-                )}
-              </div>
-            </Card>
-          </Col>
-          <Col
-            xs={{ span: 4 }}
-            sm={{ span: 4 }}
-            md={{ span: 4 }}
-            lg={{ span: 4 }}
-          >
-            <Card
-              style={{ boxShadow: '0px 0px 10px #00000029' }}
-              bordered={false}
-            >
-              <b>Quarter</b>
-              <p className="percentage">{data.quarterPercent ? data.quarterPercent : '0'} %</p>
-              <div className="d-flex">
-                <span className="diffrence">{data.Quarter}</span>{' '}
-                &nbsp;
-                {data.Quarter < data.Prequarter ? (
-                  <ArrowDownOutlined
-                    style={{ fontSize: '16px', color: '#EE1313' }}
-                  />
-                ) : (
-                  <ArrowUpOutlined
-                    style={{ fontSize: '16px', color: '#27AE07' }}
-                  />
-                )}
-              </div>
-            </Card>
-          </Col>
-        </Row>
-      </div>
+            <b>Quarter</b>
+            <p className="percentage">
+              {data.quarterPercent ? data.quarterPercent : '0'} %
+            </p>
+            <div className="d-flex">
+              <span className="diffrence">{data.Quarter}</span> &nbsp;
+              {data.Quarter < data.Prequarter ? (
+                <ArrowDownOutlined
+                  style={{ fontSize: '16px', color: '#EE1313' }}
+                />
+              ) : (
+                <ArrowUpOutlined
+                  style={{ fontSize: '16px', color: '#27AE07' }}
+                />
+              )}
+            </div>
+          </Card>
+        </Col>
+      </Row>
     </div>
   );
 };
