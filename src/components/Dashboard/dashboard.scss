@@ -1,79 +1,70 @@
-.dashboard-page {
+.impression-img {
+  background-image: url('../Images/pink-bg-img.png');
   background-repeat: no-repeat;
   background-size: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 20px;
+  flex-wrap: wrap;
+  border-radius: 20px;
+}
+.column {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.clicks-img {
+  background-image: url('../Images/blue-bg-img.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border-radius: 20px;
+}
 
-  .impression-img {
-    background-image: url("../Images/pink-bg-img.png");
-    background-repeat: no-repeat;
-    background-size: 100%;
-    border-radius: 20px;
+.favourite-img {
+  background-image: url('../Images/green-bg-img.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border-radius: 20px;
+}
+
+.call-to-action-img {
+  background-image: url('../Images/brown-bg-img.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border-radius: 20px;
+}
+
+.card-alignment {
+  padding: 45px 30px 45px 30px;
+  display: flex;
+  align-items: center;
+
+  .percentage {
+    border-bottom: 1px solid;
+    max-width: fit-content;
+    margin: 18px 0px 5px 0px;
+    color: #bbbbbb;
   }
 
-  .clicks-img {
-    background-image: url("../Images/blue-bg-img.png");
-    background-repeat: no-repeat;
-    background-size: 100%;
-    border-radius: 20px;
+  .diffrence {
+    font-size: 17px;
+    font-weight: bold;
   }
 
-  .favourite-img {
-    background-image: url("../Images/green-bg-img.png");
-    background-repeat: no-repeat;
-    background-size: 100%;
-    border-radius: 20px;
-  }
-
-  .call-to-action-img {
-    background-image: url("../Images/brown-bg-img.png");
-    background-repeat: no-repeat;
-    background-size: 100%;
-    border-radius: 20px;
-  }
-
-  .card-alignment {
-    padding: 45px 30px 45px 30px;
+  .icon-img-back {
+    background: white;
+    border-radius: 50%;
+    width: 60px;
     display: flex;
-    align-items: center;
+    justify-content: center;
+    margin: auto;
+  }
 
-    .percentage {
-      border-bottom: 1px solid;
-      max-width: fit-content;
-      margin: 18px 0px 5px 0px;
-      color: #BBBBBB;
-    }
+  p {
+    font-size: 21px;
+    color: #222222;
+    font-weight: 600;
+  }
 
-    .diffrence {
-      font-size: 17px;
-      font-weight: bold;
-    }
-
-    .icon-img {
-      text-align: center;
-
-      .icon-img-back {
-        background: white;
-        border-radius: 50%;
-        width: 60px;
-        display: flex;
-        justify-content: center;
-        margin: auto;
-      }
-
-      p {
-        font-size: 21px;
-        color: #222222;
-        font-weight: 600;
-      }
-    }
-
-    .icon-img img {
-      padding: 10px;
-    }
-
+  .icon-img img {
+    padding: 10px;
   }
 }
 
@@ -82,13 +73,13 @@ apexcharts-toolbar {
 }
 
 .ant-tabs-tab.ant-tabs-tab-active {
-  border-bottom: 2px solid #F44336 !important;
+  border-bottom: 2px solid #f44336 !important;
   color: black !important;
   z-index: 2;
 }
 
 .testing {
-  border-bottom: 2px solid #F44336 !important;
+  border-bottom: 2px solid #f44336 !important;
   color: black !important;
   z-index: 2;
 }
@@ -120,7 +111,9 @@ apexcharts-toolbar {
   color: grey;
 }
 
-:where(.css-dev-only-do-not-override-ph9edi).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+:where(.css-dev-only-do-not-override-ph9edi).ant-tabs
+  .ant-tabs-tab.ant-tabs-tab-active
+  .ant-tabs-tab-btn {
   color: #000000;
   font-size: 17px;
   text-shadow: 0 0 0.25px currentcolor;
