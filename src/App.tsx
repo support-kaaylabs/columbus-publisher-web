@@ -1,5 +1,13 @@
-import React, { type FC, useState, useContext, useEffect, useRef } from 'react';
+import React, {
+  type FC,
+  useState,
+  useContext,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import Logo from './components/HomePage/Images/logoImgSmall.png';
+import DefaultUser from './components/Images/defaultUser.png';
 import MenuLogo from './components/HomePage/Images/menuLogo.svg';
 import LogoSymbolLarge from './components/HomePage/Images/logoSymbolLarge.svg';
 import LogoSymbolSmall from './components/HomePage/Images/logoSymbolSmall.svg';
@@ -12,25 +20,25 @@ import ProductList from './components/Product';
 import ProductDetail from './components/Product/detail';
 import { MyContext } from './components/store/dataStore';
 import { Popover } from 'antd';
-import { getImageLocate } from './shared/urlHelper';
+import UserProfile from './components/Home/userProfile';
 import {
   AppstoreOutlined,
   UploadOutlined,
-  ProfileOutlined,
   LogoutOutlined,
 } from '@ant-design/icons';
-import { updateUserInfo, imageUpload } from './shared/urlHelper';
+import { updateUserInfo } from './shared/urlHelper';
 import { Layout, Menu } from 'antd';
-import { get } from 'lodash';
 const { Header, Sider, Content } = Layout;
 
 const App: FC = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState<any>();
-  const [image, setImage] = useState<any>(<ProfileOutlined />);
-  const logoHandler = useRef<any>(null);
+  const [image, setImage] = useState<any>(DefaultUser);
 
   const [collapsed, setCollapsed] = useState(false);
+
+  const locate = window.location.href;
+  const slug = locate.split('/')[3];
 
   const ctx = useContext(MyContext);
 
@@ -52,10 +60,10 @@ const App: FC = () => {
       }
     });
   };
-
   const userID: any = localStorage.getItem('User_ID');
-
   useEffect(() => {
+    console.log('userID', userID);
+
     if (userID == null || userID == undefined) {
       navigate('/');
     } else {
@@ -63,25 +71,6 @@ const App: FC = () => {
       setName(localStorage.getItem('User_Name'));
     }
   }, []);
-
-  const clickHandler = () => {
-    logoHandler.current.click();
-  };
-
-  const changeLogoHandler = (event: any) => {
-    const fileUploaded = [event.target.files[0]];
-    const userId: any = localStorage.getItem('User_ID');
-    imageUpload(userId, '', fileUploaded).then((data: any) => {
-      if (data.success) {
-        getImageLocate().then((res: any) => {
-          const Image = get(res, 'data[0].Image', '');
-          localStorage.setItem('Image', Image);
-          setImage(Image);
-        });
-      }
-    });
-    setOpen(false);
-  };
 
   return (
     <Layout className={classes.header} style={{ minHeight: '100vh' }}>
@@ -179,7 +168,7 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item>   */}
-                    <Menu.Item
+                    {/* <Menu.Item
                       key={7}
                       title="LOGOUT"
                       className={classes.logout}
@@ -190,7 +179,7 @@ const App: FC = () => {
                           <LogoutOutlined />
                         </span>
                       </Link>
-                    </Menu.Item>
+                    </Menu.Item> */}
                   </>
                 ) : (
                   <>
@@ -266,7 +255,7 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item> */}
-                    <Menu.Item
+                    {/* <Menu.Item
                       key={7}
                       className={classes.logout}
                       onClick={() => logoutClick}
@@ -277,7 +266,7 @@ const App: FC = () => {
                           LOGOUT
                         </span>
                       </Link>
-                    </Menu.Item>
+                    </Menu.Item> */}
                   </>
                 )}
               </nav>
@@ -308,7 +297,7 @@ const App: FC = () => {
                 <img src={MenuIcon} alt="MenuIcon" />
               )}
             </span>
-            <span className={classes.header_content_name}>{ctx.name}</span>
+            <span className={classes.header_content_name}>{slug}</span>
           </span>
           <span className={classes.headerRightContent}>
             <div className={classes.headerUserName}>{name}</div>
@@ -320,18 +309,12 @@ const App: FC = () => {
                   </a>
                 }
                 title={
-                  <>
-                    <div style={{ cursor: 'pointer' }} onClick={clickHandler}>
-                      <UploadOutlined /> Upload Profile
-                    </div>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      ref={logoHandler}
-                      onChange={changeLogoHandler}
-                      style={{ display: 'none' }}
-                    />
-                  </>
+                  <Link
+                    to="myProfile"
+                    onClick={() => ctx.sideBarHandler('MYPROFILE')}
+                  >
+                    <UploadOutlined /> My Profile
+                  </Link>
                 }
                 trigger="click"
                 open={open}
@@ -353,6 +336,10 @@ const App: FC = () => {
             <Route path="products" element={<ProductList />} />
             <Route path="/:dashboard" element={<Dashboard />} />
             <Route path="products/:slug" element={<ProductDetail />} />
+            <Route
+              path="myProfile"
+              element={<UserProfile image={image} setImage={setImage} />}
+            />
           </Routes>
         </Content>
       </Layout>

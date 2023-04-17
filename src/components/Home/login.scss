@@ -113,3 +113,88 @@
     }
   }
 }
+.userProfile {
+  display: flex;
+  justify-content: center;
+  background: white;
+  margin-top: 30px;
+  height: 100vh;
+  .userContainer {
+    border-radius: 15px;
+    padding: 10px;
+    width: 100%;
+    width: 700px;
+    height: 300px;
+    background: #ffffff;
+    box-shadow: 0 0 6px black;
+    .setting {
+      font-size: 15px;
+      font-weight: bold;
+      border-bottom: 1px solid black;
+      p {
+        margin-left: 26px;
+      }
+    }
+
+    .userContain {
+      display: flex;
+      height: 250px;
+      align-items: center;
+      .userDetail {
+        margin-left: 26px;
+        width: 100%;
+        .user {
+          opacity: 0.4;
+          font-size: 15px;
+          width: 100%;
+          font-weight: bold;
+          border-bottom: 1px solid black;
+          p {
+            margin-bottom: 5px;
+          }
+        }
+        .detail {
+          opacity: 0.4;
+          font-size: 15px;
+          font-weight: bold;
+          border-bottom: 1px solid black;
+          p {
+            margin-top: 25px;
+            margin-bottom: 5px;
+          }
+        }
+      }
+      .userImg {
+        width: 50%;
+        position: relative;
+        .profileImg {
+          width: 200px;
+          height: 200px;
+          border-radius: 50%;
+          box-shadow: 0 0 9px #eb6b67;
+          object-fit: cover;
+        }
+        .profileLoading {
+          width: 150px;
+          height: 150px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .userImgIcon {
+          width: 50px;
+          height: 50px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
+          right: 20px;
+          cursor: pointer;
+          position: absolute;
+          bottom: 0;
+          background: rgb(103, 77, 199);
+        }
+      }
+    }
+  }
+}
