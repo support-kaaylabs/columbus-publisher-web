@@ -46,6 +46,7 @@ const App: FC = () => {
     const params = {
       Device_ID: null,
     };
+
     updateUserInfo(userId, params).then((res) => {
       if (res.success) {
         localStorage.clear();
@@ -117,7 +118,7 @@ const App: FC = () => {
                       className={classes.products}
                       onClick={() => ctx.sideBarHandler('PRODUCT')}
                     >
-                      <Link to="products">
+                      <Link to="product">
                         <span>
                           <DeliveredProcedureOutlined />
                         </span>
@@ -354,9 +355,9 @@ const App: FC = () => {
         </Header>
         <Content className={classes.content}>
           <Routes>
-            <Route path="products" element={<ProductList />} />
+            <Route path="product" element={<ProductList />} />
             <Route path="/:dashboard" element={<Dashboard />} />
-            <Route path="products/:slug" element={<ProductDetail />} />
+            <Route path="product/:slug" element={<ProductDetail />} />
           </Routes>
         </Content>
       </Layout>

@@ -1,0 +1,258 @@
+$color_1: #e53935;
+$color_2: #707070;
+$color_3: #0909dc;
+$color_4: #03781b;
+$color_5: #222222;
+$color_6: #ffffff;
+$color_7: #ececec;
+$color_8: #bbbbbb;
+$color_9: #f9dede;
+$color_10: #d8defc;
+$color_11: #cbf3d3;
+
+.head {
+  .filterHead {
+    position: sticky;
+    margin-left: auto;
+    right: 0;
+    top: 0;
+    background: #ffffff;
+    z-index: 1;
+    width: 99%;
+    padding-top: 5px;
+    .filter {
+      width: 25px;
+      height: 25px;
+      background: #e53935 0% 0% no-repeat padding-box;
+      border-radius: 4px 0px 0px 4px;
+      color: $color_6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: auto;
+    }
+  }
+  .contentRow {
+    margin-left: 26px;
+    .contentHead {
+      margin-top: 26px;
+      margin-right: 26px;
+      height: 310px;
+      background: $color_6 0% 0% no-repeat padding-box;
+      box-shadow: 0px 3px 6px #00000029;
+      border: 1px solid $color_8;
+      border-radius: 12px;
+      justify-content: center;
+      .contentLogo {
+        height: 130px;
+        background: $color_7 0% 0% no-repeat padding-box;
+        border-radius: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+      .contentMain {
+        padding: 0px 20px;
+        margin-top: 5px;
+        .contentParaButton {
+          display: flex;
+          .impression {
+            width: 50%;
+            height: 46px;
+
+            p {
+              color: $color_1;
+              width: 66px;
+              height: 13px;
+              font-size: 11px;
+              font-weight: bold;
+              letter-spacing: 0px;
+              color: $color_2;
+              text-transform: uppercase;
+              margin-bottom: 7px;
+            }
+
+            button {
+              width: 100%;
+              height: 26px;
+              background: $color_9 0% 0% no-repeat padding-box;
+              border-radius: 13px;
+              border: none;
+
+              span {
+                width: 18px;
+                height: 12px;
+                display: flex;
+
+                p {
+                  margin: 0;
+                  padding: 0;
+                  color: $color_1;
+                  font-weight: bold;
+                  margin-left: 10px;
+                }
+
+                img {
+                  width: 18px;
+                  height: 12px;
+                }
+              }
+            }
+          }
+
+          p {
+            margin: 0px;
+          }
+          .clicks {
+            width: 30%;
+            height: 46px;
+            margin-left: 4px;
+            p {
+              width: 37px;
+              height: 13px;
+              font-size: 11px;
+              font-weight: bold;
+              letter-spacing: 0px;
+              color: $color_2;
+              text-transform: uppercase;
+              margin-bottom: 7px;
+              margin-left: 4px;
+            }
+
+            button {
+              width: 100%;
+              height: 26px;
+              color: $color_3;
+              background: $color_10 0% 0% no-repeat padding-box;
+              border-radius: 13px;
+              border: none;
+              font-weight: bold;
+
+              span {
+                width: 18px;
+                height: 12px;
+                display: flex;
+
+                p {
+                  margin: 0;
+                  padding: 0;
+                  color: $color_3;
+                  font-weight: bold;
+                  margin-left: 10px;
+                }
+
+                img {
+                  width: 18px;
+                  height: 12px;
+                }
+              }
+            }
+          }
+
+          .cta {
+            width: 20%;
+            margin-left: 4px;
+            height: 46px;
+
+            p {
+              width: 14px;
+              height: 15px;
+              font-size: 12px;
+              font-weight: bold;
+              margin-left: 8px;
+              letter-spacing: 0px;
+              color: $color_2;
+              text-transform: uppercase;
+              margin-bottom: 7px;
+            }
+
+            button {
+              width: 100%;
+              height: 26px;
+              color: $color_4;
+              background: $color_11 0% 0% no-repeat padding-box;
+              border-radius: 13px;
+              border: none;
+              font-weight: bold;
+
+              span {
+                width: 18px;
+                height: 12px;
+                display: flex;
+
+                p {
+                  margin: 0;
+                  padding: 0;
+                  margin-left: 10px;
+                  color: $color_4;
+                  font-weight: bold;
+                  margin-left: 10px;
+                }
+
+                img {
+                  width: 18px;
+                  height: 12px;
+                }
+              }
+            }
+          }
+        }
+        .unitted {
+          font-size: 13px;
+          color: $color_2;
+          letter-spacing: 0px;
+          color: $color_2;
+        }
+
+        .knitted {
+          font-size: 14px;
+          letter-spacing: 0px;
+          color: $color_5;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .buttonDiv {
+          button {
+            display: flex;
+            min-width: 100%;
+            height: 32px;
+            border-radius: 16px;
+            font-size: 13px;
+            line-height: 1;
+            letter-spacing: 0px;
+            text-transform: uppercase;
+            justify-content: center;
+            color: $color_6;
+            background: $color_5 0% 0% no-repeat padding-box;
+            border-radius: 16px;
+            align-items: center;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            border: none;
+            font-family: 'Lato', sans-serif;
+            font-weight: 500.2;
+          }
+
+          a {
+            color: $color_6;
+          }
+        }
+
+        .para {
+          margin-top: 15px;
+          margin-bottom: 15px;
+
+          p {
+            margin-top: 5px;
+          }
+        }
+      }
+    }
+  }
+}

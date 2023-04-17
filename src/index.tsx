@@ -14,18 +14,16 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <MyProvider>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/" element={<App />}>
-          <Route path="products" element={<ProductList />} />
-          <Route path="products/:slug" element={<ProductDetail />} />
-          <Route path=":dashboard" element={<Dashboard />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </MyProvider>
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/" element={<App />}>
+        <Route path="product" element={<ProductList />} />
+        <Route path="product/:slug" element={<ProductDetail />} />
+        <Route path=":dashboard" element={<Dashboard />} />
+      </Route>
+    </Routes>
+  </BrowserRouter>
 );
 
 reportWebVitals();
