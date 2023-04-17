@@ -1,11 +1,4 @@
-import React, {
-  type FC,
-  useState,
-  useContext,
-  useEffect,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import React, { type FC, useState, useContext, useEffect } from 'react';
 import Logo from './components/HomePage/Images/logoImgSmall.png';
 import DefaultUser from './components/Images/defaultUser.png';
 import MenuLogo from './components/HomePage/Images/menuLogo.svg';
@@ -28,7 +21,6 @@ import {
 } from '@ant-design/icons';
 import { updateUserInfo } from './shared/urlHelper';
 import { Layout, Menu } from 'antd';
-import { isEmpty } from 'lodash';
 const { Header, Sider, Content } = Layout;
 
 const App: FC = () => {
@@ -82,32 +74,30 @@ const App: FC = () => {
   };
 
   return (
-    console.log(image, 'imagess'),
-    (
-      <Layout className={classes.header} style={{ minHeight: '100vh' }}>
-        <Sider
-          theme="light"
-          collapsible
-          collapsed={collapsed}
-          className={classes.header_sider}
-          width="281px"
-        >
-          <div className={classes.header_sider_logo}>
-            <div className={classes.sider_logo_head}>
-              {collapsed ? (
-                <img src={LogoSymbolLarge} alt="LogoSymbol" />
-              ) : (
-                <img src={Logo} alt="JINGLS" />
-              )}
-            </div>
+    <Layout className={classes.header} style={{ minHeight: '100vh' }}>
+      <Sider
+        theme="light"
+        collapsible
+        collapsed={collapsed}
+        className={classes.header_sider}
+        width="281px"
+      >
+        <div className={classes.header_sider_logo}>
+          <div className={classes.sider_logo_head}>
+            {collapsed ? (
+              <img src={LogoSymbolLarge} alt="LogoSymbol" />
+            ) : (
+              <img src={Logo} alt="JINGLS" />
+            )}
           </div>
-          <div className={classes.sider_menu}>
-            <div>
-              <Menu className={classes.sider_menuItem} mode="inline">
-                <nav>
-                  {collapsed ? (
-                    <>
-                      {/* <Menu.Item
+        </div>
+        <div className={classes.sider_menu}>
+          <div>
+            <Menu className={classes.sider_menuItem} mode="inline">
+              <nav>
+                {collapsed ? (
+                  <>
+                    {/* <Menu.Item
                       key={1}
                       title="PRODUCT"
                       className={classes.products}
@@ -119,19 +109,19 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item> */}
-                      <Menu.Item
-                        key={2}
-                        title="DASHBOARD"
-                        className={classes.dashboard}
-                        onClick={() => ctx.sideBarHandler('DASHBOARD')}
-                      >
-                        <Link to="dashboard">
-                          <span>
-                            <AppstoreOutlined />
-                          </span>
-                        </Link>
-                      </Menu.Item>
-                      {/* <Menu.Item
+                    <Menu.Item
+                      key={2}
+                      title="DASHBOARD"
+                      className={classes.dashboard}
+                      onClick={() => ctx.sideBarHandler('DASHBOARD')}
+                    >
+                      <Link to="dashboard">
+                        <span>
+                          <AppstoreOutlined />
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                    {/* <Menu.Item
                       key={3}
                       title="INSIGHT"
                       className={classes.insights}
@@ -143,7 +133,7 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item> */}
-                      {/* <Menu.Item
+                    {/* <Menu.Item
                       key={4}
                       title="WALLET"
                       className={classes.wallet}
@@ -179,7 +169,7 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item>   */}
-                      {/* <Menu.Item
+                    {/* <Menu.Item
                       key={7}
                       title="LOGOUT"
                       className={classes.logout}
@@ -191,10 +181,10 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item> */}
-                    </>
-                  ) : (
-                    <>
-                      {/* <Menu.Item
+                  </>
+                ) : (
+                  <>
+                    {/* <Menu.Item
                       key={1}
                       className={classes.products}
                       onClick={() => ctx.sideBarHandler('PRODUCT')}
@@ -206,19 +196,19 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item> */}
-                      <Menu.Item
-                        key={2}
-                        className={classes.dashboard}
-                        onClick={() => ctx.sideBarHandler('DASHBOARD')}
-                      >
-                        <Link to="dashboard">
-                          <span className="menuStyle">
-                            <AppstoreOutlined />
-                            DASHBOARD
-                          </span>
-                        </Link>
-                      </Menu.Item>
-                      {/* <Menu.Item
+                    <Menu.Item
+                      key={2}
+                      className={classes.dashboard}
+                      onClick={() => ctx.sideBarHandler('DASHBOARD')}
+                    >
+                      <Link to="dashboard">
+                        <span className="menuStyle">
+                          <AppstoreOutlined />
+                          DASHBOARD
+                        </span>
+                      </Link>
+                    </Menu.Item>
+                    {/* <Menu.Item
                       key={3}
                       className={classes.insights}
                       onClick={() => ctx.sideBarHandler('INSIGHTS')}
@@ -266,7 +256,7 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item> */}
-                      {/* <Menu.Item
+                    {/* <Menu.Item
                       key={7}
                       className={classes.logout}
                       onClick={() => logoutClick}
@@ -278,83 +268,82 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item> */}
-                    </>
-                  )}
-                </nav>
-              </Menu>
-              <div className={classes.menu_item}>
-                <div className={classes.menu_logo_item}>
-                  {collapsed ? (
-                    <img src={LogoSymbolSmall} alt="LogoSymbol" />
-                  ) : (
-                    <img src={MenuLogo} alt="JINGLS" />
-                  )}
-                  <p>{collapsed ? 'V1.0' : 'Publisher App version 1.0'}</p>
-                </div>
+                  </>
+                )}
+              </nav>
+            </Menu>
+            <div className={classes.menu_item}>
+              <div className={classes.menu_logo_item}>
+                {collapsed ? (
+                  <img src={LogoSymbolSmall} alt="LogoSymbol" />
+                ) : (
+                  <img src={MenuLogo} alt="JINGLS" />
+                )}
+                <p>{collapsed ? 'V1.0' : 'Publisher App version 1.0'}</p>
               </div>
             </div>
           </div>
-        </Sider>
-        <Layout className={classes.layoutRight}>
-          <Header className={classes.header_content}>
-            <span className={classes.menuicon}>
-              <span
-                onClick={() => setCollapsed(!collapsed)}
-                className={classes.header_content_icon}
+        </div>
+      </Sider>
+      <Layout className={classes.layoutRight}>
+        <Header className={classes.header_content}>
+          <span className={classes.menuicon}>
+            <span
+              onClick={() => setCollapsed(!collapsed)}
+              className={classes.header_content_icon}
+            >
+              {collapsed ? (
+                <img src={CloseIcon} alt="closeicon" />
+              ) : (
+                <img src={MenuIcon} alt="MenuIcon" />
+              )}
+            </span>
+            <span className={classes.header_content_name}>
+              {slug === 'myProfile' ? 'MY PROFILE' : slug}
+            </span>
+          </span>
+          <span className={classes.headerRightContent}>
+            <div className={classes.headerUserName}>{name}</div>
+            <div className={classes.avatar}>
+              <Popover
+                content={
+                  <a onClick={logoutClick}>
+                    <LogoutOutlined /> Logout
+                  </a>
+                }
+                title={
+                  <Link to="myProfile" onClick={changeHandler}>
+                    <UploadOutlined /> My Profile
+                  </Link>
+                }
+                trigger="click"
+                open={open}
+                onOpenChange={handleOpenChange}
               >
-                {collapsed ? (
-                  <img src={CloseIcon} alt="closeicon" />
-                ) : (
-                  <img src={MenuIcon} alt="MenuIcon" />
-                )}
-              </span>
-              <span className={classes.header_content_name}>
-                {slug === 'myProfile' ? 'MY PROFILE' : slug}
-              </span>
-            </span>
-            <span className={classes.headerRightContent}>
-              <div className={classes.headerUserName}>{name}</div>
-              <div className={classes.avatar}>
-                <Popover
-                  content={
-                    <a onClick={logoutClick}>
-                      <LogoutOutlined /> Logout
-                    </a>
-                  }
-                  title={
-                    <Link to="myProfile" onClick={changeHandler}>
-                      <UploadOutlined /> My Profile
-                    </Link>
-                  }
-                  trigger="click"
-                  open={open}
-                  onOpenChange={handleOpenChange}
-                >
-                  <div>
-                    <img
-                      src={image}
-                      alt="avatar"
-                      className={classes.profileImg}
-                    />
-                  </div>
-                </Popover>
-              </div>
-            </span>
-          </Header>
-          <Content className={classes.content}>
-            <Routes>
-              <Route path="products" element={<ProductList />} />
-              <Route path="/:dashboard" element={<Dashboard />} />
-              <Route path="products/:slug" element={<ProductDetail />} />
-              <Route
-                path="myProfile"
-                element={<UserProfile image={image} setImage={setImage} />}
-              />
-            </Routes>
-          </Content>
-        </Layout>
+                <div>
+                  <img
+                    src={image}
+                    alt="avatar"
+                    className={classes.profileImg}
+                  />
+                </div>
+              </Popover>
+            </div>
+          </span>
+        </Header>
+        <Content className={classes.content}>
+          <Routes>
+            <Route path="products" element={<ProductList />} />
+            <Route path="/:dashboard" element={<Dashboard />} />
+            <Route path="products/:slug" element={<ProductDetail />} />
+            <Route
+              path="myProfile"
+              element={<UserProfile image={image} setImage={setImage} />}
+            />
+          </Routes>
+        </Content>
       </Layout>
-    )
+    </Layout>
   );
 };
 

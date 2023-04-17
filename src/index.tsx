@@ -9,7 +9,6 @@ import ProductList from './components/Product';
 import ProductDetail from './components/Product/detail';
 import Dashboard from './pages/Dashboard';
 import { MyProvider } from './components/store/dataStore';
-import UserProfile from './components/Home/userProfile';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -24,10 +23,6 @@ root.render(
           <Route path="products" element={<ProductList />} />
           <Route path="products/:slug" element={<ProductDetail />} />
           <Route path=":dashboard" element={<Dashboard />} />
-          {/* <Route
-            path="myProfile"
-            element={<UserProfile />}
-          /> */}
         </Route>
       </Routes>
     </BrowserRouter>
