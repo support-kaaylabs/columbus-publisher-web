@@ -44,8 +44,8 @@ const App: FC = () => {
 
   const navigate = useNavigate();
 
-  const handleOpenChange = (newOpen: boolean) => {
-    setOpen(newOpen);
+  const handleOpenChange = () => {
+    setOpen(true);
   };
 
   const logoutClick = () => {
@@ -71,6 +71,10 @@ const App: FC = () => {
       setName(localStorage.getItem('User_Name'));
     }
   }, []);
+
+  const changeHandler = () => {
+    setOpen(false);
+  };
 
   return (
     <Layout className={classes.header} style={{ minHeight: '100vh' }}>
@@ -297,7 +301,9 @@ const App: FC = () => {
                 <img src={MenuIcon} alt="MenuIcon" />
               )}
             </span>
-            <span className={classes.header_content_name}>{slug}</span>
+            <span className={classes.header_content_name}>
+              {slug === 'myProfile' ? 'MY PROFILE' : slug}
+            </span>
           </span>
           <span className={classes.headerRightContent}>
             <div className={classes.headerUserName}>{name}</div>
@@ -309,10 +315,7 @@ const App: FC = () => {
                   </a>
                 }
                 title={
-                  <Link
-                    to="myProfile"
-                    onClick={() => ctx.sideBarHandler('MYPROFILE')}
-                  >
+                  <Link to="myProfile" onClick={changeHandler}>
                     <UploadOutlined /> My Profile
                   </Link>
                 }
