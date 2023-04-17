@@ -54,8 +54,12 @@ const App: FC = () => {
       }
     });
   };
-
   const userID: any = localStorage.getItem('User_ID');
+  useEffect(() => {
+    if (userID == null || userID == undefined) {
+      navigate('/');
+    }
+  }, []);
 
   useEffect(() => {
     if (userID === null || userID === undefined) {
