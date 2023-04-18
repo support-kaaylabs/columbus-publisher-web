@@ -282,12 +282,12 @@ const App: FC = () => {
             <div className={classes.avatar}>
               <Popover
                 content={
-                  <a onClick={logoutClick}>
+                  <a onClick={logoutClick} className='logout'>
                     <LogoutOutlined /> Logout
                   </a>
                 }
                 title={
-                  <Link to="myProfile" onClick={changeHandler}>
+                  <Link to="myProfile" onClick={changeHandler} className='profile'>
                     <UploadOutlined /> My Profile
                   </Link>
                 }
@@ -313,7 +313,7 @@ const App: FC = () => {
             <Route path="products/:slug" element={<ProductDetail />} />
             <Route
               path="myProfile"
-              element={<UserProfile image={image} setImage={setImage} />}
+              element={<UserProfile />}
             />
           </Routes>
         </Content>

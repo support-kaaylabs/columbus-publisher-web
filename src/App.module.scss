@@ -10,7 +10,7 @@
 
     .content {
       overflow-y: scroll;
-      margin-top: 5px;
+      padding: 20px;
       background-color: #ffffff;
     }
 
@@ -147,12 +147,6 @@
           margin-top: 10px;
           margin-left: 13px;
 
-          li {
-            &.logout {
-              margin-top: 550px;
-            }
-          }
-
           .products,
           .dashboard,
           .insights,
@@ -193,7 +187,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 580px;
+        margin-top: 200%;
         border-top: 1px solid #bbbbbb;
 
         .menu_logo_item {
