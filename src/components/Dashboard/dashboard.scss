@@ -7,73 +7,95 @@
   margin: 20px;
 
   .impression-img {
-    background-image: url("../Images/pink-bg-img.png");
+    background-image: url('../Images/pink-bg-img.png');
     background-repeat: no-repeat;
     background-size: 100%;
     border-radius: 20px;
+    padding: 45px 30px 45px 30px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
   }
 
   .clicks-img {
-    background-image: url("../Images/blue-bg-img.png");
+    background-image: url('../Images/blue-bg-img.png');
     background-repeat: no-repeat;
     background-size: 100%;
     border-radius: 20px;
-  }
-
-  .favourite-img {
-    background-image: url("../Images/green-bg-img.png");
-    background-repeat: no-repeat;
-    background-size: 100%;
-    border-radius: 20px;
-  }
-
-  .call-to-action-img {
-    background-image: url("../Images/brown-bg-img.png");
-    background-repeat: no-repeat;
-    background-size: 100%;
-    border-radius: 20px;
-  }
-
-  .card-alignment {
     padding: 45px 30px 45px 30px;
     display: flex;
     align-items: center;
+    justify-content: space-around;
+  }
 
-    .percentage {
-      border-bottom: 1px solid;
-      max-width: fit-content;
-      margin: 18px 0px 5px 0px;
-      color: #BBBBBB;
+  .favourite-img {
+    background-image: url('../Images/green-bg-img.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    border-radius: 20px;
+    padding: 45px 30px 45px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .call-to-action-img {
+    background-image: url('../Images/brown-bg-img.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    border-radius: 20px;
+    padding: 45px 30px 45px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .percentage {
+    border-bottom: 1px solid;
+    max-width: fit-content;
+    margin: 18px 0px 5px 0px;
+    color: #bbbbbb;
+  }
+  .columnWid {
+    max-width: 500px;
+    min-width: 200px;
+    width: 100%;
+    height: 150px;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    box-shadow: 0 0 10px #00000029;
+  }
+  .diffrence {
+    font-size: 17px;
+    font-weight: bold;
+  }
+
+  .icon-img {
+    text-align: center;
+
+    .icon-img-back {
+      background: white;
+      border-radius: 50%;
+      width: 60px;
+      display: flex;
+      justify-content: center;
+      margin: auto;
     }
 
-    .diffrence {
-      font-size: 17px;
-      font-weight: bold;
+    p {
+      font-size: 21px;
+      color: #222222;
+      font-weight: 600;
     }
+  }
 
-    .icon-img {
-      text-align: center;
-
-      .icon-img-back {
-        background: white;
-        border-radius: 50%;
-        width: 60px;
-        display: flex;
-        justify-content: center;
-        margin: auto;
-      }
-
-      p {
-        font-size: 21px;
-        color: #222222;
-        font-weight: 600;
-      }
-    }
-
-    .icon-img img {
-      padding: 10px;
-    }
-
+  .icon-img img {
+    padding: 10px;
   }
 }
 
@@ -82,13 +104,13 @@ apexcharts-toolbar {
 }
 
 .ant-tabs-tab.ant-tabs-tab-active {
-  border-bottom: 2px solid #F44336 !important;
+  border-bottom: 2px solid #f44336 !important;
   color: black !important;
   z-index: 2;
 }
 
 .testing {
-  border-bottom: 2px solid #F44336 !important;
+  border-bottom: 2px solid #f44336 !important;
   color: black !important;
   z-index: 2;
 }
@@ -120,7 +142,9 @@ apexcharts-toolbar {
   color: grey;
 }
 
-:where(.css-dev-only-do-not-override-ph9edi).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+:where(.css-dev-only-do-not-override-ph9edi).ant-tabs
+  .ant-tabs-tab.ant-tabs-tab-active
+  .ant-tabs-tab-btn {
   color: #000000;
   font-size: 17px;
   text-shadow: 0 0 0.25px currentcolor;
