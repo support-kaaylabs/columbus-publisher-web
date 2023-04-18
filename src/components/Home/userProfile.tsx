@@ -2,8 +2,6 @@ import React, {
   useState,
   useRef,
   useEffect,
-  Dispatch,
-  SetStateAction,
   FC,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -12,18 +10,18 @@ import { CameraOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 import { get } from 'lodash';
 import './login.scss';
+import DefaultUser from '../Images/defaultUser.png';
 
-type userProfileProps = {
-  setImage: Dispatch<SetStateAction<any>>;
-  image: any;
-};
-const userProfile: FC<userProfileProps> = ({ image, setImage }) => {
+
+const userProfile: FC = () => {
   const [name, setName] = useState<any>();
   const [email, setEmail] = useState<any>();
   const [phoneNumber, setPhoneNum] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const logoHandler = useRef<any>(null);
+  const [image, setImage] = useState<any>();
   const navigate = useNavigate();
+  
   const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
   const clickHandler = () => {
@@ -37,9 +35,11 @@ const userProfile: FC<userProfileProps> = ({ image, setImage }) => {
       navigate(-1);
     } else {
       setPhoneNum(localStorage.getItem('Phone_Number'));
-      setImage(localStorage.getItem('Image'));
       setName(localStorage.getItem('User_Name'));
       setEmail(localStorage.getItem('User_Email'));
+      setImage(localStorage.getItem('Image') === 'null'
+        ? DefaultUser
+        : localStorage.getItem('Image'));
     }
   }, []);
 
@@ -52,7 +52,7 @@ const userProfile: FC<userProfileProps> = ({ image, setImage }) => {
         getImageLocate().then((res: any) => {
           const Image = get(res, 'data[0].Image', '');
           localStorage.setItem('Image', Image);
-          setImage(localStorage.getItem('Image'));
+          setImage(Image);
           setIsLoading(false);
         });
       }
