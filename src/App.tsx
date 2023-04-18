@@ -282,12 +282,12 @@ const App: FC = () => {
             <div className={classes.avatar}>
               <Popover
                 content={
-                  <a onClick={logoutClick} style={{color: 'red', fontWeight: 'bold'}}>
+                  <a onClick={logoutClick} className='logout'>
                     <LogoutOutlined /> Logout
                   </a>
                 }
                 title={
-                  <Link to="myProfile" onClick={changeHandler} style={{color: 'black', fontWeight: 'bold'}}>
+                  <Link to="myProfile" onClick={changeHandler} className='profile'>
                     <UploadOutlined /> My Profile
                   </Link>
                 }
