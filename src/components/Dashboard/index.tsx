@@ -39,7 +39,7 @@ const Dashboard = (props: dashboardDetails) => {
                   : ''
         }
       >
-        <div>
+        <div className='contentLogo'>
           <Col md={24} sm={24} xl={3} >
             <div className="icon-img">
               <div className="icon-img-back">
@@ -62,7 +62,7 @@ const Dashboard = (props: dashboardDetails) => {
             </div>
           </Col>
         </div>
-        <div style={{display: 'flex'}}>
+        <div className='content'>
           <Col className='columnWid'>
             <b>Today</b>
             <p className="percentage">
