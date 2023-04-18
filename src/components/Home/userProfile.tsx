@@ -18,7 +18,6 @@ type userProfileProps = {
   image: any;
 };
 const userProfile: FC<userProfileProps> = ({ image, setImage }) => {
-  //   const [image, setImage] = useState<any>();
   const [name, setName] = useState<any>();
   const [email, setEmail] = useState<any>();
   const [phoneNumber, setPhoneNum] = useState<any>();

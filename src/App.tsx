@@ -55,7 +55,6 @@ const App: FC = () => {
   };
   const userID: any = localStorage.getItem('User_ID');
   useEffect(() => {
-    console.log('userID', userID);
 
     if (userID == null || userID == undefined) {
       navigate('/');
@@ -169,18 +168,6 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item>   */}
-                    {/* <Menu.Item
-                      key={7}
-                      title="LOGOUT"
-                      className={classes.logout}
-                      onClick={() => logoutClick}
-                    >
-                      <Link to="/">
-                        <span>
-                          <LogoutOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item> */}
                   </>
                 ) : (
                   <>
@@ -253,18 +240,6 @@ const App: FC = () => {
                         <span className='menuStyle'>
                           <CustomerServiceOutlined />
                           HELP
-                        </span>
-                      </Link>
-                    </Menu.Item> */}
-                    {/* <Menu.Item
-                      key={7}
-                      className={classes.logout}
-                      onClick={() => logoutClick}
-                    >
-                      <Link to="/">
-                        <span className="menuStyle">
-                          <LogoutOutlined />
-                          LOGOUT
                         </span>
                       </Link>
                     </Menu.Item> */}
