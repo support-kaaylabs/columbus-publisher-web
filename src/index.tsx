@@ -13,6 +13,7 @@ import { MyProvider } from './components/store/dataStore';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <MyProvider>
     <BrowserRouter>
