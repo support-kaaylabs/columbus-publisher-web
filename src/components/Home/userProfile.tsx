@@ -6,17 +6,13 @@ import React, {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { imageUpload, getImageLocate } from '../../shared/urlHelper';
-import { CameraOutlined, LoadingOutlined } from '@ant-design/icons';
-import { Spin } from 'antd';
+import { LoadingOutlined, CameraOutlined } from '@ant-design/icons';
+import { Col, Row, Spin } from 'antd';
 import { get } from 'lodash';
 import './login.scss';
-import DefaultUser from '../Images/defaultUser.png';
-
 
 const userProfile: FC = () => {
   const [name, setName] = useState<any>();
-  const [email, setEmail] = useState<any>();
-  const [phoneNumber, setPhoneNum] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const logoHandler = useRef<any>(null);
   const [image, setImage] = useState<any>();
@@ -34,12 +30,8 @@ const userProfile: FC = () => {
     if (userID == null || userID == undefined) {
       navigate(-1);
     } else {
-      setPhoneNum(localStorage.getItem('Phone_Number'));
+      setImage(localStorage.getItem('Image'));
       setName(localStorage.getItem('User_Name'));
-      setEmail(localStorage.getItem('User_Email'));
-      setImage(localStorage.getItem('Image') === 'null'
-        ? DefaultUser
-        : localStorage.getItem('Image'));
     }
   }, []);
 
@@ -59,47 +51,59 @@ const userProfile: FC = () => {
     });
   };
   return (
-    <div className="userProfile">
-      <div className="userContainer">
-        <div className="setting">
-          <p>Setting</p>
-        </div>
-        <div className="userContain">
-          <div className="userImg">
-            {isLoading ? (
-              <div className="profileLoading">
-                <Spin indicator={antIcon} />
+    <Row className="user-profile">
+      <Col sm={24} xs={24} md={24} lg={24} className="content-name">
+        <p>Your Info</p>
+      </Col>
+      <Col className="user-container">
+        <div className="user-contain">
+          <Row className="upload-image-contain">
+            <Col sm={24} xs={24} md={8} lg={8} className="user-img">
+              <div className="user-img-logo">
+                <div className="profile-head">
+                  {isLoading ? (
+                    <div className="profile-loading">
+                      <Spin indicator={antIcon} />
+                    </div>
+                  ) : (
+                    <img src={image} alt="avatar" className="profile-img" />
+                  )}
+
+                  <div className="upload-image">
+                    <div className="add-photo" onClick={clickHandler}>
+                      <CameraOutlined />
+                      <input
+                        type="file"
+                        accept="image/*"
+                        ref={logoHandler}
+                        onChange={changeLogoHandler}
+                        className="input"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
-            ) : (
-              <img src={image} alt="avatar" className="profileImg" />
-            )}
-            <div className="userImgIcon" onClick={clickHandler}>
-              <div>
-                <CameraOutlined />
-              </div>
-              <input
-                type="file"
-                accept="image/*"
-                ref={logoHandler}
-                onChange={changeLogoHandler}
-                style={{ display: 'none' }}
-              />
-            </div>
-          </div>
-          <div className="userDetail">
-            <div className="user">
+            </Col>
+            <Col className="user-detail" sm={24} xs={24} md={14} lg={14}>
+              <Col sm={0} xs={0} md={24} lg={8} className="user-details">
+                <p>
+                  Personalize your account with a photo. Your profile photo will
+                  appear on apps and devices that use your Microsoft account
+                </p>
+              </Col>
+            </Col>
+          </Row>
+          <Row className="user-info">
+            <Col sm={11} md={8} lg={8} className="seller">
+              <p>Seller Name</p>
+            </Col>
+            <Col sm={11} md={14} lg={14} className="seller-name">
               <p>{name}</p>
-            </div>
-            <div className="detail">
-              <p>{email}</p>
-            </div>
-            <div className="detail">
-              <p>{phoneNumber}</p>
-            </div>
-          </div>
+            </Col>
+          </Row>
         </div>
-      </div>
-    </div>
+      </Col>
+    </Row>
   );
 };
 
