@@ -233,22 +233,22 @@ const Charts: FC = () => {
           } className='chartStyle'>
             <TabPane tab="Impressions" key="PRODUCT_VIEWS">
               <div id="chart">
-                <Chart options={options} series={series} type="area" width={940} height={320} />
+                <Chart options={options} series={series} type="area" height={320} />
               </div>
             </TabPane>
             <TabPane tab="Clicks" key="PRODUCT_CLICK">
               <div id="chart">
-                <Chart options={options} series={series} type="area" width={940} height={320} />
+                <Chart options={options} series={series} type="area" height={320} />
               </div>
             </TabPane>
             <TabPane tab="Call to Action" key="CALL_TO_ACTION">
               <div id="chart">
-                <Chart options={options} series={series} type="area" width={940} height={320} />
+                <Chart options={options} series={series} type="area" height={320} />
               </div>
             </TabPane>
             <TabPane tab="Favourite" key="FAVOURITES_CLICK">
               <div id="chart">
-                <Chart options={options} series={series} type="area" width={940} height={320} />
+                <Chart options={options} series={series} type="area" height={320} />
               </div>
             </TabPane>
           </Tabs>

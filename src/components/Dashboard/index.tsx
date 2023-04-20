@@ -1,5 +1,5 @@
 import React from 'react';
-import '../Dashboard/dashboard.scss';
+import './dashboard.scss';
 import { Col, Row } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 
@@ -26,7 +26,7 @@ const Dashboard = (props: dashboardDetails) => {
 
   return (
     <div className="dashboard-page">
-      <Row
+      <div
         className={
           data?.Event_Name === 'PRODUCT_VIEWS'
             ? 'impression-img'
@@ -39,100 +39,102 @@ const Dashboard = (props: dashboardDetails) => {
                   : ''
         }
       >
-        <Col md={24} sm={24} lg={4} className='logo' >
-          <div className='icon-img'>
-            <div className="icon-img-back">
-              <img
-                src={require(`../Images/${data.Event_Name}.png`)}
-                alt="eye-icon"
-              />
+        <Row className="row">
+          <Col xs={24} sm={24} md={24} lg={4} className="logo">
+            <div className="icon-img">
+              <div className="icon-img-back">
+                <img
+                  src={require(`../Images/${data.Event_Name}.png`)}
+                  alt="eye-icon"
+                />
+              </div>
+              <p>
+                {data?.Event_Name === 'PRODUCT_VIEWS'
+                  ? 'Impressions'
+                  : null || data?.Event_Name === 'PRODUCT_CLICK'
+                    ? 'Clicks'
+                    : null || data?.Event_Name === 'FAVOURITES_CLICK'
+                      ? 'Favourite'
+                      : null || data?.Event_Name === 'CALL_TO_ACTION'
+                        ? 'Call to Action'
+                        : ''}
+              </p>
             </div>
-            <p>
-              {data?.Event_Name === 'PRODUCT_VIEWS'
-                ? 'Impressions'
-                : null || data?.Event_Name === 'PRODUCT_CLICK'
-                  ? 'Clicks'
-                  : null || data?.Event_Name === 'FAVOURITES_CLICK'
-                    ? 'Favourite'
-                    : null || data?.Event_Name === 'CALL_TO_ACTION'
-                      ? 'Call to Action'
-                      : ''}
+          </Col>
+          <Col md={11} sm={11} xs={11} lg={4} className="column-wid">
+            <b>Today</b>
+            <p className="percentage">
+              {data?.todayPercent ? data?.todayPercent : '0'} %
             </p>
-          </div>
-        </Col>
-        <Col md={8} sm={24} xs={24} lg={4} className='columnWid'>
-          <b>Today</b>
-          <p className="percentage">
-            {data?.todayPercent ? data?.todayPercent : '0'} %
-          </p>
-          <div className="d-flex">
-            <span className="diffrence">{data.Today}</span> &nbsp;
-            {data.Today < data.Predate ? (
-              <ArrowDownOutlined
-                style={{ fontSize: '16px', color: '#EE1313' }}
-              />
-            ) : (
-              <ArrowUpOutlined
-                style={{ fontSize: '16px', color: '#27AE07' }}
-              />
-            )}
-          </div>
-        </Col>
-        <Col md={8} sm={24} xs={24} lg={4} className='columnWid'>
-          <b>This Week</b>
-          <p className="percentage">
-            {data.weekPercent ? data.weekPercent : '0'} %
-          </p>
-          <div className="d-flex">
-            <span className="diffrence">{data.Week}</span> &nbsp;
-            {data.Week < data.Preweek ? (
-              <ArrowDownOutlined
-                style={{ fontSize: '16px', color: '#EE1313' }}
-              />
-            ) : (
-              <ArrowUpOutlined
-                style={{ fontSize: '16px', color: '#27AE07' }}
-              />
-            )}
-          </div>
-        </Col>
-        <Col md={8} sm={24} xs={24} lg={4} className='columnWid'>
-          <b>This Month</b>
-          <p className="percentage">
-            {data.monthPercent ? data.monthPercent : '0'} %
-          </p>
-          <div className="d-flex">
-            <span className="diffrence">{data.Month}</span> &nbsp;
-            {data.Month < data.Premonth ? (
-              <ArrowDownOutlined
-                style={{ fontSize: '16px', color: '#EE1313' }}
-              />
-            ) : (
-              <ArrowUpOutlined
-                style={{ fontSize: '16px', color: '#27AE07' }}
-              />
-            )}
-          </div>
-        </Col>
-        <Col md={8} sm={24} xs={24} lg={4} className='columnWid'>
-          <b>Quarter</b>
-          <p className="percentage">
-            {data.quarterPercent ? data.quarterPercent : '0'} %
-          </p>
-          <div className="d-flex">
-            <span className="diffrence">{data.Quarter}</span> &nbsp;
-            {data.Quarter < data.Prequarter ? (
-              <ArrowDownOutlined
-                style={{ fontSize: '16px', color: '#EE1313' }}
-              />
-            ) : (
-              <ArrowUpOutlined
-                style={{ fontSize: '16px', color: '#27AE07' }}
-              />
-            )}
-          </div>
-        </Col>
-      </Row>
+            <div className="d-flex">
+              <span className="diffrence">{data.Today}</span> &nbsp;
+              {data.Today < data.Predate ? (
+                <ArrowDownOutlined
+                  style={{ fontSize: '16px', color: '#EE1313' }}
+                />
+              ) : (
+                <ArrowUpOutlined
+                  style={{ fontSize: '16px', color: '#27AE07' }}
+                />
+              )}
+            </div>
+          </Col>
+          <Col md={11} sm={11} xs={11} lg={4} className="column-wid">
+            <b>This Week</b>
+            <p className="percentage">
+              {data.weekPercent ? data.weekPercent : '0'} %
+            </p>
+            <div className="d-flex">
+              <span className="diffrence">{data.Week}</span> &nbsp;
+              {data.Week < data.Preweek ? (
+                <ArrowDownOutlined
+                  style={{ fontSize: '16px', color: '#EE1313' }}
+                />
+              ) : (
+                <ArrowUpOutlined
+                  style={{ fontSize: '16px', color: '#27AE07' }}
+                />
+              )}
+            </div>
+          </Col>
+          <Col md={11} sm={11} xs={11} lg={4} className="column-wid">
+            <b>This Month</b>
+            <p className="percentage">
+              {data.monthPercent ? data.monthPercent : '0'} %
+            </p>
+            <div className="d-flex">
+              <span className="diffrence">{data.Month}</span> &nbsp;
+              {data.Month < data.Premonth ? (
+                <ArrowDownOutlined
+                  style={{ fontSize: '16px', color: '#EE1313' }}
+                />
+              ) : (
+                <ArrowUpOutlined
+                  style={{ fontSize: '16px', color: '#27AE07' }}
+                />
+              )}
+            </div>
+          </Col>
+          <Col md={11} sm={11} xs={11} lg={4} className="column-wid">
+            <b>Quarter</b>
+            <p className="percentage">
+              {data.quarterPercent ? data.quarterPercent : '0'} %
+            </p>
+            <div className="d-flex">
+              <span className="diffrence">{data.Quarter}</span> &nbsp;
+              {data.Quarter < data.Prequarter ? (
+                <ArrowDownOutlined
+                  style={{ fontSize: '16px', color: '#EE1313' }}
+                />
+              ) : (
+                <ArrowUpOutlined
+                  style={{ fontSize: '16px', color: '#27AE07' }}
+                />
+              )}
+            </div>
+          </Col>
+        </Row>
+      </div>
     </div>
   );
 };
