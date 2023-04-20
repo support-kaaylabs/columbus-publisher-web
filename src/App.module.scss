@@ -17,12 +17,11 @@
     .header_content {
       display: flex;
       justify-content: space-between;
-      padding: 0px;
-      padding-right: 25px;
       align-items: center;
       background: #ffffff 0% 0% no-repeat padding-box;
-      height: 80px;
+      min-width: 80px;
       line-height: 0px;
+      padding: 10px;
       box-shadow: 0px 3px 0px 0px #00000029;
       z-index: 1;
       .headerRightContent {
@@ -31,19 +30,19 @@
         align-items: center;
         .headerUserName {
           margin-right: 20px;
-          font-size: 20px;
+          font-size: 15px;
           font-weight: bold;
         }
       }
       .avatar {
-        width: 60px;
-        height: 60px;
+        width: 30px;
+        height: 30px;
         display: flex;
         cursor: pointer;
         justify-content: center;
         .profileImg {
-          width: 60px;
-          height: 60px;
+          width: 30px;
+          height: 30px;
           border-radius: 50%;
           box-shadow: 0 0 9px #eb6b67;
           object-fit: cover;
@@ -52,13 +51,14 @@
       .header_content_icon {
         cursor: pointer;
         position: absolute;
-        top: 35px;
+        top: 5px;
+        margin-left: 5px;
         z-index: 1;
       }
 
       .header_content_name {
-        font-size: 18px;
-        margin-left: 42px;
+        font-size: 15px;
+        margin-left: 30px;
         font-weight: bold;
         letter-spacing: 0px;
         color: #222222;

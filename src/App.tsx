@@ -12,7 +12,7 @@ import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import ProductList from './components/Product';
 import ProductDetail from './components/Product/detail';
 import { MyContext } from './components/store/dataStore';
-import { Popover } from 'antd';
+import { Col, Row, Popover } from 'antd';
 import UserProfile from './components/Home/userProfile';
 import {
   AppstoreOutlined,
@@ -24,11 +24,12 @@ import { Layout, Menu } from 'antd';
 const { Header, Sider, Content } = Layout;
 
 const App: FC = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
   const [name, setName] = useState<any>();
+  const [collapsed, setCollapsed] = useState<boolean>(false);
   const [image, setImage] = useState<any>(DefaultUser);
 
-  const [collapsed, setCollapsed] = useState(false);
+  
 
   const locate = window.location.href;
   const slug = locate.split('/')[3];
@@ -54,8 +55,8 @@ const App: FC = () => {
     });
   };
   const userID: any = localStorage.getItem('User_ID');
-  useEffect(() => {
 
+  useEffect(() => {
     if (userID == null || userID == undefined) {
       navigate('/');
     } else {
@@ -74,29 +75,31 @@ const App: FC = () => {
 
   return (
     <Layout className={classes.header} style={{ minHeight: '100vh' }}>
-      <Sider
-        theme="light"
-        collapsible
-        collapsed={collapsed}
-        className={classes.header_sider}
-        width="281px"
-      >
-        <div className={classes.header_sider_logo}>
-          <div className={classes.sider_logo_head}>
-            {collapsed ? (
-              <img src={LogoSymbolLarge} alt="LogoSymbol" />
-            ) : (
-              <img src={Logo} alt="JINGLS" />
-            )}
-          </div>
-        </div>
-        <div className={classes.sider_menu}>
-          <div>
-            <Menu className={classes.sider_menuItem} mode="inline">
-              <nav>
+      <Row>
+        <Col sm={0} xs={0} md={5} lg={8} xl={10}>
+          <Sider
+            theme="light"
+            collapsible
+            collapsed={collapsed}
+            className={classes.header_sider}
+            width="281px"
+          >
+            <span className={classes.header_sider_logo}>
+              <div className={classes.sider_logo_head}>
                 {collapsed ? (
-                  <>
-                    {/* <Menu.Item
+                  <img src={LogoSymbolLarge} alt="LogoSymbol" />
+                ) : (
+                  <img src={Logo} alt="JINGLS" />
+                )}
+              </div>
+            </span>
+            <div className={classes.sider_menu}>
+              <div>
+                <Menu className={classes.sider_menuItem} mode="inline">
+                  <nav>
+                    {collapsed ? (
+                      <>
+                        {/* <Menu.Item
                       key={1}
                       title="PRODUCT"
                       className={classes.products}
@@ -108,19 +111,19 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item> */}
-                    <Menu.Item
-                      key={2}
-                      title="DASHBOARD"
-                      className={classes.dashboard}
-                      onClick={() => ctx.sideBarHandler('DASHBOARD')}
-                    >
-                      <Link to="dashboard">
-                        <span>
-                          <AppstoreOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item>
-                    {/* <Menu.Item
+                        <Menu.Item
+                          key={2}
+                          title="DASHBOARD"
+                          className={classes.dashboard}
+                          onClick={() => ctx.sideBarHandler('DASHBOARD')}
+                        >
+                          <Link to="dashboard">
+                            <span>
+                              <AppstoreOutlined />
+                            </span>
+                          </Link>
+                        </Menu.Item>
+                        {/* <Menu.Item
                       key={3}
                       title="INSIGHT"
                       className={classes.insights}
@@ -132,7 +135,7 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item> */}
-                    {/* <Menu.Item
+                        {/* <Menu.Item
                       key={4}
                       title="WALLET"
                       className={classes.wallet}
@@ -168,10 +171,22 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item>   */}
-                  </>
-                ) : (
-                  <>
-                    {/* <Menu.Item
+                        {/* <Menu.Item
+                      key={7}
+                      title="LOGOUT"
+                      className={classes.logout}
+                      onClick={() => logoutClick}
+                    >
+                      <Link to="/">
+                        <span>
+                          <LogoutOutlined />
+                        </span>
+                      </Link>
+                    </Menu.Item> */}
+                      </>
+                    ) : (
+                      <>
+                        {/* <Menu.Item
                       key={1}
                       className={classes.products}
                       onClick={() => ctx.sideBarHandler('PRODUCT')}
@@ -183,19 +198,19 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item> */}
-                    <Menu.Item
-                      key={2}
-                      className={classes.dashboard}
-                      onClick={() => ctx.sideBarHandler('DASHBOARD')}
-                    >
-                      <Link to="dashboard">
-                        <span className="menuStyle">
-                          <AppstoreOutlined />
+                        <Menu.Item
+                          key={2}
+                          className={classes.dashboard}
+                          onClick={() => ctx.sideBarHandler('DASHBOARD')}
+                        >
+                          <Link to="dashboard">
+                            <span className="menuStyle">
+                              <AppstoreOutlined />
                           DASHBOARD
-                        </span>
-                      </Link>
-                    </Menu.Item>
-                    {/* <Menu.Item
+                            </span>
+                          </Link>
+                        </Menu.Item>
+                        {/* <Menu.Item
                       key={3}
                       className={classes.insights}
                       onClick={() => ctx.sideBarHandler('INSIGHTS')}
@@ -243,41 +258,69 @@ const App: FC = () => {
                         </span>
                       </Link>
                     </Menu.Item> */}
-                  </>
-                )}
-              </nav>
-            </Menu>
-            <div className={classes.menu_item}>
-              <div className={classes.menu_logo_item}>
-                {collapsed ? (
-                  <img src={LogoSymbolSmall} alt="LogoSymbol" />
-                ) : (
-                  <img src={MenuLogo} alt="JINGLS" />
-                )}
-                <p>{collapsed ? 'V1.0' : 'Publisher App version 1.0'}</p>
+                        {/* <Menu.Item
+                      key={7}
+                      className={classes.logout}
+                      onClick={() => logoutClick}
+                    >
+                      <Link to="/">
+                        <span className="menuStyle">
+                          <LogoutOutlined />
+                          LOGOUT
+                        </span>
+                      </Link>
+                    </Menu.Item> */}
+                      </>
+                    )}
+                  </nav>
+                </Menu>
+                <div className={classes.menu_item}>
+                  <div className={classes.menu_logo_item}>
+                    {collapsed ? (
+                      <img src={LogoSymbolSmall} alt="LogoSymbol" />
+                    ) : (
+                      <img src={MenuLogo} alt="JINGLS" />
+                    )}
+                    <p>{collapsed ? 'V1.0' : 'Publisher App version 1.0'}</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </Sider>
+          </Sider>
+        </Col>
+      </Row>
       <Layout className={classes.layoutRight}>
-        <Header className={classes.header_content}>
-          <span className={classes.menuicon}>
-            <span
-              onClick={() => setCollapsed(!collapsed)}
-              className={classes.header_content_icon}
-            >
-              {collapsed ? (
-                <img src={CloseIcon} alt="closeicon" />
-              ) : (
-                <img src={MenuIcon} alt="MenuIcon" />
-              )}
-            </span>
-            <span className={classes.header_content_name}>
-              {slug === 'myProfile' ? 'MY PROFILE' : slug}
-            </span>
-          </span>
-          <span className={classes.headerRightContent}>
+        <Row className={classes.header_content}>
+          <Col>
+            <Row>
+              <Col className={classes.header_sider_logo} sm={1} md={0} lg={0}>
+                <div className={classes.sider_logo_head}>
+                  <img src={LogoSymbolLarge} alt="LogoSymbol" />
+                </div>
+              </Col>
+              <Col>
+                <Row>
+                  <Col className={classes.menuicon}>
+                    <span
+                      onClick={() => setCollapsed(!collapsed)}
+                      className={classes.header_content_icon}
+                    >
+                      {collapsed ? (
+                        <img src={CloseIcon} alt="closeicon" />
+                      ) : (
+                        <img src={MenuIcon} alt="MenuIcon" />
+                      )}
+                    </span>
+                  </Col>
+                  <Col sm={0} xs={0} className={classes.header_content_name}>
+                    {slug === 'myProfile' ? 'MY PROFILE' : slug}
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Col>
+          
+          <Col className={classes.headerRightContent}>
             <div className={classes.headerUserName}>{name}</div>
             <div className={classes.avatar}>
               <Popover
@@ -304,8 +347,8 @@ const App: FC = () => {
                 </div>
               </Popover>
             </div>
-          </span>
-        </Header>
+          </Col>
+        </Row>
         <Content className={classes.content}>
           <Routes>
             <Route path="products" element={<ProductList />} />
