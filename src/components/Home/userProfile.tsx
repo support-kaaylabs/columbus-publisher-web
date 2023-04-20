@@ -10,13 +10,8 @@ import { LoadingOutlined, CameraOutlined } from '@ant-design/icons';
 import { Col, Row, Spin } from 'antd';
 import { get } from 'lodash';
 import './login.scss';
-import DefaultUser from '../Images/defaultUser.png';
 
-type userProfileProps = {
-  setImage: Dispatch<SetStateAction<any>>;
-  image: any;
-};
-const userProfile: FC<userProfileProps> = ({ image, setImage }) => {
+const userProfile: FC = () => {
   const [name, setName] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const logoHandler = useRef<any>(null);
