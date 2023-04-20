@@ -57,7 +57,7 @@ const userProfile: FC = () => {
       </Col>
       <Col className="user-container">
         <div className="user-contain">
-          <Row className="upload-umage-contain">
+          <Row className="upload-image-contain">
             <Col sm={24} xs={24} md={8} lg={8} className="user-img">
               <div className="user-img-logo">
                 <div className="profile-head">
