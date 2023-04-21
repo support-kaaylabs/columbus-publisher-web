@@ -48,7 +48,7 @@ const Dashboard = (props: dashboardDetails) => {
                   alt="eye-icon"
                 />
               </div>
-              <p>
+              <p className='event-name'>
                 {data?.Event_Name === 'PRODUCT_VIEWS'
                   ? 'Impressions'
                   : null || data?.Event_Name === 'PRODUCT_CLICK'
@@ -62,7 +62,7 @@ const Dashboard = (props: dashboardDetails) => {
             </div>
           </Col>
           <Col md={11} sm={11} xs={11} lg={4} className="column-wid">
-            <b>Today</b>
+            <p className='basic'>Today</p>
             <p className="percentage">
               {data?.todayPercent ? data?.todayPercent : '0'} %
             </p>
@@ -70,17 +70,17 @@ const Dashboard = (props: dashboardDetails) => {
               <span className="diffrence">{data.Today}</span> &nbsp;
               {data.Today < data.Predate ? (
                 <ArrowDownOutlined
-                  style={{ fontSize: '16px', color: '#EE1313' }}
+                  style={{ fontSize: '19px', color: '#EE1313', width: '16px', height: '19px' }}
                 />
               ) : (
                 <ArrowUpOutlined
-                  style={{ fontSize: '16px', color: '#27AE07' }}
+                  style={{ fontSize: '19px', color: '#27AE07', width: '16px', height: '19px' }}
                 />
               )}
             </div>
           </Col>
           <Col md={11} sm={11} xs={11} lg={4} className="column-wid">
-            <b>This Week</b>
+            <p className='basic'>This Week</p>
             <p className="percentage">
               {data.weekPercent ? data.weekPercent : '0'} %
             </p>
@@ -88,17 +88,17 @@ const Dashboard = (props: dashboardDetails) => {
               <span className="diffrence">{data.Week}</span> &nbsp;
               {data.Week < data.Preweek ? (
                 <ArrowDownOutlined
-                  style={{ fontSize: '16px', color: '#EE1313' }}
+                  style={{ fontSize: '19px', color: '#EE1313', width: '16px', height: '19px' }}
                 />
               ) : (
                 <ArrowUpOutlined
-                  style={{ fontSize: '16px', color: '#27AE07' }}
+                  style={{ fontSize: '19px', color: '#27AE07', width: '16px', height: '19px' }}
                 />
               )}
             </div>
           </Col>
           <Col md={11} sm={11} xs={11} lg={4} className="column-wid">
-            <b>This Month</b>
+            <p className='basic'>This Month</p>
             <p className="percentage">
               {data.monthPercent ? data.monthPercent : '0'} %
             </p>
@@ -106,17 +106,17 @@ const Dashboard = (props: dashboardDetails) => {
               <span className="diffrence">{data.Month}</span> &nbsp;
               {data.Month < data.Premonth ? (
                 <ArrowDownOutlined
-                  style={{ fontSize: '16px', color: '#EE1313' }}
+                  style={{ fontSize: '19px', color: '#EE1313', width: '16px', height: '19px' }}
                 />
               ) : (
                 <ArrowUpOutlined
-                  style={{ fontSize: '16px', color: '#27AE07' }}
+                  style={{ fontSize: '19px', color: '#27AE07', width: '16px', height: '19px' }}
                 />
               )}
             </div>
           </Col>
           <Col md={11} sm={11} xs={11} lg={4} className="column-wid">
-            <b>Quarter</b>
+            <p className='basic'>Quarter</p>
             <p className="percentage">
               {data.quarterPercent ? data.quarterPercent : '0'} %
             </p>
@@ -124,11 +124,11 @@ const Dashboard = (props: dashboardDetails) => {
               <span className="diffrence">{data.Quarter}</span> &nbsp;
               {data.Quarter < data.Prequarter ? (
                 <ArrowDownOutlined
-                  style={{ fontSize: '16px', color: '#EE1313' }}
+                  style={{ fontSize: '19px', color: '#EE1313', width: '16px', height: '19px' }}
                 />
               ) : (
                 <ArrowUpOutlined
-                  style={{ fontSize: '16px', color: '#27AE07' }}
+                  style={{ fontSize: '19px', color: '#27AE07', width: '16px', height: '19px' }}
                 />
               )}
             </div>

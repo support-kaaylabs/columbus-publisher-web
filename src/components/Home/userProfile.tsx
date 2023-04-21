@@ -13,6 +13,7 @@ import './login.scss';
 
 const userProfile: FC = () => {
   const [name, setName] = useState<any>();
+  const [storeName, setStoreName] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const logoHandler = useRef<any>(null);
   const [image, setImage] = useState<any>();
@@ -32,6 +33,13 @@ const userProfile: FC = () => {
     } else {
       setImage(localStorage.getItem('Image'));
       setName(localStorage.getItem('User_Name'));
+      setStoreName(localStorage.getItem('Store_Name'));
+      getImageLocate().then((res: any) => {
+        const image = get(res, 'data[0].Image', '');
+        setImage(image);
+        const storeName = get(res, 'data[0].Store_Name', '');
+        setStoreName(storeName);
+      });
     }
   }, []);
 
@@ -42,9 +50,9 @@ const userProfile: FC = () => {
       setIsLoading(true);
       if (data.success) {
         getImageLocate().then((res: any) => {
-          const Image = get(res, 'data[0].Image', '');
-          localStorage.setItem('Image', Image);
-          setImage(Image);
+          const image = get(res, 'data[0].Image', '');          
+          localStorage.setItem('Image', image);
+          setImage(image);
           setIsLoading(false);
         });
       }
@@ -69,8 +77,8 @@ const userProfile: FC = () => {
                     <img src={image} alt="avatar" className="profile-img" />
                   )}
 
-                  <div className="upload-image">
-                    <div className="add-photo" onClick={clickHandler}>
+                  <div className="upload-image"  onClick={clickHandler}>
+                    <div className="add-photo">
                       <CameraOutlined />
                       <input
                         type="file"
@@ -88,7 +96,7 @@ const userProfile: FC = () => {
               <Col sm={0} xs={0} md={24} lg={8} className="user-details">
                 <p>
                   Personalize your account with a photo. Your profile photo will
-                  appear on apps and devices that use your Microsoft account
+                  appear on apps and devices.
                 </p>
               </Col>
             </Col>
@@ -99,6 +107,14 @@ const userProfile: FC = () => {
             </Col>
             <Col sm={11} md={14} lg={14} className="seller-name">
               <p>{name}</p>
+            </Col>
+          </Row>
+          <Row className="user-info">
+            <Col sm={11} md={8} lg={8} className="seller">
+              <p>Store Name</p>
+            </Col>
+            <Col sm={11} md={14} lg={14} className="seller-name">
+              <p>{storeName}</p>
             </Col>
           </Row>
         </div>
