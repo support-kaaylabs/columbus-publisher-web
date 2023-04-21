@@ -12,3 +12,19 @@ code {
 .ant-layout-sider-trigger {
   display: none !important;
 }
+
+a.profile {
+  color: black;
+  font-weight: bold;
+}
+a.logout {
+  color: red;
+  font-weight: bold;
+}
+.ant-dropdown-menu {
+  width: 390px;
+}
+
+.ant-row {
+  display: block;
+}

@@ -6,6 +6,9 @@ const http = new Http(getAPIUrl());
 
 export const getJbReports = () => http.get('/get-jb-reports-list');
 
+export const imageUpload = (userId: number, object: any, file: any) =>
+  http.handleMultipart(`userImage/${userId}`, object, file, 'PUT');
+
 export const getUserProfile = () => http.get('user-profile');
 
 export const searchModules = (id: string) => http.get(`search-modules?reportId=${id}`);
@@ -16,10 +19,13 @@ export const getAllReports = () => http.get('/reports');
 
 export const getTenant = () => http.get('/tenant');
 
-export const getDashboardData = (data: any) => http.get('get-dashboard-data', data);
+export const getDashboardData = (data: any) => http.post('get-dashboard-data', data);
 
-export const getChartData = (data: any) => http.get('get-chart-data', data);
+export const getChartData = (data: any) => http.post('get-chart-data', data);
 
 export const updateUserInfo = (userId: number, data: any) => http.put(`Users/${userId}`, data);
 
 export const authenticate = (data: any) => http.post('authenticate-seller', data);
+
+export const getImageLocate = () => http.get('user-profile');
+

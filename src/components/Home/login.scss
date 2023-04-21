@@ -113,3 +113,124 @@
     }
   }
 }
+
+.user-profile {
+  height: 100vh;
+  .content-name {
+    margin-left: 3%;
+    p {
+      font-size: 15px;
+      font-weight: bold;
+      letter-spacing: 0px;
+      color: #222222;
+      text-transform: uppercase;
+    }
+  }
+  .user-container {
+    border-radius: 15px;
+    margin-top: 10px;
+    padding: 20px;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    background: #ffffff;
+    box-shadow: 0 0 2px #d3d3d3;
+    .user-contain {
+      justify-content: space-around;
+      align-items: center;
+
+      .user-info {
+        display: flex;
+        .seller-name {
+          text-align: left;
+          p {
+              font-size: 15px;
+              letter-spacing: 0px;
+              color: #222222;
+          }
+        }
+        .seller {
+          text-align: center;
+          p {
+              font-size: 15px;
+              font-weight: bold;
+              letter-spacing: 0px;
+              color: #222222;
+          }
+        }
+      }
+      .user-detail {
+        .user-details {
+          max-width: 100%;
+          p {
+            font-size: 25px;
+            margin: 0px;
+            opacity: 0.7;
+          }
+        }
+      }
+      .upload-image-contain {
+        display: flex;
+        .user-img {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          .user-img-logo {
+            display: flex;
+            justify-content: center;
+            .profile-head {
+              position: relative;
+              .upload-image {
+                cursor: pointer;
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                display: flex;
+                border-radius: 50%;
+                justify-content: center;
+                align-items: center;
+                bottom: 0;
+                right: 10px;
+                background-color: #7145df;
+                .add-photo {
+                  .input {
+                    display: none;
+                  }
+                }
+              }
+              .profile-img {
+                position: relative;
+                width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                box-shadow: 0 0 9px #eb6b67;
+                object-fit: cover;
+              }
+
+              .profile-loading {
+                width: 150px;
+                height: 150px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .user-info {
+    justify-content: space-around;
+  }
+  .upload-image {
+    text-align: center;
+  }
+}
+@media screen and (min-width: 1000px) {
+ 
+}

@@ -10,30 +10,52 @@
 
     .content {
       overflow-y: scroll;
-      margin-top: 5px;
+      padding: 20px;
       background-color: #ffffff;
     }
 
     .header_content {
       display: flex;
       justify-content: space-between;
-      padding: 0px;
-      padding-right: 25px;
-      align-items: center;
       background: #ffffff 0% 0% no-repeat padding-box;
-      height: 80px;
+      padding: 10px;
       box-shadow: 0px 3px 0px 0px #00000029;
       z-index: 1;
-
+      .headerRightContent {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .headerUserName {
+          margin-right: 20px;
+          font-size: 15px;
+          font-weight: bold;
+        }
+      }
+      .avatar {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        cursor: pointer;
+        justify-content: center;
+        .profileImg {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          box-shadow: 0 0 9px #eb6b67;
+          object-fit: cover;
+        }
+      }
       .header_content_icon {
         cursor: pointer;
         position: absolute;
+        top: 5px;
+        margin-left: 5px;
         z-index: 1;
       }
 
       .header_content_name {
-        font-size: 18px;
-        margin-left: 42px;
+        font-size: 15px;
+        margin-left: 30px;
         font-weight: bold;
         letter-spacing: 0px;
         color: #222222;
@@ -122,16 +144,6 @@
           margin-top: 10px;
           margin-left: 13px;
 
-          li {
-            &.setting {
-              margin-top: 280px;
-            }
-
-            &.logout {
-              margin-top: 380px;
-            }
-          }
-
           .products,
           .dashboard,
           .insights,
@@ -172,6 +184,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-top: 200%;
         border-top: 1px solid #bbbbbb;
 
         .menu_logo_item {

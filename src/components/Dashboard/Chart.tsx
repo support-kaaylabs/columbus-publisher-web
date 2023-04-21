@@ -21,8 +21,7 @@ const Charts: FC = () => {
   }, [chartType, chartMode]);
 
   const fetchData = () => {
-    const sellerId = localStorage.getItem('User_ID');
-    const params = { sellerId, eventName: chartType, chartMode };
+    const params = { eventName: chartType, chartMode };
     setLoading(true);
     getChartData(params).then((resp) => {
       if (resp.success) {
@@ -216,7 +215,7 @@ const Charts: FC = () => {
 
   return (
     <>
-      <Row className="mt-4" style={{ margin: '30px' }}>
+      <Row className="mt-4">
         <div className='chartStyle'>
           <Tabs onChange={handleTab} tabBarExtraContent={
             <Space className='drop-btn'>
@@ -234,22 +233,22 @@ const Charts: FC = () => {
           } className='chartStyle'>
             <TabPane tab="Impressions" key="PRODUCT_VIEWS">
               <div id="chart">
-                <Chart options={options} series={series} type="area" width={940} height={320} />
+                <Chart options={options} series={series} type="area" height={320} />
               </div>
             </TabPane>
             <TabPane tab="Clicks" key="PRODUCT_CLICK">
               <div id="chart">
-                <Chart options={options} series={series} type="area" width={940} height={320} />
+                <Chart options={options} series={series} type="area" height={320} />
               </div>
             </TabPane>
             <TabPane tab="Call to Action" key="CALL_TO_ACTION">
               <div id="chart">
-                <Chart options={options} series={series} type="area" width={940} height={320} />
+                <Chart options={options} series={series} type="area" height={320} />
               </div>
             </TabPane>
             <TabPane tab="Favourite" key="FAVOURITES_CLICK">
               <div id="chart">
-                <Chart options={options} series={series} type="area" width={940} height={320} />
+                <Chart options={options} series={series} type="area" height={320} />
               </div>
             </TabPane>
           </Tabs>

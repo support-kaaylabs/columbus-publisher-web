@@ -32,7 +32,7 @@ const ProductDetail: FC = () => {
       slug: 'shoe',
       regularPrice: '₹3,824',
       discount: '15% Off',
-      finalPrice: '₹4,499',
+      finalPrice: '₹4,49',
     },
   ];
   return (
