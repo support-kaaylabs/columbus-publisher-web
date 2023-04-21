@@ -36,6 +36,7 @@ const Home: FC = () => {
             User_Uid,
             Email_ID,
             Phone_Number,
+            Store_Name,
           } = resp.data && resp.data[0];
           const { token } = resp;
           localStorage.setItem('Phone_Number', Phone_Number);
@@ -46,6 +47,8 @@ const Home: FC = () => {
           localStorage.setItem('User_Type', User_Type);
           localStorage.setItem('Image', Image);
           localStorage.setItem('token', token);
+          localStorage.setItem('token', token);
+          localStorage.setItem('Store_Nme', Store_Name);
           localStorage.setItem('adminLogin', typeof true);
           localStorage.setItem('menu_collapse', typeof false);
           setBtnLoading(false);

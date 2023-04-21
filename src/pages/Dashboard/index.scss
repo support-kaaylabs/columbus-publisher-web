@@ -1,15 +1,16 @@
 .dashboard-head {
-  padding: 15px;
+  padding: 5px;
   .loader {
     margin-top: 30%;
   }
 
   .content-name {
     margin-top: 10px;
-    font-size: 15px;
+      font-size: 15px;
+      font-weight: bold;
+      letter-spacing: 0px;
+      color: #222222;
     margin-left: 3%;
-    font-weight: bold;
-    opacity: 0.9;
     text-transform: uppercase;
   }
 }

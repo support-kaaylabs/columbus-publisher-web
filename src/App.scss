@@ -99,18 +99,14 @@
       .header-content-row {
         align-items: center;
         display: flex;
-        padding-left: 7px;
-        padding-right: 7px;
         .menu-icon {
           .header-content-icon {
             cursor: pointer;
             position: absolute;
-            margin-left: 5px;
           }
 
           .header-content-name {
-            font-size: 15px;
-            width: 300px;
+            font-size: 18px;
             margin-left: 50px;
             font-weight: bold;
             letter-spacing: 0px;
@@ -150,7 +146,8 @@
           display: flex;
           .header-user-name {
             margin-right: 20px;
-            font-size: 20px;
+            font-size: 18px;
+            text-transform: uppercase;
             font-weight: bold;
           }
 
@@ -359,11 +356,15 @@
 @media screen and (max-width: 1000px) {
   .header-content-row {
     justify-content: space-around;
+    padding-left: 7px;
+    padding-right: 7px;
   }
 }
 
 @media screen and (min-width: 1000px) {
   .header-content-row {
     justify-content: space-between;
+    padding-left: 7px;
+    padding-right: 35px;
   }
 }
