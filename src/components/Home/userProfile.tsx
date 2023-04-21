@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { imageUpload, getImageLocate } from '../../shared/urlHelper';
 import { LoadingOutlined, CameraOutlined } from '@ant-design/icons';
 import { Col, Row, Spin } from 'antd';
+import DefaultUser from '../Images/defaultUser.png';
 import { get } from 'lodash';
 import './login.scss';
 
@@ -31,12 +32,14 @@ const userProfile: FC = () => {
     if (userID == null || userID == undefined) {
       navigate(-1);
     } else {
-      setImage(localStorage.getItem('Image'));
+      setImage(
+        localStorage.getItem('Image') === 'null'
+          ? DefaultUser
+          : localStorage.getItem('Image')
+      );
       setName(localStorage.getItem('User_Name'));
       setStoreName(localStorage.getItem('Store_Name'));
       getImageLocate().then((res: any) => {
-        const image = get(res, 'data[0].Image', '');
-        setImage(image);
         const storeName = get(res, 'data[0].Store_Name', '');
         setStoreName(storeName);
       });
