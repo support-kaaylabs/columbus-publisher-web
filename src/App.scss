@@ -9,7 +9,7 @@
     width: 100%;
     .content {
       overflow-y: scroll;
-      margin-top: 4px;
+      margin-top: 7px;
       background-color: #ffffff;
       .sider-menu {
         box-shadow: 3px 0px 6px #00000029;
@@ -356,8 +356,9 @@
 @media screen and (max-width: 1000px) {
   .header-content-row {
     justify-content: space-around;
-    padding-left: 7px;
-    padding-right: 7px;
+  }
+  .content {
+    padding: 10px;
   }
 }
 
@@ -366,5 +367,8 @@
     justify-content: space-between;
     padding-left: 7px;
     padding-right: 35px;
+  }
+  .content {
+    padding: 25px;
   }
 }
