@@ -67,7 +67,7 @@ const Dashboard = (props: dashboardDetails) => {
               {data?.todayPercent ? data?.todayPercent : '0'} %
             </p>
             <div className="d-flex">
-              <span className="diffrence">{data.Today}</span> &nbsp;
+              <span className="diffrence">{data.Today}&nbsp; </span> &nbsp;
               {data.Today < data.Predate ? (
                 <ArrowDownOutlined
                   style={{ fontSize: '19px', color: '#EE1313', width: '16px', height: '19px' }}
@@ -85,7 +85,7 @@ const Dashboard = (props: dashboardDetails) => {
               {data.weekPercent ? data.weekPercent : '0'} %
             </p>
             <div className="d-flex">
-              <span className="diffrence">{data.Week}</span> &nbsp;
+              <span className="diffrence">{data.Week}&nbsp;</span> &nbsp;
               {data.Week < data.Preweek ? (
                 <ArrowDownOutlined
                   style={{ fontSize: '19px', color: '#EE1313', width: '16px', height: '19px' }}
@@ -103,7 +103,7 @@ const Dashboard = (props: dashboardDetails) => {
               {data.monthPercent ? data.monthPercent : '0'} %
             </p>
             <div className="d-flex">
-              <span className="diffrence">{data.Month}</span> &nbsp;
+              <span className="diffrence">{data.Month}&nbsp;</span> &nbsp;
               {data.Month < data.Premonth ? (
                 <ArrowDownOutlined
                   style={{ fontSize: '19px', color: '#EE1313', width: '16px', height: '19px' }}
@@ -121,7 +121,7 @@ const Dashboard = (props: dashboardDetails) => {
               {data.quarterPercent ? data.quarterPercent : '0'} %
             </p>
             <div className="d-flex">
-              <span className="diffrence">{data.Quarter}</span> &nbsp;
+              <span className="diffrence">{data.Quarter}&nbsp;</span> &nbsp;
               {data.Quarter < data.Prequarter ? (
                 <ArrowDownOutlined
                   style={{ fontSize: '19px', color: '#EE1313', width: '16px', height: '19px' }}
