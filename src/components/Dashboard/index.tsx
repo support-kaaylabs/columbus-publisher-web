@@ -67,7 +67,7 @@ const Dashboard = (props: dashboardDetails) => {
               {data?.todayPercent ? data?.todayPercent : '0'} %
             </p>
             <div className="d-flex">
-              <span className="diffrence">{data.Today}&nbsp; </span> &nbsp;
+              <span className="diffrence">{data.Today}&nbsp;</span> &nbsp;
               {data.Today < data.Predate ? (
                 <ArrowDownOutlined
                   style={{ fontSize: '19px', color: '#EE1313', width: '16px', height: '19px' }}
