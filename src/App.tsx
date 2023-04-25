@@ -27,13 +27,15 @@ import { Dropdown } from 'antd';
 const { Header, Sider, Content } = Layout;
 
 const App: FC = () => {
+  const locate = window.location.href;
+  const slug = locate.split('/')[3];
   const [open, setOpen] = useState<boolean>(false);
-  const [name, setName] = useState<any>();
+  const [name, setName] = useState<any>(slug.toUpperCase());
   const [userName, setUserName] = useState<any>();
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [image, setImage] = useState<any>(DefaultUser);
-  const locate = window.location.href;
-  const slug = locate.split('/')[3];
+  
+  
 
   const navigate = useNavigate();
 
@@ -137,9 +139,9 @@ const App: FC = () => {
                           key={1}
                           title="PRODUCT"
                           className={
-                            name === 'PRODUCT' ? 'activeMenu' : 'products'
+                            name === 'PRODUCTS' ? 'activeMenu' : 'products'
                           }
-                          onClick={() => setName('PRODUCT')}
+                          onClick={() => setName('PRODUCTS')}
                         >
                           <Link to="products">
                             <span>
