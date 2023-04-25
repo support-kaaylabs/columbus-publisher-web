@@ -17,7 +17,6 @@ const ProductList: FC = () => {
   useEffect(() => {   
     getProduct({ id: userId })
       .then((res: any) => {
-        console.log(res);
         if(res.success){
           setTodos(get(res, 'data', {}));
         }        
