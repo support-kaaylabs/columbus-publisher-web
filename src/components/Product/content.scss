@@ -11,7 +11,7 @@ $color_10: #d8defc;
 $color_11: #cbf3d3;
 
 .head {
-  .filterHead {
+  .filter-head {
     position: sticky;
     margin-left: auto;
     right: 0;
@@ -32,10 +32,10 @@ $color_11: #cbf3d3;
       margin-left: auto;
     }
   }
-  .contentRow {
+  .content-row {
     margin-left: 26px;
     display: flex;
-    .contentHead {
+    .content-head {
       margin-top: 26px;
       margin-right: 26px;
       height: 310px;
@@ -44,7 +44,7 @@ $color_11: #cbf3d3;
       border: 1px solid $color_8;
       border-radius: 12px;
       justify-content: center;
-      .contentLogo {
+      .content-logo {
         height: 130px;
         background: $color_7 0% 0% no-repeat padding-box;
         border-radius: 12px;
@@ -56,10 +56,10 @@ $color_11: #cbf3d3;
           max-height: 100%;
         }
       }
-      .contentMain {
+      .content-main {
         padding: 0px 20px;
         margin-top: 5px;
-        .contentParaButton {
+        .content-para-button {
           display: flex;
           .impression {
             width: 50%;
@@ -218,7 +218,7 @@ $color_11: #cbf3d3;
           text-overflow: ellipsis;
         }
 
-        .buttonDiv {
+        .button-div {
           button {
             display: flex;
             min-width: 100%;

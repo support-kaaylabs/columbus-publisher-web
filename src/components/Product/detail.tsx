@@ -32,19 +32,19 @@ const ProductDetail: FC = () => {
   }, [slug]);
 
   return (
-    <div className="headDetail">
+    <div className="head-detail">
       <div className="arrow" onClick={() => navigate(-1)}>
         <img src={Arrow} alt="Left Arrow" />
       </div>
-      <Row className="contentDetail">
+      <Row className="content-detail">
         {todos && (
-          <div className="contentDiv">
-            <Col md={24} sm={24} lg={12} className="leftContent">
-              <div className="largeImage">
+          <div className="content-div">
+            <Col md={24} sm={24} lg={12} className="left-content">
+              <div className="large-image">
                 <button>
                   <img src={identifiedImageId} alt={todos.Brand} />
                 </button>
-                <div className="largeImageContent">
+                <div className="large-image-content">
                   {todos.Product_Image &&
                     todos.Product_Image.map((item: any) => (
                       <button
@@ -57,9 +57,9 @@ const ProductDetail: FC = () => {
                 </div>
               </div>
             </Col>
-            <Col md={12} sm={24} lg={12} className="rightContent">
-              <div className="rightDiv">
-                <div className="paraContent">
+            <Col md={12} sm={24} lg={12} className="right-content">
+              <div className="right-div">
+                <div className="para-content">
                   <p className="para1">{todos.Brand}</p>
                   <p className="para2">{todos.Product_Name}</p>
                   <div className="rating">
@@ -68,7 +68,7 @@ const ProductDetail: FC = () => {
                     <span className="rating3">{todos.percent}%</span>
                   </div>
                 </div>
-                <div className="productDetailBox">
+                <div className="product-detail-box">
                   <Collapse
                     accordion
                     expandIcon={({ isActive }) =>
@@ -96,7 +96,7 @@ const ProductDetail: FC = () => {
                 </div>
               </div>
             </Col>
-            <Col md={24} sm={24} lg={12} className="progressDiv">
+            <Col md={24} sm={24} lg={12} className="progress-div">
               <div className="impression">
                 <p>Impression</p>
                 <ProgressBar

@@ -27,12 +27,15 @@ import { Dropdown } from 'antd';
 const { Header, Sider, Content } = Layout;
 
 const App: FC = () => {
-  const [open, setOpen] = useState<boolean>(false);
-  const [name, setName] = useState<any>();
-  const [collapsed, setCollapsed] = useState<boolean>(false);
-  const [image, setImage] = useState<any>(DefaultUser);
   const locate = window.location.href;
   const slug = locate.split('/')[3];
+  const [open, setOpen] = useState<boolean>(false);
+  const [name, setName] = useState<any>(slug.toUpperCase());
+  const [userName, setUserName] = useState<any>();
+  const [collapsed, setCollapsed] = useState<boolean>(false);
+  const [image, setImage] = useState<any>(DefaultUser);
+  
+  
 
   const navigate = useNavigate();
 
@@ -43,7 +46,7 @@ const App: FC = () => {
           className="products"
           onClick={() => setName('PRODUCT')}
         >
-          <Link to="dashboard">
+          <Link to="products">
             <span className="menu-style">
               <DeliveredProcedureOutlined />
               PRODUCT
@@ -102,7 +105,7 @@ const App: FC = () => {
           ? DefaultUser
           : localStorage.getItem('Image')
       );
-      setName(localStorage.getItem('User_Name'));
+      setUserName(localStorage.getItem('User_Name'));
     }
   }, []);
 
@@ -136,9 +139,9 @@ const App: FC = () => {
                           key={1}
                           title="PRODUCT"
                           className={
-                            name === 'PRODUCT' ? 'activeMenu' : 'products'
+                            name === 'PRODUCTS' ? 'activeMenu' : 'products'
                           }
-                          onClick={() => setName('PRODUCT')}
+                          onClick={() => setName('PRODUCTS')}
                         >
                           <Link to="products">
                             <span>
@@ -160,66 +163,6 @@ const App: FC = () => {
                             </span>
                           </Link>
                         </Menu.Item>
-                        {/* <Menu.Item
-                      key={3}
-                      title="INSIGHT"
-                      className={classes.insights}
-                      onClick={() => ctx.sideBarHandler('INSIGHT')}
-                    >
-                      <Link to="insight">
-                        <span>
-                          <AlertOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item> */}
-                        {/* <Menu.Item
-                      key={4}
-                      title="WALLET"
-                      className={classes.wallet}
-                      onClick={() => ctx.sideBarHandler('WALLET')}
-                    >
-                      <Link to="wallet">
-                        <span>
-                          <WalletOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item>
-                    <Menu.Item
-                      key={5}
-                      title="SETTING"
-                      className={classes.setting}
-                      onClick={() => ctx.sideBarHandler('SETTING')}
-                    >
-                      <Link to="setting">
-                        <span>
-                          <SettingOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item> 
-                    <Menu.Item
-                      key={6}
-                      title="HELP"
-                      className={classes.help}
-                      onClick={() => ctx.sideBarHandler('HELP')}
-                    >
-                      <Link to="help">
-                        <span>
-                          <CustomerServiceOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item>   */}
-                        {/* <Menu.Item
-                      key={7}
-                      title="LOGOUT"
-                      className={classes.logout}
-                      onClick={() => logoutClick}
-                    >
-                      <Link to="/">
-                        <span>
-                          <LogoutOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item> */}
                       </>
                     ) : (
                       <>
@@ -251,66 +194,6 @@ const App: FC = () => {
                             </span>
                           </Link>
                         </Menu.Item>
-                        {/* <Menu.Item
-                      key={3}
-                      className={classes.insights}
-                      onClick={() => ctx.sideBarHandler('INSIGHTS')}
-                    >
-                      <Link to="insight">
-                        <span className='menuStyle'>
-                          <AlertOutlined />
-                          INSIGHTS
-                        </span>
-                      </Link>
-                    </Menu.Item>
-                    <Menu.Item
-                      key={4}
-                      className={classes.wallet}
-                      onClick={() => ctx.sideBarHandler('WALLET')}
-                    >
-                      <Link to="wallet">
-                        <span className='menuStyle'>
-                          <WalletOutlined />
-                          WALLET
-                        </span>
-                      </Link>
-                    </Menu.Item> 
-                    <Menu.Item
-                      key={5}
-                      className={classes.setting}
-                      onClick={() => ctx.sideBarHandler('SETTING')}
-                    >
-                      <Link to="setting">
-                        <span className='menuStyle'>
-                          <SettingOutlined />
-                          SETTING
-                        </span>
-                      </Link>
-                    </Menu.Item>
-                    <Menu.Item
-                      key={6}
-                      className={classes.help}
-                      onClick={() => ctx.sideBarHandler('HELP')}
-                    >
-                      <Link to="help">
-                        <span className='menuStyle'>
-                          <CustomerServiceOutlined />
-                          HELP
-                        </span>
-                      </Link>
-                    </Menu.Item> */}
-                        {/* <Menu.Item
-                      key={7}
-                      className={classes.logout}
-                      onClick={() => logoutClick}
-                    >
-                      <Link to="/">
-                        <span className="menuStyle">
-                          <LogoutOutlined />
-                          LOGOUT
-                        </span>
-                      </Link>
-                    </Menu.Item> */}
                       </>
                     )}
                   </nav>
@@ -373,7 +256,7 @@ const App: FC = () => {
             </Col>
             <Col sm={3} xs={3} md={0} lg={0} xl={0}></Col>
             <Col className="header-right-content">
-              <div className="header-user-name">{name}</div>
+              <div className="header-user-name">{userName}</div>
               <div className="avatar">
                 <Popover
                   content={
