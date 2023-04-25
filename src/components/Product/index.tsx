@@ -25,21 +25,21 @@ const ProductList: FC = () => {
 
   return (
     <div className="head">
-      <div className="filterHead">
+      <div className="filter-head">
         <div className="filter">
           <FilterOutlined />
         </div>
       </div>
-      <Row className="contentRow">
+      <Row className="content-row">
         {todos &&
           todos.map((item: any, index) => (
             <Col key={index} sm={24} md={12} lg={8}>
-              <div className="contentHead">
-                <div className="contentLogo">
+              <div className="content-head">
+                <div className="content-logo">
                   <img src={item.Image} alt={item.Brand} />
                 </div>
-                <div className="contentMain">
-                  <div className="contentParaButton">
+                <div className="content-main">
+                  <div className="content-para-button">
                     <div className="impression">
                       <p>IMPRESSION</p>
                       <button type="button">
@@ -72,7 +72,7 @@ const ProductList: FC = () => {
                     <p className="unitted">{item.Brand}</p>
                     <p className="knitted">{item.Product_Name}</p>
                   </div>
-                  <div className="buttonDiv">
+                  <div className="button-div">
                     <button>
                       <Link to={`${item.Product_Uid}`}>
                         VIEW PRODUCT DETAILS

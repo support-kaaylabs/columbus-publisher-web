@@ -160,66 +160,6 @@ const App: FC = () => {
                             </span>
                           </Link>
                         </Menu.Item>
-                        {/* <Menu.Item
-                      key={3}
-                      title="INSIGHT"
-                      className={classes.insights}
-                      onClick={() => ctx.sideBarHandler('INSIGHT')}
-                    >
-                      <Link to="insight">
-                        <span>
-                          <AlertOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item> */}
-                        {/* <Menu.Item
-                      key={4}
-                      title="WALLET"
-                      className={classes.wallet}
-                      onClick={() => ctx.sideBarHandler('WALLET')}
-                    >
-                      <Link to="wallet">
-                        <span>
-                          <WalletOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item>
-                    <Menu.Item
-                      key={5}
-                      title="SETTING"
-                      className={classes.setting}
-                      onClick={() => ctx.sideBarHandler('SETTING')}
-                    >
-                      <Link to="setting">
-                        <span>
-                          <SettingOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item> 
-                    <Menu.Item
-                      key={6}
-                      title="HELP"
-                      className={classes.help}
-                      onClick={() => ctx.sideBarHandler('HELP')}
-                    >
-                      <Link to="help">
-                        <span>
-                          <CustomerServiceOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item>   */}
-                        {/* <Menu.Item
-                      key={7}
-                      title="LOGOUT"
-                      className={classes.logout}
-                      onClick={() => logoutClick}
-                    >
-                      <Link to="/">
-                        <span>
-                          <LogoutOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item> */}
                       </>
                     ) : (
                       <>
@@ -251,66 +191,6 @@ const App: FC = () => {
                             </span>
                           </Link>
                         </Menu.Item>
-                        {/* <Menu.Item
-                      key={3}
-                      className={classes.insights}
-                      onClick={() => ctx.sideBarHandler('INSIGHTS')}
-                    >
-                      <Link to="insight">
-                        <span className='menuStyle'>
-                          <AlertOutlined />
-                          INSIGHTS
-                        </span>
-                      </Link>
-                    </Menu.Item>
-                    <Menu.Item
-                      key={4}
-                      className={classes.wallet}
-                      onClick={() => ctx.sideBarHandler('WALLET')}
-                    >
-                      <Link to="wallet">
-                        <span className='menuStyle'>
-                          <WalletOutlined />
-                          WALLET
-                        </span>
-                      </Link>
-                    </Menu.Item> 
-                    <Menu.Item
-                      key={5}
-                      className={classes.setting}
-                      onClick={() => ctx.sideBarHandler('SETTING')}
-                    >
-                      <Link to="setting">
-                        <span className='menuStyle'>
-                          <SettingOutlined />
-                          SETTING
-                        </span>
-                      </Link>
-                    </Menu.Item>
-                    <Menu.Item
-                      key={6}
-                      className={classes.help}
-                      onClick={() => ctx.sideBarHandler('HELP')}
-                    >
-                      <Link to="help">
-                        <span className='menuStyle'>
-                          <CustomerServiceOutlined />
-                          HELP
-                        </span>
-                      </Link>
-                    </Menu.Item> */}
-                        {/* <Menu.Item
-                      key={7}
-                      className={classes.logout}
-                      onClick={() => logoutClick}
-                    >
-                      <Link to="/">
-                        <span className="menuStyle">
-                          <LogoutOutlined />
-                          LOGOUT
-                        </span>
-                      </Link>
-                    </Menu.Item> */}
                       </>
                     )}
                   </nav>

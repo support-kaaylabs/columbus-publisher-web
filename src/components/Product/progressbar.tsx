@@ -3,16 +3,16 @@ import './progressbar.scss';
 
 const ProgressBar = (props: any) => {
   return (
-    <div className="containerStyles">
+    <div className="container-styles">
       <button
-        className="fillerStyles"
+        className="filler-styles"
         style={{
           width: `${props.styles}`,
           background: `${props.background}`,
           transition: 'width 3s ease',
         }}
       >
-        <span className="labelStyles">
+        <span className="label-styles">
           <img src={props.image} alt="Eye" />
           <p style={{ color: `${props.color}` }}>{props.value}</p>
         </span>
