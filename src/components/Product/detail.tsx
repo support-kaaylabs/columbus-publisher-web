@@ -1,142 +1,136 @@
-import React, { type FC, useState } from 'react';
-import ShoeImg from './Images/shoeImgLarge.png';
-import classes from './details.module.scss';
+import React, { type FC, useState, useEffect } from 'react';
+import { get } from 'lodash';
+import './detail.scss';
 import Arrow from './Images/leftArrowIconLarge.png';
 import Eye from './Images/eyeImg.svg';
 import Hand from './Images/nounClickImg.svg';
 import Arrow1 from './Images/nounCursorImg.svg';
-import { Collapse } from 'antd';
+import { Collapse, Row, Col } from 'antd';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
-import Shoes1 from './Images/shoes1.png';
-import Shoes2 from './Images/shoes2.png';
-import { useNavigate } from 'react-router-dom';
-import { ProductInfo } from './types';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getProductDetail } from '../../shared/urlHelper';
+import ProgressBar from './progressbar';
 
 const ProductDetail: FC = () => {
-  const [identifiedImageId, setIdentifiedImageId] = useState(ShoeImg);
+  const [identifiedImageId, setIdentifiedImageId] = useState();
+  const [todos, setTodos] = useState<any>();
+  const { slug } = useParams();
   const navigate = useNavigate();
-  const text = ` - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 
-  since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, 
-  but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software `;
   const { Panel } = Collapse;
 
-  const todos: ProductInfo[] = [
-    {
-      id: 0,
-      src: ShoeImg,
-      impression: '40,00000',
-      clicks: '400',
-      cta: '40',
-      paraOne: 'Unitted color of Benniton',
-      paraTwo: 'KNITTED LACE UP LIFESTYLE SNEAKER',
-      slug: 'shoe',
-      regularPrice: '₹3,824',
-      discount: '15% Off',
-      finalPrice: '₹4,49',
-    },
-  ];
+  useEffect(() => {
+    const params = {
+      id: slug
+    };
+    getProductDetail(params).then((data) => {
+      if (data) {
+        const route = data.resData;
+        setTodos(get(data, 'resData', {}));
+        setIdentifiedImageId(route.Image);
+      }
+    });
+  }, [slug]);
+
   return (
-    <div className={classes.head}>
-      <div className={classes.arrow} onClick={() => navigate(-1)}>
+    <div className="headDetail">
+      <div className="arrow" onClick={() => navigate(-1)}>
         <img src={Arrow} alt="Left Arrow" />
       </div>
-      {todos.map((item, index) => (
-        <div key={index} className={classes.content}>
-          <div className={classes.leftContent}>
-            <div className={classes.largeImage}>
-              <button>
-                <img src={identifiedImageId} alt={item.slug} />
-              </button>
-              <div className={classes.largeImageContent}>
-                <button
-                  className={classes.button1}
-                  onClick={() => setIdentifiedImageId(ShoeImg)}
-                >
-                  <img src={ShoeImg} alt="Phone" />
+      <Row className="contentDetail">
+        {todos && (
+          <div className="contentDiv">
+            <Col md={24} sm={24} lg={12} className="leftContent">
+              <div className="largeImage">
+                <button>
+                  <img src={identifiedImageId} alt={todos.Brand} />
                 </button>
-                <button
-                  className={classes.button2}
-                  onClick={() => setIdentifiedImageId(Shoes1)}
-                >
-                  <img src={Shoes1} alt="Shoe" />
-                </button>
-                <button
-                  className={classes.button3}
-                  onClick={() => setIdentifiedImageId(Shoes2)}
-                >
-                  <img src={Shoes2} alt="HeadPhone" />
-                </button>
+                <div className="largeImageContent">
+                  {todos.Product_Image &&
+                    todos.Product_Image.map((item: any) => (
+                      <button
+                        key={item.id}
+                        onClick={() => setIdentifiedImageId(item.Image)}
+                      >
+                        <img src={item.Image} alt="Phone" />
+                      </button>
+                    ))}
+                </div>
               </div>
-            </div>
-            <div className={classes.impression}>
-              <p>Impression</p>
-              <div className={classes.buttonDiv}>
-                <button type="button">
-                  <span>
-                    <img src={Eye} alt="Eye" />
-                    <p>40,00000</p>
-                  </span>
-                </button>
+            </Col>
+            <Col md={12} sm={24} lg={12} className="rightContent">
+              <div className="rightDiv">
+                <div className="paraContent">
+                  <p className="para1">{todos.Brand}</p>
+                  <p className="para2">{todos.Product_Name}</p>
+                  <div className="rating">
+                    <span className="rating1">₹{todos.Price}</span>
+                    <span className="rating2">₹{todos.Store_Price}</span>
+                    <span className="rating3">{todos.percent}%</span>
+                  </div>
+                </div>
+                <div className="productDetailBox">
+                  <Collapse
+                    accordion
+                    expandIcon={({ isActive }) =>
+                      isActive ? <MinusOutlined /> : <PlusOutlined />
+                    }
+                    defaultActiveKey={['1']}
+                    expandIconPosition="end"
+                    className="collapse"
+                  >
+                    <Panel header="PRODUCT DETAILS" key="1" className="panel1">
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: todos.Long_Description,
+                        }}
+                      />
+                    </Panel>
+                    <Panel header="MORE DETAILS" key="2" className="panel2">
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: todos.Long_Description,
+                        }}
+                      />
+                    </Panel>
+                  </Collapse>
+                </div>
               </div>
-            </div>
-            <div className={classes.clicks}>
-              <p>Clicks</p>
-              <div className={classes.buttonDiv}>
-                <button type="button">
-                  <span>
-                    <img src={Hand} alt="Eye" />
-                    <p>400</p>
-                  </span>
-                </button>
+            </Col>
+            <Col md={24} sm={24} lg={12} className="progressDiv">
+              <div className="impression">
+                <p>Impression</p>
+                <ProgressBar
+                  value="4,00,000"
+                  styles="250px"
+                  image={Eye}
+                  background="#f9dede"
+                  color="#e53935"
+                />
               </div>
-            </div>
-            <div className={classes.cta}>
-              <p>CTA</p>
-              <div className={classes.buttonDiv}>
-                <button type="button">
-                  <span>
-                    <img src={Arrow1} alt="Arrow" />
-                    <p>40</p>
-                  </span>
-                </button>
+              <div className="clicks">
+                <p>Clicks</p>
+                <ProgressBar
+                  value="400"
+                  styles="150px"
+                  image={Hand}
+                  background="#d8defc"
+                  color="#0909dc"
+                />
               </div>
-            </div>
+              <div className="cta">
+                <p>CTA</p>
+                <ProgressBar
+                  value="40"
+                  styles="150px"
+                  image={Arrow1}
+                  background="#caf2d2"
+                  color="#03781b"
+                />
+              </div>
+            </Col>
           </div>
-          <div className={classes.rightContent}>
-            <div className={classes.paraContent}>
-              <p className={classes.para1}>{item.paraOne}</p>
-              <p className={classes.para2}>{item.paraTwo}</p>
-              <div className={classes.rating}>
-                <span className={classes.rating1}>{item.regularPrice}</span>
-                <span className={classes.rating2}>{item.discount}</span>
-                <span className={classes.rating3}>{item.finalPrice}</span>
-              </div>
-            </div>
-            <div className={classes.productDetailBox}>
-              <Collapse
-                accordion
-                expandIcon={({ isActive }) =>
-                  isActive ? <MinusOutlined /> : <PlusOutlined />
-                }
-                defaultActiveKey={['1']}
-                expandIconPosition="end"
-                className={classes.collapse}
-              >
-                <Panel
-                  header="PRODUCT DETAILS"
-                  key="1"
-                  className={classes.panel1}
-                >
-                  <p>{text}</p>
-                </Panel>
-                <Panel header="MORE DETAILS" key="2" className={classes.panel2}>
-                  <p>{text}</p>
-                </Panel>
-              </Collapse>
-            </div>
-          </div>
-        </div>
-      ))}
+        )}
+      </Row>
     </div>
   );
 };

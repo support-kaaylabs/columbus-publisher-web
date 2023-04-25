@@ -39,6 +39,7 @@ const Dashboard = (props: dashboardDetails) => {
                   : ''
         }
       >
+        
         <Row className="row">
           <Col xs={24} sm={24} md={24} lg={4} className="logo">
             <div className="icon-img">
@@ -134,6 +135,7 @@ const Dashboard = (props: dashboardDetails) => {
             </div>
           </Col>
         </Row>
+        
       </div>
     </div>
   );
