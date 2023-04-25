@@ -1,4 +1,4 @@
-import React, { type FC, useState, useContext, useEffect } from 'react';
+import React, { type FC, useState, useEffect } from 'react';
 import Logo from './components/HomePage/Images/logoImgSmall.png';
 import DefaultUser from './components/Images/defaultUser.png';
 import MenuLogo from './components/HomePage/Images/menuLogo.svg';
@@ -11,13 +11,13 @@ import Dashboard from './pages/Dashboard';
 import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import ProductList from './components/Product';
 import ProductDetail from './components/Product/detail';
-import { MyContext } from './components/store/dataStore';
 import { Col, Row, Popover } from 'antd';
 import UserProfile from './components/Home/userProfile';
 import {
   AppstoreOutlined,
   UploadOutlined,
   LogoutOutlined,
+  DeliveredProcedureOutlined,
 } from '@ant-design/icons';
 import { updateUserInfo } from './shared/urlHelper';
 import { Layout, Menu } from 'antd';
@@ -34,16 +34,30 @@ const App: FC = () => {
   const locate = window.location.href;
   const slug = locate.split('/')[3];
 
-  const ctx = useContext(MyContext);
-
   const navigate = useNavigate();
 
   const items: MenuProps['items'] = [
     {
       label: (
         <div
+          className="products"
+          onClick={() => setName('PRODUCT')}
+        >
+          <Link to="dashboard">
+            <span className="menu-style">
+              <DeliveredProcedureOutlined />
+              PRODUCT
+            </span>
+          </Link>
+        </div>
+      ),
+      key: '0',
+    },
+    {
+      label: (
+        <div
           className="dashboard"
-          onClick={() => ctx.sideBarHandler('DASHBOARD')}
+          onClick={() => setName('DASHBOARD')}
         >
           <Link to="dashboard">
             <span className="menu-style">
@@ -53,7 +67,7 @@ const App: FC = () => {
           </Link>
         </div>
       ),
-      key: '0',
+      key: '1',
     },
   ];
 
@@ -118,23 +132,27 @@ const App: FC = () => {
                   <nav>
                     {collapsed ? (
                       <>
-                        {/* <Menu.Item
-                      key={1}
-                      title="PRODUCT"
-                      className={classes.products}
-                      onClick={() => ctx.sideBarHandler('PRODUCT')}
-                    >
-                      <Link to="products">
-                        <span>
-                          <DeliveredProcedureOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item> */}
+                        <Menu.Item
+                          key={1}
+                          title="PRODUCT"
+                          className={
+                            name === 'PRODUCT' ? 'activeMenu' : 'products'
+                          }
+                          onClick={() => setName('PRODUCT')}
+                        >
+                          <Link to="products">
+                            <span>
+                              <DeliveredProcedureOutlined />
+                            </span>
+                          </Link>
+                        </Menu.Item>
                         <Menu.Item
                           key={2}
                           title="DASHBOARD"
-                          className="dashboard"
-                          onClick={() => ctx.sideBarHandler('DASHBOARD')}
+                          className={
+                            name === 'DASHBOARD' ? 'activeMenu' : 'dashboard'
+                          }
+                          onClick={() => setName('DASHBOARD')}
                         >
                           <Link to="dashboard">
                             <span>
@@ -205,22 +223,26 @@ const App: FC = () => {
                       </>
                     ) : (
                       <>
-                        {/* <Menu.Item
-                      key={1}
-                      className={classes.products}
-                      onClick={() => ctx.sideBarHandler('PRODUCT')}
-                    >
-                      <Link to="products">
-                        <span className='menuStyle'>
-                          <DeliveredProcedureOutlined />
-                          PRODUCT
-                        </span>
-                      </Link>
-                    </Menu.Item> */}
+                        <Menu.Item
+                          key={1}
+                          className={
+                            name === 'PRODUCT' ? 'activeMenu' : 'products'
+                          }
+                          onClick={() => setName('PRODUCT')}
+                        >
+                          <Link to="products">
+                            <span className="menuStyle">
+                              <DeliveredProcedureOutlined />
+                              PRODUCT
+                            </span>
+                          </Link>
+                        </Menu.Item>
                         <Menu.Item
                           key={2}
-                          className="dashboard"
-                          onClick={() => ctx.sideBarHandler('DASHBOARD')}
+                          className={
+                            name === 'DASHBOARD' ? 'activeMenu' : 'dashboard'
+                          }
+                          onClick={() => setName('DASHBOARD')}
                         >
                           <Link to="dashboard">
                             <span className="menuStyle">
@@ -383,10 +405,7 @@ const App: FC = () => {
             <Route path="products" element={<ProductList />} />
             <Route path="/:dashboard" element={<Dashboard />} />
             <Route path="products/:slug" element={<ProductDetail />} />
-            <Route
-              path="myProfile"
-              element={<UserProfile />}
-            />
+            <Route path="myProfile" element={<UserProfile />} />
           </Routes>
         </Content>
       </Layout>
