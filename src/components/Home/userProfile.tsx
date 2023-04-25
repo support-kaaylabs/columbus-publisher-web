@@ -1,14 +1,12 @@
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  FC,
-} from 'react';
+import React, { useState, useRef, useEffect, FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { imageUpload, getImageLocate } from '../../shared/urlHelper';
 import { LoadingOutlined, CameraOutlined } from '@ant-design/icons';
 import { Col, Row, Spin } from 'antd';
+import Arrow from './Images/leftArrowIconLarge.png';
 import DefaultUser from '../Images/defaultUser.png';
+import StoreImg from './Images/storeLarge.png';
+import UserImg from './Images/userLarge.png';
 import { get } from 'lodash';
 import './login.scss';
 
@@ -19,7 +17,7 @@ const userProfile: FC = () => {
   const logoHandler = useRef<any>(null);
   const [image, setImage] = useState<any>();
   const navigate = useNavigate();
-  
+
   const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
   const clickHandler = () => {
@@ -53,7 +51,7 @@ const userProfile: FC = () => {
       setIsLoading(true);
       if (data.success) {
         getImageLocate().then((res: any) => {
-          const image = get(res, 'data[0].Image', '');          
+          const image = get(res, 'data[0].Image', '');
           localStorage.setItem('Image', image);
           setImage(image);
           setIsLoading(false);
@@ -63,13 +61,20 @@ const userProfile: FC = () => {
   };
   return (
     <Row className="user-profile">
-      <Col sm={24} xs={24} md={24} lg={24} className="content-name">
-        <p>Your Info</p>
+      <Col
+        sm={24}
+        xs={24}
+        md={24}
+        lg={24}
+        className="arrow"
+        onClick={() => navigate(-1)}
+      >
+        <img src={Arrow} alt="Left Arrow" />
       </Col>
       <Col className="user-container">
         <div className="user-contain">
           <Row className="upload-image-contain">
-            <Col sm={24} xs={24} md={8} lg={8} className="user-img">
+            <Col sm={11} md={11} lg={11} className="user-img">
               <div className="user-img-logo">
                 <div className="profile-head">
                   {isLoading ? (
@@ -77,10 +82,12 @@ const userProfile: FC = () => {
                       <Spin indicator={antIcon} />
                     </div>
                   ) : (
-                    <img src={image} alt="avatar" className="profile-img" />
+                    <div className="profile-logo-img">
+                      <img src={image} alt="avatar" className="profile-img" />
+                    </div>
                   )}
 
-                  <div className="upload-image"  onClick={clickHandler}>
+                  <div className="upload-image" onClick={clickHandler}>
                     <div className="add-photo">
                       <CameraOutlined />
                       <input
@@ -95,30 +102,32 @@ const userProfile: FC = () => {
                 </div>
               </div>
             </Col>
-            <Col className="user-detail" sm={24} xs={24} md={14} lg={14}>
-              <Col sm={0} xs={0} md={24} lg={8} className="user-details">
-                <p>
-                  Personalize your account with a photo. Your profile photo will
-                  appear on apps and devices.
-                </p>
-              </Col>
+            <Col className="user-detail" sm={11} md={11} lg={11}>
+              <Row className="user-info-icon">
+                <Col className="user-icon">
+                  <img src={UserImg} alt="user-icon" />
+                </Col>
+                <Col className="seller">
+                  <p className="seller-find">Seller Name</p>
+                  <p className="seller-name">{name}</p>
+                </Col>
+              </Row>
+              <Row className="store-info-icon">
+                <Col className="user-icon">
+                  <img src={StoreImg} alt="store-icon" />
+                </Col>
+                <Col className="seller">
+                  <p className="seller-find">Store Name</p>
+                  <p className="seller-name">{storeName}</p>
+                </Col>
+              </Row>
             </Col>
           </Row>
-          <Row className="user-info">
-            <Col sm={11} md={8} lg={8} className="seller">
-              <p>Seller Name</p>
+          <Row className="user-inform">
+            <Col sm={11} md={11} lg={11} className="inform-col">
+              <p>Personalize your account with a photo</p>
             </Col>
-            <Col sm={11} md={14} lg={14} className="seller-name">
-              <p>{name}</p>
-            </Col>
-          </Row>
-          <Row className="user-info">
-            <Col sm={11} md={8} lg={8} className="seller">
-              <p>Store Name</p>
-            </Col>
-            <Col sm={11} md={14} lg={14} className="seller-name">
-              <p>{storeName}</p>
-            </Col>
+            <Col sm={11} md={11} lg={11} className="inform-col"></Col>
           </Row>
         </div>
       </Col>
