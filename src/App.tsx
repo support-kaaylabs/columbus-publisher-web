@@ -29,6 +29,7 @@ const { Header, Sider, Content } = Layout;
 const App: FC = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [name, setName] = useState<any>();
+  const [userName, setUserName] = useState<any>();
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [image, setImage] = useState<any>(DefaultUser);
   const locate = window.location.href;
@@ -43,7 +44,7 @@ const App: FC = () => {
           className="products"
           onClick={() => setName('PRODUCT')}
         >
-          <Link to="dashboard">
+          <Link to="products">
             <span className="menu-style">
               <DeliveredProcedureOutlined />
               PRODUCT
@@ -102,7 +103,7 @@ const App: FC = () => {
           ? DefaultUser
           : localStorage.getItem('Image')
       );
-      setName(localStorage.getItem('User_Name'));
+      setUserName(localStorage.getItem('User_Name'));
     }
   }, []);
 
@@ -253,7 +254,7 @@ const App: FC = () => {
             </Col>
             <Col sm={3} xs={3} md={0} lg={0} xl={0}></Col>
             <Col className="header-right-content">
-              <div className="header-user-name">{name}</div>
+              <div className="header-user-name">{userName}</div>
               <div className="avatar">
                 <Popover
                   content={
