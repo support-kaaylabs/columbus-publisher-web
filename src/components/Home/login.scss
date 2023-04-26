@@ -122,20 +122,18 @@
   }
   .user-container {
     width: 792px;
-    margin-top: 124px;
     margin-left: auto;
     margin-right: auto;
     background: #ffffff 0% 0% no-repeat padding-box;
     box-shadow: 0px 0px 30px #fccdcd;
     border-radius: 15px;
     .user-contain {
-      padding-top: 51px;
-      padding-bottom: 47px;
       .user-detail {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         justify-content: center;
+        height: 221px;
         .user-info-icon {
           display: flex;
           .user-icon {
@@ -207,9 +205,9 @@
           justify-content: center;
           .user-img-logo {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             .profile-head {
-              position: relative;
               width: 221px;
               height: 221px;
               border-radius: 50%;
@@ -227,51 +225,20 @@
               .profile-logo-img {
                 position: relative;
                 border-radius: 50%;
+                cursor: pointer;
                 object-fit: cover;
                 width: 215px;
                 height: 215px;
+                .input {
+                  display: none;
+                }
                 .profile-img {
                   width: 100%;
                   height: 100%;
                   border-radius: 50%;
                 }
               }
-              .upload-image {
-                cursor: pointer;
-                position: absolute;
-                width: 50px;
-                height: 50px;
-                display: flex;
-                border-radius: 50%;
-                justify-content: center;
-                align-items: center;
-                bottom: 0;
-                right: 10px;
-                background-color: #7145df;
-                .add-photo {
-                  .input {
-                    display: none;
-                  }
-                }
-              }
             }
-          }
-        }
-      }
-      .user-inform {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-        .inform-col {
-          text-align: center;
-          p {
-            margin: 0px;
-            text-align: center;
-            font-size: 15px;
-            letter-spacing: 0px;
-            font-weight: 649;
-            color: #222222;
-            opacity: 1;
           }
         }
       }
@@ -283,9 +250,38 @@
   .user-info {
     justify-content: space-around;
   }
-  .upload-image {
-    text-align: center;
+  .inform-col {
+    p {
+      font-size: 14px;
+      letter-spacing: 0px;
+      font-weight: 649;
+      color: #222222;
+      opacity: 1;
+    }
+  }
+  .user-container {
+    margin-top: 30px;
+    .user-contain {
+      padding-top: 31px;
+      padding-bottom: 20px;
+      padding-left: 10px;
+      padding-right: 5px;
+    }
   }
 }
 @media screen and (min-width: 1000px) {
+  .user-container {
+    margin-top: 124px;
+    padding-top: 51px;
+    padding-bottom: 47px;
+  }
+  .inform-col {
+    p {
+      font-size: 15px;
+      letter-spacing: 0px;
+      font-weight: 649;
+      color: #222222;
+      opacity: 1;
+    }
+  }
 }

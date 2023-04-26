@@ -34,18 +34,13 @@ const App: FC = () => {
   const [userName, setUserName] = useState<any>();
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [image, setImage] = useState<any>(DefaultUser);
-  
-  
 
   const navigate = useNavigate();
 
   const items: MenuProps['items'] = [
     {
       label: (
-        <div
-          className="products"
-          onClick={() => setName('PRODUCT')}
-        >
+        <div className="products" onClick={() => setName('PRODUCT')}>
           <Link to="products">
             <span className="menu-style">
               <DeliveredProcedureOutlined />
@@ -58,10 +53,7 @@ const App: FC = () => {
     },
     {
       label: (
-        <div
-          className="dashboard"
-          onClick={() => setName('DASHBOARD')}
-        >
+        <div className="dashboard" onClick={() => setName('DASHBOARD')}>
           <Link to="dashboard">
             <span className="menu-style">
               <AppstoreOutlined />
@@ -139,9 +131,9 @@ const App: FC = () => {
                           key={1}
                           title="PRODUCT"
                           className={
-                            name === 'PRODUCTS' ? 'activeMenu' : 'products'
+                            name === 'PRODUCT' ? 'activeMenu' : 'products'
                           }
-                          onClick={() => setName('PRODUCTS')}
+                          onClick={() => setName('PRODUCT')}
                         >
                           <Link to="products">
                             <span>
