@@ -93,11 +93,11 @@ const ProductList: FC = () => {
                         <p className="knitted">{item.Product_Name}</p>
                       </div>
                       <div className="button-div">
-                        <button>
-                          <Link to={`${item.Product_Uid}`}>
-                            VIEW PRODUCT DETAILS
-                          </Link>
-                        </button>
+                        <Link to={`${item.Product_Uid}`}>
+                          <button>                          
+                            VIEW PRODUCT DETAILS                          
+                          </button>
+                        </Link>
                       </div>
                     </div>
                   </div>

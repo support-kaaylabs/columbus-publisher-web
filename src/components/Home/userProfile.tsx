@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { imageUpload, getImageLocate } from '../../shared/urlHelper';
-import { LoadingOutlined, CameraOutlined } from '@ant-design/icons';
+import { LoadingOutlined } from '@ant-design/icons';
 import { Col, Row, Spin } from 'antd';
 import Arrow from './Images/leftArrowIconLarge.png';
 import DefaultUser from '../Images/defaultUser.png';
@@ -74,7 +74,7 @@ const userProfile: FC = () => {
       <Col className="user-container">
         <div className="user-contain">
           <Row className="upload-image-contain">
-            <Col sm={11} md={11} lg={11} className="user-img">
+            <Col sm={12} md={12} lg={12} className="user-img">
               <div className="user-img-logo">
                 <div className="profile-head">
                   {isLoading ? (
@@ -82,14 +82,8 @@ const userProfile: FC = () => {
                       <Spin indicator={antIcon} />
                     </div>
                   ) : (
-                    <div className="profile-logo-img">
+                    <div className="profile-logo-img" onClick={clickHandler}>
                       <img src={image} alt="avatar" className="profile-img" />
-                    </div>
-                  )}
-
-                  <div className="upload-image" onClick={clickHandler}>
-                    <div className="add-photo">
-                      <CameraOutlined />
                       <input
                         type="file"
                         accept="image/*"
@@ -98,11 +92,14 @@ const userProfile: FC = () => {
                         className="input"
                       />
                     </div>
-                  </div>
+                  )}
+                </div>
+                <div className="inform-col">
+                  <p>Personalize your account with a photo</p>
                 </div>
               </div>
             </Col>
-            <Col className="user-detail" sm={11} md={11} lg={11}>
+            <Col className="user-detail" sm={12} md={12} lg={12}>
               <Row className="user-info-icon">
                 <Col className="user-icon">
                   <img src={UserImg} alt="user-icon" />
@@ -123,12 +120,11 @@ const userProfile: FC = () => {
               </Row>
             </Col>
           </Row>
-          <Row className="user-inform">
+          {/* <Row className="user-inform">
             <Col sm={11} md={11} lg={11} className="inform-col">
               <p>Personalize your account with a photo</p>
             </Col>
-            <Col sm={11} md={11} lg={11} className="inform-col"></Col>
-          </Row>
+          </Row> */}
         </div>
       </Col>
     </Row>

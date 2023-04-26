@@ -20,7 +20,7 @@ const ProductDetail: FC = () => {
 
   useEffect(() => {
     const params = {
-      id: slug
+      id: slug,
     };
     getProductDetail(params).then((data) => {
       if (data) {
@@ -39,15 +39,16 @@ const ProductDetail: FC = () => {
       <Row className="content-detail">
         {todos && (
           <div className="content-div">
-            <Col md={24} sm={24} lg={12} className="left-content">
+            <Col md={24} sm={24} lg={11} className="left-content">
               <div className="large-image">
-                <button>
+                <button className="main-image">
                   <img src={identifiedImageId} alt={todos.Brand} />
                 </button>
                 <div className="large-image-content">
                   {todos.Product_Image &&
                     todos.Product_Image.map((item: any) => (
                       <button
+                        className="sub-image"
                         key={item.id}
                         onClick={() => setIdentifiedImageId(item.Image)}
                       >
@@ -57,7 +58,7 @@ const ProductDetail: FC = () => {
                 </div>
               </div>
             </Col>
-            <Col md={12} sm={24} lg={12} className="right-content">
+            <Col md={24} sm={24} lg={11} className="right-content">
               <div className="right-div">
                 <div className="para-content">
                   <p className="para1">{todos.Brand}</p>
@@ -96,7 +97,7 @@ const ProductDetail: FC = () => {
                 </div>
               </div>
             </Col>
-            <Col md={24} sm={24} lg={12} className="progress-div">
+            <Col md={24} sm={24} lg={11} className="progress-div">
               <div className="impression">
                 <p>Impression</p>
                 <ProgressBar
@@ -127,6 +128,9 @@ const ProductDetail: FC = () => {
                   color="#03781b"
                 />
               </div>
+            </Col>
+            <Col md={24} sm={24} lg={11}>
+              
             </Col>
           </div>
         )}
