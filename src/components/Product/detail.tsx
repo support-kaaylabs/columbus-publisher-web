@@ -6,9 +6,10 @@ import Eye from './Images/eyeImg.svg';
 import Hand from './Images/nounClickImg.svg';
 import Arrow1 from './Images/nounCursorImg.svg';
 import { Collapse, Row, Col } from 'antd';
-import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getProductDetail } from '../../shared/urlHelper';
+import PlusIcon from './Images/plusIcon.svg';
+import MinusIcon from './Images/minusIcon.svg';
 import ProgressBar from './progressbar';
 import DefaultImage from './Images/defaultImage.png';
 
@@ -50,26 +51,30 @@ const ProductDetail: FC = () => {
       <Row className="content-detail">
         {todos && (
           <div className="content-div">
-            <Col md={24} sm={24} lg={11} className="left-content">
+            <Col md={24} sm={24} lg={10} className="left-content">
               <div className="large-image">
-                {identifiedImageId.Image === undefined ? 
+                {identifiedImageId.Image === undefined ? (
                   <button className="main-image">
                     <button className="main-image">
                       <img src={DefaultImage} alt="Phone" />
                     </button>
                   </button>
-                  :
+                ) : (
                   <button className="main-image">
                     {identifiedImageId.Type === 'VIDEO' ? (
                       <video controls>
-                        <source src={identifiedImageId.Image} type="video/mp4" />
+                        <source
+                          src={identifiedImageId.Image}
+                          type="video/mp4"
+                        />
                       </video>
                     ) : (
                       <button className="main-image">
                         <img src={identifiedImageId.Image} alt="Phone" />
                       </button>
                     )}
-                  </button>}
+                  </button>
+                )}
                 <div className="large-image-content">
                   {productImage &&
                     productImage.map((item: any) =>
@@ -96,7 +101,7 @@ const ProductDetail: FC = () => {
                 </div>
               </div>
             </Col>
-            <Col md={24} sm={24} lg={11} className="right-content">
+            <Col md={24} sm={24} lg={13} className="right-content">
               <div className="right-div">
                 <div className="para-content">
                   <p className="para1">{todos.Brand}</p>
@@ -111,7 +116,11 @@ const ProductDetail: FC = () => {
                   <Collapse
                     accordion
                     expandIcon={({ isActive }) =>
-                      isActive ? <MinusOutlined /> : <PlusOutlined />
+                      isActive ? (
+                        <img src={MinusIcon} alt="Minus-icon" />
+                      ) : (
+                        <img src={PlusIcon} alt="Plus-icon" />
+                      )
                     }
                     defaultActiveKey={['1']}
                     expandIconPosition="end"
@@ -135,7 +144,7 @@ const ProductDetail: FC = () => {
                 </div>
               </div>
             </Col>
-            <Col md={24} sm={24} lg={11} className="progress-div">
+            <Col md={24} sm={24} lg={10} className="progress-div">
               <div className="impression">
                 <p>Impression</p>
                 <ProgressBar
@@ -167,7 +176,7 @@ const ProductDetail: FC = () => {
                 />
               </div>
             </Col>
-            <Col md={24} sm={24} lg={11}></Col>
+            <Col md={24} sm={24} lg={14}></Col>
           </div>
         )}
       </Row>

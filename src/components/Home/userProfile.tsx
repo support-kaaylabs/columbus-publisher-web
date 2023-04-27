@@ -1,27 +1,35 @@
-import React, { useState, useRef, useEffect, FC } from 'react';
+import React, { type FC, useState, useRef, useEffect, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { imageUpload, getImageLocate } from '../../shared/urlHelper';
-import { LoadingOutlined } from '@ant-design/icons';
-import { Col, Row, Spin } from 'antd';
+import { Col, Row } from 'antd';
 import Arrow from './Images/leftArrowIconLarge.png';
 import DefaultUser from '../Images/defaultUser.png';
 import StoreImg from './Images/storeLarge.png';
 import UserImg from './Images/userLarge.png';
+import cameraIcon from './Images/cameraIcon.svg';
 import { get } from 'lodash';
 import './login.scss';
 
 const userProfile: FC = () => {
   const [name, setName] = useState<any>();
   const [storeName, setStoreName] = useState<any>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const logoHandler = useRef<any>(null);
+  const [cameraIconDisplay, setCameraIconDisplay] = useState<any>(false);
   const [image, setImage] = useState<any>();
   const navigate = useNavigate();
 
-  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
-
   const clickHandler = () => {
     logoHandler.current.click();
+  };
+
+  const cameraIconHandlerDisplay = (e: MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setCameraIconDisplay(true);
+  };
+
+  const cameraIconHandlerHide = (e: MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setCameraIconDisplay(false);
   };
 
   const userID: any = localStorage.getItem('User_ID');
@@ -48,13 +56,11 @@ const userProfile: FC = () => {
     const fileUploaded = [event.target.files[0]];
     const userId: any = localStorage.getItem('User_ID');
     imageUpload(userId, '', fileUploaded).then((data: any) => {
-      setIsLoading(true);
       if (data.success) {
         getImageLocate().then((res: any) => {
           const image = get(res, 'data[0].Image', '');
           localStorage.setItem('Image', image);
           setImage(image);
-          setIsLoading(false);
         });
       }
     });
@@ -75,25 +81,34 @@ const userProfile: FC = () => {
         <div className="user-contain">
           <Row className="upload-image-contain">
             <Col sm={12} md={12} lg={12} className="user-img">
-              <div className="user-img-logo">
+              <div
+                className="user-img-logo"
+                onMouseLeave={cameraIconHandlerHide}
+              >
                 <div className="profile-head">
-                  {isLoading ? (
-                    <div className="profile-loading">
-                      <Spin indicator={antIcon} />
-                    </div>
-                  ) : (
-                    <div className="profile-logo-img" onClick={clickHandler}>
-                      <img src={image} alt="avatar" className="profile-img" />
-                      <input
-                        type="file"
-                        accept="image/*"
-                        ref={logoHandler}
-                        onChange={changeLogoHandler}
-                        className="input"
-                      />
-                    </div>
-                  )}
+                  <div className="profile-logo-img">
+                    <img
+                      src={image}
+                      alt="avatar"
+                      className="profile-img"
+                      onMouseEnter={cameraIconHandlerDisplay}
+                    />
+                  </div>
                 </div>
+                {cameraIconDisplay ? (
+                  <div className="camera-icon" onClick={clickHandler}>
+                    <img src={cameraIcon} alt="camera-icon" />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      ref={logoHandler}
+                      onChange={changeLogoHandler}
+                      className="input"
+                    />
+                  </div>
+                ) : (
+                  ''
+                )}
                 <div className="inform-col">
                   <p>Personalize your account with a photo</p>
                 </div>
