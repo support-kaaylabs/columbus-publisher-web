@@ -8,7 +8,7 @@ import CloseIcon from './components/HomePage/Images/closeIconSmall.png';
 import MenuIcon from './components/HomePage/Images/menuIconSmall.png';
 import './App.scss';
 import AvatarLogo from './components/Images/avatar-menu-logo.svg';
-import{ ProductIcon, DashboardIcon }from './components/icons/svgIcons';
+import { ProductIcon, DashboardIcon } from './components/icons/svgIcons';
 import Dashboard from './pages/Dashboard';
 import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import ProductList from './components/Product';
@@ -32,10 +32,9 @@ const App: FC = () => {
   const [image, setImage] = useState<any>(DefaultUser);
   const [open, setOpen] = useState(false);
 
-  const handleOpenChange = ( ) => {
+  const handleOpenChange = () => {
     setOpen((data) => !data);
   };
-
   const navigate = useNavigate();
 
   const items: MenuProps['items'] = [
@@ -57,7 +56,9 @@ const App: FC = () => {
         <div className="dashboard" onClick={() => setName('DASHBOARD')}>
           <Link to="dashboard">
             <span>
-              <DashboardIcon color={name === 'DASHBOARD' ? '#E53935' : '#222222'} />
+              <DashboardIcon
+                color={name === 'DASHBOARD' ? '#E53935' : '#222222'}
+              />
               DASHBOARD
             </span>
           </Link>
@@ -94,7 +95,7 @@ const App: FC = () => {
       setUserEmail(localStorage.getItem('User_Email'));
       setName(slug.toUpperCase());
     }
-  }, []);
+  }, [slug]);
 
   return (
     <Layout className="header">
@@ -132,7 +133,11 @@ const App: FC = () => {
                         >
                           <Link to="product">
                             <span>
-                              <ProductIcon color={name === 'PRODUCT' ? '#E53935' : '#222222'} />
+                              <ProductIcon
+                                color={
+                                  name === 'PRODUCT' ? '#E53935' : '#222222'
+                                }
+                              />
                             </span>
                           </Link>
                         </Menu.Item>
@@ -146,7 +151,11 @@ const App: FC = () => {
                         >
                           <Link to="dashboard">
                             <span>
-                              <DashboardIcon color={name === 'DASHBOARD' ? '#E53935' : '#222222'} />
+                              <DashboardIcon
+                                color={
+                                  name === 'DASHBOARD' ? '#E53935' : '#222222'
+                                }
+                              />
                             </span>
                           </Link>
                         </Menu.Item>
@@ -162,7 +171,11 @@ const App: FC = () => {
                         >
                           <Link to="product">
                             <span>
-                              <ProductIcon color={name === 'PRODUCT' ? '#E53935' : '#222222'} />
+                              <ProductIcon
+                                color={
+                                  name === 'PRODUCT' ? '#E53935' : '#222222'
+                                }
+                              />
                               PRODUCT
                             </span>
                           </Link>
@@ -176,7 +189,11 @@ const App: FC = () => {
                         >
                           <Link to="dashboard">
                             <span>
-                              <DashboardIcon color={name === 'DASHBOARD' ? '#E53935' : '#222222'} />
+                              <DashboardIcon
+                                color={
+                                  name === 'DASHBOARD' ? '#E53935' : '#222222'
+                                }
+                              />
                               DASHBOARD
                             </span>
                           </Link>
@@ -246,7 +263,7 @@ const App: FC = () => {
               <div className="header-user-name">{userName}</div>
               <div className="avatar">
                 <Popover
-                  arrow={false}                  
+                  arrow={false}
                   open={open}
                   onOpenChange={handleOpenChange}
                   content={
@@ -266,7 +283,10 @@ const App: FC = () => {
                             <p className="name">{userName}</p>
                             <p className="email">{userEmail}</p>
                           </Col>
-                          <Col className="seller-profile"  onClick={handleOpenChange}>
+                          <Col
+                            className="seller-profile"
+                            onClick={handleOpenChange}
+                          >
                             <Link to="myProfile" className="my-profile">
                               MyProfile
                             </Link>
@@ -283,7 +303,7 @@ const App: FC = () => {
                       </a>
                     </div>
                   }
-                  trigger="click"                  
+                  trigger="click"
                 >
                   <img src={image} alt="avatar" className="profile-img" />
                 </Popover>
