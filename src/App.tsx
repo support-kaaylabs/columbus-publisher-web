@@ -30,6 +30,11 @@ const App: FC = () => {
   const [userEmail, setUserEmail] = useState<any>();
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [image, setImage] = useState<any>(DefaultUser);
+  const [open, setOpen] = useState(false);
+
+  const handleOpenChange = ( ) => {
+    setOpen((data) => !data);
+  };
 
   const navigate = useNavigate();
 
@@ -241,7 +246,9 @@ const App: FC = () => {
               <div className="header-user-name">{userName}</div>
               <div className="avatar">
                 <Popover
-                  arrow={collapsed}
+                  arrow={false}                  
+                  open={open}
+                  onOpenChange={handleOpenChange}
                   content={
                     <Row className="avatar-image-contain">
                       <Col sm={6} md={6} lg={6} className="avatar-img">
@@ -259,7 +266,7 @@ const App: FC = () => {
                             <p className="name">{userName}</p>
                             <p className="email">{userEmail}</p>
                           </Col>
-                          <Col className="seller-profile">
+                          <Col className="seller-profile"  onClick={handleOpenChange}>
                             <Link to="myProfile" className="my-profile">
                               MyProfile
                             </Link>
@@ -276,7 +283,7 @@ const App: FC = () => {
                       </a>
                     </div>
                   }
-                  trigger="click"
+                  trigger="click"                  
                 >
                   <img src={image} alt="avatar" className="profile-img" />
                 </Popover>
