@@ -8,16 +8,13 @@ import CloseIcon from './components/HomePage/Images/closeIconSmall.png';
 import MenuIcon from './components/HomePage/Images/menuIconSmall.png';
 import './App.scss';
 import AvatarLogo from './components/Images/avatar-menu-logo.svg';
+import{ ProductIcon, DashboardIcon }from './components/icons/svgIcons';
 import Dashboard from './pages/Dashboard';
 import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import ProductList from './components/Product';
 import ProductDetail from './components/Product/detail';
 import { Col, Row, Popover } from 'antd';
 import UserProfile from './components/Home/userProfile';
-import {
-  AppstoreOutlined,
-  DeliveredProcedureOutlined,
-} from '@ant-design/icons';
 import { updateUserInfo } from './shared/urlHelper';
 import { Layout, Menu } from 'antd';
 import type { MenuProps } from 'antd';
@@ -41,8 +38,8 @@ const App: FC = () => {
       label: (
         <div className="products" onClick={() => setName('PRODUCT')}>
           <Link to="products">
-            <span className="menu-style">
-              <DeliveredProcedureOutlined />
+            <span>
+              <ProductIcon color={name === 'PRODUCT' ? '#E53935' : '#222222'} />
               PRODUCT
             </span>
           </Link>
@@ -54,8 +51,8 @@ const App: FC = () => {
       label: (
         <div className="dashboard" onClick={() => setName('DASHBOARD')}>
           <Link to="dashboard">
-            <span className="menu-style">
-              <AppstoreOutlined />
+            <span>
+              <DashboardIcon color={name === 'DASHBOARD' ? '#E53935' : '#222222'} />
               DASHBOARD
             </span>
           </Link>
@@ -130,7 +127,7 @@ const App: FC = () => {
                         >
                           <Link to="product">
                             <span>
-                              <DeliveredProcedureOutlined />
+                              <ProductIcon color={name === 'PRODUCT' ? '#E53935' : '#222222'} />
                             </span>
                           </Link>
                         </Menu.Item>
@@ -144,7 +141,7 @@ const App: FC = () => {
                         >
                           <Link to="dashboard">
                             <span>
-                              <AppstoreOutlined />
+                              <DashboardIcon color={name === 'DASHBOARD' ? '#E53935' : '#222222'} />
                             </span>
                           </Link>
                         </Menu.Item>
@@ -159,8 +156,8 @@ const App: FC = () => {
                           onClick={() => setName('PRODUCT')}
                         >
                           <Link to="product">
-                            <span className="menuStyle">
-                              <DeliveredProcedureOutlined />
+                            <span>
+                              <ProductIcon color={name === 'PRODUCT' ? '#E53935' : '#222222'} />
                               PRODUCT
                             </span>
                           </Link>
@@ -173,8 +170,8 @@ const App: FC = () => {
                           onClick={() => setName('DASHBOARD')}
                         >
                           <Link to="dashboard">
-                            <span className="menuStyle">
-                              <AppstoreOutlined />
+                            <span>
+                              <DashboardIcon color={name === 'DASHBOARD' ? '#E53935' : '#222222'} />
                               DASHBOARD
                             </span>
                           </Link>
