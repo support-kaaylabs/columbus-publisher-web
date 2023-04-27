@@ -14,7 +14,7 @@ const userProfile: FC = () => {
   const [name, setName] = useState<any>();
   const [storeName, setStoreName] = useState<any>();
   const logoHandler = useRef<any>(null);
-  const [cameraIconDisplay, setCameraIconDisplay] = useState<any>(false);
+  const [cameraIconDisplay, setCameraIconDisplay] = useState<any>(true);
   const [image, setImage] = useState<any>();
   const navigate = useNavigate();
 
@@ -24,12 +24,12 @@ const userProfile: FC = () => {
 
   const cameraIconHandlerDisplay = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
-    setCameraIconDisplay(true);
+    setCameraIconDisplay(false);
   };
 
   const cameraIconHandlerHide = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
-    setCameraIconDisplay(false);
+    setCameraIconDisplay(true);
   };
 
   const userID: any = localStorage.getItem('User_ID');
@@ -81,22 +81,25 @@ const userProfile: FC = () => {
         <div className="user-contain">
           <Row className="upload-image-contain">
             <Col sm={12} md={12} lg={12} className="user-img">
-              <div
-                className="user-img-logo"
-                onMouseLeave={cameraIconHandlerHide}
-              >
-                <div className="profile-head">
-                  <div className="profile-logo-img">
-                    <img
-                      src={image}
-                      alt="avatar"
-                      className="profile-img"
-                      onMouseEnter={cameraIconHandlerDisplay}
-                    />
+              <div className="user-img-logo">
+                <div
+                  className="user-img-logo-content"
+                  onMouseLeave={cameraIconHandlerHide}
+                >
+                  <div
+                    className="profile-head"
+                    onMouseEnter={cameraIconHandlerDisplay}
+                  >
+                    <div className="profile-logo-img">
+                      <img src={image} alt="avatar" className="profile-img" />
+                    </div>
                   </div>
-                </div>
-                {cameraIconDisplay ? (
-                  <div className="camera-icon" onClick={clickHandler}>
+                  <div
+                    className={
+                      cameraIconDisplay ? 'camera-icon-hide' : 'camera-icon'
+                    }
+                    onClick={clickHandler}
+                  >
                     <img src={cameraIcon} alt="camera-icon" />
                     <input
                       type="file"
@@ -106,9 +109,7 @@ const userProfile: FC = () => {
                       className="input"
                     />
                   </div>
-                ) : (
-                  ''
-                )}
+                </div>
                 <div className="inform-col">
                   <p>Personalize your account with a photo</p>
                 </div>
