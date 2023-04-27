@@ -8,6 +8,7 @@ import { errorNotification } from '../../shared/globalVariables';
 import Eye from './Images/eyeImg.svg';
 import Hand from './Images/nounClickImg.svg';
 import Arrow from './Images/nounCursorImg.svg';
+import DefaultImage from './Images/defaultImage.png';
 
 const ProductList: FC = () => {
   const [todos, setTodos] = useState<any>([]);
@@ -50,7 +51,7 @@ const ProductList: FC = () => {
                 <Col key={index} sm={24} md={12} lg={8}>
                   <div className="content-head">
                     <div className="content-logo">
-                      <img src={item.Image} alt={item.Brand} />
+                      <img src={item.Image === null ? DefaultImage : item.Image } alt={item.Brand} />
                     </div>
                     <div className="content-main">
                       <div className="content-para-button">
