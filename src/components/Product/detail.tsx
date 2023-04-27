@@ -12,7 +12,10 @@ import { getProductDetail } from '../../shared/urlHelper';
 import ProgressBar from './progressbar';
 
 const ProductDetail: FC = () => {
-  const [identifiedImageId, setIdentifiedImageId] = useState();
+  const [identifiedImageId, setIdentifiedImageId] = useState<any>();
+  const [percentage, setPercentage] = useState<string>();
+  const [storePrice, setStorePrice] = useState<string>();
+  const [productImage, setProductImage] = useState<any>();
   const [todos, setTodos] = useState<any>();
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -21,12 +24,19 @@ const ProductDetail: FC = () => {
   useEffect(() => {
     const params = {
       id: slug,
+      userId: localStorage.getItem('User_Uid'),
     };
     getProductDetail(params).then((data) => {
       if (data) {
-        const route = data.resData;
-        setTodos(get(data, 'resData', {}));
-        setIdentifiedImageId(route.Image);
+        const bpp = get(data, 'data.autobid[0].BPP', []);
+        const price = get(data, 'data.product[0].Price', []);
+        const different = price - bpp;
+        const percent = ((different / price) * 100).toFixed(2);
+        setPercentage(percent);
+        setTodos(get(data, 'data.product[0]', {}));
+        setStorePrice(bpp);
+        setIdentifiedImageId(get(data, 'data.productImage[0]', []));
+        setProductImage(get(data, 'data.productImage', []));
       }
     });
   }, [slug]);
@@ -42,19 +52,39 @@ const ProductDetail: FC = () => {
             <Col md={24} sm={24} lg={11} className="left-content">
               <div className="large-image">
                 <button className="main-image">
-                  <img src={identifiedImageId} alt={todos.Brand} />
+                  {identifiedImageId.Type === 'VIDEO' ? (
+                    <video controls>
+                      <source src={identifiedImageId.Image} type="video/mp4" />
+                    </video>
+                  ) : (
+                    <button className="main-image">
+                      <img src={identifiedImageId.Image} alt="Phone" />
+                    </button>
+                  )}
                 </button>
                 <div className="large-image-content">
-                  {todos.Product_Image &&
-                    todos.Product_Image.map((item: any) => (
-                      <button
-                        className="sub-image"
-                        key={item.id}
-                        onClick={() => setIdentifiedImageId(item.Image)}
-                      >
-                        <img src={item.Image} alt="Phone" />
-                      </button>
-                    ))}
+                  {productImage &&
+                    productImage.map((item: any) =>
+                      item.Type === 'VIDEO' ? (
+                        <button
+                          className="sub-image"
+                          key={item.id}
+                          onClick={() => setIdentifiedImageId(item)}
+                        >
+                          <video>
+                            <source src={item.Image} type="video/mp4" />
+                          </video>
+                        </button>
+                      ) : (
+                        <button
+                          className="sub-image"
+                          key={item.id}
+                          onClick={() => setIdentifiedImageId(item)}
+                        >
+                          <img src={item.Image} alt="Phone" />
+                        </button>
+                      )
+                    )}
                 </div>
               </div>
             </Col>
@@ -65,8 +95,8 @@ const ProductDetail: FC = () => {
                   <p className="para2">{todos.Product_Name}</p>
                   <div className="rating">
                     <span className="rating1">₹{todos.Price}</span>
-                    <span className="rating2">₹{todos.Store_Price}</span>
-                    <span className="rating3">{todos.percent}%</span>
+                    <span className="rating2">₹{storePrice}</span>
+                    <span className="rating3">{percentage}% Off</span>
                   </div>
                 </div>
                 <div className="product-detail-box">
@@ -129,9 +159,7 @@ const ProductDetail: FC = () => {
                 />
               </div>
             </Col>
-            <Col md={24} sm={24} lg={11}>
-              
-            </Col>
+            <Col md={24} sm={24} lg={11}></Col>
           </div>
         )}
       </Row>

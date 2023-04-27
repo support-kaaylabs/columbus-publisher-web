@@ -120,11 +120,6 @@ const userProfile: FC = () => {
               </Row>
             </Col>
           </Row>
-          {/* <Row className="user-inform">
-            <Col sm={11} md={11} lg={11} className="inform-col">
-              <p>Personalize your account with a photo</p>
-            </Col>
-          </Row> */}
         </div>
       </Col>
     </Row>
