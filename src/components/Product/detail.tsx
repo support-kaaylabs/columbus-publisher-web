@@ -10,6 +10,7 @@ import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getProductDetail } from '../../shared/urlHelper';
 import ProgressBar from './progressbar';
+import DefaultImage from './Images/defaultImage.png';
 
 const ProductDetail: FC = () => {
   const [identifiedImageId, setIdentifiedImageId] = useState<any>();
@@ -51,17 +52,24 @@ const ProductDetail: FC = () => {
           <div className="content-div">
             <Col md={24} sm={24} lg={11} className="left-content">
               <div className="large-image">
-                <button className="main-image">
-                  {identifiedImageId.Type === 'VIDEO' ? (
-                    <video controls>
-                      <source src={identifiedImageId.Image} type="video/mp4" />
-                    </video>
-                  ) : (
+                {identifiedImageId.Image === undefined ? 
+                  <button className="main-image">
                     <button className="main-image">
-                      <img src={identifiedImageId.Image} alt="Phone" />
+                      <img src={DefaultImage} alt="Phone" />
                     </button>
-                  )}
-                </button>
+                  </button>
+                  :
+                  <button className="main-image">
+                    {identifiedImageId.Type === 'VIDEO' ? (
+                      <video controls>
+                        <source src={identifiedImageId.Image} type="video/mp4" />
+                      </video>
+                    ) : (
+                      <button className="main-image">
+                        <img src={identifiedImageId.Image} alt="Phone" />
+                      </button>
+                    )}
+                  </button>}
                 <div className="large-image-content">
                   {productImage &&
                     productImage.map((item: any) =>
