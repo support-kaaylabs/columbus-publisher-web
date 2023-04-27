@@ -7,6 +7,7 @@ import LogoSymbolSmall from './components/HomePage/Images/logoSymbolSmall.svg';
 import CloseIcon from './components/HomePage/Images/closeIconSmall.png';
 import MenuIcon from './components/HomePage/Images/menuIconSmall.png';
 import './App.scss';
+import AvatarLogo from './components/Images/avatar-menu-logo.svg';
 import Dashboard from './pages/Dashboard';
 import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import ProductList from './components/Product';
@@ -15,8 +16,6 @@ import { Col, Row, Popover } from 'antd';
 import UserProfile from './components/Home/userProfile';
 import {
   AppstoreOutlined,
-  UploadOutlined,
-  LogoutOutlined,
   DeliveredProcedureOutlined,
 } from '@ant-design/icons';
 import { updateUserInfo } from './shared/urlHelper';
@@ -29,9 +28,9 @@ const { Header, Sider, Content } = Layout;
 const App: FC = () => {
   const locate = window.location.href;
   const slug = locate.split('/')[3];
-  const [open, setOpen] = useState<boolean>(false);
-  const [name, setName] = useState<any>(slug.toUpperCase());
+  const [name, setName] = useState<any>();
   const [userName, setUserName] = useState<any>();
+  const [userEmail, setUserEmail] = useState<any>();
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [image, setImage] = useState<any>(DefaultUser);
 
@@ -66,14 +65,6 @@ const App: FC = () => {
     },
   ];
 
-  const handleOpenChange = () => {
-    setOpen(true);
-  };
-
-  const changeHandler = () => {
-    setOpen(false);
-  };
-
   const logoutClick = () => {
     const userId: any = localStorage.getItem('User_ID');
     const params = {
@@ -98,6 +89,8 @@ const App: FC = () => {
           : localStorage.getItem('Image')
       );
       setUserName(localStorage.getItem('User_Name'));
+      setUserEmail(localStorage.getItem('User_Email'));
+      setName(slug.toUpperCase());
     }
   }, []);
 
@@ -135,7 +128,7 @@ const App: FC = () => {
                           }
                           onClick={() => setName('PRODUCT')}
                         >
-                          <Link to="products">
+                          <Link to="product">
                             <span>
                               <DeliveredProcedureOutlined />
                             </span>
@@ -165,7 +158,7 @@ const App: FC = () => {
                           }
                           onClick={() => setName('PRODUCT')}
                         >
-                          <Link to="products">
+                          <Link to="product">
                             <span className="menuStyle">
                               <DeliveredProcedureOutlined />
                               PRODUCT
@@ -251,23 +244,42 @@ const App: FC = () => {
               <div className="header-user-name">{userName}</div>
               <div className="avatar">
                 <Popover
+                  arrow={collapsed}
                   content={
-                    <a onClick={logoutClick} className="logout">
-                      <LogoutOutlined /> Logout
-                    </a>
+                    <Row className="avatar-image-contain">
+                      <Col sm={6} md={6} lg={6} className="avatar-img">
+                        <div className="avatar-img-logo">
+                          <div className="profile-head">
+                            <div className="profile-logo-img">
+                              <img src={image} alt="avatar" />
+                            </div>
+                          </div>
+                        </div>
+                      </Col>
+                      <Col className="avatar-detail" sm={16} md={16} lg={16}>
+                        <Row className="avatar-info-icon">
+                          <Col className="seller-name">
+                            <p className="name">{userName}</p>
+                            <p className="email">{userEmail}</p>
+                          </Col>
+                          <Col className="seller-profile">
+                            <Link to="myProfile" className="my-profile">
+                              MyProfile
+                            </Link>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Row>
                   }
                   title={
-                    <Link
-                      to="myProfile"
-                      onClick={changeHandler}
-                      className="profile"
-                    >
-                      <UploadOutlined /> My Profile
-                    </Link>
+                    <div className="avatar-title">
+                      <img src={AvatarLogo} alt="avatar-logo" />
+                      <a onClick={logoutClick} className="logout">
+                        Sign out
+                      </a>
+                    </div>
                   }
                   trigger="click"
-                  open={open}
-                  onOpenChange={handleOpenChange}
                 >
                   <img src={image} alt="avatar" className="profile-img" />
                 </Popover>
@@ -277,9 +289,9 @@ const App: FC = () => {
         </Header>
         <Content className="content">
           <Routes>
-            <Route path="products" element={<ProductList />} />
+            <Route path="product" element={<ProductList />} />
             <Route path="/:dashboard" element={<Dashboard />} />
-            <Route path="products/:slug" element={<ProductDetail />} />
+            <Route path="product/:slug" element={<ProductDetail />} />
             <Route path="myProfile" element={<UserProfile />} />
           </Routes>
         </Content>

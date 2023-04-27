@@ -1,7 +1,6 @@
 import React, { type FC, useEffect, useState } from 'react';
 import './content.scss';
 import { Col, Row, Spin } from 'antd';
-import { FilterOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { get } from 'lodash';
 import { getProduct } from '../../shared/urlHelper';
@@ -45,11 +44,6 @@ const ProductList: FC = () => {
       )}
       {!loading && (
         <>
-          <div className="filter-head">
-            <div className="filter">
-              <FilterOutlined />
-            </div>
-          </div>
           <Row className="content-row">
             {todos &&
               todos.map((item: any, index: number) => (
@@ -94,9 +88,7 @@ const ProductList: FC = () => {
                       </div>
                       <div className="button-div">
                         <Link to={`${item.Product_Uid}`}>
-                          <button>                          
-                            VIEW PRODUCT DETAILS                          
-                          </button>
+                          <button>VIEW PRODUCT DETAILS</button>
                         </Link>
                       </div>
                     </div>

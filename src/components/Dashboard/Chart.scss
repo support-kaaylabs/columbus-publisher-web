@@ -3,20 +3,20 @@ apexcharts-toolbar {
 }
 
 .ant-tabs-tab.ant-tabs-tab-active {
-  border-bottom: 2px solid #F44336 !important;
+  border-bottom: 2px solid #f44336 !important;
   color: black !important;
   z-index: 2;
 }
 
 .testing {
-  border-bottom: 2px solid #F44336 !important;
+  border-bottom: 2px solid #f44336 !important;
   color: black !important;
   z-index: 2;
 }
 
 .ant-tabs-ink-bar {
   height: 5px;
-  background: #F44336 !important;
+  background: #f44336 !important;
 }
 
 .drop-btn {
@@ -47,7 +47,9 @@ apexcharts-toolbar {
   color: grey;
 }
 
-:where(.css-dev-only-do-not-override-ph9edi).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+:where(.css-dev-only-do-not-override-ph9edi).ant-tabs
+  .ant-tabs-tab.ant-tabs-tab-active
+  .ant-tabs-tab-btn {
   color: #000000 !important;
   font: normal normal bold 24px/1px Lato !important;
   text-shadow: 0 0 0.25px currentcolor;

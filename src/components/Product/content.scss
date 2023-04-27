@@ -11,29 +11,9 @@ $color_10: #d8defc;
 $color_11: #cbf3d3;
 
 .head {
+  margin-top: 26px;
   .loader {
     margin-top: 30%;
-  }
-  .filter-head {
-    position: sticky;
-    margin-left: auto;
-    right: 0;
-    top: 0;
-    background: #ffffff;
-    z-index: 1;
-    width: 99%;
-    padding-top: 5px;
-    .filter {
-      width: 25px;
-      height: 25px;
-      background: #e53935 0% 0% no-repeat padding-box;
-      border-radius: 4px 0px 0px 4px;
-      color: $color_6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-left: auto;
-    }
   }
   .content-row {
     margin-left: 26px;
