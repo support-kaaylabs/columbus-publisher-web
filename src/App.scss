@@ -29,7 +29,6 @@
             li {
               color: #222222;
               background: transparent;
-
               a {
                 text-align: left;
                 font-size: 15px;
@@ -227,6 +226,10 @@
           li {
             &.logout {
               margin-top: 550px;
+            }
+            &:hover {
+              background-color: transparent;
+              color: #e53935;
             }
           }
 
