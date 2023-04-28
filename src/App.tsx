@@ -40,8 +40,11 @@ const App: FC = () => {
   const items: MenuProps['items'] = [
     {
       label: (
-        <div className="products" onClick={() => setName('PRODUCT')}>
-          <Link to="products">
+        <div
+          className={name === 'PRODUCT' ? 'activeMenu' : 'products'}
+          onClick={() => setName('PRODUCT')}
+        >
+          <Link to="product">
             <span>
               <ProductIcon color={name === 'PRODUCT' ? '#E53935' : '#222222'} />
               PRODUCT
@@ -53,7 +56,10 @@ const App: FC = () => {
     },
     {
       label: (
-        <div className="dashboard" onClick={() => setName('DASHBOARD')}>
+        <div
+          className={name === 'DASHBOARD' ? 'activeMenu' : 'products'}
+          onClick={() => setName('DASHBOARD')}
+        >
           <Link to="dashboard">
             <span>
               <DashboardIcon
