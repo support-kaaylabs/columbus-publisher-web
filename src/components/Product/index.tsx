@@ -1,6 +1,6 @@
 import React, { type FC, useEffect, useState } from 'react';
 import './content.scss';
-import { Col, Row, Spin, Empty } from 'antd';
+import { Col, Row, Spin, Empty, Tooltip } from 'antd';
 import { Link } from 'react-router-dom';
 import { get } from 'lodash';
 import { getProduct } from '../../shared/urlHelper';
@@ -87,7 +87,9 @@ const ProductList: FC = () => {
                         </div>
                         <div className="para">
                           <p className="unitted">{item.Brand}</p>
-                          <p className="knitted">{item.Product_Name}</p>
+                          <Tooltip placement="bottom" title={item.Product_Name}>
+                            <p className="knitted">{item.Product_Name}</p>
+                          </Tooltip>
                         </div>
                         <div className="button-div">
                           <Link to={`${item.Product_Uid}`}>

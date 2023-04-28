@@ -5,7 +5,7 @@ import Arrow from './Images/leftArrowIconLarge.png';
 import Eye from './Images/eyeImg.svg';
 import Hand from './Images/nounClickImg.svg';
 import Arrow1 from './Images/nounCursorImg.svg';
-import { Collapse, Row, Col, Carousel } from 'antd';
+import { Collapse, Row, Col, Carousel, Tooltip } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getProductDetail } from '../../shared/urlHelper';
 import PlusIcon from './Images/plusIcon.svg';
@@ -322,7 +322,9 @@ const ProductDetail: FC = () => {
               <div className="right-div">
                 <div className="para-content">
                   <p className="para1">{todos.Brand}</p>
-                  <p className="para2">{todos.Product_Name}</p>
+                  <Tooltip title={todos.Product_Name}>
+                    <p className="para2">{todos.Product_Name}</p>
+                  </Tooltip>
                   <div className="rating">
                     <span className="rating1">₹{todos.Price}</span>
                     <span className="rating2">₹{storePrice}</span>
