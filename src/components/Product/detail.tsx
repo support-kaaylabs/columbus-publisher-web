@@ -168,65 +168,69 @@ const ProductDetail: FC = () => {
                   </Col>
                 )}
                 <Col className="large-image-content">
-                  <Col
-                    xs={1}
-                    sm={1}
-                    md={1}
-                    lg={1}
-                    xl={1}
-                    onClick={() => previous()}
-                    className="prdt-carousel-arrow-left"
-                  >
-                    <LeftOutlined className="img-arrow-icon" />
-                  </Col>
-                  <Col
-                    xs={22}
-                    sm={22}
-                    md={22}
-                    lg={22}
-                    xl={22}
-                    className="img-spec"
-                  >
-                    <Carousel
-                      ref={carousel}
-                      {...imgListProperties}
-                      className="carousal-sub-image"
-                    >
-                      {productImage &&
-                        productImage.map((item: any) =>
-                          item.Type === 'VIDEO' ? (
-                            <button
-                              className="sub-image"
-                              key={item.id}
-                              onClick={() => setIdentifiedImageId(item)}
-                            >
-                              <video>
-                                <source src={item.Image} type="video/mp4" />
-                              </video>
-                            </button>
-                          ) : (
-                            <button
-                              className="sub-image"
-                              key={item.id}
-                              onClick={() => setIdentifiedImageId(item)}
-                            >
-                              <img src={item.Image} alt="Phone" />
-                            </button>
-                          )
-                        )}
-                    </Carousel>
-                  </Col>
-                  <Col
-                    xs={1}
-                    sm={1}
-                    md={1}
-                    lg={1}
-                    xl={1}
-                    className="prdt-carousel-arrow-right"
-                    onClick={() => next()}
-                  >
-                    <RightOutlined className="img-arrow-icon" />
-                  </Col>
+                  {productImage.length > 0 && (
+                    <>
+                      <Col
+                        xs={1}
+                        sm={1}
+                        md={1}
+                        lg={1}
+                        xl={1}
+                        onClick={() => previous()}
+                        className="prdt-carousel-arrow-left"
+                      >
+                        <LeftOutlined className="img-arrow-icon" />
+                      </Col>
+                      <Col
+                        xs={22}
+                        sm={22}
+                        md={22}
+                        lg={22}
+                        xl={22}
+                        className="img-spec"
+                      >
+                        <Carousel
+                          ref={carousel}
+                          {...imgListProperties}
+                          className="carousal-sub-image"
+                        >
+                          {productImage &&
+                            productImage.map((item: any) =>
+                              item.Type === 'VIDEO' ? (
+                                <button
+                                  className="sub-image"
+                                  key={item.id}
+                                  onClick={() => setIdentifiedImageId(item)}
+                                >
+                                  <video>
+                                    <source src={item.Image} type="video/mp4" />
+                                  </video>
+                                </button>
+                              ) : (
+                                <button
+                                  className="sub-image"
+                                  key={item.id}
+                                  onClick={() => setIdentifiedImageId(item)}
+                                >
+                                  <img src={item.Image} alt="Phone" />
+                                </button>
+                              )
+                            )}
+                        </Carousel>
+                      </Col>
+                      <Col
+                        xs={1}
+                        sm={1}
+                        md={1}
+                        lg={1}
+                        xl={1}
+                        className="prdt-carousel-arrow-right"
+                        onClick={() => next()}
+                      >
+                        <RightOutlined className="img-arrow-icon" />
+                      </Col>
+                    </>
+                  )}
                 </Col>
                 <Col xs={0} sm={0} md={0} lg={24} className="impression">
                   <p>Impression</p>
