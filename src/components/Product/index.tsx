@@ -51,7 +51,10 @@ const ProductList: FC = () => {
                 <Col key={index} sm={24} md={12} lg={8}>
                   <div className="content-head">
                     <div className="content-logo">
-                      <img src={item.Image === null ? DefaultImage : item.Image } alt={item.Brand} />
+                      <img
+                        src={item.Image === null ? DefaultImage : item.Image}
+                        alt={item.Brand}
+                      />
                     </div>
                     <div className="content-main">
                       <div className="content-para-button">
@@ -60,7 +63,7 @@ const ProductList: FC = () => {
                           <button type="button">
                             <span>
                               <img src={Eye} alt="Eye" />
-                              <p>{item.Price}</p>
+                              <p>0</p>
                             </span>
                           </button>
                         </div>
@@ -69,7 +72,7 @@ const ProductList: FC = () => {
                           <button type="button">
                             <span>
                               <img src={Hand} alt="Hand" />
-                              <p>{item.price}</p>
+                              <p>0</p>
                             </span>
                           </button>
                         </div>
@@ -78,7 +81,7 @@ const ProductList: FC = () => {
                           <button type="button">
                             <span>
                               <img src={Arrow} alt="Arrow" />
-                              <p>{item.price}</p>
+                              <p>0</p>
                             </span>
                           </button>
                         </div>
