@@ -115,7 +115,6 @@
 }
 
 .user-profile {
-  padding: 25px;
   .arrow {
     cursor: pointer;
   }
@@ -270,6 +269,9 @@
 }
 
 @media screen and (max-width: 1000px) {
+  .user-profile {
+    padding: 16px;
+  }
   .user-info {
     justify-content: space-around;
   }
@@ -293,6 +295,9 @@
   }
 }
 @media screen and (min-width: 1000px) {
+  .user-profile {
+    padding: 25px;
+  }
   .user-container {
     margin-top: 124px;
     padding-top: 51px;
