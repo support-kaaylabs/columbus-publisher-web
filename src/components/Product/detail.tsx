@@ -1,11 +1,11 @@
 import React, { type FC, useState, useEffect, useRef } from 'react';
-import { get } from 'lodash';
+import { get, omit, isEmpty } from 'lodash';
 import './detail.scss';
 import Arrow from './Images/leftArrowIconLarge.png';
 import Eye from './Images/eyeImg.svg';
 import Hand from './Images/nounClickImg.svg';
 import Arrow1 from './Images/nounCursorImg.svg';
-import { Collapse, Row, Col, Carousel } from 'antd';
+import { Collapse, Row, Col, Carousel, Tooltip } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getProductDetail } from '../../shared/urlHelper';
 import PlusIcon from './Images/plusIcon.svg';
@@ -17,9 +17,13 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 const ProductDetail: FC = () => {
   const [identifiedImageId, setIdentifiedImageId] = useState<any>();
   const [percentage, setPercentage] = useState<string>();
+  const [categoryDetail, setCategoryDetail] = useState([]);
   const [storePrice, setStorePrice] = useState<string>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [productDetails, setProductDetails] = useState([]);
   const [productImage, setProductImage] = useState<any>();
   const [todos, setTodos] = useState<any>();
+  const [mergedData, setMergedData] = useState<any>({});
   const { slug } = useParams();
   const navigate = useNavigate();
   const carousel: any = useRef(null);
@@ -120,9 +124,54 @@ const ProductDetail: FC = () => {
         setStorePrice(bpp);
         setIdentifiedImageId(get(data, 'data.productImage[0]', []));
         setProductImage(get(data, 'data.productImage', []));
+        setCategoryDetail(get(data, 'data.category', []));
+        setProductDetails(get(data, 'data.product', []));
+        setLoading(false);
       }
     });
   }, [slug]);
+
+  useEffect(() => {
+    productDetailHandler();
+  }, [loading]);
+
+  const productDetailHandler = () => {
+    const mergedData: any = {};
+
+    const product: any =
+      productDetails &&
+      productDetails.reduce((acc, data) => {
+        return Object.assign({}, acc, data);
+      }, {});
+
+    const category =
+      categoryDetail &&
+      categoryDetail.reduce((acc: any, data: any) => {
+        return Object.assign({}, acc, data);
+      }, {});
+
+    const categoryObj = omit(category, [
+      'Category_ID',
+      'Category_Name',
+      'Main_Category_ID',
+      'Description',
+      'Tax_Rate',
+      'null',
+      'createdAt',
+      'updatedAt',
+      'Image',
+    ]);
+
+    for (const data in categoryObj) {
+      const label = categoryObj[data];
+      const value = product[data] || '-';
+      const values = value.trim();
+      if (values !== '-' && values !== null && !isEmpty(values)) {
+        mergedData[label] = values;
+        setMergedData(mergedData);
+      }
+    }
+  };
 
   const next = () => {
     carousel.current.next();
@@ -131,6 +180,7 @@ const ProductDetail: FC = () => {
   const previous = () => {
     carousel.current.prev();
   };
+
   return (
     <div className="head-detail">
       <div className="arrow" onClick={() => navigate(-1)}>
@@ -170,17 +220,19 @@ const ProductDetail: FC = () => {
                 <Col className="large-image-content">
                   {productImage.length > 0 && (
                     <>
-                      <Col
-                        xs={1}
-                        sm={1}
-                        md={1}
-                        lg={1}
-                        xl={1}
-                        onClick={() => previous()}
-                        className="prdt-carousel-arrow-left"
-                      >
-                        <LeftOutlined className="img-arrow-icon" />
-                      </Col>
+                      {productImage.length > 4 && (
+                        <Col
+                          xs={1}
+                          sm={1}
+                          md={1}
+                          lg={1}
+                          xl={1}
+                          onClick={() => previous()}
+                          className="prdt-carousel-arrow-left"
+                        >
+                          <LeftOutlined className="img-arrow-icon" />
+                        </Col>
+                      )}
                       <Col
                         xs={22}
                         sm={22}
@@ -218,17 +270,19 @@ const ProductDetail: FC = () => {
                             )}
                         </Carousel>
                       </Col>
-                      <Col
-                        xs={1}
-                        sm={1}
-                        md={1}
-                        lg={1}
-                        xl={1}
-                        className="prdt-carousel-arrow-right"
-                        onClick={() => next()}
-                      >
-                        <RightOutlined className="img-arrow-icon" />
-                      </Col>
+                      {productImage.length > 4 && (
+                        <Col
+                          xs={1}
+                          sm={1}
+                          md={1}
+                          lg={1}
+                          xl={1}
+                          className="prdt-carousel-arrow-right"
+                          onClick={() => next()}
+                        >
+                          <RightOutlined className="img-arrow-icon" />
+                        </Col>
+                      )}
                     </>
                   )}
                 </Col>
@@ -268,7 +322,9 @@ const ProductDetail: FC = () => {
               <div className="right-div">
                 <div className="para-content">
                   <p className="para1">{todos.Brand}</p>
-                  <p className="para2">{todos.Product_Name}</p>
+                  <Tooltip title={todos.Product_Name}>
+                    <p className="para2">{todos.Product_Name}</p>
+                  </Tooltip>
                   <div className="rating">
                     <span className="rating1">₹{todos.Price}</span>
                     <span className="rating2">₹{storePrice}</span>
@@ -290,11 +346,33 @@ const ProductDetail: FC = () => {
                     className="collapse"
                   >
                     <Panel header="PRODUCT DETAILS" key="1" className="panel1">
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: todos.Long_Description,
-                        }}
-                      />
+                      <Row style={{ padding: '5px 0 5px 0' }} gutter={8}>
+                        <Col span={8} className="fs-12p fw-600">
+                          Description
+                          <span className="float-right">-</span>
+                        </Col>
+                        <Col
+                          span={12}
+                          className="fs-12p fw-600"
+                          style={{ color: 'black' }}
+                        >
+                          {todos.Description}
+                        </Col>
+                      </Row>
+                      {Object.keys(mergedData).map((key: any, index: any) => {
+                        if (key !== 'null' && key !== '') {
+                          return (
+                            <Row key={index}>
+                              <Col span={8}>
+                                <p>{key}</p>
+                              </Col>
+                              <Col span={8}>
+                                <p>{mergedData[key].replace(/\s/g, ' ')}</p>
+                              </Col>
+                            </Row>
+                          );
+                        }
+                      })}
                     </Panel>
                     <Panel header="MORE DETAILS" key="2" className="panel2">
                       <p
