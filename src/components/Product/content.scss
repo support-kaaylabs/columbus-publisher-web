@@ -14,7 +14,13 @@ $color_11: #cbf3d3;
   margin-top: 26px;
 
   .loader {
-    margin-top: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25%;
+  }
+  .empty {
+    margin-top: 25%;
   }
   .content-row {
     display: flex;
