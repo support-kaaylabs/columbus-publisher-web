@@ -274,7 +274,7 @@ const App: FC = () => {
                   onOpenChange={handleOpenChange}
                   content={
                     <Row className="avatar-image-contain">
-                      <Col sm={4} md={4} lg={4} className="avatar-img">
+                      <Col sm={8} md={8} lg={8} className="avatar-img">
                         <div className="avatar-img-logo">
                           <div className="profile-head">
                             <div className="profile-logo-img">
@@ -283,7 +283,7 @@ const App: FC = () => {
                           </div>
                         </div>
                       </Col>
-                      <Col className="avatar-detail" sm={16} md={16} lg={16}>
+                      <Col className="avatar-detail" sm={10} md={10} lg={10}>
                         <Row className="avatar-info-icon">
                           <Col className="seller-name">
                             <p className="name">{userName}</p>
