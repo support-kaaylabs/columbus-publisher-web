@@ -387,6 +387,9 @@ apexcharts-toolbar {
       }
     }
   }
+  .ant-row {
+    display: block;
+  }
   .column-wid {
     padding: 25px 29px 28px 29px;
   }
@@ -404,8 +407,4 @@ apexcharts-toolbar {
   .column-wid {
     padding: 25px 1px 28px 18px;
   }
-}
-
-.ant-row .row .css-dev-only-do-not-override-1e3x2xa {
-  display: block;
 }

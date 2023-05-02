@@ -9,7 +9,6 @@ $color_8: #bbbbbb;
 $color_9: #f9dede;
 $color_10: #d8defc;
 $color_11: #cbf3d3;
-
 .head {
   margin-top: 26px;
 
@@ -28,8 +27,8 @@ $color_11: #cbf3d3;
       margin-right: 25px;
       margin-left: 26px;
       margin-bottom: 31px;
-      height: 310px;
-      background: $color_6 0% 0% no-repeat padding-box;
+      height: 299px;
+      background: $color_6;
       box-shadow: 0px 3px 6px #00000029;
       border: 1px solid $color_8;
       border-radius: 12px;
@@ -57,8 +56,6 @@ $color_11: #cbf3d3;
 
             p {
               color: $color_1;
-              width: 66px;
-              height: 13px;
               font-size: 11px;
               font-weight: bold;
               letter-spacing: 0px;
@@ -82,6 +79,7 @@ $color_11: #cbf3d3;
                 p {
                   margin: 0;
                   padding: 0;
+                  font-size: 12px;
                   color: $color_1;
                   font-weight: bold;
                   margin-left: 10px;
@@ -103,15 +101,12 @@ $color_11: #cbf3d3;
             height: 46px;
             margin-left: 4px;
             p {
-              width: 37px;
-              height: 13px;
               font-size: 11px;
               font-weight: bold;
               letter-spacing: 0px;
               color: $color_2;
               text-transform: uppercase;
               margin-bottom: 7px;
-              margin-left: 4px;
             }
 
             button {
@@ -131,6 +126,7 @@ $color_11: #cbf3d3;
                 p {
                   margin: 0;
                   padding: 0;
+                  font-size: 12px;
                   color: $color_3;
                   font-weight: bold;
                   margin-left: 10px;
@@ -150,11 +146,8 @@ $color_11: #cbf3d3;
             height: 46px;
 
             p {
-              width: 14px;
-              height: 15px;
-              font-size: 12px;
+              font-size: 11px;
               font-weight: bold;
-              margin-left: 8px;
               letter-spacing: 0px;
               color: $color_2;
               text-transform: uppercase;
@@ -178,6 +171,7 @@ $color_11: #cbf3d3;
                 p {
                   margin: 0;
                   padding: 0;
+                  font-size: 12px;
                   margin-left: 10px;
                   color: $color_4;
                   font-weight: bold;
@@ -192,24 +186,31 @@ $color_11: #cbf3d3;
             }
           }
         }
-        .unitted {
-          font-size: 13px;
-          color: $color_2;
-          letter-spacing: 0px;
-          color: $color_2;
-        }
+        .para {
+          .unitted {
+            font-size: 13px;
+            margin: 0px;
+            margin-top: 15px;
+            color: $color_2;
+            letter-spacing: 0px;
+            color: $color_2;
+          }
 
-        .knitted {
-          font-size: 14px;
-          font-weight: 500;
-          letter-spacing: 0px;
-          color: $color_5;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+          .knitted {
+            font-size: 14px;
+            margin: 0px;
+            margin-top: 2px;
+            font-weight: 500;
+            letter-spacing: 0px;
+            color: $color_5;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
         }
 
         .button-div {
+          margin-top: 15px;
           button {
             display: flex;
             min-width: 100%;
@@ -234,15 +235,6 @@ $color_11: #cbf3d3;
 
           a {
             color: $color_6;
-          }
-        }
-
-        .para {
-          margin-top: 15px;
-          margin-bottom: 15px;
-
-          p {
-            margin-top: 5px;
           }
         }
       }
