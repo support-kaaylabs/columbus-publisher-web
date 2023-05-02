@@ -5,13 +5,8 @@ import React, { useState, type FC } from 'react';
 import {  Card, Button, Form, Input } from 'antd';
 import { EyeOutlined } from '@ant-design/icons';
 import './login.scss';
-import { authenticate } from '../../shared/urlHelper';
-import '../../stylesheet/style.scss';
-import { errorNotification } from '../../shared/globalVariables';
-import { useNavigate } from 'react-router-dom';
 
 const Home: FC = () => {
-  const navigate = useNavigate();
   const [emailId, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
