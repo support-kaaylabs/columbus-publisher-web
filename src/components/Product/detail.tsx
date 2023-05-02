@@ -189,7 +189,7 @@ const ProductDetail: FC = () => {
       <Row className="content-detail">
         {todos && (
           <div className="content-div">
-            <Col md={24} sm={24} lg={10} className="left-content">
+            <Col md={24} sm={24} lg={9} className="left-content">
               <Row className="large-image">
                 {identifiedImageId.Image === undefined ? (
                   <Col>
@@ -287,7 +287,7 @@ const ProductDetail: FC = () => {
                   )}
                 </Col>
                 <Col xs={0} sm={0} md={0} lg={24} className="impression">
-                  <p>Impression</p>
+                  <p className="impression-para">Impression</p>
                   <ProgressBar
                     value="4,00,000"
                     styles="250px"
@@ -297,7 +297,7 @@ const ProductDetail: FC = () => {
                   />
                 </Col>
                 <Col xs={0} sm={0} md={0} lg={24} className="clicks">
-                  <p>Clicks</p>
+                  <p className="clicks-para">Clicks</p>
                   <ProgressBar
                     value="400"
                     styles="150px"
@@ -307,7 +307,7 @@ const ProductDetail: FC = () => {
                   />
                 </Col>
                 <Col xs={0} sm={0} md={0} lg={24} className="cta">
-                  <p>CTA</p>
+                  <p className="cta-para">CTA</p>
                   <ProgressBar
                     value="40"
                     styles="150px"
@@ -318,7 +318,7 @@ const ProductDetail: FC = () => {
                 </Col>
               </Row>
             </Col>
-            <Col md={24} sm={24} lg={13} className="right-content">
+            <Col md={24} sm={24} lg={14} className="right-content">
               <div className="right-div">
                 <div className="para-content">
                   <p className="para1">{todos.Brand}</p>
@@ -326,8 +326,8 @@ const ProductDetail: FC = () => {
                     <p className="para2">{todos.Product_Name}</p>
                   </Tooltip>
                   <div className="rating">
-                    <span className="rating1">₹{todos.Price}</span>
-                    <span className="rating2">₹{storePrice}</span>
+                    <span className="rating1">₹{storePrice}</span>
+                    <span className="rating2">₹{todos.Price}</span>
                     <span className="rating3">{percentage}% Off</span>
                   </div>
                 </div>
@@ -387,7 +387,7 @@ const ProductDetail: FC = () => {
             </Col>
             <Col xs={24} md={0} sm={24} lg={0} className="progress-div">
               <div className="impression">
-                <p>Impression</p>
+                <p className="impression-para">Impression</p>
                 <ProgressBar
                   value="4,00,000"
                   styles="250px"
@@ -397,7 +397,7 @@ const ProductDetail: FC = () => {
                 />
               </div>
               <div className="clicks">
-                <p>Clicks</p>
+                <p className="clicks-para">Clicks</p>
                 <ProgressBar
                   value="400"
                   styles="150px"
@@ -407,7 +407,7 @@ const ProductDetail: FC = () => {
                 />
               </div>
               <div className="cta">
-                <p>CTA</p>
+                <p className="cta-para">CTA</p>
                 <ProgressBar
                   value="40"
                   styles="150px"
