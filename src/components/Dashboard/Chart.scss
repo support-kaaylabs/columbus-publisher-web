@@ -33,34 +33,18 @@ apexcharts-toolbar {
   }
 }
 
-:where(.css-dev-only-do-not-override-ph9edi).ant-tabs {
+.ant-tabs {
   background: rgb(246 246 246);
   padding: 20px;
   border-radius: 9px;
   position: relative;
-}
-
-:where(.css-dev-only-do-not-override-ph9edi).ant-tabs .ant-tabs-tab-btn {
-  outline: none;
-  transition: all 0.3s;
-  font-size: 17px;
-  color: grey;
-}
-
-:where(.css-dev-only-do-not-override-ph9edi).ant-tabs
-  .ant-tabs-tab.ant-tabs-tab-active
   .ant-tabs-tab-btn {
-  color: #000000 !important;
-  font: normal normal bold 24px/1px Lato !important;
-  text-shadow: 0 0 0.25px currentcolor;
-  font-weight: 400;
-}
-
-:where(.css-dev-only-do-not-override-ph9edi).ant-row {
-  display: flex;
-  flex-flow: row wrap;
-  position: relative;
-  min-width: 0;
+    outline: none;
+    transition: all 0.3s;
+    font-size: 17px;
+    color: grey;
+  }
+  
 }
 
 .loading {
@@ -75,13 +59,18 @@ apexcharts-toolbar {
   padding-left: 20px;
   padding-right: 20px !important;
   min-width: 100% !important;
+  .ant-tabs-tab-active{
+		.ant-tabs-tab-btn {
+			font-weight: 500;
+			color: #0d0d0d !important;
+		}
+	}
+	.ant-tabs-tab-btn{
+		color: #afafaf;
+	}
 }
 .mt-4 {
   margin: 10px;
-}
-
-:where(.css-1e3x2xa).ant-row {
-  min-width: 0;
 }
 .apexcharts-canvas {
   position: relative;

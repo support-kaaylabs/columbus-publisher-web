@@ -10,13 +10,10 @@ const ReportTable: FC = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [modalData, setModalData] = useState({});
   const location = useLocation();
-  console.log('location', location);
 
   const data = location.state;
-  console.log('location.state', data);
 
   const goBack = (): any => {
-    console.log('check-button');
     navigate('/');
   };
 

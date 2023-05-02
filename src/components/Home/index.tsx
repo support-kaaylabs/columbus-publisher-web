@@ -3,7 +3,6 @@ import { Card, Button, Form, Input } from 'antd';
 import '../Home/login.scss';
 import Logo from './Images/logoSmall.png';
 import { authenticate } from '../../shared/urlHelper';
-import '../../stylesheet/style.scss';
 import { errorNotification } from '../../shared/globalVariables';
 import { useNavigate } from 'react-router-dom';
 import UserLogo from './Images/userIconSmall.png';
