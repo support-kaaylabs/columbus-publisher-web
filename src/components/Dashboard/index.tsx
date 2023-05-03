@@ -1,7 +1,8 @@
 import React from 'react';
 import './dashboard.scss';
 import { Col, Row } from 'antd';
-import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
+import arrowDown from '../Images/arrow-down.svg';
+import arrowUp from '../Images/arrow-up.svg';
 
 interface dashboardDetails {
   data: {
@@ -70,13 +71,9 @@ const Dashboard = (props: dashboardDetails) => {
             <div className="d-flex">
               <span className="diffrence">{data.Today}&nbsp; </span> &nbsp;
               {data.Today < data.Predate ? (
-                <ArrowDownOutlined
-                  style={{ fontSize: '19px', color: '#EE1313', width: '16px', height: '19px' }}
-                />
+                <img src={arrowDown} alt='down-arrow' />
               ) : (
-                <ArrowUpOutlined
-                  style={{ fontSize: '19px', color: '#27AE07', width: '16px', height: '19px' }}
-                />
+                <img src={arrowUp} alt='up-arrow' />
               )}
             </div>
           </Col>
@@ -88,13 +85,9 @@ const Dashboard = (props: dashboardDetails) => {
             <div className="d-flex">
               <span className="diffrence">{data.Week}&nbsp;</span> &nbsp;
               {data.Week < data.Preweek ? (
-                <ArrowDownOutlined
-                  style={{ fontSize: '19px', color: '#EE1313', width: '16px', height: '19px' }}
-                />
+                <img src={arrowDown} alt='down-arrow' />
               ) : (
-                <ArrowUpOutlined
-                  style={{ fontSize: '19px', color: '#27AE07', width: '16px', height: '19px' }}
-                />
+                <img src={arrowUp} alt='up-arrow' />
               )}
             </div>
           </Col>
@@ -106,13 +99,9 @@ const Dashboard = (props: dashboardDetails) => {
             <div className="d-flex">
               <span className="diffrence">{data.Month}&nbsp;</span> &nbsp;
               {data.Month < data.Premonth ? (
-                <ArrowDownOutlined
-                  style={{ fontSize: '19px', color: '#EE1313', width: '16px', height: '19px' }}
-                />
+                <img src={arrowDown} alt='down-arrow' />
               ) : (
-                <ArrowUpOutlined
-                  style={{ fontSize: '19px', color: '#27AE07', width: '16px', height: '19px' }}
-                />
+                <img src={arrowUp} alt='up-arrow' />
               )}
             </div>
           </Col>
@@ -124,13 +113,9 @@ const Dashboard = (props: dashboardDetails) => {
             <div className="d-flex">
               <span className="diffrence">{data.Quarter}&nbsp;</span> &nbsp;
               {data.Quarter < data.Prequarter ? (
-                <ArrowDownOutlined
-                  style={{ fontSize: '19px', color: '#EE1313', width: '16px', height: '19px' }}
-                />
+                <img src={arrowDown} alt='down-arrow' />
               ) : (
-                <ArrowUpOutlined
-                  style={{ fontSize: '19px', color: '#27AE07', width: '16px', height: '19px' }}
-                />
+                <img src={arrowUp} alt='up-arrow' />
               )}
             </div>
           </Col>

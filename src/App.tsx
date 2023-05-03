@@ -1,8 +1,9 @@
 import React, { type FC, useState, useEffect } from 'react';
-import Logo from './components/HomePage/Images/logoImgSmall.png';
+import Logo from './components/HomePage/Images/logoSymbolLarge.svg';
 import DefaultUser from './components/Images/defaultUser.png';
 import MenuLogo from './components/HomePage/Images/menuLogo.svg';
 import LogoSymbolLarge from './components/HomePage/Images/logoSymbolLarge.svg';
+import MainLogo from './components/Images/logo.svg';
 import LogoSymbolSmall from './components/HomePage/Images/logoSymbolSmall.svg';
 import CloseIcon from './components/HomePage/Images/closeIconSmall.png';
 import MenuIcon from './components/HomePage/Images/menuIconSmall.png';
@@ -117,9 +118,9 @@ const App: FC = () => {
             <span className="header-sider-logo">
               <div className="sider-logo-head">
                 {collapsed ? (
-                  <img src={LogoSymbolLarge} alt="LogoSymbol" />
+                  <img src={Logo} alt="LogoSymbol" className='logo-symbol-small' />
                 ) : (
-                  <img src={Logo} alt="JINGLS" />
+                  <img src={MainLogo} alt="JINGLS" className='logo-symbol-large' />
                 )}
               </div>
             </span>
@@ -211,11 +212,11 @@ const App: FC = () => {
                 <div className="menu-item">
                   <div className="menu-logo-item">
                     {collapsed ? (
-                      <img src={LogoSymbolSmall} alt="LogoSymbol" />
+                      <img src={LogoSymbolSmall} alt="LogoSymbol" className='menu-logo-icon-small' />
                     ) : (
-                      <img src={MenuLogo} alt="JINGLS" />
+                      <img src={MenuLogo} alt="JINGLS" className='menu-logo-icon-large' />
                     )}
-                    <p>{collapsed ? 'V1.0' : 'Publisher App version 1.0'}</p>
+                    {collapsed ? <p className='menu-logo-icon-small'>V1.0</p> : <p className='menu-logo-icon-large'>Publisher App version 1.0</p>}
                   </div>
                 </div>
               </div>
@@ -232,9 +233,9 @@ const App: FC = () => {
                 className="header-content-icon"
               >
                 {collapsed ? (
-                  <img src={CloseIcon} alt="closeicon" />
+                  <img src={CloseIcon} alt="closeicon" className='close-icon' />
                 ) : (
-                  <img src={MenuIcon} alt="MenuIcon" />
+                  <img src={MenuIcon} alt="MenuIcon"  className='open-icon' />
                 )}
               </span>
               <span className="header-content-name">
