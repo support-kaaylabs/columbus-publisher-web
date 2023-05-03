@@ -19,51 +19,6 @@
         letter-spacing: 0px;
         padding: 0px;
         color: #222222;
-
-        .sider-menu-item {
-          nav {
-            display: flex;
-            flex-direction: column;
-            margin-top: 10px;
-            margin-left: 13px;
-            li {
-              color: #222222;
-              background: transparent;
-              a {
-                text-align: left;
-                font-size: 15px;
-                letter-spacing: 0px;
-                background: none;
-                span {
-                  margin-right: 31px;
-                  width: 18px;
-                  height: 17px;
-                }
-              }
-            }
-          }
-        }
-
-        .menu-item {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          margin-top: 150%;
-          border-top: 1px solid #bbbbbb;
-
-          .menu-logo-item {
-            height: 24px;
-            margin-top: 17px;
-
-            p {
-              margin-top: 11px;
-              height: 15px;
-              font-size: 12px;
-              letter-spacing: 0px;
-              color: #bbbbbb;
-            }
-          }
-        }
       }
     }
 
@@ -77,12 +32,16 @@
         .menu-icon {
           .header-content-icon {
             cursor: pointer;
+            .open-icon {
+            left: -39px;
+            top: 40%;
             position: absolute;
+            }
           }
 
           .header-content-name {
             font-size: 18px;
-            margin-left: 50px;
+            margin-left: 25px;
             font-weight: bold;
             letter-spacing: 0px;
             color: #222222;
@@ -169,19 +128,6 @@
           border-radius: 7px;
         }
       }
-
-      .image-logo {
-        height: 43px;
-        background: #e53935 0% 0% no-repeat padding-box;
-        box-shadow: 0px 0px 7px #e53935;
-        border-radius: 20px;
-
-        img {
-          width: 43px;
-          height: 43px;
-          border-radius: 20px;
-        }
-      }
     }
   }
 
@@ -201,7 +147,17 @@
       .sider-logo-head {
         width: 281px;
         display: flex;
-        justify-content: center;
+        align-items: center;
+        .logo-symbol-small {
+          margin-left: 34px;
+          max-width: 100%;
+          max-height: 100%;
+        }
+        .logo-symbol-large {
+          margin-left: 47px;
+          max-width: 100%;
+          max-height: 100%;
+        }
       }
     }
 
@@ -220,10 +176,12 @@
         nav {
           display: flex;
           flex-direction: column;
-          margin-top: 10px;
+          margin-top: 14px;
           margin-left: 13px;
 
           li {
+            display: flex;
+            align-items: center;
             &.logout {
               margin-top: 550px;
             }
@@ -263,13 +221,17 @@
       .menu-item {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        margin-top: 150%;
         border-top: 1px solid #bbbbbb;
-
+        margin-top: 400px;
         .menu-logo-item {
           height: 24px;
           margin-top: 17px;
+          .menu-logo-icon-small {
+            margin-left: 36px;
+          }
+          .menu-logo-icon-large {
+            margin-left: 50px;
+          }
 
           p {
             margin-top: 11px;
@@ -371,8 +333,7 @@
 @media screen and (min-width: 1000px) {
   .header-content-row {
     justify-content: space-between;
-    padding-left: 7px;
-    padding-right: 35px;
+    padding-right: 25px;
   }
   .ant-popover .ant-popover-inner {
     margin-right: 35px;

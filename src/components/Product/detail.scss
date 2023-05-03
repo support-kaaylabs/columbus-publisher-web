@@ -157,8 +157,6 @@
             }
 
             .rating2 {
-              width: 59px;
-              height: 22px;
               font-family: 'Ubuntu', sans-serif;
               font-weight: bold;
               font-size: 19px;
@@ -168,9 +166,6 @@
             }
 
             .rating3 {
-              width: 55px;
-              height: 18px;
-              font-family: 'Ubuntu', sans-serif;
               font-weight: bold;
               font-size: 15px;
               letter-spacing: 0px;
@@ -188,6 +183,7 @@
                   .ant-collapse-header-text {
                     font-size: 16px;
                     font-weight: 500;
+                    opacity: 0.9;
                     color: #707070;
                     text-transform: uppercase;
                   }
