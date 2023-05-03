@@ -62,7 +62,7 @@ const ProductList: FC = () => {
                             <button type="button">
                               <span>
                                 <img src={Eye} alt="Eye" />
-                                <p>0</p>
+                                <p>{item.View_Count ? item.View_Count : 0}</p>
                               </span>
                             </button>
                           </div>
@@ -71,7 +71,7 @@ const ProductList: FC = () => {
                             <button type="button">
                               <span>
                                 <img src={Hand} alt="Hand" />
-                                <p>0</p>
+                                <p>{item.Click_Count ? item.Click_Count : 0}</p>
                               </span>
                             </button>
                           </div>
@@ -80,7 +80,7 @@ const ProductList: FC = () => {
                             <button type="button">
                               <span>
                                 <img src={Arrow} alt="Arrow" />
-                                <p>0</p>
+                                <p>{item.Cta_Count ? item.Cta_Count : 0}</p>
                               </span>
                             </button>
                           </div>
