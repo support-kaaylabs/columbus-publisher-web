@@ -349,7 +349,6 @@ const ProductDetail: FC = () => {
                       <Row style={{ padding: '5px 0 5px 0' }} gutter={8}>
                         <Col span={8} className="fs-12p fw-600">
                           Description
-                          <span className="float-right">-</span>
                         </Col>
                         <Col
                           span={12}
