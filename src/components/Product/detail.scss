@@ -180,6 +180,8 @@
             .ant-collapse {
               .ant-collapse-item {
                 .ant-collapse-header {
+                  border-bottom: 0.5px solid #707070;
+                  border-radius: 0px;
                   .ant-collapse-header-text {
                     font-size: 16px;
                     font-weight: 500;
@@ -210,8 +212,8 @@
 
               .panel1 {
                 border-radius: 0px;
-                background: #ffffff 0% 0% no-repeat padding-box;
-                border: 1px solid #bbbbbb;
+                background: #ffffff;
+                border: 1.5px solid #bbbbbb;
                 .ant-collapse-content-box {
                   .ant-row {
                     display: flex !important;
@@ -227,7 +229,7 @@
                 margin-top: 5px;
                 border-radius: 0px;
                 background: #ffffff 0% 0% no-repeat padding-box;
-                border: 1px solid #bbbbbb;
+                border: 1.5px solid #bbbbbb;
               }
             }
           }
