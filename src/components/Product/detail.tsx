@@ -23,6 +23,7 @@ const ProductDetail: FC = () => {
   const [productDetails, setProductDetails] = useState([]);
   const [productImage, setProductImage] = useState<any>();
   const [todos, setTodos] = useState<any>();
+  const [autobidData, setAutoBidData] = useState<any>();
   const [mergedData, setMergedData] = useState<any>({});
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -119,6 +120,7 @@ const ProductDetail: FC = () => {
         const price = get(data, 'data.product[0].Price', []);
         const different = price - bpp;
         const percent = ((different / price) * 100).toFixed(2);
+        setAutoBidData(get(data, 'data.autobid[0]', {}));
         setPercentage(percent);
         setTodos(get(data, 'data.product[0]', {}));
         setStorePrice(bpp);
@@ -289,7 +291,7 @@ const ProductDetail: FC = () => {
                 <Col xs={0} sm={0} md={0} lg={24} className="impression">
                   <p className="impression-para">Impression</p>
                   <ProgressBar
-                    value="4,00,000"
+                    value={autobidData.View_Count}
                     styles="250px"
                     image={Eye}
                     background="#f9dede"
@@ -299,7 +301,7 @@ const ProductDetail: FC = () => {
                 <Col xs={0} sm={0} md={0} lg={24} className="clicks">
                   <p className="clicks-para">Clicks</p>
                   <ProgressBar
-                    value="400"
+                    value={autobidData.Click_Count}
                     styles="150px"
                     image={Hand}
                     background="#d8defc"
@@ -309,7 +311,7 @@ const ProductDetail: FC = () => {
                 <Col xs={0} sm={0} md={0} lg={24} className="cta">
                   <p className="cta-para">CTA</p>
                   <ProgressBar
-                    value="40"
+                    value={autobidData.Cta_Count}
                     styles="150px"
                     image={Arrow1}
                     background="#caf2d2"
@@ -389,7 +391,7 @@ const ProductDetail: FC = () => {
               <div className="impression">
                 <p className="impression-para">Impression</p>
                 <ProgressBar
-                  value="4,00,000"
+                  value={autobidData.View_Count}
                   styles="250px"
                   image={Eye}
                   background="#f9dede"
@@ -399,7 +401,7 @@ const ProductDetail: FC = () => {
               <div className="clicks">
                 <p className="clicks-para">Clicks</p>
                 <ProgressBar
-                  value="400"
+                  value={autobidData.Click_Count}
                   styles="150px"
                   image={Hand}
                   background="#d8defc"
@@ -409,7 +411,7 @@ const ProductDetail: FC = () => {
               <div className="cta">
                 <p className="cta-para">CTA</p>
                 <ProgressBar
-                  value="40"
+                  value={autobidData.Click_Count}
                   styles="150px"
                   image={Arrow1}
                   background="#caf2d2"
