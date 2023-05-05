@@ -80,7 +80,7 @@ const userProfile: FC = () => {
       <Col className="user-container">
         <div className="user-contain">
           <Row className="upload-image-contain">
-            <Col sm={12} md={12} lg={12} className="user-img">
+            <Col sm={12} md={12} lg={10} className="user-img">
               <div className="user-img-logo">
                 <div
                   className="user-img-logo-content"
