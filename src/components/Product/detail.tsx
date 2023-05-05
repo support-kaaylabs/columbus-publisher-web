@@ -291,8 +291,8 @@ const ProductDetail: FC = () => {
                 <Col xs={0} sm={0} md={0} lg={24} className="impression">
                   <p className="impression-para">Impression</p>
                   <ProgressBar
-                    value={autobidData.View_Count}
-                    styles="250px"
+                    value={autobidData.View_Count ? autobidData.View_Count : 0 }
+                    styles="450px"
                     image={Eye}
                     background="#f9dede"
                     color="#e53935"
@@ -301,8 +301,8 @@ const ProductDetail: FC = () => {
                 <Col xs={0} sm={0} md={0} lg={24} className="clicks">
                   <p className="clicks-para">Clicks</p>
                   <ProgressBar
-                    value={autobidData.Click_Count}
-                    styles="150px"
+                    value={autobidData.Click_Count ? autobidData.Click_Count : 0}
+                    styles="450px"
                     image={Hand}
                     background="#d8defc"
                     color="#0909dc"
@@ -311,8 +311,8 @@ const ProductDetail: FC = () => {
                 <Col xs={0} sm={0} md={0} lg={24} className="cta">
                   <p className="cta-para">CTA</p>
                   <ProgressBar
-                    value={autobidData.Cta_Count}
-                    styles="150px"
+                    value={autobidData.Cta_Count ? autobidData.Cta_Count : 0}
+                    styles="450px"
                     image={Arrow1}
                     background="#caf2d2"
                     color="#03781b"
@@ -390,8 +390,8 @@ const ProductDetail: FC = () => {
               <div className="impression">
                 <p className="impression-para">Impression</p>
                 <ProgressBar
-                  value={autobidData.View_Count}
-                  styles="250px"
+                  value={autobidData.View_Count ? autobidData.View_Count : 0}
+                  styles="100%"
                   image={Eye}
                   background="#f9dede"
                   color="#e53935"
@@ -400,8 +400,8 @@ const ProductDetail: FC = () => {
               <div className="clicks">
                 <p className="clicks-para">Clicks</p>
                 <ProgressBar
-                  value={autobidData.Click_Count}
-                  styles="150px"
+                  value={autobidData.Click_Count ? autobidData.Click_Count : 0}
+                  styles="100%"
                   image={Hand}
                   background="#d8defc"
                   color="#0909dc"
@@ -410,8 +410,8 @@ const ProductDetail: FC = () => {
               <div className="cta">
                 <p className="cta-para">CTA</p>
                 <ProgressBar
-                  value={autobidData.Click_Count}
-                  styles="150px"
+                  value={autobidData.Cta_Count ? autobidData.Cta_Count : 0}
+                  styles="100%"
                   image={Arrow1}
                   background="#caf2d2"
                   color="#03781b"
