@@ -115,105 +115,151 @@
 }
 
 .user-profile {
-  height: 100vh;
-  .content-name {
-    margin-left: 3%;
-    p {
-      font-size: 15px;
-      font-weight: bold;
-      letter-spacing: 0px;
-      color: #222222;
-      text-transform: uppercase;
-    }
+  .arrow {
+    cursor: pointer;
   }
   .user-container {
-    border-radius: 15px;
-    margin-top: 10px;
-    padding: 20px;
-    width: 95%;
+    width: 792px;
+    height: 357px;
     margin-left: auto;
     margin-right: auto;
-    background: #ffffff;
-    box-shadow: 0 0 2px #d3d3d3;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 30px #fccdcd;
+    border-radius: 15px;
     .user-contain {
-      justify-content: space-around;
-      align-items: center;
-
-      .user-info {
-        display: flex;
-        .seller-name {
-          text-align: left;
-          p {
-              font-size: 15px;
-              letter-spacing: 0px;
-              color: #222222;
-          }
-        }
-        .seller {
-          text-align: center;
-          p {
-              font-size: 15px;
-              font-weight: bold;
-              letter-spacing: 0px;
-              color: #222222;
-          }
-        }
-      }
       .user-detail {
-        .user-details {
-          max-width: 100%;
-          p {
-            font-size: 25px;
-            margin: 0px;
-            opacity: 0.7;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        justify-content: center;
+        height: 221px;
+        .user-info-icon {
+          display: flex;
+          .user-icon {
+            align-items: center;
+            display: flex;
+            width: 50px;
+            height: 50px;
+            justify-content: center;
+            background: #f9dede 0% 0% no-repeat padding-box;
+            border-radius: 6px;
+            img {
+              width: 26px;
+              height: 28px;
+            }
+          }
+          .seller {
+            margin-left: 22px;
+            .seller-find {
+              font-size: 15px;
+              color: #222222;
+              margin: 0px;
+            }
+            .seller-name {
+              font-size: 23px;
+              font-weight: bold;
+              color: #222222;
+              margin: 0px;
+            }
+          }
+        }
+        .store-info-icon {
+          display: flex;
+          margin-top: 44px;
+          .user-icon {
+            align-items: center;
+            display: flex;
+            width: 50px;
+            height: 50px;
+            justify-content: center;
+            background: #f9dede 0% 0% no-repeat padding-box;
+            border-radius: 6px;
+            img {
+              width: 26px;
+              height: 28px;
+            }
+          }
+          .seller {
+            margin-left: 22px;
+            .seller-find {
+              font-size: 15px;
+              color: #222222;
+              margin: 0px;
+            }
+            .seller-name {
+              font-size: 23px;
+              font-weight: bold;
+              color: #222222;
+              margin: 0px;
+            }
           }
         }
       }
       .upload-image-contain {
         display: flex;
+        justify-content: center;
         .user-img {
           display: flex;
           flex-direction: column;
           justify-content: center;
-
           .user-img-logo {
             display: flex;
-            justify-content: center;
-            .profile-head {
+            flex-direction: column;
+            align-items: center;
+            .user-img-logo-content {
               position: relative;
-              .upload-image {
-                cursor: pointer;
-                position: absolute;
-                width: 50px;
-                height: 50px;
+              justify-content: center;
+              align-items: center;
+              display: flex;
+              flex-direction: column;
+              border-radius: 50%;
+              .camera-icon {
                 display: flex;
+                top: 0;
+                position: absolute;
+                width: 221px;
+                height: 221px;
+                background-color: #000;
+                cursor: pointer;
+                opacity: 0.75;
                 border-radius: 50%;
                 justify-content: center;
                 align-items: center;
-                bottom: 0;
-                right: 10px;
-                background-color: #7145df;
-                .add-photo {
-                  .input {
-                    display: none;
-                  }
+                input {
+                  display: none;
                 }
               }
-              .profile-img {
-                position: relative;
-                width: 200px;
-                height: 200px;
-                border-radius: 50%;
-                box-shadow: 0 0 9px #eb6b67;
-                object-fit: cover;
+              .camera-icon-hide {
+                display: none;
               }
 
-              .profile-loading {
-                width: 150px;
-                height: 150px;
+              .profile-head {
+                width: 221px;
+                height: 221px;
+                border-radius: 50%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                background: #e53935 0% 0% no-repeat padding-box;
+                .profile-loading {
+                  width: 150px;
+                  height: 150px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                }
+                .profile-logo-img {
+                  border-radius: 50%;
+                  cursor: pointer;
+                  object-fit: cover;
+                  width: 215px;
+                  height: 215px;
+                  .profile-img {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                  }
+                }
               }
             }
           }
@@ -224,13 +270,47 @@
 }
 
 @media screen and (max-width: 1000px) {
+  .user-profile {
+    padding: 16px;
+  }
   .user-info {
     justify-content: space-around;
   }
-  .upload-image {
-    text-align: center;
+  .inform-col {
+    p {
+      font-size: 14px;
+      letter-spacing: 0px;
+      font-weight: 649;
+      color: #222222;
+      opacity: 1;
+    }
+  }
+  .user-container {
+    margin-top: 30px;
+    .user-contain {
+      padding-top: 31px;
+      padding-bottom: 20px;
+      padding-left: 10px;
+      padding-right: 5px;
+    }
   }
 }
 @media screen and (min-width: 1000px) {
- 
+  .user-profile {
+    padding: 25px;
+  }
+  .user-container {
+    margin-top: 124px;
+    padding-top: 51px;
+    padding-bottom: 47px;
+  }
+  .inform-col {
+    p {
+      font-size: 15px;
+      letter-spacing: 0px;
+      font-weight: 649;
+      color: #222222;
+      opacity: 1;
+    }
+  }
 }

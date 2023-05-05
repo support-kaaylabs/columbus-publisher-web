@@ -77,8 +77,6 @@ export const getLayoutByType: React.FC<any> = (props) => {
         </Col>
         <Col>
           <Select
-            // mode="multiple"
-            // value={value}
             style={{ width: 200 }}
             loading={
               _.get(loading, 'field') === name
@@ -128,7 +126,6 @@ export const getLayoutByType: React.FC<any> = (props) => {
               allowClear
               className="report-date"
               onChange={(e) => onChange(e, name, true)}
-              // value={value}
             />
           )}
         </Col>

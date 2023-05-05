@@ -1,4 +1,3 @@
-//import axios from 'axios';
 import Http from './api';
 import { getAPIUrl } from './env';
 
@@ -29,3 +28,6 @@ export const authenticate = (data: any) => http.post('authenticate-seller', data
 
 export const getImageLocate = () => http.get('user-profile');
 
+export const getProduct = (data: any) => http.post('get-seller-products', data);
+
+export const getProductDetail = (data: any) => http.post('get-seller-product-detail', data);

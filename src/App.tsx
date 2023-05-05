@@ -1,24 +1,21 @@
-import React, { type FC, useState, useContext, useEffect } from 'react';
-import Logo from './components/HomePage/Images/logoImgSmall.png';
+import React, { type FC, useState, useEffect } from 'react';
+import Logo from './components/HomePage/Images/logoSymbolLarge.svg';
 import DefaultUser from './components/Images/defaultUser.png';
 import MenuLogo from './components/HomePage/Images/menuLogo.svg';
 import LogoSymbolLarge from './components/HomePage/Images/logoSymbolLarge.svg';
+import MainLogo from './components/Images/logo.svg';
 import LogoSymbolSmall from './components/HomePage/Images/logoSymbolSmall.svg';
 import CloseIcon from './components/HomePage/Images/closeIconSmall.png';
 import MenuIcon from './components/HomePage/Images/menuIconSmall.png';
 import './App.scss';
+import AvatarLogo from './components/Images/avatar-menu-logo.svg';
+import { ProductIcon, DashboardIcon } from './components/icons/svgIcons';
 import Dashboard from './pages/Dashboard';
 import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import ProductList from './components/Product';
 import ProductDetail from './components/Product/detail';
-import { MyContext } from './components/store/dataStore';
 import { Col, Row, Popover } from 'antd';
 import UserProfile from './components/Home/userProfile';
-import {
-  AppstoreOutlined,
-  UploadOutlined,
-  LogoutOutlined,
-} from '@ant-design/icons';
 import { updateUserInfo } from './shared/urlHelper';
 import { Layout, Menu } from 'antd';
 import type { MenuProps } from 'antd';
@@ -27,43 +24,56 @@ import { Dropdown } from 'antd';
 const { Header, Sider, Content } = Layout;
 
 const App: FC = () => {
-  const [open, setOpen] = useState<boolean>(false);
-  const [name, setName] = useState<any>();
-  const [collapsed, setCollapsed] = useState<boolean>(false);
-  const [image, setImage] = useState<any>(DefaultUser);
   const locate = window.location.href;
   const slug = locate.split('/')[3];
+  const [name, setName] = useState<any>();
+  const [userName, setUserName] = useState<any>();
+  const [userEmail, setUserEmail] = useState<any>();
+  const [collapsed, setCollapsed] = useState<boolean>(false);
+  const [image, setImage] = useState<any>(DefaultUser);
+  const [open, setOpen] = useState(false);
 
-  const ctx = useContext(MyContext);
-
+  const handleOpenChange = () => {
+    setOpen((data) => !data);
+  };
   const navigate = useNavigate();
 
   const items: MenuProps['items'] = [
     {
       label: (
         <div
-          className="dashboard"
-          onClick={() => ctx.sideBarHandler('DASHBOARD')}
+          className={name === 'PRODUCT' ? 'activeMenu' : 'products'}
+          onClick={() => setName('PRODUCT')}
         >
-          <Link to="dashboard">
-            <span className="menu-style">
-              <AppstoreOutlined />
-              DASHBOARD
+          <Link to="product">
+            <span>
+              <ProductIcon color={name === 'PRODUCT' ? '#E53935' : '#222222'} />
+              PRODUCT
             </span>
           </Link>
         </div>
       ),
       key: '0',
     },
+    {
+      label: (
+        <div
+          className={name === 'DASHBOARD' ? 'activeMenu' : 'products'}
+          onClick={() => setName('DASHBOARD')}
+        >
+          <Link to="dashboard">
+            <span>
+              <DashboardIcon
+                color={name === 'DASHBOARD' ? '#E53935' : '#222222'}
+              />
+              DASHBOARD
+            </span>
+          </Link>
+        </div>
+      ),
+      key: '1',
+    },
   ];
-
-  const handleOpenChange = () => {
-    setOpen(true);
-  };
-
-  const changeHandler = () => {
-    setOpen(false);
-  };
 
   const logoutClick = () => {
     const userId: any = localStorage.getItem('User_ID');
@@ -88,9 +98,11 @@ const App: FC = () => {
           ? DefaultUser
           : localStorage.getItem('Image')
       );
-      setName(localStorage.getItem('User_Name'));
+      setUserName(localStorage.getItem('User_Name'));
+      setUserEmail(localStorage.getItem('User_Email'));
+      setName(slug.toUpperCase());
     }
-  }, []);
+  }, [slug]);
 
   return (
     <Layout className="header">
@@ -106,9 +118,9 @@ const App: FC = () => {
             <span className="header-sider-logo">
               <div className="sider-logo-head">
                 {collapsed ? (
-                  <img src={LogoSymbolLarge} alt="LogoSymbol" />
+                  <img src={Logo} alt="LogoSymbol" className='logo-symbol-small' />
                 ) : (
-                  <img src={Logo} alt="JINGLS" />
+                  <img src={MainLogo} alt="JINGLS" className='logo-symbol-large' />
                 )}
               </div>
             </span>
@@ -118,177 +130,81 @@ const App: FC = () => {
                   <nav>
                     {collapsed ? (
                       <>
-                        {/* <Menu.Item
-                      key={1}
-                      title="PRODUCT"
-                      className={classes.products}
-                      onClick={() => ctx.sideBarHandler('PRODUCT')}
-                    >
-                      <Link to="products">
-                        <span>
-                          <DeliveredProcedureOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item> */}
                         <Menu.Item
-                          key={2}
-                          title="DASHBOARD"
-                          className="dashboard"
-                          onClick={() => ctx.sideBarHandler('DASHBOARD')}
+                          key={1}
+                          title="PRODUCT"
+                          className={
+                            name === 'PRODUCT' ? 'activeMenu' : 'products'
+                          }
+                          onClick={() => setName('PRODUCT')}
                         >
-                          <Link to="dashboard">
+                          <Link to="product">
                             <span>
-                              <AppstoreOutlined />
+                              <ProductIcon
+                                color={
+                                  name === 'PRODUCT' ? '#E53935' : '#222222'
+                                }
+                              />
                             </span>
                           </Link>
                         </Menu.Item>
-                        {/* <Menu.Item
-                      key={3}
-                      title="INSIGHT"
-                      className={classes.insights}
-                      onClick={() => ctx.sideBarHandler('INSIGHT')}
-                    >
-                      <Link to="insight">
-                        <span>
-                          <AlertOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item> */}
-                        {/* <Menu.Item
-                      key={4}
-                      title="WALLET"
-                      className={classes.wallet}
-                      onClick={() => ctx.sideBarHandler('WALLET')}
-                    >
-                      <Link to="wallet">
-                        <span>
-                          <WalletOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item>
-                    <Menu.Item
-                      key={5}
-                      title="SETTING"
-                      className={classes.setting}
-                      onClick={() => ctx.sideBarHandler('SETTING')}
-                    >
-                      <Link to="setting">
-                        <span>
-                          <SettingOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item> 
-                    <Menu.Item
-                      key={6}
-                      title="HELP"
-                      className={classes.help}
-                      onClick={() => ctx.sideBarHandler('HELP')}
-                    >
-                      <Link to="help">
-                        <span>
-                          <CustomerServiceOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item>   */}
-                        {/* <Menu.Item
-                      key={7}
-                      title="LOGOUT"
-                      className={classes.logout}
-                      onClick={() => logoutClick}
-                    >
-                      <Link to="/">
-                        <span>
-                          <LogoutOutlined />
-                        </span>
-                      </Link>
-                    </Menu.Item> */}
+                        <Menu.Item
+                          key={2}
+                          title="DASHBOARD"
+                          className={
+                            name === 'DASHBOARD' ? 'activeMenu' : 'dashboard'
+                          }
+                          onClick={() => setName('DASHBOARD')}
+                        >
+                          <Link to="dashboard">
+                            <span>
+                              <DashboardIcon
+                                color={
+                                  name === 'DASHBOARD' ? '#E53935' : '#222222'
+                                }
+                              />
+                            </span>
+                          </Link>
+                        </Menu.Item>
                       </>
                     ) : (
                       <>
-                        {/* <Menu.Item
-                      key={1}
-                      className={classes.products}
-                      onClick={() => ctx.sideBarHandler('PRODUCT')}
-                    >
-                      <Link to="products">
-                        <span className='menuStyle'>
-                          <DeliveredProcedureOutlined />
-                          PRODUCT
-                        </span>
-                      </Link>
-                    </Menu.Item> */}
+                        <Menu.Item
+                          key={1}
+                          className={
+                            name === 'PRODUCT' ? 'activeMenu' : 'products'
+                          }
+                          onClick={() => setName('PRODUCT')}
+                        >
+                          <Link to="product">
+                            <span>
+                              <ProductIcon
+                                color={
+                                  name === 'PRODUCT' ? '#E53935' : '#222222'
+                                }
+                              />
+                              PRODUCT
+                            </span>
+                          </Link>
+                        </Menu.Item>
                         <Menu.Item
                           key={2}
-                          className="dashboard"
-                          onClick={() => ctx.sideBarHandler('DASHBOARD')}
+                          className={
+                            name === 'DASHBOARD' ? 'activeMenu' : 'dashboard'
+                          }
+                          onClick={() => setName('DASHBOARD')}
                         >
                           <Link to="dashboard">
-                            <span className="menuStyle">
-                              <AppstoreOutlined />
+                            <span>
+                              <DashboardIcon
+                                color={
+                                  name === 'DASHBOARD' ? '#E53935' : '#222222'
+                                }
+                              />
                               DASHBOARD
                             </span>
                           </Link>
                         </Menu.Item>
-                        {/* <Menu.Item
-                      key={3}
-                      className={classes.insights}
-                      onClick={() => ctx.sideBarHandler('INSIGHTS')}
-                    >
-                      <Link to="insight">
-                        <span className='menuStyle'>
-                          <AlertOutlined />
-                          INSIGHTS
-                        </span>
-                      </Link>
-                    </Menu.Item>
-                    <Menu.Item
-                      key={4}
-                      className={classes.wallet}
-                      onClick={() => ctx.sideBarHandler('WALLET')}
-                    >
-                      <Link to="wallet">
-                        <span className='menuStyle'>
-                          <WalletOutlined />
-                          WALLET
-                        </span>
-                      </Link>
-                    </Menu.Item> 
-                    <Menu.Item
-                      key={5}
-                      className={classes.setting}
-                      onClick={() => ctx.sideBarHandler('SETTING')}
-                    >
-                      <Link to="setting">
-                        <span className='menuStyle'>
-                          <SettingOutlined />
-                          SETTING
-                        </span>
-                      </Link>
-                    </Menu.Item>
-                    <Menu.Item
-                      key={6}
-                      className={classes.help}
-                      onClick={() => ctx.sideBarHandler('HELP')}
-                    >
-                      <Link to="help">
-                        <span className='menuStyle'>
-                          <CustomerServiceOutlined />
-                          HELP
-                        </span>
-                      </Link>
-                    </Menu.Item> */}
-                        {/* <Menu.Item
-                      key={7}
-                      className={classes.logout}
-                      onClick={() => logoutClick}
-                    >
-                      <Link to="/">
-                        <span className="menuStyle">
-                          <LogoutOutlined />
-                          LOGOUT
-                        </span>
-                      </Link>
-                    </Menu.Item> */}
                       </>
                     )}
                   </nav>
@@ -296,11 +212,11 @@ const App: FC = () => {
                 <div className="menu-item">
                   <div className="menu-logo-item">
                     {collapsed ? (
-                      <img src={LogoSymbolSmall} alt="LogoSymbol" />
+                      <img src={LogoSymbolSmall} alt="LogoSymbol" className='menu-logo-icon-small' />
                     ) : (
-                      <img src={MenuLogo} alt="JINGLS" />
+                      <img src={MenuLogo} alt="JINGLS" className='menu-logo-icon-large' />
                     )}
-                    <p>{collapsed ? 'V1.0' : 'Publisher App version 1.0'}</p>
+                    {collapsed ? <p className='menu-logo-icon-small'>V1.0</p> : <p className='menu-logo-icon-large'>Publisher App version 1.0</p>}
                   </div>
                 </div>
               </div>
@@ -317,9 +233,9 @@ const App: FC = () => {
                 className="header-content-icon"
               >
                 {collapsed ? (
-                  <img src={CloseIcon} alt="closeicon" />
+                  <img src={CloseIcon} alt="closeicon" className='close-icon' />
                 ) : (
-                  <img src={MenuIcon} alt="MenuIcon" />
+                  <img src={MenuIcon} alt="MenuIcon"  className='open-icon' />
                 )}
               </span>
               <span className="header-content-name">
@@ -351,26 +267,50 @@ const App: FC = () => {
             </Col>
             <Col sm={3} xs={3} md={0} lg={0} xl={0}></Col>
             <Col className="header-right-content">
-              <div className="header-user-name">{name}</div>
+              <div className="header-user-name">{userName}</div>
               <div className="avatar">
                 <Popover
-                  content={
-                    <a onClick={logoutClick} className="logout">
-                      <LogoutOutlined /> Logout
-                    </a>
-                  }
-                  title={
-                    <Link
-                      to="myProfile"
-                      onClick={changeHandler}
-                      className="profile"
-                    >
-                      <UploadOutlined /> My Profile
-                    </Link>
-                  }
-                  trigger="click"
+                  arrow={false}
                   open={open}
                   onOpenChange={handleOpenChange}
+                  content={
+                    <Row className="avatar-image-contain">
+                      <Col sm={8} md={8} lg={8} className="avatar-img">
+                        <div className="avatar-img-logo">
+                          <div className="profile-head">
+                            <div className="profile-logo-img">
+                              <img src={image} alt="avatar" />
+                            </div>
+                          </div>
+                        </div>
+                      </Col>
+                      <Col className="avatar-detail" sm={10} md={10} lg={10}>
+                        <Row className="avatar-info-icon">
+                          <Col className="seller-name">
+                            <p className="name">{userName}</p>
+                            <p className="email">{userEmail}</p>
+                          </Col>
+                          <Col
+                            className="seller-profile"
+                            onClick={handleOpenChange}
+                          >
+                            <Link to="myProfile" className="my-profile">
+                              MyProfile
+                            </Link>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Row>
+                  }
+                  title={
+                    <div className="avatar-title">
+                      <img src={AvatarLogo} alt="avatar-logo" />
+                      <a onClick={logoutClick} className="logout">
+                        Sign out
+                      </a>
+                    </div>
+                  }
+                  trigger="click"
                 >
                   <img src={image} alt="avatar" className="profile-img" />
                 </Popover>
@@ -380,13 +320,10 @@ const App: FC = () => {
         </Header>
         <Content className="content">
           <Routes>
-            <Route path="products" element={<ProductList />} />
+            <Route path="product" element={<ProductList />} />
             <Route path="/:dashboard" element={<Dashboard />} />
-            <Route path="products/:slug" element={<ProductDetail />} />
-            <Route
-              path="myProfile"
-              element={<UserProfile />}
-            />
+            <Route path="product/:slug" element={<ProductDetail />} />
+            <Route path="myProfile" element={<UserProfile />} />
           </Routes>
         </Content>
       </Layout>

@@ -23,7 +23,7 @@
         .icon-img {
           display: flex;
           flex-direction: column;
-          .event-name{
+          .event-name {
             font-weight: bold;
             margin-top: 10px;
             font-size: 24px;
@@ -72,7 +72,7 @@
           font-size: 18px;
           font-weight: bold;
           letter-spacing: 0px;
-          color: #BBBBBB;
+          color: #bbbbbb;
         }
         .diffrence {
           border-top: 1px solid #707070;
@@ -102,7 +102,7 @@
         .icon-img {
           display: flex;
           flex-direction: column;
-          .event-name{
+          .event-name {
             font-weight: bold;
             margin-top: 10px;
             font-size: 24px;
@@ -151,7 +151,7 @@
           font-size: 18px;
           font-weight: bold;
           letter-spacing: 0px;
-          color: #BBBBBB;
+          color: #bbbbbb;
         }
         .diffrence {
           border-top: 1px solid #707070;
@@ -181,7 +181,7 @@
         .icon-img {
           display: flex;
           flex-direction: column;
-          .event-name{
+          .event-name {
             font-weight: bold;
             margin-top: 10px;
             font-size: 24px;
@@ -230,7 +230,7 @@
           font-size: 18px;
           font-weight: bold;
           letter-spacing: 0px;
-          color: #BBBBBB;
+          color: #bbbbbb;
         }
         .diffrence {
           border-top: 1px solid #707070;
@@ -260,7 +260,7 @@
         .icon-img {
           display: flex;
           flex-direction: column;
-          .event-name{
+          .event-name {
             font-weight: bold;
             margin-top: 10px;
             font-size: 24px;
@@ -309,7 +309,7 @@
           font-size: 18px;
           font-weight: bold;
           letter-spacing: 0px;
-          color: #BBBBBB;
+          color: #bbbbbb;
         }
         .diffrence {
           border-top: 1px solid #707070;
@@ -322,8 +322,6 @@
       }
     }
   }
-
-  
 }
 
 apexcharts-toolbar {
@@ -380,7 +378,7 @@ apexcharts-toolbar {
 @media screen and (min-width: 1000px) {
   .row {
     padding: 46px 50px 46px 33px;
-    .logo {     
+    .logo {
       justify-content: center;
       .icon-img {
         .icon-img-back {
@@ -388,6 +386,9 @@ apexcharts-toolbar {
         }
       }
     }
+  }
+  .ant-row {
+    display: block;
   }
   .column-wid {
     padding: 25px 29px 28px 29px;
@@ -398,9 +399,8 @@ apexcharts-toolbar {
   .row {
     padding: 20px 12px;
   }
-  .logo{
-
-    .icon-img {   
+  .logo {
+    .icon-img {
       margin-bottom: 20px;
     }
   }

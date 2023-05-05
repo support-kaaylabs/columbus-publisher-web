@@ -1,29 +1,35 @@
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  FC,
-} from 'react';
+import React, { type FC, useState, useRef, useEffect, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { imageUpload, getImageLocate } from '../../shared/urlHelper';
-import { LoadingOutlined, CameraOutlined } from '@ant-design/icons';
-import { Col, Row, Spin } from 'antd';
+import { Col, Row } from 'antd';
+import Arrow from './Images/leftArrowIconLarge.png';
 import DefaultUser from '../Images/defaultUser.png';
+import StoreImg from './Images/storeLarge.png';
+import UserImg from './Images/userLarge.png';
+import cameraIcon from './Images/cameraIcon.svg';
 import { get } from 'lodash';
 import './login.scss';
 
 const userProfile: FC = () => {
   const [name, setName] = useState<any>();
   const [storeName, setStoreName] = useState<any>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const logoHandler = useRef<any>(null);
+  const [cameraIconDisplay, setCameraIconDisplay] = useState<any>(true);
   const [image, setImage] = useState<any>();
   const navigate = useNavigate();
-  
-  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
   const clickHandler = () => {
     logoHandler.current.click();
+  };
+
+  const cameraIconHandlerDisplay = (e: MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setCameraIconDisplay(false);
+  };
+
+  const cameraIconHandlerHide = (e: MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setCameraIconDisplay(true);
   };
 
   const userID: any = localStorage.getItem('User_ID');
@@ -50,74 +56,84 @@ const userProfile: FC = () => {
     const fileUploaded = [event.target.files[0]];
     const userId: any = localStorage.getItem('User_ID');
     imageUpload(userId, '', fileUploaded).then((data: any) => {
-      setIsLoading(true);
       if (data.success) {
         getImageLocate().then((res: any) => {
-          const image = get(res, 'data[0].Image', '');          
+          const image = get(res, 'data[0].Image', '');
           localStorage.setItem('Image', image);
           setImage(image);
-          setIsLoading(false);
         });
       }
     });
   };
   return (
     <Row className="user-profile">
-      <Col sm={24} xs={24} md={24} lg={24} className="content-name">
-        <p>Your Info</p>
+      <Col
+        sm={24}
+        xs={24}
+        md={24}
+        lg={24}
+        className="arrow"
+        onClick={() => navigate(-1)}
+      >
+        <img src={Arrow} alt="Left Arrow" />
       </Col>
       <Col className="user-container">
         <div className="user-contain">
           <Row className="upload-image-contain">
-            <Col sm={24} xs={24} md={8} lg={8} className="user-img">
+            <Col sm={12} md={12} lg={12} className="user-img">
               <div className="user-img-logo">
-                <div className="profile-head">
-                  {isLoading ? (
-                    <div className="profile-loading">
-                      <Spin indicator={antIcon} />
-                    </div>
-                  ) : (
-                    <img src={image} alt="avatar" className="profile-img" />
-                  )}
-
-                  <div className="upload-image"  onClick={clickHandler}>
-                    <div className="add-photo">
-                      <CameraOutlined />
-                      <input
-                        type="file"
-                        accept="image/*"
-                        ref={logoHandler}
-                        onChange={changeLogoHandler}
-                        className="input"
-                      />
+                <div
+                  className="user-img-logo-content"
+                  onMouseLeave={cameraIconHandlerHide}
+                >
+                  <div
+                    className="profile-head"
+                    onMouseEnter={cameraIconHandlerDisplay}
+                  >
+                    <div className="profile-logo-img">
+                      <img src={image} alt="avatar" className="profile-img" />
                     </div>
                   </div>
+                  <div
+                    className={
+                      cameraIconDisplay ? 'camera-icon-hide' : 'camera-icon'
+                    }
+                    onClick={clickHandler}
+                  >
+                    <img src={cameraIcon} alt="camera-icon" />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      ref={logoHandler}
+                      onChange={changeLogoHandler}
+                      className="input"
+                    />
+                  </div>
+                </div>
+                <div className="inform-col">
+                  <p>Personalize your account with a photo</p>
                 </div>
               </div>
             </Col>
-            <Col className="user-detail" sm={24} xs={24} md={14} lg={14}>
-              <Col sm={0} xs={0} md={24} lg={8} className="user-details">
-                <p>
-                  Personalize your account with a photo. Your profile photo will
-                  appear on apps and devices.
-                </p>
-              </Col>
-            </Col>
-          </Row>
-          <Row className="user-info">
-            <Col sm={11} md={8} lg={8} className="seller">
-              <p>Seller Name</p>
-            </Col>
-            <Col sm={11} md={14} lg={14} className="seller-name">
-              <p>{name}</p>
-            </Col>
-          </Row>
-          <Row className="user-info">
-            <Col sm={11} md={8} lg={8} className="seller">
-              <p>Store Name</p>
-            </Col>
-            <Col sm={11} md={14} lg={14} className="seller-name">
-              <p>{storeName}</p>
+            <Col className="user-detail" sm={12} md={12} lg={12}>
+              <Row className="user-info-icon">
+                <Col className="user-icon">
+                  <img src={UserImg} alt="user-icon" />
+                </Col>
+                <Col className="seller">
+                  <p className="seller-find">Seller Name</p>
+                  <p className="seller-name">{name}</p>
+                </Col>
+              </Row>
+              <Row className="store-info-icon">
+                <Col className="user-icon">
+                  <img src={StoreImg} alt="store-icon" />
+                </Col>
+                <Col className="seller">
+                  <p className="seller-find">Store Name</p>
+                  <p className="seller-name">{storeName}</p>
+                </Col>
+              </Row>
             </Col>
           </Row>
         </div>
