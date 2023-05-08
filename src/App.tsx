@@ -42,22 +42,6 @@ const App: FC = () => {
     {
       label: (
         <div
-          className={name === 'PRODUCT' ? 'activeMenu' : 'products'}
-          onClick={() => setName('PRODUCT')}
-        >
-          <Link to="product">
-            <span>
-              <ProductIcon color={name === 'PRODUCT' ? '#E53935' : '#222222'} />
-              PRODUCT
-            </span>
-          </Link>
-        </div>
-      ),
-      key: '0',
-    },
-    {
-      label: (
-        <div
           className={name === 'DASHBOARD' ? 'activeMenu' : 'products'}
           onClick={() => setName('DASHBOARD')}
         >
@@ -67,6 +51,22 @@ const App: FC = () => {
                 color={name === 'DASHBOARD' ? '#E53935' : '#222222'}
               />
               DASHBOARD
+            </span>
+          </Link>
+        </div>
+      ),
+      key: '0',
+    },
+    {
+      label: (
+        <div
+          className={name === 'PRODUCT' ? 'activeMenu' : 'products'}
+          onClick={() => setName('PRODUCT')}
+        >
+          <Link to="product">
+            <span>
+              <ProductIcon color={name === 'PRODUCT' ? '#E53935' : '#222222'} />
+              PRODUCT
             </span>
           </Link>
         </div>
@@ -132,24 +132,6 @@ const App: FC = () => {
                       <>
                         <Menu.Item
                           key={1}
-                          title="PRODUCT"
-                          className={
-                            name === 'PRODUCT' ? 'activeMenu' : 'products'
-                          }
-                          onClick={() => setName('PRODUCT')}
-                        >
-                          <Link to="product">
-                            <span>
-                              <ProductIcon
-                                color={
-                                  name === 'PRODUCT' ? '#E53935' : '#222222'
-                                }
-                              />
-                            </span>
-                          </Link>
-                        </Menu.Item>
-                        <Menu.Item
-                          key={2}
                           title="DASHBOARD"
                           className={
                             name === 'DASHBOARD' ? 'activeMenu' : 'dashboard'
@@ -166,11 +148,9 @@ const App: FC = () => {
                             </span>
                           </Link>
                         </Menu.Item>
-                      </>
-                    ) : (
-                      <>
                         <Menu.Item
-                          key={1}
+                          key={2}
+                          title="PRODUCT"
                           className={
                             name === 'PRODUCT' ? 'activeMenu' : 'products'
                           }
@@ -183,12 +163,14 @@ const App: FC = () => {
                                   name === 'PRODUCT' ? '#E53935' : '#222222'
                                 }
                               />
-                              PRODUCT
                             </span>
                           </Link>
                         </Menu.Item>
+                      </>
+                    ) : (
+                      <>
                         <Menu.Item
-                          key={2}
+                          key={1}
                           className={
                             name === 'DASHBOARD' ? 'activeMenu' : 'dashboard'
                           }
@@ -202,6 +184,24 @@ const App: FC = () => {
                                 }
                               />
                               DASHBOARD
+                            </span>
+                          </Link>
+                        </Menu.Item>
+                        <Menu.Item
+                          key={2}
+                          className={
+                            name === 'PRODUCT' ? 'activeMenu' : 'products'
+                          }
+                          onClick={() => setName('PRODUCT')}
+                        >
+                          <Link to="product">
+                            <span>
+                              <ProductIcon
+                                color={
+                                  name === 'PRODUCT' ? '#E53935' : '#222222'
+                                }
+                              />
+                              PRODUCT
                             </span>
                           </Link>
                         </Menu.Item>
