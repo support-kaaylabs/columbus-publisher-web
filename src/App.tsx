@@ -55,7 +55,7 @@ const App: FC = () => {
           </Link>
         </div>
       ),
-      key: '0',
+      key: 'dashboard',
     },
     {
       label: (
@@ -71,7 +71,7 @@ const App: FC = () => {
           </Link>
         </div>
       ),
-      key: '1',
+      key: 'product',
     },
   ];
 
@@ -131,7 +131,7 @@ const App: FC = () => {
                     {collapsed ? (
                       <>
                         <Menu.Item
-                          key={1}
+                          key="dashboard"
                           title="DASHBOARD"
                           className={
                             name === 'DASHBOARD' ? 'activeMenu' : 'dashboard'
@@ -149,7 +149,7 @@ const App: FC = () => {
                           </Link>
                         </Menu.Item>
                         <Menu.Item
-                          key={2}
+                          key="product"
                           title="PRODUCT"
                           className={
                             name === 'PRODUCT' ? 'activeMenu' : 'products'
@@ -170,7 +170,7 @@ const App: FC = () => {
                     ) : (
                       <>
                         <Menu.Item
-                          key={1}
+                          key="dashboard"
                           className={
                             name === 'DASHBOARD' ? 'activeMenu' : 'dashboard'
                           }
@@ -188,7 +188,7 @@ const App: FC = () => {
                           </Link>
                         </Menu.Item>
                         <Menu.Item
-                          key={2}
+                          key="product"
                           className={
                             name === 'PRODUCT' ? 'activeMenu' : 'products'
                           }
