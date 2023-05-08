@@ -292,7 +292,7 @@ const ProductDetail: FC = () => {
                   <p className="impression-para">Impression</p>
                   <ProgressBar
                     value={autobidData.View_Count ? autobidData.View_Count : 0 }
-                    styles="450px"
+                    styles="100%"
                     image={Eye}
                     background="#f9dede"
                     color="#e53935"
@@ -302,7 +302,7 @@ const ProductDetail: FC = () => {
                   <p className="clicks-para">Clicks</p>
                   <ProgressBar
                     value={autobidData.Click_Count ? autobidData.Click_Count : 0}
-                    styles="450px"
+                    styles="100%"
                     image={Hand}
                     background="#d8defc"
                     color="#0909dc"
@@ -312,7 +312,7 @@ const ProductDetail: FC = () => {
                   <p className="cta-para">CTA</p>
                   <ProgressBar
                     value={autobidData.Cta_Count ? autobidData.Cta_Count : 0}
-                    styles="450px"
+                    styles="100%"
                     image={Arrow1}
                     background="#caf2d2"
                     color="#03781b"
@@ -367,7 +367,7 @@ const ProductDetail: FC = () => {
                               <Col span={8}>
                                 <p>{key}</p>
                               </Col>
-                              <Col span={8}>
+                              <Col span={16}>
                                 <p>{mergedData[key].replace(/\s/g, ' ')}</p>
                               </Col>
                             </Row>
