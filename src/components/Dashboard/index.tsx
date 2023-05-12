@@ -63,7 +63,7 @@ const Dashboard = (props: dashboardDetails) => {
               </p>
             </div>
           </Col>
-          <Col md={11} sm={11} xs={11} lg={4} className="column-wid">
+          <Col md={6} sm={11} xs={11} lg={4} className="column-wid">
             <p className='basic'>Today</p>
             <p className="percentage">
               {data?.todayPercent ? data?.todayPercent : '0'} %
@@ -77,7 +77,7 @@ const Dashboard = (props: dashboardDetails) => {
               )}
             </div>
           </Col>
-          <Col md={11} sm={11} xs={11} lg={4} className="column-wid">
+          <Col md={6} sm={11} xs={11} lg={4} className="column-wid">
             <p className='basic'>This Week</p>
             <p className="percentage">
               {data.weekPercent ? data.weekPercent : '0'} %
@@ -91,7 +91,7 @@ const Dashboard = (props: dashboardDetails) => {
               )}
             </div>
           </Col>
-          <Col md={11} sm={11} xs={11} lg={4} className="column-wid">
+          <Col md={6} sm={11} xs={11} lg={4} className="column-wid">
             <p className='basic'>This Month</p>
             <p className="percentage">
               {data.monthPercent ? data.monthPercent : '0'} %
@@ -105,7 +105,7 @@ const Dashboard = (props: dashboardDetails) => {
               )}
             </div>
           </Col>
-          <Col md={11} sm={11} xs={11} lg={4} className="column-wid">
+          <Col md={6} sm={11} xs={11} lg={4} className="column-wid">
             <p className='basic'>Quarter</p>
             <p className="percentage">
               {data.quarterPercent ? data.quarterPercent : '0'} %
@@ -119,8 +119,7 @@ const Dashboard = (props: dashboardDetails) => {
               )}
             </div>
           </Col>
-        </Row>
-        
+        </Row>        
       </div>
     </div>
   );

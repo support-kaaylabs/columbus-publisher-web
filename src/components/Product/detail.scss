@@ -216,7 +216,7 @@
                 border: 1.5px solid #bbbbbb;
                 .ant-collapse-content-box {
                   .ant-row {
-                    display: flex !important;
+                    display: flex;
                     .ant-col {
                       font-size: 16px;
                       color: #222222;
@@ -424,6 +424,9 @@
 @media screen and (max-width: 1000px) {
   .head-detail {
     padding: 20px;
+  }
+  .ant-row {
+    display: block;
   }
   .sub-image {
     height: 60px;

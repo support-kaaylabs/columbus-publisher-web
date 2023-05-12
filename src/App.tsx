@@ -42,22 +42,6 @@ const App: FC = () => {
     {
       label: (
         <div
-          className={name === 'PRODUCT' ? 'activeMenu' : 'products'}
-          onClick={() => setName('PRODUCT')}
-        >
-          <Link to="product">
-            <span>
-              <ProductIcon color={name === 'PRODUCT' ? '#E53935' : '#222222'} />
-              PRODUCT
-            </span>
-          </Link>
-        </div>
-      ),
-      key: '0',
-    },
-    {
-      label: (
-        <div
           className={name === 'DASHBOARD' ? 'activeMenu' : 'products'}
           onClick={() => setName('DASHBOARD')}
         >
@@ -71,7 +55,23 @@ const App: FC = () => {
           </Link>
         </div>
       ),
-      key: '1',
+      key: 'dashboard',
+    },
+    {
+      label: (
+        <div
+          className={name === 'PRODUCT' ? 'activeMenu' : 'products'}
+          onClick={() => setName('PRODUCT')}
+        >
+          <Link to="product">
+            <span>
+              <ProductIcon color={name === 'PRODUCT' ? '#E53935' : '#222222'} />
+              PRODUCT
+            </span>
+          </Link>
+        </div>
+      ),
+      key: 'product',
     },
   ];
 
@@ -107,7 +107,7 @@ const App: FC = () => {
   return (
     <Layout className="header">
       <Row>
-        <Col sm={0} xs={0} md={5} lg={8} xl={10}>
+        <Col sm={0} xs={0} md={0} lg={8} xl={10}>
           <Sider
             theme="light"
             collapsible
@@ -131,25 +131,7 @@ const App: FC = () => {
                     {collapsed ? (
                       <>
                         <Menu.Item
-                          key={1}
-                          title="PRODUCT"
-                          className={
-                            name === 'PRODUCT' ? 'activeMenu' : 'products'
-                          }
-                          onClick={() => setName('PRODUCT')}
-                        >
-                          <Link to="product">
-                            <span>
-                              <ProductIcon
-                                color={
-                                  name === 'PRODUCT' ? '#E53935' : '#222222'
-                                }
-                              />
-                            </span>
-                          </Link>
-                        </Menu.Item>
-                        <Menu.Item
-                          key={2}
+                          key="dashboard"
                           title="DASHBOARD"
                           className={
                             name === 'DASHBOARD' ? 'activeMenu' : 'dashboard'
@@ -166,11 +148,9 @@ const App: FC = () => {
                             </span>
                           </Link>
                         </Menu.Item>
-                      </>
-                    ) : (
-                      <>
                         <Menu.Item
-                          key={1}
+                          key="product"
+                          title="PRODUCT"
                           className={
                             name === 'PRODUCT' ? 'activeMenu' : 'products'
                           }
@@ -183,12 +163,14 @@ const App: FC = () => {
                                   name === 'PRODUCT' ? '#E53935' : '#222222'
                                 }
                               />
-                              PRODUCT
                             </span>
                           </Link>
                         </Menu.Item>
+                      </>
+                    ) : (
+                      <>
                         <Menu.Item
-                          key={2}
+                          key="dashboard"
                           className={
                             name === 'DASHBOARD' ? 'activeMenu' : 'dashboard'
                           }
@@ -202,6 +184,24 @@ const App: FC = () => {
                                 }
                               />
                               DASHBOARD
+                            </span>
+                          </Link>
+                        </Menu.Item>
+                        <Menu.Item
+                          key="product"
+                          className={
+                            name === 'PRODUCT' ? 'activeMenu' : 'products'
+                          }
+                          onClick={() => setName('PRODUCT')}
+                        >
+                          <Link to="product">
+                            <span>
+                              <ProductIcon
+                                color={
+                                  name === 'PRODUCT' ? '#E53935' : '#222222'
+                                }
+                              />
+                              PRODUCT
                             </span>
                           </Link>
                         </Menu.Item>
@@ -227,7 +227,7 @@ const App: FC = () => {
       <Layout className="layout-right">
         <Header className="header-content">
           <Row className="header-content-row">
-            <Col sm={0} xs={0} md={6} lg={6} className="menu-icon">
+            <Col sm={0} xs={0} md={0} lg={6} className="menu-icon">
               <span
                 onClick={() => setCollapsed(!collapsed)}
                 className="header-content-icon"
@@ -265,7 +265,30 @@ const App: FC = () => {
                 </span>
               </span>
             </Col>
-            <Col sm={3} xs={3} md={0} lg={0} xl={0}></Col>
+            <Col
+              sm={0}
+              xs={0}
+              md={3}
+              lg={0}
+              xl={0}
+              className="header-left-content"
+            >
+              <span className="header-left">
+                <span className="header-logo">
+                  <img src={MainLogo} alt="Logo-symbol" />
+                </span>
+                <span className="menu-icon">
+                  <Dropdown menu={{ items }} trigger={['click']}>
+                    <span className="header-content-icon">
+                      <a>
+                        <img src={MenuIcon} alt="MenuIcon" />
+                      </a>
+                    </span>
+                  </Dropdown>
+                </span>
+              </span>
+            </Col>
+            <Col sm={3} xs={3} md={11} lg={0} xl={0}></Col>
             <Col className="header-right-content">
               <div className="header-user-name">{userName}</div>
               <div className="avatar">

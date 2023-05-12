@@ -16,6 +16,11 @@
 @media screen and (min-width: 1000px) {
   .dashboard-head {
     padding: 14px;
+    .ant-row {
+      .ant-col {
+        width: 100%;
+      }
+    }
   }
 }
 
