@@ -22,7 +22,6 @@ $color_11: #cbf3d3;
     margin-top: 25%;
   }
   .content-row {
-    display: flex;
     .content-head {
       margin-right: 25px;
       margin-left: 26px;
@@ -242,5 +241,11 @@ $color_11: #cbf3d3;
         }
       }
     }
+  }
+}
+
+@media screen and (min-width: 760px)  {
+  .content-row {
+    display: flex;
   }
 }

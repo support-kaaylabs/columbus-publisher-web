@@ -249,7 +249,8 @@
 .ant-dropdown .ant-dropdown-menu,
 .ant-dropdown-menu-submenu .ant-dropdown-menu {
   border-radius: 0px;
-  width: 320px;
+  width: 100vw;
+  margin-top: -2px;
   .ant-dropdown-menu-item {
     .ant-dropdown-menu-title-content {
       .products,
