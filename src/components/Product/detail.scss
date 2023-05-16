@@ -9,9 +9,14 @@
     border: none;
   }
   .content-detail {
+    display: block !important;
     .content-div {
       margin-top: 23px;
       .left-content {
+        .ant-row {
+          display: block !important;
+        }
+        display: block !important;
         .impression {
           width: 100%;
           height: 61px;
@@ -78,6 +83,7 @@
 
           .large-image-content {
             display: flex;
+            justify-content: center;
             .prdt-carousel-arrow-left {
               display: flex;
               align-items: center;
@@ -244,9 +250,7 @@
           margin-top: 33px;
 
           p {
-            width: 85px;
             height: 17px;
-            margin-bottom: 10px;
             font-size: 14px;
             font-weight: bold;
             letter-spacing: 0px;
@@ -298,9 +302,7 @@
           margin-bottom: 14px;
 
           p {
-            width: 48px;
             height: 17px;
-            margin-bottom: 10px;
             font-size: 14px;
             font-weight: bold;
             letter-spacing: 0px;
@@ -351,9 +353,7 @@
           height: 61px;
 
           p {
-            width: 27px;
             height: 17px;
-            margin-bottom: 10px;
             font-size: 14px;
             letter-spacing: 0px;
             color: #707070;
@@ -421,7 +421,7 @@
   }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 700px) {
   .head-detail {
     padding: 20px;
   }
