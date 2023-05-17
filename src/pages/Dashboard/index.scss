@@ -27,5 +27,8 @@
 @media screen and (max-width: 1000px) {
   .dashboard-head {
     padding: 7px;
+    .ant-row {
+      display: block;
+    }
   }
 }
