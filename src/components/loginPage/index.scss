@@ -1,0 +1,143 @@
+.login {
+  height: 100vh;
+
+  .login-left {
+    background-image: url('../columbusImages/login-background-img.svg');
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .login-title {
+      text-align: center;
+
+      .login-main-title {
+        margin: 0px;
+        font-size: 24px;
+        color: #FFFFFF;
+        font-weight: 350;
+        opacity: 0.9;
+      }
+
+      .login-sub-title {
+        font-size: 16px;
+        color: #FFFFFF;
+        margin: 0;
+        margin-top: 5px;
+        opacity: 0.7;
+        font-weight: 400;
+      }
+    }
+
+    .login-logo {
+      margin-top: 80px;
+    }
+  }
+
+  .login-right {
+
+    .form {
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: auto;
+      margin-top: 18%;
+
+      .ant-form-item {
+        margin-bottom: 0px;
+      }
+
+      .form-sign-in {
+        p {
+          font-size: 24px;
+          color: #C20155;
+          font-weight: 600;
+          opacity: 0.8;
+        }
+      }
+
+      .form-email-address {
+        margin-top: 20px;
+
+        label {
+          font-size: 14px;
+          color: #222222;
+          font-weight: 600;
+          opacity: 0.7;
+        }
+
+        input {
+          margin-top: 15px;
+          font-size: 14px;
+          color: #222222;
+          font-weight: 600;
+          opacity: 0.7;
+          background: #F2F2F2;
+          border-radius: 5px;
+        }
+      }
+
+      .form-password {
+        margin-top: 20px;
+
+        label {
+          font-size: 14px;
+          color: #222222;
+          font-weight: 600;
+          opacity: 0.7;
+        }
+
+        input {
+          font-size: 14px;
+          color: #222222;
+          font-weight: 600;
+          opacity: 0.7;
+          background: #F2F2F2;
+        }
+
+        .ant-input-affix-wrapper-lg {
+          margin-top: 15px;
+          background: #F2F2F2;
+          border-radius: 5px;
+        }
+      }
+
+      .form-forgot {
+        float: right;
+        text-decoration: underline;
+        color: #222222;
+        font-size: 13px;
+        font-weight: 650;
+        opacity: 0.7;
+        margin-top: 20px;
+        margin-bottom: 40px;
+      }
+
+      .form-button {
+        border-radius: 5px;
+        background: #570026;
+        font-size: 14px;
+        font-weight: 600;
+        color: #FFFFFF;
+        margin-bottom: 30px;
+        padding-top: 12px;
+        padding-bottom: 36px;
+      }
+
+      .form-account {
+        font-size: 14px;
+        color: #222222;
+        font-weight: 600;
+        opacity: 0.7;
+      }
+
+      .form-signup {
+        font-size: 13px;
+        color: #C20155;
+        font-weight: 700;
+        cursor: pointer;
+      }
+    }
+  }
+}
