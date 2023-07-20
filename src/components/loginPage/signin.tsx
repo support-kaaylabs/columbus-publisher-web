@@ -43,7 +43,7 @@ const Signin: FC = () => {
           localStorage.setItem('token', token);
           localStorage.setItem('token', token);
           localStorage.setItem('Store_Nme', Store_Name);
-          localStorage.setItem('adminLogin', typeof true);
+          localStorage.setItem('publisherLogin', typeof true);
           localStorage.setItem('menu_collapse', typeof false);
           navigate('/signup');
         })
