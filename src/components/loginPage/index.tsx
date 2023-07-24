@@ -1,10 +1,29 @@
-import React, { type FC } from 'react';
+import React, { useState, type FC } from 'react';
 import { Row, Col } from 'antd';
 import './index.scss';
 import Logo from '../columbusImages/logo.svg';
 import Signin from './signin';
+import Signup from './signup';
+import ForgotPassword from './ForgotPassword';
+interface Props{
+  signupValidate: boolean;
+}
 
-const LoginPage: FC = () => {
+const LoginPage: FC<Props> = ({signupValidate}) => {
+  console.log(signupValidate,'signup validate');
+  const [signup, setsignUp] = useState(false);
+  const [forgot, setForgot] = useState(false);
+
+  const signupPageValidation = (e: any) => {
+    setsignUp(e);
+  };
+
+  const forgotPageValidation = (e: any) => {
+    setForgot(e);
+  };
+
+  console.log(signup,'signnnnuupp');
+  console.log(forgot, 'forrrrgot');
   return (
     <Row className='login'>
       <Col span={12} className='login-left'>
@@ -17,7 +36,18 @@ const LoginPage: FC = () => {
         </div>
       </Col>
       <Col span={12} className='login-right'>
-        <Signin />
+        {signup &&
+        <Signup/>
+        }
+        {forgot &&
+        <ForgotPassword />
+        }
+        {!signupValidate && !signup && !forgot &&
+         <Signin 
+           signupPageValidation={signupPageValidation}
+           forgotPageValidation={forgotPageValidation}/>
+        }
+       
       </Col>
     </Row>
   );

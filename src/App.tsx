@@ -21,6 +21,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.scss';
 import LoginPage from './components/loginPage';
 import Signup from './components/loginPage/signup';
+import ForgotPassword from './components/loginPage/ForgotPassword';
 
 const App: FC = () => {
   // const locate = window.location.href;
@@ -359,8 +360,9 @@ const App: FC = () => {
       <Route path=":dashboard" element={<Dashboard />} />
       <Route path="myProfile" element={<UserProfile />} />
     </Route> */}
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/" element={<LoginPage signupValidate={false}/>} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} /> 
       </Routes>
     </BrowserRouter>
   );

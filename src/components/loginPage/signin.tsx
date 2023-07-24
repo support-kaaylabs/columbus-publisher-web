@@ -3,13 +3,25 @@ import { Button, Form, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { authenticate } from '../../shared/urlHelper';
 import { errorNotification } from '../../shared/globalVariables';
-
-
-const Signin: FC = () => {
+interface signinProps {
+  signupPageValidation: any;
+  forgotPageValidation: any;
+}
+const Signin: FC<signinProps> = ({signupPageValidation, forgotPageValidation}) => {
   const navigate = useNavigate();
   const [emailId, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const signupClick = () => {
+    console.log('hfgf');
+    signupPageValidation(true);
+  };
 
+  const forgotClick = () => {
+    forgotPageValidation(true);
+  };
+
+  console.log(signupPageValidation,'tttttttttt');
+  console.log(forgotPageValidation, 'forrororor');
   const handleSubmit = () => {
     const params = {
       emailId,
@@ -59,6 +71,7 @@ const Signin: FC = () => {
       onFinish={handleSubmit}
       size={'large'}
       className='form'
+      style={{marginTop: '18%'}}
     >
       <Form.Item className='form-sign-in'>
         <p>Sign in</p>
@@ -92,7 +105,7 @@ const Signin: FC = () => {
       </Form.Item>
 
       <Form.Item>
-        <a className="form-forgot" href="">
+        <a className="form-forgot" onClick={forgotClick}>
           Forgot password
         </a>
         <Button
@@ -102,7 +115,7 @@ const Signin: FC = () => {
           block>
           Sign In
         </Button>
-        <p className='form-account'>Don&apos;t have an account? <span className='form-signup'>Sign Up</span></p>
+        <p className='form-account'>Don&apos;t have an account? <span className='form-signup' onClick={signupClick}>Sign Up</span></p>
       </Form.Item>
     </Form>
   );

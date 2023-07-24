@@ -42,12 +42,20 @@
       flex-direction: column;
       justify-content: center;
       margin: auto;
-      margin-top: 18%;
-
+      
       .ant-form-item {
         margin-bottom: 0px;
       }
 
+      .form-sign-up {
+        margin-top: 20px;
+        p {
+          font-size: 24px;
+          color: #C20155;
+          font-weight: 600;
+          opacity: 0.8;
+        }
+      }
       .form-sign-in {
         p {
           font-size: 24px;
@@ -138,6 +146,49 @@
         font-weight: 700;
         cursor: pointer;
       }
+
+      .form-item-signup {        
+        label {
+          font-size: 14px;
+          color: #222222;
+          font-weight: 600;
+          opacity: 0.7;
+        }
+
+        input {
+          font-size: 14px;
+          color: #222222;
+          font-weight: 600;
+          opacity: 0.7;
+          background: #F2F2F2;
+          border-radius: 5px;
+        }
+      }
+      .prev-button-div {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .next-button {
+        width: 150px;
+        font-size: 13px;
+        background-color: #C20155;
+        color: white;
+        font-weight: 700;
+        margin-left: 250px;
+        cursor: pointer;
+      }
+
+      .prev-button {
+        width: 150px;
+        font-size: 13px;
+        background-color: #C20155;
+        color: white;
+        font-weight: 700;
+        margin-right: 3px;
+        cursor: pointer;
+      }
+      
     }
   }
 }
