@@ -12,7 +12,6 @@ const Signin: FC<signinProps> = ({signupPageValidation, forgotPageValidation}) =
   const [emailId, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const signupClick = () => {
-    console.log('hfgf');
     signupPageValidation(true);
   };
 
@@ -20,13 +19,11 @@ const Signin: FC<signinProps> = ({signupPageValidation, forgotPageValidation}) =
     forgotPageValidation(true);
   };
 
-  console.log(signupPageValidation,'tttttttttt');
-  console.log(forgotPageValidation, 'forrororor');
   const handleSubmit = () => {
     const params = {
       emailId,
       password,
-      userType: 'Admin',
+      userType: 'merchant',
     };
 
     if (emailId === '' && password === '') {
@@ -57,7 +54,7 @@ const Signin: FC<signinProps> = ({signupPageValidation, forgotPageValidation}) =
           localStorage.setItem('Store_Nme', Store_Name);
           localStorage.setItem('publisherLogin', typeof true);
           localStorage.setItem('menu_collapse', typeof false);
-          navigate('/signup');
+          navigate('/myProfile');
         })
         .catch(() => {
           errorNotification('Please Enter valid Email and Password');
