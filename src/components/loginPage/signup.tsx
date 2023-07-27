@@ -1,4 +1,4 @@
-import React, { useState, type FC, useEffect } from 'react';
+import React, { useState, type FC, useEffect, useRef } from 'react';
 import { Form, Input, Button, Steps, Upload, message, Select } from 'antd';
 import { CameraOutlined } from '@ant-design/icons';
 import Cards from './card';
@@ -27,21 +27,28 @@ const Signup: FC = () => {
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
   const [selectedState, setSelectedState] = useState<State | null>(null);
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
+  const [cityValue, setCityValue] = useState<any>();
+  const [countryId, setCountryId] = useState<any>();
+  const [stateId, setStateId] = useState<any>();
+  const [selectedFileList, setSelectedFileList] = useState([]);
+  const [steps, setSteps] = useState(1);
 
   const onNextClick = () => {
-    if (current <= 1) {
+    if (current <= 2) {
       setCurrent(current + 1);
+      setSteps(steps + 1);
     }
   };
 
   const uploadButton = (
-    <Button style={{ backgroundColor: 'transparent' }}>
+    <Button className='buttonImage' style={{ backgroundColor: 'transparent' }}>
       <CameraOutlined /> Add Profile
     </Button>
   );
 
   const prev = () => {
     setCurrent(current - 1);
+    setSteps(steps - 1);
   };
 
   const fileSize = (size: any) => {
@@ -49,8 +56,17 @@ const Signup: FC = () => {
     return isSize;
   };
 
+  const handleMediaFile = (files: any) => {
+    const { fileList, file } = files;
+    const { status } = file;
+    if (status) {
+      const imgFiles = fileList[0].name;
+      setSelectedFileList(imgFiles);
+    }
+  };
+
   const handleCountryChange = async (value: string) => {
-    console.log(value, 'yyyyyyyyyy');
+    setCountryId(value);
     const selectedCountry = regionDatas.find((country) => country.Country_Id === value);
     const country = selectedCountry?.Country_Id;
     console.log(selectedCountry, 'selectessssCountyt', country);
@@ -67,9 +83,8 @@ const Signup: FC = () => {
 
   const handleStateChange = (value: string) => {
     const selectedState = stateData.find((state) => state.State_Id === value);
-    console.log(selectedState, 'statettette');
     const stateId = selectedState.State_Id;
-    console.log(stateId, 'stateiiiidd');
+    setStateId(stateId);
     setSelectedState(selectedState || null);
     const params = { id: stateId };
     getAllCitiesByStateId(params).then((res) => {
@@ -103,6 +118,33 @@ const Signup: FC = () => {
     });
   };
 
+  const getState = (value: any) => {
+    console.log(value, 'vvvvv');
+    const params = { id: countryId, searchValue: value };
+    console.log(params, 'parammmss for state');
+    getAllStatesByCountryId(params).then((response) => {
+      console.log(response, 'responseee');
+      if (response) {
+        setStateData(response.data);
+      }
+    });
+  };
+
+  const getCities = (value: any) => {
+    setCityValue(value);
+    searchCities();
+  };
+
+  const searchCities = () => {
+    const params = { id: stateId, searchValue: cityValue };
+    console.log(params, 'papapaapap');
+    getAllCitiesByStateId(params).then((response) => {
+      if (response.success) {
+        setCityData(response.data);
+      }
+    });
+  };
+
   useEffect(() => {
     getCountry();
   }, []);
@@ -114,11 +156,16 @@ const Signup: FC = () => {
       className='form'
       layout='vertical'
     >
-      <Form.Item className='form-sign-up' style={{ marginTop: '20px' }}>
-        <div>
+      {current <= 2 && (
+        <div className='form-sign-up'>
           <p>Sign Up</p>
         </div>
-      </Form.Item>
+      )}
+      {current > 2 && (
+        <div className='form-sign-up'>
+          <p>Subscription</p>
+        </div>
+      )}
       {current === 0 &&
         <div>
           <Form.Item
@@ -170,7 +217,7 @@ const Signup: FC = () => {
             rules={[{ required: true, message: 'Please Enter Confirm Password!' }]}>
             <Input.Password
               className='password-label'
-              placeholder='Enter your Confirm Password' 
+              placeholder='Enter your Confirm Password'
               onChange={(e) => setPassword(e.target.value.trim())}
               value={password}
             />
@@ -206,11 +253,14 @@ const Signup: FC = () => {
             rules={[{ required: true, message: 'Please Enter Region!' }]}>
             <Select
               placeholder='Select Country'
+              showSearch
+              onSearch={() => getCountry()}
               onChange={handleCountryChange}
               value={selectedCountry?.Country_Name}
+              optionFilterProp="children"
             >
               {regionDatas.map((country) => (
-                <Select.Option key={country.Country_Name} value={country.Country_Id}>
+                <Select.Option key={country.Country_Name} value={country.Country_Id} onClick={() => handleCountryChange(country)}>
                   {country.Country_Name}
                 </Select.Option>
               ))}
@@ -218,18 +268,20 @@ const Signup: FC = () => {
           </Form.Item>
           <Form.Item
             className='form-item-signup'
-            label='State/Province'
+            label='State'
             required
             colon={false}
-            rules={[{ required: true, message: 'Please Enter State/Province!' }]}>
+            rules={[{ required: true, message: 'Please Enter Region!' }]}>
             <Select
-              placeholder="Select State"
+              placeholder='Select State'
+              showSearch
+              onSearch={(e) => getState(e)}
               onChange={handleStateChange}
-              value={selectedState?.State_Id}
-              disabled={!selectedCountry}
+              value={selectedState?.State_Name}
+              optionFilterProp="children"
             >
-              {stateData?.map((state) => (
-                <Select.Option key={state.State_Id} value={state.State_Id}>
+              {stateData.map((state) => (
+                <Select.Option key={state.State_Name} value={state.State_Id} onClick={() => handleStateChange(state)}>
                   {state.State_Name}
                 </Select.Option>
               ))}
@@ -243,12 +295,15 @@ const Signup: FC = () => {
             rules={[{ required: true, message: 'Please Enter City/County!' }]}>
             <Select
               placeholder="Select City"
+              showSearch
               onChange={handleCityChange}
               value={selectedCity?.City_Id}
+              onSearch={(e) => getCities(e)}
               disabled={!selectedState}
+              optionFilterProp="children"
             >
-              {cityData.map((city) => (
-                <Select.Option key={city.City_Id} value={city.City_Id}>
+              {cityData?.map((city) => (
+                <Select.Option key={city.City_Name} value={city.City_Id} onClick={() => handleCityChange(city)}>
                   {city.City_Name}
                 </Select.Option>
               ))}
@@ -269,32 +324,48 @@ const Signup: FC = () => {
       {current === 2 &&
         <div>
           <Form.Item>
-            {/* <Avatar shape= 'square'></Avatar> */}
-            <Upload
-              name='avatar'
-              listType='picture-card'
-              className='upload'
-              beforeUpload={beforeUpload}
-            // onChange={handleMediaFile}
-            >
-              {uploadButton}
-            </Upload>
+            <div className='upload'>
+              <Upload
+                className='upload'
+                name='file'
+                listType="text"
+                fileList={selectedFileList}
+                multiple={false}
+                beforeUpload={beforeUpload}
+                onChange={handleMediaFile}
+              >
+                {/* {selectedFileList && (
+                  <img src={`${selectedFileList}`}/>
+                )} */}
+                {uploadButton}
+              </Upload>
+            </div>
           </Form.Item>
-          <Form.Item className='subscription' label='Subscription'></Form.Item>
-          <Cards />
+          <div>
+            <Button className='signup-button'>Sign Up</Button>
+          </div>
         </div>
       }
+      {current === 3 && (
+        <div>
+          <Cards />
+          <Button className='payment'>Make Payment</Button>
+        </div>
+      )}
+
       <div>
         <div className='prev-button-div' style={{ marginTop: '20px' }}>
+          <div className='steps'>
+            {`Step${steps}/4`}
+          </div>
           {current > 0 && (
             <Button className='prev-button' onClick={() => prev()}>
               Previous
             </Button>
           )}
-          <Button className='next-button' onClick={onNextClick}>Next</Button>
-        </div>
-        <div>
-          <Steps current={current} />
+          {current < 3 && (
+            <Button className='next-button' onClick={onNextClick}>Next</Button>
+          )}
         </div>
       </div>
     </Form>

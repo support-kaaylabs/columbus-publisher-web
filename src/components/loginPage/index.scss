@@ -164,7 +164,7 @@
           border-radius: 5px;
         }
       }
-
+      
       .password-label {
         background-color: #F2F2F2;
       }
@@ -173,13 +173,31 @@
         flex-direction: row;
       }
 
-      .next-button {
-        width: 100px;
+      .signup-button {
+        margin-top: 150px;
+        margin-left: 300px;
         font-size: 13px;
         background: #570026;
         color: white;
         font-weight: 700;
-        margin-left: 250px;
+      }
+      .payment {
+        margin-top: 20px;
+        margin-left: 300px;
+        width: 150px;
+        font-size: 13px;
+        background: #570026;
+        color: white;
+        font-weight: 700;
+      }
+      .next-button {
+        width: 150px;
+        font-size: 13px;
+        background: #570026;
+        color: white;
+        font-weight: 700;
+        margin-left: 100px;
+        margin-bottom: 100px;
         cursor: pointer;
       }
 
@@ -189,20 +207,41 @@
         background: #570026;
         color: white;
         font-weight: 700;
-        margin-right: 3px;
+        margin-left: 150px;
+        margin-bottom: 100px;
         cursor: pointer;
       }
       .upload {
-        width: 230px;
+        position: absolute;
+        top: 0%;
+        width: 50%;
         height: 150px;
         background-color: rgb(243, 241, 241);
         border-radius: 10px;
       }
+      .input {
+        position: absolute;
+        top: 0%;
+        height: 150px;
+        width: 50%;
+        text-align: center;
+        border-radius: 10px;
+        color: transparent;
+        opacity: 0;
+      }
 
+      .buttonImage {
+        position: absolute;
+        top: 0%;
+        height: 150px;
+        width: 200%;
+        background-color: rgb(243, 241, 241);
+        border-radius: 10px;
+        border-color: none;
+      }
       .subscription {
-        margin-top: 20px;
+        margin-top: 50px;
         font-size: 14px;
-        color: #222222;
         font-weight: 600;
         opacity: 0.7;
       }
@@ -253,6 +292,15 @@
         font-weight: 700;
         font-size: 20px;
         color: #C20155;
+      }
+       
+      .steps {
+        color: #C20155;
+        font-weight: 700;
+        width: 100px;
+        margin-top: 10px;
+        margin-bottom: 100px;
+        // height: 100px;
       }
 
       .avatar {
