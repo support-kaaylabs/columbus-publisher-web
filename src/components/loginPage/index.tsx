@@ -21,9 +21,6 @@ const LoginPage: FC<Props> = ({signupValidate}) => {
   const forgotPageValidation = (e: any) => {
     setForgot(e);
   };
-
-  console.log(signup,'signnnnuupp');
-  console.log(forgot, 'forrrrgot');
   return (
     <Row className='login'>
       <Col span={12} className='login-left'>

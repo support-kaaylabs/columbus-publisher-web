@@ -1,8 +1,11 @@
-import React, { useState, type FC, useEffect, useRef } from 'react';
-import { Form, Input, Button, Steps, Upload, message, Select } from 'antd';
-import { CameraOutlined } from '@ant-design/icons';
+import React, { useState, type FC, useEffect, useRef, MouseEvent } from 'react';
+import { Form, Input, Button, Steps, Upload, message, Select, Popover } from 'antd';
+import { CameraOutlined, ExclamationCircleOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import Cards from './card';
-import { getAllCountries, getAllStatesByCountryId, getAllCitiesByStateId } from '../../../src/shared/urlHelper';
+import { useNavigate } from 'react-router-dom';
+import { successNotification, errorNotification } from '../../../src/shared/globalVariables';
+import { getAllCountries, getAllStatesByCountryId, getAllCitiesByStateId, email_phone_verify, sellerRegister, imageUpload, getImageLocate } from '../../../src/shared/urlHelper';
+import { get } from 'lodash';
 
 interface Country {
   Country_Id: number;
@@ -18,7 +21,16 @@ interface City {
   City_Id: string;
   City_Name: string;
 }
+
+// interface signupProps {
+//   signupPageValidation: any;
+//   forgotPageValidation: any;
+// }
+
 const Signup: FC = () => {
+
+  const [form] = Form.useForm();
+
   const [password, setPassword] = useState('');
   const [current, setCurrent] = useState(0);
   const [regionDatas, setRegionDatas] = useState<any[]>([]);
@@ -32,14 +44,108 @@ const Signup: FC = () => {
   const [stateId, setStateId] = useState<any>();
   const [selectedFileList, setSelectedFileList] = useState([]);
   const [steps, setSteps] = useState(1);
+  const [name, setName] = useState<any>();
+  const [userName, setUserName] = useState<any>('');
+  const [email, setEmail] = useState<any>();
+  const [confirmPassword, setConfirmPassword] = useState<any>();
+  const [gstNumber, setGstNumber] = useState<any>();
+  const [phoneNumber, setPhoneNumber] = useState<any>();
+  const [zipCode, setZipCode] = useState<any>();
+  const [errorType, setErrorType] = useState<any>('');
+  const [errorText, setErrorText] = useState<any>('');
+  const [entityErr, setEntityErr] = useState<boolean>(false);
+  const [userNameErr, setUserNameErr] = useState<boolean>(false);
+  const [emailErr, setEmailErr] = useState<boolean>(false);
+  const [emailValidErr, setEmailValidErr] = useState<boolean>(false);
+  const [passwordErr, setPasswordErr] = useState<boolean>(false);
+  const [passwordTestErr, setPasswordTestErr] = useState<boolean>(false);
+  const [confirmPasswordErr, setConfirmPasswordErr] = useState<boolean>(false);
+  const [phoneNumberErr, setPhoneNumberErr] = useState<boolean>(false);
+  const [phoneNumberTestErr, setPhoneNumberTestErr] = useState<boolean>(false);
+  const [regionErr, setRegionErr] = useState(false);
+  const [stateErr, setStateErr] = useState(false);
+  const [cityErr, setCityErr] = useState(false);
+  const [zipcodeErr, setZipcodeErr] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+
+  const logoHandler = useRef<any>(null);
+  const [cameraIconDisplay, setCameraIconDisplay] = useState<any>(true);
+  const [image, setImage] = useState<any>();
+  const [selectedImage, setSelectedImage] = useState<any>();
+
+  const navigate = useNavigate();
 
   const onNextClick = () => {
-    if (current <= 2) {
-      setCurrent(current + 1);
-      setSteps(steps + 1);
+    //eslint-disable-next-line
+    const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const pass = new RegExp(
+      '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})'
+    );
+    const passwordTest = pass.test(password);
+    if (current === 0) {
+      if (!name) {
+        setEntityErr(true);
+      }
+      if (!userName) {
+        setUserNameErr(true);
+      }
+      if (!email) {
+        console.log('email');
+        setEmailErr(true);
+      }
+      if (reg.test(email) === false) {
+        setEmailValidErr(true);
+      }
+      if (!password) {
+        setPasswordErr(true);
+      }
+      if (!passwordTest) {
+        setPasswordTestErr(true);
+      }
+      if (!confirmPassword) {
+        console.log('confirmPassword');
+        setConfirmPasswordErr(true);
+      }
+      if (password === confirmPassword && email && name && userName) {
+        setCurrent(current + 1);
+        setSteps(steps + 1);
+      } else {
+        console.log('error');
+      }
+    } else if (current === 1) {
+      if (!phoneNumber) {
+        setPhoneNumberErr(true);
+      }
+      if (phoneNumber?.length !== 10) {
+        setPhoneNumberTestErr(true);
+      }
+      if (!selectedCountry) {
+        setRegionErr(true);
+      }
+      if (!selectedState) {
+        console.log('email');
+        setStateErr(true);
+      }
+      if (!selectedCity) {
+        setCityErr(true);
+      }
+      if (!zipCode) {
+        console.log('confirmPassword');
+        setZipcodeErr(true);
+      }
+      if (phoneNumber && selectedCountry && selectedState && selectedCity && zipCode) {
+        setCurrent(current + 1);
+        setSteps(steps + 1);
+      }
+    } else if (current === 2) {
+      if (selectedFileList) {
+        setCurrent(current + 1);
+        setSteps(steps + 1);
+      }
     }
-  };
 
+  };
   const uploadButton = (
     <Button className='buttonImage' style={{ backgroundColor: 'transparent' }}>
       <CameraOutlined /> Add Profile
@@ -56,15 +162,6 @@ const Signup: FC = () => {
     return isSize;
   };
 
-  const handleMediaFile = (files: any) => {
-    const { fileList, file } = files;
-    const { status } = file;
-    if (status) {
-      const imgFiles = fileList[0].name;
-      setSelectedFileList(imgFiles);
-    }
-  };
-
   const handleCountryChange = async (value: string) => {
     setCountryId(value);
     const selectedCountry = regionDatas.find((country) => country.Country_Id === value);
@@ -79,6 +176,7 @@ const Signup: FC = () => {
     });
     setSelectedState(null);
     setSelectedCity(null);
+    setRegionErr(false);
   };
 
   const handleStateChange = (value: string) => {
@@ -93,11 +191,13 @@ const Signup: FC = () => {
       }
     });
     setSelectedCity(null);
+    setStateErr(false);
   };
 
   const handleCityChange = (value: string) => {
     const selectedCity = cityData.find((city) => city.City_Id === value);
     setSelectedCity(selectedCity || null);
+    setCityErr(false);
   };
 
   const beforeUpload = (file: any) => {
@@ -119,11 +219,8 @@ const Signup: FC = () => {
   };
 
   const getState = (value: any) => {
-    console.log(value, 'vvvvv');
     const params = { id: countryId, searchValue: value };
-    console.log(params, 'parammmss for state');
     getAllStatesByCountryId(params).then((response) => {
-      console.log(response, 'responseee');
       if (response) {
         setStateData(response.data);
       }
@@ -137,7 +234,6 @@ const Signup: FC = () => {
 
   const searchCities = () => {
     const params = { id: stateId, searchValue: cityValue };
-    console.log(params, 'papapaapap');
     getAllCitiesByStateId(params).then((response) => {
       if (response.success) {
         setCityData(response.data);
@@ -148,13 +244,159 @@ const Signup: FC = () => {
   useEffect(() => {
     getCountry();
   }, []);
+  const handleEntityNameChange = (e: any) => {
+    setName(e.target.value);
+    setEntityErr(false);
+  };
+
+  const handleUserNameChange = (e: any) => {
+    setUserName(e.target.value);
+    setUserNameErr(false);
+  };
+
+  const handleEmailChange = (e: any) => {
+    setEmail(e.target.value);
+    setEmailErr(false);
+  };
+
+  const handlePasswordChange = (e: any) => {
+    setPassword(e.target.value.trim());
+    setPasswordErr(false);
+    setPasswordTestErr(false);
+  };
+
+  const handleConfirmPasswordChange = (e: any) => {
+    setConfirmPassword(e.target.value.trim());
+    setConfirmPasswordErr(false);
+  };
+
+  const handlePhoneNumberChange = (e: any) => {
+    setPhoneNumber(e.target.value);
+    setPhoneNumberErr(false);
+  };
+
+  const handleZipCode = (e: any) => {
+    setZipCode(e.target.value);
+    setZipcodeErr(false);
+  };
+
+  const handleSubmit = () => {
+    console.log(selectedCountry, 'cccccc');
+    const params = {
+      name,
+      userName,
+      email,
+      password,
+      confirmPassword,
+      gstNumber,
+      phoneNumber,
+      selectedCountry,
+      selectedState,
+      selectedCity,
+      zipCode,
+      selectedFileList
+    };
+    console.log(params, ' pppppppp');
+    // const userId: any = localStorage.getItem('User_ID');
+    // console.log(userId, 'userijmlkdkl');
+    // imageUpload(userId, '', selectedFileList).then((data: any) => {
+    //   if (data.success) {
+    //     console.log('innnn');
+    //     getImageLocate().then((res: any) => {
+    //       console.log('innnn...........');
+    //       const image = get(res, 'data[0].Image', '');
+    //       localStorage.setItem('Image', image);
+    //       setSelectedImage(image);
+    //     });
+    //   }
+    // });
+    const sellerData = {
+      User_Name: userName,
+      Email_ID: email,
+      Password: password,
+      Phone_Number: phoneNumber,
+      Image: selectedImage,
+    };
+    const verifyParams = {
+      emailId: email,
+      phoneNumber: phoneNumber,
+      userType: 'merchant',
+    };
+    
+    email_phone_verify(verifyParams)
+      .then((resp) => {
+        if (resp.success) {
+          const params = {
+            sellerDetails: sellerData,
+            storeDetails: {
+              Store_Name: name,
+              GST_Number: gstNumber,
+              Country: selectedCountry?.Country_Name,
+              Country_Id: countryId,
+              State: selectedState?.State_Name,
+              State_Id: stateId,
+              City: selectedCity?.City_Name,
+              Phone_Number: phoneNumber,
+              Pincode: zipCode,
+              Store_Image: selectedImage,
+            },
+          };
+          console.log(params, 'parammmmss');
+          sellerRegister(params).then((res) => {
+            if (res.success) {
+              console.log(res, 'ressss');
+              const userId: any = res.data.userId;
+              imageUpload(userId, '', selectedFileList).then((data: any) => {
+                if (data.success) {
+                  console.log('innnn');
+                  // signupPageValidation(false);
+                  // forgotPageValidation(false);
+                  navigate('/');
+                }
+              });
+              successNotification('User Registered Successfully');
+            } else {
+              errorNotification('Unable to Register');
+            }
+          });
+        }
+      });
+  };
+  const clickHandler = () => {
+    logoHandler.current.click();
+  };
+
+  const cameraIconHandlerDisplay = (e: MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setCameraIconDisplay(false);
+  };
+
+  const cameraIconHandlerHide = (e: MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setCameraIconDisplay(true);
+  };
+
+  const changeLogoHandler = (event: any) => {
+    const fileUploaded: any = [event.target.files[0]];
+    console.log(fileUploaded, 'fileupppload');
+    const userId: any = localStorage.getItem('User_ID');
+    console.log(userId, 'userId');
+    const img = new Image();
+    img.src = URL.createObjectURL(event.target.files[0]);
+    console.log(img.src, 'srsrrsrsr');
+    setImage(img.src);
+    setSelectedFileList(fileUploaded);
+  };
 
   return (
     <Form
       name='basic'
       size={'large'}
+      form={form}
+      initialValues={{ remember: true }}
       className='form'
       layout='vertical'
+      onFinish={handleSubmit}
     >
       {current <= 2 && (
         <div className='form-sign-up'>
@@ -170,56 +412,137 @@ const Signup: FC = () => {
         <div>
           <Form.Item
             className='form-item-signup'
-            label='Publishing Entity Name'
-            required
-            colon={false}
-            rules={[{ required: true, message: 'Please Enter Publishing Entity Name!' }]}>
+            name="entity"
+            label="Publishing Entity Name"
+            rules={[
+              {
+                required: true,
+                message: 'Please Enter Publishing Entity Name!',
+              },
+            ]}
+            validateStatus={errorType === 'name' ? 'error' : ''}
+            help={errorType === 'name' ? errorText : ''}>
             <Input
               type='text'
-              placeholder='Enter Publishing Entity Name' />
+              placeholder='Enter Publishing Entity Name'
+              onChange={(e) => handleEntityNameChange(e)}
+              value={name} />
+            {entityErr === true && (
+              <div className='error'>Please Enter Publishing Entity Name</div>
+            )}
           </Form.Item>
           <Form.Item
             className='form-item-signup'
-            label='UserName'
-            required
-            colon={false}
-            rules={[{ required: true, message: 'Please Enter UserName!' }]}>
+            name="username"
+            label="UserName"
+            rules={[
+              {
+                required: true,
+                message: 'Please Enter UserName!',
+              },
+            ]}>
             <Input
               type='text'
-              placeholder='Enter your UserName' />
+              placeholder='Enter your UserName'
+              onChange={(e) => handleUserNameChange(e)}
+              value={userName} />
+            {userNameErr === true && (
+              <div className='error'>Please Enter your UserName</div>
+            )}
           </Form.Item>
           <Form.Item
             className='form-item-signup'
+            name='email'
             label='Email Address'
             required
             colon={false}
-            rules={[{ required: true, message: 'Please Enter Your Email Address!' }]}>
+            rules={[
+              {
+                type: 'email',
+                message: 'The input is not valid E-mail!',
+              },
+              {
+                required: true,
+                message: 'Please input your E-mail!',
+              },
+            ]}>
             <Input
               type='email'
-              placeholder='Enter Your Email Address' />
+              placeholder='Enter Your Email Address'
+              onChange={(e) => handleEmailChange(e)}
+              value={email} />
+            {emailErr === true  && (
+              <div className='error'>Please Enter Valid Email Address</div>
+            )}
           </Form.Item>
           <Form.Item
             className='form-item-signup'
+            name='password'
             label='Password '
             required
             colon={false}
-            rules={[{ required: true, message: 'Please Enter Password !' }]}>
-            <Input.Password
-              className='password-label'
-              type='password'
-              placeholder='Enter your Password ' />
+            rules={[
+              {
+                required: true,
+                message: 'Please input your password!',
+              },
+            ]}
+          >
+            <Popover
+              content={
+                <div className='ant-popover-inner-content'>
+                  {/* <p style={{marginTop: '10px'}}>Password requirements:</p> */}
+                  <ul>
+                    <li>At least 8 characters</li>
+                    <li>Contains at least one uppercase letter</li>
+                    <li>Contains at least one lowercase letter</li>
+                    <li>Contains at least one number</li>
+                    <li>Contains at least one special character</li>
+                  </ul>
+                </div>
+              }
+              placement="right"
+            >
+              <Input.Password
+                className='password-label'
+                type='password'
+                placeholder='Enter your Password '
+                onChange={(e) => handlePasswordChange(e)}
+                value={password} />
+            </Popover>
+            {passwordErr === true && (
+              <div className='error'>Please Enter your Password</div>
+            )}
+            {passwordTestErr === true && (
+              <div className='error'>Password must contain a minimum of 8 letters and at least one special character, one number, one Capital and one Small letters.</div>
+            )}
           </Form.Item>
           <Form.Item
             className='form-item-signup'
+            name='confirm'
             label='Confirm Password'
+            dependencies={['password']}
             required
             colon={false}
-            rules={[{ required: true, message: 'Please Enter Confirm Password!' }]}>
+            rules={[
+              {
+                required: true,
+                message: 'Please confirm your password!',
+              },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(new Error('The new password that you entered do not match!'));
+                },
+              }),
+            ]}>
             <Input.Password
               className='password-label'
               placeholder='Enter your Confirm Password'
-              onChange={(e) => setPassword(e.target.value.trim())}
-              value={password}
+              onChange={(e) => handleConfirmPasswordChange(e)}
+              value={confirmPassword}
             />
           </Form.Item>
           <Form.Item
@@ -229,7 +552,9 @@ const Signup: FC = () => {
             rules={[{ required: true, message: 'Please Enter GST Number!' }]}>
             <Input
               type='text'
-              placeholder='Enter your GST Number' />
+              placeholder='Enter your GST Number'
+              onChange={(e) => setGstNumber(e.target.value.trim())}
+              value={gstNumber} />
           </Form.Item>
         </div>
       }
@@ -237,20 +562,35 @@ const Signup: FC = () => {
         <div>
           <Form.Item
             className='form-item-signup'
-            label='Phone Number'
-            required
-            colon={false}
-            rules={[{ required: true, message: 'Please Enter Phone Number!' }]}>
+            name="phone"
+            label="Phone Number"
+            rules={[
+              {
+                required: true,
+                message: 'Please Enter Phone Number!',
+              },
+            ]}>
             <Input
-              type='text'
-              placeholder='Enter Phone Number' />
+              type='tel'
+              maxLength={10}
+              pattern="[0-9]{10}"
+              placeholder='Please enter a 10-digit phone number.'
+              onChange={(e) => handlePhoneNumberChange(e)}
+              value={phoneNumber} />
+            {phoneNumberErr === true  &&(
+              <div className='error'>Please enter a 10-digit phone number.</div>
+            )}
           </Form.Item>
           <Form.Item
             className='form-item-signup'
-            label='Region'
-            required
-            colon={false}
-            rules={[{ required: true, message: 'Please Enter Region!' }]}>
+            name="Region"
+            label="Region"
+            rules={[
+              {
+                required: true,
+                message: 'Please Enter Region!',
+              },
+            ]}>
             <Select
               placeholder='Select Country'
               showSearch
@@ -265,13 +605,20 @@ const Signup: FC = () => {
                 </Select.Option>
               ))}
             </Select>
+            {regionErr === true && (
+              <div className='error'>Please Please Enter Region!</div>
+            )}
           </Form.Item>
           <Form.Item
             className='form-item-signup'
-            label='State'
-            required
-            colon={false}
-            rules={[{ required: true, message: 'Please Enter Region!' }]}>
+            name="State"
+            label="State"
+            rules={[
+              {
+                required: true,
+                message: 'Please Enter State!',
+              },
+            ]}>
             <Select
               placeholder='Select State'
               showSearch
@@ -286,13 +633,20 @@ const Signup: FC = () => {
                 </Select.Option>
               ))}
             </Select>
+            {stateErr === true && (
+              <div className='error'>Please Please Enter State!</div>
+            )}
           </Form.Item>
           <Form.Item
             className='form-item-signup'
-            label='City/County'
-            required
-            colon={false}
-            rules={[{ required: true, message: 'Please Enter City/County!' }]}>
+            name="City/County"
+            label="City/County"
+            rules={[
+              {
+                required: true,
+                message: 'Please Enter City/County!',
+              },
+            ]}>
             <Select
               placeholder="Select City"
               showSearch
@@ -308,27 +662,80 @@ const Signup: FC = () => {
                 </Select.Option>
               ))}
             </Select>
+            {cityErr === true && (
+              <div className='error'>Please Please Enter City/County!</div>
+            )}
           </Form.Item>
           <Form.Item
             className='form-item-signup'
-            label='Zip code'
-            required
-            colon={false}
-            rules={[{ required: true, message: 'Please Enter Zip code!' }]}>
+            name="zip"
+            label="ZipCode"
+            rules={[
+              {
+                required: true,
+                message: 'Please Enter ZipCode!',
+              },
+            ]}>
             <Input
               type='text'
-              placeholder='Enter Zip code' />
+              placeholder='Enter Zip code'
+              onChange={(e) => handleZipCode(e)}
+              value={zipCode} />
+            {zipcodeErr === true && (
+              <div className='error'>Please Enter Zip code</div>
+            )}
           </Form.Item>
         </div>
       }
       {current === 2 &&
         <div>
           <Form.Item>
-            <div className='upload'>
+            <div
+              className="user-img-logo-content"
+              onMouseLeave={cameraIconHandlerHide}
+            >
+              <div
+                className="profile-head"
+                onMouseEnter={cameraIconHandlerDisplay}
+              >
+                <div className="profile-logo-img">
+                  <img src={image} alt="" className="profile-img" />
+                </div>
+              </div>
+              <div
+                className={
+                  cameraIconDisplay ? 'camera-icon-hide' : 'camera-icon'
+                }
+                onClick={clickHandler}
+              >
+                {uploadButton}
+                <input
+                  type="file"
+                  accept="image/*"
+                  ref={logoHandler}
+                  onChange={changeLogoHandler}
+                  className="input"
+                />
+              </div>
+            </div>
+            {/* <Upload
+              name="avatar"
+              listType="picture-card"
+              
+              // className="avatar-uploader"
+              // showUploadList={false}
+              // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              // fileList={selectedFileList}
+              beforeUpload={beforeUpload}
+              onChange={handleMediaFile}
+            >
+              {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+            </Upload> */}
+            {/* <div className='upload'>
               <Upload
                 className='upload'
                 name='file'
-                listType="text"
+                // listType="text"
                 fileList={selectedFileList}
                 multiple={false}
                 beforeUpload={beforeUpload}
@@ -337,13 +744,20 @@ const Signup: FC = () => {
                 {/* {selectedFileList && (
                   <img src={`${selectedFileList}`}/>
                 )} */}
-                {uploadButton}
+            {/* {uploadButton}
               </Upload>
+            </div> */}
+          </Form.Item>
+          <Form.Item>
+            {/* <div>
+              <Button className='signup-button'>Cancel</Button>
+            </div> */}
+            <div>
+              <Button
+                htmlType="submit"
+                className='signup-button'>Sign Up</Button>
             </div>
           </Form.Item>
-          <div>
-            <Button className='signup-button'>Sign Up</Button>
-          </div>
         </div>
       }
       {current === 3 && (
@@ -352,7 +766,6 @@ const Signup: FC = () => {
           <Button className='payment'>Make Payment</Button>
         </div>
       )}
-
       <div>
         <div className='prev-button-div' style={{ marginTop: '20px' }}>
           <div className='steps'>

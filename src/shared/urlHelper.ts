@@ -37,3 +37,7 @@ export const getAllCountries = () => http.get('get-all-country');
 export const getAllStatesByCountryId = (data: any) => http.post('get-all-states',data);
 
 export const getAllCitiesByStateId = (data: any) => http.post('get-all-cities',data);
+
+export const email_phone_verify = (data: any) => http.get('verification', data);
+
+export const sellerRegister = (data: any) => http.post('seller-register', data);
