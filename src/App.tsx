@@ -9,7 +9,7 @@
 // import MenuIcon from './components/HomePage/Images/menuIconSmall.png';
 // import AvatarLogo from './components/Images/avatar-menu-logo.svg';
 // import { ProductIcon, DashboardIcon } from './components/icons/svgIcons';
-// import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/Dashboard';
 // import ProductList from './components/Product';
 // import ProductDetail from './components/Product/detail';
 // import UserProfile from './components/Home/userProfile';
@@ -21,6 +21,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.scss';
 import LoginPage from './components/loginPage';
 import Signup from './components/loginPage/signup';
+import ForgotPassword from './components/loginPage/ForgotPassword';
 
 const App: FC = () => {
   // const locate = window.location.href;
@@ -104,6 +105,7 @@ const App: FC = () => {
   // }, [slug]);
 
   return (
+    
     // <Layout className="header">
     //   <Row>
     //     <Col sm={0} xs={0} md={0} lg={8} xl={10}>
@@ -359,8 +361,10 @@ const App: FC = () => {
       <Route path=":dashboard" element={<Dashboard />} />
       <Route path="myProfile" element={<UserProfile />} />
     </Route> */}
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={<LoginPage signupValidate={false}/>} />
+        <Route path=":dashboard" element={<Dashboard />} />
+        <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} /> 
       </Routes>
     </BrowserRouter>
   );

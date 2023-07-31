@@ -147,14 +147,8 @@ class Http {
   handleMultipart(url, obj, file, method, options = {}) {
     const formData = new FormData();
     if (obj) Object.keys(obj).forEach((key) => formData.append(key, obj[key]));
-    file.map((obj) => {
-      formData.append('file', obj || '');
-      if (!_.get(options, 'removeProductID', false)) {
-        let productId = obj && obj.name.substring(0, obj.name.indexOf('-'));
-        formData.append('Product_ID', productId);
-      }
-      return obj;
-    });
+    formData.append('file', file);
+    
     const postOptions = { method, body: formData };
     options = Object.assign({}, options, postOptions);
     const optionsWithHeaders = this.createOptions(url, options, true);
