@@ -105,6 +105,7 @@ const App: FC = () => {
   // }, [slug]);
 
   return (
+    
     // <Layout className="header">
     //   <Row>
     //     <Col sm={0} xs={0} md={0} lg={8} xl={10}>
@@ -361,7 +362,7 @@ const App: FC = () => {
       <Route path="myProfile" element={<UserProfile />} />
     </Route> */}
         <Route path="/" element={<LoginPage signupValidate={false}/>} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
         <Route path="/forgot-password" element={<ForgotPassword />} /> 
       </Routes>
     </BrowserRouter>

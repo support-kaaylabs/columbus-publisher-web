@@ -32,3 +32,41 @@
     }
   }
 }
+
+.side-menu {
+  min-height: auto;
+  margin-top: 155px !important;
+  &.ant-menu.ant-menu-dark {
+    width: 207px;
+    & .ant-menu-item-selected {
+      background-color: #65638a;
+    }
+    & .ant-menu-submenu-selected {
+      background-color: #65638a;
+      & .ant-menu-item-selected {
+        background-color: #9e9e9e;
+      }
+    }
+  }
+}
+
+.side-menu-collapsed {
+  min-height: auto;
+  margin-top: 54px !important;
+  &.ant-menu.ant-menu-dark {
+    width: 207px;
+    & .ant-menu-item-selected {
+      background-color: #65638a;
+    }
+    & .ant-menu-submenu-selected {
+      background-color: #65638a;
+      & .ant-menu-item-selected {
+        background-color: #9e9e9e;
+      }
+    }
+  }
+}
+
+.img-div {
+  width: 5px;
+}

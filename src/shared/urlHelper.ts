@@ -40,4 +40,4 @@ export const getAllCitiesByStateId = (data: any) => http.post('get-all-cities',d
 
 export const email_phone_verify = (data: any) => http.get('verification', data);
 
-export const sellerRegister = (data: any) => http.post('seller-register', data);
+export const sellerRegister = (data: any, file: any) => http.handleMultipart('seller-register', data, file,'POST');

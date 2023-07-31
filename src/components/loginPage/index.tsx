@@ -34,7 +34,7 @@ const LoginPage: FC<Props> = ({signupValidate}) => {
       </Col>
       <Col span={12} className='login-right'>
         {signup &&
-        <Signup/>
+        <Signup signupPageValidation={signupPageValidation} forgotPageValidation={forgotPageValidation}/>
         }
         {forgot &&
         <ForgotPassword />

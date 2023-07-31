@@ -1,5 +1,5 @@
 import React, { useState, type FC, useEffect, useRef, MouseEvent } from 'react';
-import { Form, Input, Button, Steps, Upload, message, Select, Popover } from 'antd';
+import { Form, Input, Button, Steps, Upload, Progress, Select, Popover } from 'antd';
 import { CameraOutlined, ExclamationCircleOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import Cards from './card';
 import { useNavigate } from 'react-router-dom';
@@ -22,12 +22,12 @@ interface City {
   City_Name: string;
 }
 
-// interface signupProps {
-//   signupPageValidation: any;
-//   forgotPageValidation: any;
-// }
+interface signupProps {
+  signupPageValidation: any;
+  forgotPageValidation: any;
+}
 
-const Signup: FC = () => {
+const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation }) => {
 
   const [form] = Form.useForm();
 
@@ -42,7 +42,7 @@ const Signup: FC = () => {
   const [cityValue, setCityValue] = useState<any>();
   const [countryId, setCountryId] = useState<any>();
   const [stateId, setStateId] = useState<any>();
-  const [selectedFileList, setSelectedFileList] = useState([]);
+  const [selectedFileList, setSelectedFileList] = useState({});
   const [steps, setSteps] = useState(1);
   const [name, setName] = useState<any>();
   const [userName, setUserName] = useState<any>('');
@@ -60,6 +60,7 @@ const Signup: FC = () => {
   const [passwordErr, setPasswordErr] = useState<boolean>(false);
   const [passwordTestErr, setPasswordTestErr] = useState<boolean>(false);
   const [confirmPasswordErr, setConfirmPasswordErr] = useState<boolean>(false);
+  const [testConfirmPassword, setTestConfirmPassword] = useState<boolean>(false);
   const [phoneNumberErr, setPhoneNumberErr] = useState<boolean>(false);
   const [phoneNumberTestErr, setPhoneNumberTestErr] = useState<boolean>(false);
   const [regionErr, setRegionErr] = useState(false);
@@ -107,7 +108,11 @@ const Signup: FC = () => {
         console.log('confirmPassword');
         setConfirmPasswordErr(true);
       }
+      if (password !== confirmPassword) {
+        setTestConfirmPassword(true);
+      }
       if (password === confirmPassword && email && name && userName) {
+        setTestConfirmPassword(false);
         setCurrent(current + 1);
         setSteps(steps + 1);
       } else {
@@ -217,6 +222,39 @@ const Signup: FC = () => {
       }
     });
   };
+  const evaluatePasswordStrength = (password: any) => {
+    const lengthRegex = /.{8,}/;
+    const specialCharacterRegex = /[^A-Za-z0-9]/;
+    const uppercaseRegex = /[A-Z]/;
+    const lowercaseRegex = /[a-z]/;
+    const numberRegex = /\d/;
+
+    let strength = 0;
+
+    if (lengthRegex.test(password)) {
+      strength += 20;
+    }
+
+    if (specialCharacterRegex.test(password)) {
+      strength += 20;
+    }
+
+    if (uppercaseRegex.test(password)) {
+      strength += 20;
+    }
+
+    if (lowercaseRegex.test(password)) {
+      strength += 20;
+    }
+
+    if (numberRegex.test(password)) {
+      strength += 20;
+    }
+
+    return strength;
+  };
+
+  const passwordStrength = evaluatePasswordStrength(password);
 
   const getState = (value: any) => {
     const params = { id: countryId, searchValue: value };
@@ -280,8 +318,18 @@ const Signup: FC = () => {
     setZipcodeErr(false);
   };
 
+  const empty = () => {
+    setName('');
+    setUserName('');
+    setPassword('');
+    setConfirmPassword('');
+    setGstNumber('');
+    setPhoneNumber('');
+    // setSelectedCountry();
+    setZipCode('');
+    setSelectedFileList({});
+  };
   const handleSubmit = () => {
-    console.log(selectedCountry, 'cccccc');
     const params = {
       name,
       userName,
@@ -296,65 +344,36 @@ const Signup: FC = () => {
       zipCode,
       selectedFileList
     };
-    console.log(params, ' pppppppp');
-    // const userId: any = localStorage.getItem('User_ID');
-    // console.log(userId, 'userijmlkdkl');
-    // imageUpload(userId, '', selectedFileList).then((data: any) => {
-    //   if (data.success) {
-    //     console.log('innnn');
-    //     getImageLocate().then((res: any) => {
-    //       console.log('innnn...........');
-    //       const image = get(res, 'data[0].Image', '');
-    //       localStorage.setItem('Image', image);
-    //       setSelectedImage(image);
-    //     });
-    //   }
-    // });
-    const sellerData = {
-      User_Name: userName,
-      Email_ID: email,
-      Password: password,
-      Phone_Number: phoneNumber,
-      Image: selectedImage,
-    };
     const verifyParams = {
       emailId: email,
       phoneNumber: phoneNumber,
       userType: 'merchant',
     };
-    
+
     email_phone_verify(verifyParams)
       .then((resp) => {
         if (resp.success) {
           const params = {
-            sellerDetails: sellerData,
-            storeDetails: {
-              Store_Name: name,
-              GST_Number: gstNumber,
-              Country: selectedCountry?.Country_Name,
-              Country_Id: countryId,
-              State: selectedState?.State_Name,
-              State_Id: stateId,
-              City: selectedCity?.City_Name,
-              Phone_Number: phoneNumber,
-              Pincode: zipCode,
-              Store_Image: selectedImage,
-            },
+            User_Name: userName,
+            Email_ID: email,
+            Password: password,
+            Phone_Number: phoneNumber,
+            Store_Name: name,
+            GST_Number: gstNumber,
+            Country: selectedCountry?.Country_Name,
+            Country_Id: countryId,
+            State: selectedState?.State_Name,
+            State_Id: stateId,
+            City: selectedCity?.City_Name,
+            Pincode: zipCode,
           };
-          console.log(params, 'parammmmss');
-          sellerRegister(params).then((res) => {
+          sellerRegister(params, selectedFileList).then((res) => {
             if (res.success) {
-              console.log(res, 'ressss');
-              const userId: any = res.data.userId;
-              imageUpload(userId, '', selectedFileList).then((data: any) => {
-                if (data.success) {
-                  console.log('innnn');
-                  // signupPageValidation(false);
-                  // forgotPageValidation(false);
-                  navigate('/');
-                }
-              });
+              signupPageValidation(false);
+              forgotPageValidation(false);
+              navigate('/');
               successNotification('User Registered Successfully');
+              empty();
             } else {
               errorNotification('Unable to Register');
             }
@@ -365,6 +384,18 @@ const Signup: FC = () => {
   const clickHandler = () => {
     logoHandler.current.click();
   };
+
+  const list = [{
+    item: 'At least 8 characters'
+  }, {
+    item: 'Contains at least one uppercase letter'
+  }, {
+    item: 'Contains at least one lowercase letter'
+  }, {
+    item: 'Contains at least one special character'
+  }, {
+    item: 'Contains at least one number '
+  }];
 
   const cameraIconHandlerDisplay = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -377,13 +408,10 @@ const Signup: FC = () => {
   };
 
   const changeLogoHandler = (event: any) => {
-    const fileUploaded: any = [event.target.files[0]];
-    console.log(fileUploaded, 'fileupppload');
+    const fileUploaded: any = event.target.files[0];
     const userId: any = localStorage.getItem('User_ID');
-    console.log(userId, 'userId');
     const img = new Image();
     img.src = URL.createObjectURL(event.target.files[0]);
-    console.log(img.src, 'srsrrsrsr');
     setImage(img.src);
     setSelectedFileList(fileUploaded);
   };
@@ -471,7 +499,7 @@ const Signup: FC = () => {
               placeholder='Enter Your Email Address'
               onChange={(e) => handleEmailChange(e)}
               value={email} />
-            {emailErr === true  && (
+            {emailErr === true && (
               <div className='error'>Please Enter Valid Email Address</div>
             )}
           </Form.Item>
@@ -490,26 +518,67 @@ const Signup: FC = () => {
           >
             <Popover
               content={
-                <div className='ant-popover-inner-content'>
-                  {/* <p style={{marginTop: '10px'}}>Password requirements:</p> */}
-                  <ul>
-                    <li>At least 8 characters</li>
-                    <li>Contains at least one uppercase letter</li>
-                    <li>Contains at least one lowercase letter</li>
-                    <li>Contains at least one number</li>
-                    <li>Contains at least one special character</li>
+                <div className='popover'>
+                  <ul style={{ fontSize: '10px' }}>
+                    {list.map((item) => (
+                      // eslint-disable-next-line react/jsx-key
+                      <li>{item.item}</li>
+                    ))}
                   </ul>
                 </div>
               }
-              placement="right"
+              placement="bottom"
             >
               <Input.Password
                 className='password-label'
+                minLength={8}
                 type='password'
                 placeholder='Enter your Password '
                 onChange={(e) => handlePasswordChange(e)}
                 value={password} />
             </Popover>
+            {passwordStrength > 30 && (
+              <>
+                <Progress
+                  type='line'
+                  style={{ marginTop: 10, height: '1px', width: '100px' }}
+                  percent={100}
+                  size='small'
+                  status='exception'
+                  showInfo={false}
+                />
+                {passwordStrength > 30 && passwordStrength < 50 && (
+                  <div className='error'>Your Password is Weak!</div>
+
+                )}
+              </>
+            )}
+            {passwordStrength > 50 && (
+              <>
+                <Progress
+                  type='line'
+                  style={{ marginTop: 10, height: '1px', width: '100px' }}
+                  percent={100}
+                  size='small'
+                  showInfo={false}
+                />
+                {passwordStrength > 50 && passwordStrength < 80 && (
+                  <div className='error'>Your Password is Good!</div>
+                )}
+              </>
+            )}
+            {passwordStrength > 80 && (
+              <>
+                <Progress
+                  type='line'
+                  style={{ marginTop: 10, height: '1px', width: '100px' }}
+                  percent={100}
+                  size='small'
+                  showInfo={false}
+                />
+                <div className='error'>Your Password is Strong!</div>
+              </>
+            )}
             {passwordErr === true && (
               <div className='error'>Please Enter your Password</div>
             )}
@@ -529,14 +598,6 @@ const Signup: FC = () => {
                 required: true,
                 message: 'Please confirm your password!',
               },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (!value || getFieldValue('password') === value) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(new Error('The new password that you entered do not match!'));
-                },
-              }),
             ]}>
             <Input.Password
               className='password-label'
@@ -544,6 +605,9 @@ const Signup: FC = () => {
               onChange={(e) => handleConfirmPasswordChange(e)}
               value={confirmPassword}
             />
+            {testConfirmPassword === true && (
+              <div className='error'>Password and Confirm Password doesnot match</div>
+            )}
           </Form.Item>
           <Form.Item
             className='form-item-signup'
@@ -577,7 +641,7 @@ const Signup: FC = () => {
               placeholder='Please enter a 10-digit phone number.'
               onChange={(e) => handlePhoneNumberChange(e)}
               value={phoneNumber} />
-            {phoneNumberErr === true  &&(
+            {phoneNumberErr === true && (
               <div className='error'>Please enter a 10-digit phone number.</div>
             )}
           </Form.Item>
@@ -718,40 +782,9 @@ const Signup: FC = () => {
                 />
               </div>
             </div>
-            {/* <Upload
-              name="avatar"
-              listType="picture-card"
-              
-              // className="avatar-uploader"
-              // showUploadList={false}
-              // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              // fileList={selectedFileList}
-              beforeUpload={beforeUpload}
-              onChange={handleMediaFile}
-            >
-              {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-            </Upload> */}
-            {/* <div className='upload'>
-              <Upload
-                className='upload'
-                name='file'
-                // listType="text"
-                fileList={selectedFileList}
-                multiple={false}
-                beforeUpload={beforeUpload}
-                onChange={handleMediaFile}
-              >
-                {/* {selectedFileList && (
-                  <img src={`${selectedFileList}`}/>
-                )} */}
-            {/* {uploadButton}
-              </Upload>
-            </div> */}
+            
           </Form.Item>
           <Form.Item>
-            {/* <div>
-              <Button className='signup-button'>Cancel</Button>
-            </div> */}
             <div>
               <Button
                 htmlType="submit"
