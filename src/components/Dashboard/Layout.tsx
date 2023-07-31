@@ -1,15 +1,14 @@
 import React, { type FC, useState, useEffect } from 'react';
 import Logo from '../../components/HomePage/Images/COLUMBUS 250 x 150 (1).png';
 import MiniLogo from '../../components/HomePage/Images/C_m 80(1).png';
-import { Layout, Row, Col, Space, Menu, Button, theme } from 'antd';
-import { Link } from 'react-router-dom';
+import { Layout, Row, Col, Space, Menu } from 'antd';
 import { modules } from '../../../src/pages/Dashboard/ModuleHelper';
 import _ from 'lodash';
 import SubMenu from 'antd/es/menu/SubMenu';
 import './index.scss';
 
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Sider } = Layout;
 
 const SliderLayout: FC = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);

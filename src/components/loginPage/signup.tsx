@@ -73,7 +73,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
   const logoHandler = useRef<any>(null);
   const [cameraIconDisplay, setCameraIconDisplay] = useState<any>(true);
   const [image, setImage] = useState<any>();
-  const [selectedImage, setSelectedImage] = useState<any>();
 
   const navigate = useNavigate();
 
@@ -205,16 +204,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     setCityErr(false);
   };
 
-  const beforeUpload = (file: any) => {
-    const { type, size } = file;
-    const isJpgOrPng = type === 'image/jpeg' || type === 'image/png' || type === 'image/webp';
-    const isLt500kb = fileSize(size);
-    if (!isJpgOrPng || !isLt500kb) {
-      (!isLt500kb ? 'Image must be smaller than 500KB!' : 'You can only upload JPG/PNG/WEBP file!');
-    }
-    return isJpgOrPng && isLt500kb;
-  };
-
   const getCountry = async () => {
     await getAllCountries().then((res) => {
       if (res) {
@@ -329,20 +318,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     setSelectedFileList({});
   };
   const handleSubmit = () => {
-    const params = {
-      name,
-      userName,
-      email,
-      password,
-      confirmPassword,
-      gstNumber,
-      phoneNumber,
-      selectedCountry,
-      selectedState,
-      selectedCity,
-      zipCode,
-      selectedFileList
-    };
     const verifyParams = {
       emailId: email,
       phoneNumber: phoneNumber,
@@ -408,7 +383,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
 
   const changeLogoHandler = (event: any) => {
     const fileUploaded: any = event.target.files[0];
-    const userId: any = localStorage.getItem('User_ID');
     const img = new Image();
     img.src = URL.createObjectURL(event.target.files[0]);
     setImage(img.src);
