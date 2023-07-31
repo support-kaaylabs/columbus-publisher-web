@@ -54,7 +54,7 @@ const Signin: FC<signinProps> = ({signupPageValidation, forgotPageValidation}) =
           localStorage.setItem('Store_Nme', Store_Name);
           localStorage.setItem('publisherLogin', typeof true);
           localStorage.setItem('menu_collapse', typeof false);
-          navigate('/slider');
+          navigate('/:dashboard');
         })
         .catch(() => {
           errorNotification('Please Enter valid Email and Password');

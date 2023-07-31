@@ -266,19 +266,20 @@
         background: #570026;
         color: white;
         font-weight: 700;
-        margin-left: 100px;
+        margin-left: 50px;
         margin-bottom: 100px;
         cursor: pointer;
       }
 
       .prev-button {
-        width: 100px;
+        width: 80px;
         font-size: 13px;
-        background: #570026;
-        color: white;
+        background: white;
+        color: #570026;
         font-weight: 700;
-        margin-left: 150px;
+        margin-left: 200px;
         margin-bottom: 100px;
+        border-color: #570026;
         cursor: pointer;
       }
       .upload {
@@ -380,7 +381,9 @@
       .popover {
         max-width: 50px;
       }
-
+      .ant-select-selector {
+        background: #F3f3f3;
+      }
       
     }
   }

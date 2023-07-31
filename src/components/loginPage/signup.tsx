@@ -1,6 +1,6 @@
 import React, { useState, type FC, useEffect, useRef, MouseEvent } from 'react';
 import { Form, Input, Button, Steps, Upload, Progress, Select, Popover } from 'antd';
-import { CameraOutlined, ExclamationCircleOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { CameraOutlined, ArrowLeftOutlined, ArrowRightOutlined, PlusOutlined } from '@ant-design/icons';
 import Cards from './card';
 import { useNavigate } from 'react-router-dom';
 import { successNotification, errorNotification } from '../../../src/shared/globalVariables';
@@ -325,7 +325,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     setConfirmPassword('');
     setGstNumber('');
     setPhoneNumber('');
-    // setSelectedCountry();
     setZipCode('');
     setSelectedFileList({});
   };
@@ -371,7 +370,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             if (res.success) {
               signupPageValidation(false);
               forgotPageValidation(false);
-              navigate('/');
+              navigate('/:dashboard');
               successNotification('User Registered Successfully');
               empty();
             } else {
@@ -645,7 +644,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               <div className='error'>Please enter a 10-digit phone number.</div>
             )}
           </Form.Item>
-          <Form.Item
+          <Form.Item 
             className='form-item-signup'
             name="Region"
             label="Region"
@@ -806,11 +805,11 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
           </div>
           {current > 0 && (
             <Button className='prev-button' onClick={() => prev()}>
-              Previous
+              <ArrowLeftOutlined />
             </Button>
           )}
           {current < 3 && (
-            <Button className='next-button' onClick={onNextClick}>Next</Button>
+            <Button className='next-button' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button>
           )}
         </div>
       </div>

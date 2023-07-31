@@ -9,7 +9,7 @@
 // import MenuIcon from './components/HomePage/Images/menuIconSmall.png';
 // import AvatarLogo from './components/Images/avatar-menu-logo.svg';
 // import { ProductIcon, DashboardIcon } from './components/icons/svgIcons';
-// import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/Dashboard';
 // import ProductList from './components/Product';
 // import ProductDetail from './components/Product/detail';
 // import UserProfile from './components/Home/userProfile';
@@ -362,6 +362,7 @@ const App: FC = () => {
       <Route path="myProfile" element={<UserProfile />} />
     </Route> */}
         <Route path="/" element={<LoginPage signupValidate={false}/>} />
+        <Route path=":dashboard" element={<Dashboard />} />
         <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
         <Route path="/forgot-password" element={<ForgotPassword />} /> 
       </Routes>
