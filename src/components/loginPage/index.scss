@@ -2,7 +2,7 @@
   height: 100vh;
 
   .login-left {
-    background-image: url('../columbusImages/login-background-img.svg');
+    background-image: url('../../assets/Bg@2x.png');
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -261,24 +261,26 @@
         font-weight: 700;
       }
       .next-button {
+        position: fixed;
+        bottom:50px;
         width: 150px;
         font-size: 13px;
         background: #570026;
         color: white;
         font-weight: 700;
-        margin-left: 50px;
-        margin-bottom: 100px;
+        margin-left: 300px;
         cursor: pointer;
       }
 
       .prev-button {
+        position: fixed;
+        bottom:50px;
         width: 80px;
         font-size: 13px;
         background: white;
         color: #570026;
         font-weight: 700;
         margin-left: 200px;
-        margin-bottom: 100px;
         border-color: #570026;
         cursor: pointer;
       }
@@ -366,11 +368,12 @@
       }
        
       .steps {
+        position: fixed;
+        bottom:50px;
         color: #C20155;
         font-weight: 700;
         width: 100px;
         margin-top: 10px;
-        margin-bottom: 100px;
         // height: 100px;
       }
 

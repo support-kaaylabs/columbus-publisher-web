@@ -1,31 +1,43 @@
+import dashboardIcon from '../assets/dashboard.png';
+import benchmark from '../assets/benchbright.png';
+import selectionsdim from '../assets/selectionsbright.png';
+import shoutoutdim from '../assets/shoutoutbright.png';
+import knowledge from '../assets/knowledgeBright.png';
+import settingsdim from '../assets/settingsbright.png';
+import supportdim from '../assets/supportbright.png';
+
 export const modules = [
   {
-    key: '/Dashboard',
-    to: '/Dashboard',
+    key: '/dashboard',
+    to: '/dashboard',
     type: 'dashboard',
     Module_Name: 'Dashboard',
     name: 'Dashboard',
     sequence: 1,
+    icon:dashboardIcon,
   },
   {
-    key: '/Benchmarking',
-    to: '/Benchmarking',
+    key: '/benchmarking',
+    to: '/benchmarking',
     type: 'benchmarking',
     Module_Name: 'Benchmarking',
     name: 'Benchmarking',
     sequence: 2,
+    icon:benchmark,
   },
   {
     key: '/Selections',
-    to: '/Selections',
+    to: '/selections',
     type: 'selections',
     Module_Name: 'Selections',
     name: 'Selections',
     sequence: 3,
+    icon:selectionsdim,
+    darkIcon: benchmark,
     submenu: [
       {
-        key: '/Management',
-        to: '/Management',
+        key: '/dashboard',
+        to: '/:dashboard',
         Module_Name: 'Management',
         name: 'Management',
         sequence: 1,
@@ -53,6 +65,8 @@ export const modules = [
     Module_Name: 'Shoutout',
     name: 'Shoutout',
     sequence: 4,
+    icon:shoutoutdim,
+    darkIcon: benchmark,
   },
   {
     key: '/Knowledge Hub',
@@ -61,6 +75,7 @@ export const modules = [
     Module_Name: 'Knowledge Hub',
     name: 'Knowledge Hub',
     sequence: 5,
+    icon:knowledge,
   },
   {
     key: '/Settings',
@@ -69,12 +84,14 @@ export const modules = [
     Module_Name: 'Settings',
     name: 'Settings',
     sequence: 6,
+    icon:settingsdim,
+    darkIcon: benchmark,
     submenu:[
       {
         key: '/Profile',
         to: '/Profile',
         Module_Name: 'Profile',
-        name: 'Roles',
+        name: 'Profile',
         sequence: 1,
       },
       {
@@ -94,5 +111,6 @@ export const modules = [
     Module_Name: 'Support',
     name: 'Support',
     sequence: 7,
+    icon:supportdim,
   },
 ];
