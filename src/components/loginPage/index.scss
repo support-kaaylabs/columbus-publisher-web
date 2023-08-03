@@ -103,9 +103,6 @@
           opacity: 0.7;
           background: #F2F2F2;
         }
-        .popover {
-          width: 50px;
-        }
 
         .ant-input-affix-wrapper-lg {
           margin-top: 15px;
@@ -113,7 +110,11 @@
           border-radius: 5px;
         }
       }
-
+      .popoverr {
+        .ant-popover-open {
+          width: 50px;
+        }
+      }
       .form-forgot {
         float: right;
         text-decoration: underline;

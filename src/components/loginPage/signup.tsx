@@ -519,16 +519,17 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             ]}
           >
             <Popover
-              style={{ backgroundColor: 'black' }}
+              overlayInnerStyle={{
+                width: '100%',
+                height:'100%'
+              }}
               content={
-                <div className='popover'>
-                  <ul style={{ fontSize: '10px' }}>
-                    {list.map((item) => (
-                      // eslint-disable-next-line react/jsx-key
-                      <li>{item.item}</li>
-                    ))}
-                  </ul>
-                </div>
+                <ul style={{ fontSize: '10px' }}>
+                  {list.map((item) => (
+                    // eslint-disable-next-line react/jsx-key
+                    <li>{item.item}</li>
+                  ))}
+                </ul>
               }
               placement="left"
             >
