@@ -49,6 +49,7 @@ const App: FC = () => {
       <SubMenu
         key={data.key}
         onTitleClick={onSelectMenu}
+        className='ant-submenu-openn'
         title={
           <span>
             <img src={data.icon} className={img === data.key ? 'subimage-bright' : 'subimage-dim'} />
