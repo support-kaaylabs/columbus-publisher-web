@@ -1,21 +1,5 @@
-// import { Col, Row, Popover, Dropdown, Layout, Menu } from 'antd';
-// import Logo from './components/HomePage/Images/logoSymbolLarge.svg';
-// import DefaultUser from './components/Images/defaultUser.png';
-// import MenuLogo from './components/HomePage/Images/menuLogo.svg';
-// import LogoSymbolLarge from './components/HomePage/Images/logoSymbolLarge.svg';
-// import MainLogo from './components/Images/logo.svg';
-// import LogoSymbolSmall from './components/HomePage/Images/logoSymbolSmall.svg';
-// import CloseIcon from './components/HomePage/Images/closeIconSmall.png';
-// import MenuIcon from './components/HomePage/Images/menuIconSmall.png';
-// import AvatarLogo from './components/Images/avatar-menu-logo.svg';
-// import { ProductIcon, DashboardIcon } from './components/icons/svgIcons';
+
 import Dashboard from './pages/Dashboard';
-// import ProductList from './components/Product';
-// import ProductDetail from './components/Product/detail';
-// import UserProfile from './components/Home/userProfile';
-// import type { MenuProps } from 'antd';
-// import { updateUserInfo } from './shared/urlHelper';
-// const { Header, Sider, Content } = Layout;
 import React, { type FC, useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import './App.scss';
@@ -59,7 +43,6 @@ const App: FC = () => {
   };
 
   const loginId = localStorage.getItem('Login');
-  // setLogin(loginId);
   const orderSubMenu = (data: any) => {
     console.log(data, 'datatta');
     return (

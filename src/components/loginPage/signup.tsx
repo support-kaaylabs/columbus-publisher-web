@@ -563,6 +563,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                   style={{ marginTop: 10, height: '1px', width: '100px' }}
                   percent={100}
                   size='small'
+                  status='active'
                   showInfo={false}
                 />
                 {passwordStrength > 50 && passwordStrength < 80 && (
