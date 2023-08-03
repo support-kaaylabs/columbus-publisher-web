@@ -61,7 +61,7 @@ const App: FC = () => {
           {data.submenu.map((val: any) => (
             <Menu.Item key={val.key}
             >
-              <Link to={val.to}></Link>
+              <Link to={val.name}></Link>
               <span className={subkeySelected === val.key ? 'unselected-submenu' : 'selected-submenu'}>{val.name}</span>
             </Menu.Item>
           ))}

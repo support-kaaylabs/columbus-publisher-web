@@ -1,11 +1,10 @@
 import React, { useState, type FC, useEffect, useRef, MouseEvent } from 'react';
-import { Form, Input, Button, Steps, Upload, Progress, Select, Popover } from 'antd';
-import { CameraOutlined, ArrowLeftOutlined, ArrowRightOutlined, PlusOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Select, Row, Col } from 'antd';
+import { CameraOutlined, ArrowLeftOutlined, ArrowRightOutlined, PlusOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import Cards from './card';
 import { useNavigate } from 'react-router-dom';
 import { successNotification, errorNotification } from '../../../src/shared/globalVariables';
 import { getAllCountries, getAllStatesByCountryId, getAllCitiesByStateId, email_phone_verify, sellerRegister, imageUpload, getImageLocate } from '../../../src/shared/urlHelper';
-import { get } from 'lodash';
 
 interface Country {
   Country_Id: number;
@@ -25,6 +24,18 @@ interface City {
 interface signupProps {
   signupPageValidation: any;
   forgotPageValidation: any;
+}
+
+interface passwordProps {
+  upperCaseValidation: boolean;
+  digitValidation: boolean;
+  charValidation: boolean;
+  specialCharValidation: boolean;
+  upperCaseClass: string;
+  digitClass: string;
+  charClass: string;
+  specialCharClass: string;
+
 }
 
 const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation }) => {
@@ -69,9 +80,27 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
   const [zipcodeErr, setZipcodeErr] = useState(false);
   const [uniqueEmailErr, setUniqueEmailerr] = useState(false);
   const [uniquePhoneNumberErr, setUniquePhoneNumberErr] = useState(false);
-
-
-  const [loading, setLoading] = useState(false);
+  const [passwordcheck, setPasswordCheck] = useState<boolean>(false);
+  const [validation, setValidation] = useState<passwordProps>({
+    upperCaseValidation: false,
+    digitValidation: false,
+    charValidation: false,
+    specialCharValidation: false,
+    upperCaseClass: 'check-normal',
+    digitClass: 'check-normal',
+    charClass: 'check-normal',
+    specialCharClass: 'check-normal',
+  });
+  const {
+    upperCaseValidation,
+    digitValidation,
+    charValidation,
+    specialCharValidation,
+    upperCaseClass,
+    digitClass,
+    charClass,
+    specialCharClass,
+  } = validation;
 
   const logoHandler = useRef<any>(null);
   const [cameraIconDisplay, setCameraIconDisplay] = useState<any>(true);
@@ -80,6 +109,26 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
   const navigate = useNavigate();
 
   const onNextClick = async () => {
+    const upperCaseRegex = /(?=.*[a-z])(?=.*[A-Z])/;
+    const digitRegex = /(?=.*?[0-9])/;
+    const characterLengthRegex = /[a-zA-Z0-9].{7,}/;
+    const specialCharRegex = /(?=.*[!@#$%^&*])/;
+    const isUppercaseValidate = upperCaseRegex.test(password);
+    const isDigitValidate = digitRegex.test(password);
+    const isCharacterValidate = characterLengthRegex.test(password);
+    const isSpecialCharValidate = specialCharRegex.test(password);
+    console.log(isUppercaseValidate,isDigitValidate,isCharacterValidate,isSpecialCharValidate, 'vallauau');
+    setValidation({
+      ...validation,
+      upperCaseValidation: isUppercaseValidate,
+      digitValidation: isDigitValidate,
+      charValidation: isCharacterValidate,
+      specialCharValidation: isSpecialCharValidate,
+      upperCaseClass: isUppercaseValidate ? 'check-success' : 'check-error',
+      digitClass: isDigitValidate ? 'check-success' : 'check-error',
+      charClass: isCharacterValidate ? 'check-success' : 'check-error',
+      specialCharClass: isSpecialCharValidate ? 'check-success' : 'check-error',
+    });
     //eslint-disable-next-line
     const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const pass = new RegExp(
@@ -119,6 +168,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
           if (password !== confirmPassword) {
             setTestConfirmPassword(true);
           }
+          
           if (password === confirmPassword && email && name && userName && !emailValidErr && !uniqueEmailErr) {
             if (entityErr || userNameErr || passwordErr || passwordTestErr || testConfirmPassword) {
               console.log('error');
@@ -139,9 +189,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
           if (!phoneNumber) {
             setPhoneNumberErr(true);
           }
-          // if (phoneNumber?.length !== 10) {
-          //   setPhoneNumberTestErr(true);
-          // }
           if (!selectedCountry) {
             setRegionErr(true);
           }
@@ -306,9 +353,10 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
   };
 
   const handlePasswordChange = (e: any) => {
-    setPassword(e.target.value.trim());
+    setPassword(e.target.value);
     setPasswordErr(false);
     setPasswordTestErr(false);
+    setPasswordCheck(true);
   };
 
   const handleConfirmPasswordChange = (e: any) => {
@@ -380,19 +428,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
   const clickHandler = () => {
     logoHandler.current.click();
   };
-
-  const list = [{
-    item: 'At least 8 characters'
-  }, {
-    item: 'Contains at least one uppercase letter'
-  }, {
-    item: 'Contains at least one lowercase letter'
-  }, {
-    item: 'Contains at least one special character'
-  }, {
-    item: 'Contains at least one number '
-  }];
-
   const cameraIconHandlerDisplay = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     setCameraIconDisplay(false);
@@ -517,71 +552,69 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               },
             ]}
           >
-            <Popover
-              overlayInnerStyle={{
-                width: '100%',
-                height: '100%'
-              }}
-              content={
-                <ul style={{ fontSize: '10px' }}>
-                  {list.map((item) => (
-                    // eslint-disable-next-line react/jsx-key
-                    <li>{item.item}</li>
-                  ))}
-                </ul>
-              }
-              placement="left"
-            >
-              <Input.Password
-                className='password-label'
-                minLength={8}
-                type='password'
-                placeholder='Enter your Password '
-                onChange={(e) => handlePasswordChange(e)}
-                value={password} />
-            </Popover>
-            {passwordStrength > 30 && (
-              <>
-                <Progress
-                  type='line'
-                  style={{ marginTop: 10, height: '1px', width: '100px' }}
-                  percent={100}
-                  size='small'
-                  status='exception'
-                  showInfo={false}
-                />
-                {passwordStrength > 30 && passwordStrength < 50 && (
-                  <div className='error'>Your Password is Weak!</div>
-
-                )}
-              </>
-            )}
-            {passwordStrength > 50 && (
-              <>
-                <Progress
-                  type='line'
-                  style={{ marginTop: 10, height: '1px', width: '100px' }}
-                  percent={100}
-                  size='small'
-                  status='active'
-                  showInfo={false}
-                />
-                {passwordStrength > 50 && passwordStrength < 80 && (
-                  <div className='error'>Your Password is Good!</div>
-                )}
-              </>
-            )}
-            {passwordStrength > 80 && (
-              <>
-                <Progress
-                  type='line'
-                  style={{ marginTop: 10, height: '1px', width: '100px' }}
-                  percent={100}
-                  size='small'
-                  showInfo={false}
-                />
-                <div className='error'>Your Password is Strong!</div>
-              </>
+            <Input.Password
+              className='password-label'
+              minLength={8}
+              type='password'
+              placeholder='Enter your Password '
+              onChange={(e) => handlePasswordChange(e)}
+              value={password} />
+            {passwordcheck && (
+              <div className='password-condition-check-div'>
+                <Row>
+                  <Col
+                    xs={24}
+                    sm={24}
+                    md={{ offset: 1, span: 22 }}
+                    lg={{ offset: 3, span: 18 }}
+                    xl={{ offset: 4, span: 16 }}
+                  >
+                    <div className="password-condition-div">
+                      <span className="fs-12 jingle-blue fw-600">
+                        Password Must Contain
+                      </span>
+                      <div style={{ marginTop: '10px'}}>
+                        <p className={upperCaseClass}>
+                          {upperCaseValidation && (
+                            <CheckOutlined className="icon-align" />
+                          )}
+                          {!upperCaseValidation && (
+                            <CloseOutlined className="icon-align" />
+                          )}
+                          At least 1 capital letter and 1 small letter
+                        </p>
+                        <p className={digitClass}>
+                          {digitValidation && (
+                            <CheckOutlined className="icon-align" />
+                          )}
+                          {!digitValidation && (
+                            <CloseOutlined className="icon-align" />
+                          )}
+                          At least 1 number
+                        </p>
+                        <p className={charClass}>
+                          {charValidation && (
+                            <CheckOutlined className="icon-align" />
+                          )}
+                          {!charValidation && (
+                            <CloseOutlined className="icon-align" />
+                          )}
+                          At least 8 Characters
+                        </p>
+                        <p className={specialCharClass}>
+                          {specialCharValidation && (
+                            <CheckOutlined className="icon-align" />
+                          )}
+                          {!specialCharValidation && (
+                            <CloseOutlined className="icon-align" />
+                          )}
+                          At least 1 Special Character
+                        </p>
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
             )}
             {passwordErr === true && (
               <div className='error'>Please Enter your Password</div>
@@ -624,9 +657,10 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               onChange={(e) => setGstNumber(e.target.value.trim())}
               value={gstNumber} />
           </Form.Item>
-        </div>
+        </div >
       }
-      {current === 1 &&
+      {
+        current === 1 &&
         <div>
           <Form.Item
             className='form-item-signup'
@@ -757,7 +791,8 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
           </Form.Item>
         </div>
       }
-      {current === 2 &&
+      {
+        current === 2 &&
         <div>
           <Form.Item>
             <div
@@ -793,12 +828,14 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
           </Form.Item>
         </div>
       }
-      {current === 3 && (
-        <div>
-          <Cards />
-          <Button className='payment'>Make Payment</Button>
-        </div>
-      )}
+      {
+        current === 3 && (
+          <div>
+            <Cards />
+            <Button className='payment'>Make Payment</Button>
+          </div>
+        )
+      }
       <div>
         <div className='prev-button-div' style={{ marginTop: '20px' }}>
           {current < 2 ? (
