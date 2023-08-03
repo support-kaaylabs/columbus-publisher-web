@@ -640,7 +640,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             ]}>
             <Input
               type='tel'
-              maxLength={10}
               pattern="[0-9]{10}"
               placeholder='Please enter a 10-digit phone number.'
               onChange={(e) => handlePhoneNumberChange(e)}
