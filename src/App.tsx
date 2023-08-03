@@ -36,7 +36,6 @@ const App: FC = () => {
   const [menus, setMenus] = useState<any>();
   const [img, setImg] = useState<any>();
   const [openKey, setOpenKey] = useState<any>();
-  const [subMenuSelected, setSubMenuSelected] = useState<any>();
   const [subkeySelected, setSubkeySelected] = useState<any>();
 
 
@@ -49,13 +48,13 @@ const App: FC = () => {
   const onSelectMenu = (key: any) => {
     console.log('selected Key', key);
     console.log(key, 'keyeyeyey');
-    setSubMenuSelected(key);
+    setSubkeySelected(key.key);
     setOpenKey(key);
     setImg(key.key);
     navigate(key.key);
   };
 
-  const onCollapsedChange = (data: any) => {
+  const onCollapsedChange = () => {
     setCollapsed(!collapsed);
   };
 
@@ -97,7 +96,7 @@ const App: FC = () => {
             collapsedWidth={50}
             collapsed={collapsed}
           >
-            <div className='logoss' onClick={() => onCollapsedChange(collapsed)}>
+            <div className='logoss' onClick={() => onCollapsedChange()}>
               <div>
                 <img src={!collapsed ? Logo : MiniLogo} alt='ColumbusLogo' className={!collapsed ? 'logoC' : 'logoColumbus'} />
               </div>

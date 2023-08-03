@@ -95,7 +95,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
       email_phone_verify(verifyParams)
         .then((resp) => {
           console.log(resp, 'resdfkdj');
-
           if (!name) {
             setEntityErr(true);
           }
@@ -129,9 +128,9 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             }
 
           }
-        }).catch((err => {
+        }).catch(() => {
           return setUniqueEmailerr(true);
-        }));
+        });
 
     } else if (current === 1) {
       email_phone_verify(verifyParams)
@@ -159,9 +158,9 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             setCurrent(current + 1);
             setSteps(steps + 1);
           }
-        }).catch((err => {
+        }).catch(() => {
           return setUniquePhoneNumberErr(true);
-        }));
+        });
     } else if (current === 2) {
       if (selectedFileList) {
         setCurrent(current + 1);
