@@ -190,11 +190,11 @@
           display: flex;
           top: 0;
           position: absolute;
-          width: 221px;
-          height: 221px;
-          background-color: #000;
+          width: 200px;
+          height: 130px;
+          background-color: transparent;
           cursor: pointer;
-          opacity: 0.75;
+          opacity: 0;
           border-radius: 10px;
           justify-content: center;
           align-items: center;
@@ -207,8 +207,8 @@
         }
 
         .profile-head {
-          width: 221px;
-          height: 221px;
+          width: 200px;
+          height: 130px;
           border-radius: 10px;
           display: flex;
           justify-content: center;
@@ -225,12 +225,18 @@
             border-radius: 50%;
             cursor: pointer;
             object-fit: cover;
-            width: 215px;
-            height: 215px;
+            width: 200px;
+            height: 130px;
             .profile-img {
               width: 100%;
               height: 100%;
               border-radius: 10px;
+            }
+            .add-profile {
+              position: absolute;
+              top: 50px;
+              left: 50px;
+              margin-left: 1px;
             }
           }
         }
@@ -245,8 +251,9 @@
       }
 
       .signup-button {
-        margin-top: 0px;
-        margin-left: 300px;
+        margin-top: 250px;
+        margin-left: 10px;
+        width: 150px;
         font-size: 13px;
         background: #570026;
         color: white;
@@ -282,7 +289,7 @@
         cursor: pointer;
       }
       .next-button-current2 {
-        margin-top: 200px;
+        margin-top: 250px;
         width: 150px;
         font-size: 13px;
         background: #570026;
@@ -305,7 +312,7 @@
       }
 
       .prev-button-current2 {
-        margin-top: 200px;
+        margin-top: 250px;
         width: 80px;
         font-size: 13px;
         background: white;
@@ -406,7 +413,7 @@
       }
 
       .steps-current2 {
-        margin-top: 200px;
+        margin-top: 253px;
         color: #C20155;
         font-weight: 700;
         width: 100px;

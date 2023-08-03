@@ -520,7 +520,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             <Popover
               overlayInnerStyle={{
                 width: '100%',
-                height:'100%'
+                height: '100%'
               }}
               content={
                 <ul style={{ fontSize: '10px' }}>
@@ -770,6 +770,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               >
                 <div className="profile-logo-img">
                   <img src={image} alt="" className="profile-img" />
+                  <div className='add-profile'><CameraOutlined />    Add Profile</div>
                 </div>
               </div>
               <div
@@ -790,13 +791,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             </div>
 
           </Form.Item>
-          <Form.Item>
-            <div>
-              <Button
-                htmlType="submit"
-                className='signup-button'>Sign Up</Button>
-            </div>
-          </Form.Item>
         </div>
       }
       {current === 3 && (
@@ -809,10 +803,10 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
         <div className='prev-button-div' style={{ marginTop: '20px' }}>
           {current < 2 ? (
             <div className='steps'>
-              {`Step${steps}/4`}
+              {`Step${steps}/3`}
             </div>
           ) : <div className='steps-current2'>
-            {`Step${steps}/4`}
+            {`Step${steps}/3`}
           </div>}
           {current > 0 && (
             current < 2 ?
@@ -823,12 +817,19 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                 <ArrowLeftOutlined />
               </Button>
           )}
-          {current < 3 && (
+          {current < 2 && (
             current === 0 ?
               <Button className='next-button' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button> :
-              current === 1 ?
-                <Button className='next-button-current1' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button> :
-                <Button className='next-button-current2' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button>
+              <Button className='next-button-current1' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button>
+          )}
+          {current === 2 && (
+            <Form.Item>
+              <div>
+                <Button
+                  htmlType="submit"
+                  className='signup-button'>Sign Up</Button>
+              </div>
+            </Form.Item>
           )}
         </div>
       </div>
