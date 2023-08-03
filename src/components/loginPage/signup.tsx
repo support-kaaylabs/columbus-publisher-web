@@ -48,7 +48,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
   const [userName, setUserName] = useState<any>('');
   const [email, setEmail] = useState<any>();
   const [confirmPassword, setConfirmPassword] = useState<any>();
-  const [gstNumber, setGstNumber] = useState<any>();
+  const [gstNumber, setGstNumber] = useState<any>('');
   const [phoneNumber, setPhoneNumber] = useState<any>();
   const [zipCode, setZipCode] = useState<any>();
   const [errorType, setErrorType] = useState<any>('');
@@ -62,11 +62,14 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
   const [confirmPasswordErr, setConfirmPasswordErr] = useState<boolean>(false);
   const [testConfirmPassword, setTestConfirmPassword] = useState<boolean>(false);
   const [phoneNumberErr, setPhoneNumberErr] = useState<boolean>(false);
-  const [phoneNumberTestErr, setPhoneNumberTestErr] = useState<boolean>(false);
+  // const [phoneNumberTestErr, setPhoneNumberTestErr] = useState<boolean>(false);
   const [regionErr, setRegionErr] = useState(false);
   const [stateErr, setStateErr] = useState(false);
   const [cityErr, setCityErr] = useState(false);
   const [zipcodeErr, setZipcodeErr] = useState(false);
+  const [uniqueEmailErr, setUniqueEmailerr] = useState(false);
+  const [uniquePhoneNumberErr, setUniquePhoneNumberErr] = useState(false);
+
 
   const [loading, setLoading] = useState(false);
 
@@ -76,72 +79,88 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
 
   const navigate = useNavigate();
 
-  const onNextClick = () => {
+  const onNextClick = async () => {
     //eslint-disable-next-line
     const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const pass = new RegExp(
       '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})'
     );
+    const verifyParams = {
+      emailId: email,
+      phoneNumber: phoneNumber,
+      userType: 'merchant',
+    };
     const passwordTest = pass.test(password);
     if (current === 0) {
-      if (!name) {
-        setEntityErr(true);
-      }
-      if (!userName) {
-        setUserNameErr(true);
-      }
-      if (!email) {
-        console.log('email');
-        setEmailErr(true);
-      }
-      if (reg.test(email) === false) {
-        setEmailValidErr(true);
-      }
-      if (!password) {
-        setPasswordErr(true);
-      }
-      if (!passwordTest) {
-        setPasswordTestErr(true);
-      }
-      if (!confirmPassword) {
-        console.log('confirmPassword');
-        setConfirmPasswordErr(true);
-      }
-      if (password !== confirmPassword) {
-        setTestConfirmPassword(true);
-      }
-      if (password === confirmPassword && email && name && userName) {
-        setTestConfirmPassword(false);
-        setCurrent(current + 1);
-        setSteps(steps + 1);
-      } else {
-        console.log('error');
-      }
+      email_phone_verify(verifyParams)
+        .then((resp) => {
+          console.log(resp, 'resdfkdj');
+          if (!name) {
+            setEntityErr(true);
+          }
+          if (!userName) {
+            setUserNameErr(true);
+          }
+          if (!email) {
+            setEmailErr(true);
+          }
+          if (reg.test(email) === false) {
+            setEmailValidErr(true);
+          }
+          if (!password) {
+            setPasswordErr(true);
+          }
+          if (!passwordTest) {
+            setPasswordTestErr(true);
+          }
+          if (!confirmPassword) {
+            setConfirmPasswordErr(true);
+          }
+          if (password !== confirmPassword) {
+            setTestConfirmPassword(true);
+          }
+          if (password === confirmPassword && email && name && userName && !emailValidErr && !uniqueEmailErr) {
+            if (entityErr || userNameErr || passwordErr || passwordTestErr || testConfirmPassword) {
+              console.log('error');
+            } else {
+              setCurrent(current + 1);
+              setSteps(steps + 1);
+            }
+
+          }
+        }).catch(() => {
+          return setUniqueEmailerr(true);
+        });
+
     } else if (current === 1) {
-      if (!phoneNumber) {
-        setPhoneNumberErr(true);
-      }
-      if (phoneNumber?.length !== 10) {
-        setPhoneNumberTestErr(true);
-      }
-      if (!selectedCountry) {
-        setRegionErr(true);
-      }
-      if (!selectedState) {
-        console.log('email');
-        setStateErr(true);
-      }
-      if (!selectedCity) {
-        setCityErr(true);
-      }
-      if (!zipCode) {
-        console.log('confirmPassword');
-        setZipcodeErr(true);
-      }
-      if (phoneNumber && selectedCountry && selectedState && selectedCity && zipCode) {
-        setCurrent(current + 1);
-        setSteps(steps + 1);
-      }
+      email_phone_verify(verifyParams)
+        .then((resp) => {
+          console.log(resp, 'resdfkdj');
+          if (!phoneNumber) {
+            setPhoneNumberErr(true);
+          }
+          // if (phoneNumber?.length !== 10) {
+          //   setPhoneNumberTestErr(true);
+          // }
+          if (!selectedCountry) {
+            setRegionErr(true);
+          }
+          if (!selectedState) {
+            setStateErr(true);
+          }
+          if (!selectedCity) {
+            setCityErr(true);
+          }
+          if (!zipCode) {
+            setZipcodeErr(true);
+          }
+          if (phoneNumber && selectedCountry && selectedState && selectedCity && zipCode && !uniquePhoneNumberErr) {
+            setCurrent(current + 1);
+            setSteps(steps + 1);
+          }
+        }).catch(() => {
+          return setUniquePhoneNumberErr(true);
+        });
     } else if (current === 2) {
       if (selectedFileList) {
         setCurrent(current + 1);
@@ -155,7 +174,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
       <CameraOutlined /> Add Profile
     </Button>
   );
-
   const prev = () => {
     setCurrent(current - 1);
     setSteps(steps - 1);
@@ -170,7 +188,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     setCountryId(value);
     const selectedCountry = regionDatas.find((country) => country.Country_Id === value);
     const country = selectedCountry?.Country_Id;
-    console.log(selectedCountry, 'selectessssCountyt', country);
     setSelectedCountry(selectedCountry || null);
     const params = { id: country };
     await getAllStatesByCountryId(params).then((response) => {
@@ -272,18 +289,20 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     getCountry();
   }, []);
   const handleEntityNameChange = (e: any) => {
-    setName(e.target.value);
+    setName(e.target.value.trim());
     setEntityErr(false);
   };
 
   const handleUserNameChange = (e: any) => {
-    setUserName(e.target.value);
+    setUserName(e.target.value.trim());
     setUserNameErr(false);
   };
 
   const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
     setEmailErr(false);
+    setEmailValidErr(false);
+    setUniqueEmailerr(false);
   };
 
   const handlePasswordChange = (e: any) => {
@@ -295,15 +314,18 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
   const handleConfirmPasswordChange = (e: any) => {
     setConfirmPassword(e.target.value.trim());
     setConfirmPasswordErr(false);
+    setTestConfirmPassword(false);
   };
 
   const handlePhoneNumberChange = (e: any) => {
-    setPhoneNumber(e.target.value);
+    setPhoneNumber(e.target.value.trim());
     setPhoneNumberErr(false);
+    // setPhoneNumberTestErr(false);
+    setUniquePhoneNumberErr(false);
   };
 
   const handleZipCode = (e: any) => {
-    setZipCode(e.target.value);
+    setZipCode(e.target.value.trim());
     setZipcodeErr(false);
   };
 
@@ -345,8 +367,8 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             if (res.success) {
               signupPageValidation(false);
               forgotPageValidation(false);
-              navigate('/:dashboard');
               successNotification('User Registered Successfully');
+              navigate('/');
               empty();
             } else {
               errorNotification('Unable to Register');
@@ -472,8 +494,14 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               placeholder='Enter Your Email Address'
               onChange={(e) => handleEmailChange(e)}
               value={email} />
-            {emailErr === true && (
+            {(emailErr === true) && (
               <div className='error'>Please Enter Valid Email Address</div>
+            )}
+            {/* {emailValidErr === true && (
+              <div className='error'>Please Enter Valid Email Address</div>
+            )} */}
+            {uniqueEmailErr === true && (
+              <div className='error'>This email is already taken. Please choose a different one.</div>
             )}
           </Form.Item>
           <Form.Item
@@ -490,17 +518,19 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             ]}
           >
             <Popover
+              overlayInnerStyle={{
+                width: '100%',
+                height:'100%'
+              }}
               content={
-                <div className='popover'>
-                  <ul style={{ fontSize: '10px' }}>
-                    {list.map((item) => (
-                      // eslint-disable-next-line react/jsx-key
-                      <li>{item.item}</li>
-                    ))}
-                  </ul>
-                </div>
+                <ul style={{ fontSize: '10px' }}>
+                  {list.map((item) => (
+                    // eslint-disable-next-line react/jsx-key
+                    <li>{item.item}</li>
+                  ))}
+                </ul>
               }
-              placement="bottom"
+              placement="left"
             >
               <Input.Password
                 className='password-label'
@@ -533,6 +563,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                   style={{ marginTop: 10, height: '1px', width: '100px' }}
                   percent={100}
                   size='small'
+                  status='active'
                   showInfo={false}
                 />
                 {passwordStrength > 50 && passwordStrength < 80 && (
@@ -579,7 +610,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               value={confirmPassword}
             />
             {testConfirmPassword === true && (
-              <div className='error'>Password and Confirm Password doesnot match</div>
+              <div className='error'>Password and Confirm Password does not match</div>
             )}
           </Form.Item>
           <Form.Item
@@ -609,7 +640,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             ]}>
             <Input
               type='tel'
-              maxLength={10}
               pattern="[0-9]{10}"
               placeholder='Please enter a 10-digit phone number.'
               onChange={(e) => handlePhoneNumberChange(e)}
@@ -617,8 +647,11 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             {phoneNumberErr === true && (
               <div className='error'>Please enter a 10-digit phone number.</div>
             )}
+            {uniquePhoneNumberErr === true && (
+              <div className='error'>This Phone Number is already taken. Please choose a different one.</div>
+            )}
           </Form.Item>
-          <Form.Item 
+          <Form.Item
             className='form-item-signup'
             name="Region"
             label="Region"
@@ -755,7 +788,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                 />
               </div>
             </div>
-            
+
           </Form.Item>
           <Form.Item>
             <div>
@@ -774,16 +807,28 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
       )}
       <div>
         <div className='prev-button-div' style={{ marginTop: '20px' }}>
-          <div className='steps'>
+          {current < 2 ? (
+            <div className='steps'>
+              {`Step${steps}/4`}
+            </div>
+          ) : <div className='steps-current2'>
             {`Step${steps}/4`}
-          </div>
+          </div>}
           {current > 0 && (
-            <Button className='prev-button' onClick={() => prev()}>
-              <ArrowLeftOutlined />
-            </Button>
+            current < 2 ?
+              <Button className='prev-button' onClick={() => prev()}>
+                <ArrowLeftOutlined />
+              </Button> :
+              <Button className='prev-button-current2' onClick={() => prev()}>
+                <ArrowLeftOutlined />
+              </Button>
           )}
           {current < 3 && (
-            <Button className='next-button' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button>
+            current === 0 ?
+              <Button className='next-button' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button> :
+              current === 1 ?
+                <Button className='next-button-current1' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button> :
+                <Button className='next-button-current2' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button>
           )}
         </div>
       </div>

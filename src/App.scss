@@ -480,3 +480,184 @@
     }
   }
 }
+.image-bright {
+  opacity: 5;
+  width: 20px;
+  margin-right: 15px;
+  color: white;
+}
+.image-dim {
+  width: 20px;
+  opacity: 50%;
+  margin-right: 15px;
+
+}
+.Sider-Layout {
+  z-index: 2;
+  .ant-menu.ant-menu-inline-collapsed{
+    width: 50px !important;
+  }
+  span {
+    margin-left: 5px !important;
+  }
+  .ant-layout-sider-children {
+    background-color: #570026;
+    position: fixed;
+    .ant-menu-item{
+      padding-left: 1px !important;
+    }
+    .ant-menu-item-selected{
+      padding-left: 1px !important;
+    }
+    .ant-menu-title-content{
+      align-items: left;
+    }
+    overflow-y: scroll;
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar {
+      width: 1px;
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: transparent;
+      background-image: none;
+    }
+    &::-webkit-scrollbar-corner {
+      display: none;
+      height: 0px;
+      width: 0px;
+    }
+  }
+  .ant-menu-submenu-title {
+    padding-left: 0px !important;
+  }
+  
+}
+.logoC {
+  height: 150px;
+  width: 207px;
+  object-fit: fill;
+}
+.logoColumbus {
+  height: 50px;
+  width: 50px;
+  object-fit: contain;
+}
+.logoss {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 1;
+  background-color: #570026;
+  padding: 2px 0;
+  p{
+    margin: 0;
+    color: #fff;
+    padding: 0 1px;
+  }
+}
+.side-menu {
+  min-height: auto;
+  margin-top: 155px !important;
+  &.ant-menu.ant-menu-dark {
+    width: 207px;
+    background-color: #570026;
+    & .ant-menu-submenu-selected {
+      background-color: #570026;
+      & .ant-menu-item-selected {
+        background-color: #570026;
+      }
+    }
+  }
+}
+.side-menu-collapsed {
+  min-height: auto;
+  margin-top: 60px !important;
+  &.ant-menu.ant-menu-dark {
+    width: 207px;
+    background-color: #570026;
+    & .ant-menu-item-selected {
+      background-color: #570026;
+    }
+    & .ant-menu-submenu-selected {
+      background-color: #570026;
+      & .ant-menu-item-selected {
+        background-color: #570026;
+      }
+    }
+  }
+}
+.hide {
+  display: none !important;
+}
+.main-layout {
+  height: auto !important;
+  background: #fcfdfe !important;
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 4px 4px #00000036;
+    background-color: #f9f9f9;
+    border-radius: 0em;
+  }
+}
+
+.submenu-item {
+  .ant-menu-submenu-title {
+    padding-left: 0px !important;
+  }
+}
+
+.main-content {
+  margin: 16px;
+  min-height: auto !important;
+  height: auto;
+}
+
+.spin-Loading {
+  .ant-spin-dot {
+    position: absolute !important;
+    top: 30%;
+    left: 55%;
+  }
+}
+.ant-menu-dark.ant-menu-inline {
+  background-color: 'white';
+}
+.new-submenu {
+  background-color: white;
+  color: #222222;
+  .ant-menu-dark.ant-menu-inline .ant-menu-sub.ant-menu-inline {
+    background-color: none !important;
+  }
+  
+}
+.subimage-bright {
+  opacity: 5;
+  width: 20px;
+  margin-right: 17px;
+}
+.subimage-dim {
+  width: 20px;
+  opacity: 50%;
+  margin-right: 17px;
+
+}
+.selected-submenu {
+  color: #C20155;
+}
+
+.unselected-submenu {
+  color: #222222;
+}
+
+.ant-menu-submenu-open {
+  .ant-menu-submenu-active{
+.ant-menu-dark.ant-menu-inline .ant-menu-sub.ant-menu-inline {
+  background-color: #570026 !important;
+}
+  }
+}

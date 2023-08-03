@@ -54,7 +54,8 @@ const Signin: FC<signinProps> = ({signupPageValidation, forgotPageValidation}) =
           localStorage.setItem('Store_Nme', Store_Name);
           localStorage.setItem('publisherLogin', typeof true);
           localStorage.setItem('menu_collapse', typeof false);
-          navigate('/:dashboard');
+          localStorage.setItem('Login', 'true');
+          navigate('/dashboard');
         })
         .catch(() => {
           errorNotification('Please Enter valid Email and Password');
@@ -71,7 +72,7 @@ const Signin: FC<signinProps> = ({signupPageValidation, forgotPageValidation}) =
       style={{marginTop: '18%'}}
     >
       <Form.Item className='form-sign-in'>
-        <p>Sign in</p>
+        <p>Sign In</p>
       </Form.Item>
       <Form.Item>
         {
@@ -102,7 +103,9 @@ const Signin: FC<signinProps> = ({signupPageValidation, forgotPageValidation}) =
       </Form.Item>
 
       <Form.Item>
-        <a className="form-forgot" onClick={forgotClick}>
+        <a className="form-forgot" 
+          // onClick={forgotClick}
+        >
           Forgot password
         </a>
         <Button
