@@ -261,8 +261,7 @@
         font-weight: 700;
       }
       .next-button {
-        position: fixed;
-        bottom:50px;
+        margin-top: 1px;
         width: 150px;
         font-size: 13px;
         background: #570026;
@@ -271,10 +270,41 @@
         margin-left: 300px;
         cursor: pointer;
       }
+      .next-button-current1 {
+        margin-top: 1px;
+        width: 150px;
+        font-size: 13px;
+        background: #570026;
+        color: white;
+        font-weight: 700;
+        margin-left: 50px;
+        cursor: pointer;
+      }
+      .next-button-current2 {
+        margin-top: 200px;
+        width: 150px;
+        font-size: 13px;
+        background: #570026;
+        color: white;
+        font-weight: 700;
+        margin-left: 50px;
+        cursor: pointer;
+      }
 
       .prev-button {
-        position: fixed;
-        bottom:50px;
+        margin-top: 1px;
+        width: 80px;
+        font-size: 13px;
+        background: white;
+        color: #570026;
+        font-weight: 700;
+        margin-left: 200px;
+        border-color: #570026;
+        cursor: pointer;
+      }
+
+      .prev-button-current2 {
+        margin-top: 200px;
         width: 80px;
         font-size: 13px;
         background: white;
@@ -368,13 +398,17 @@
       }
        
       .steps {
-        position: fixed;
-        bottom:50px;
+        margin-top: 1px;
         color: #C20155;
         font-weight: 700;
         width: 100px;
-        margin-top: 10px;
-        // height: 100px;
+      }
+
+      .steps-current2 {
+        margin-top: 200px;
+        color: #C20155;
+        font-weight: 700;
+        width: 100px;
       }
 
       .avatar {
