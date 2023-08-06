@@ -11,6 +11,7 @@ import MiniLogo from '../src/assets/columbussmall.png';
 import LoginPage from './components/loginPage';
 import Signup from './components/loginPage/signup';
 import ForgotPassword from './components/loginPage/ForgotPassword';
+import { LogoutOutlined } from '@ant-design/icons';
 
 const { Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -18,10 +19,9 @@ const { SubMenu } = Menu;
 const App: FC = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [menus, setMenus] = useState<any>();
-  const [img, setImg] = useState<any>();
+  const [img, setImg] = useState<any>(window.location.pathname);
   const [openKey, setOpenKey] = useState<any>();
   const [subkeySelected, setSubkeySelected] = useState<any>();
-
 
   const navigate = useNavigate();
 
@@ -30,18 +30,22 @@ const App: FC = () => {
     setMenus(val);
   }, []);
   const onSelectMenu = (key: any) => {
-    console.log('selected Key', key);
-    console.log(key, 'keyeyeyey');
     setSubkeySelected(key.key);
     setOpenKey(key);
     setImg(key.key);
     navigate(key.key);
   };
 
+  const logoutClick = () => {
+    const keysToRemove = ['Phone_Number', 'User_Email', 'User_Name', 'User_ID', 'User_Uid', 'User_Type', 'Image', 'token', 'Store_Nme', 'publisherLogin', 'menu_collapse', 'Login'];
+    keysToRemove.forEach(k =>
+      localStorage.removeItem(k));
+    window.location.href = '/';
+  };
+
   const onCollapsedChange = () => {
     setCollapsed(!collapsed);
   };
-
   const loginId = localStorage.getItem('Login');
   const orderSubMenu = (data: any) => {
     console.log(data, 'datatta');
@@ -53,7 +57,7 @@ const App: FC = () => {
         title={
           <span>
             <img src={data.icon} className={img === data.key ? 'subimage-bright' : 'subimage-dim'} />
-            <span >{data.Module_Name}</span>
+            <span className={img === data.key ? 'title-bright' : 'title-dim'}>{data.Module_Name}</span>
           </span>
         }
       >
@@ -62,7 +66,9 @@ const App: FC = () => {
             <Menu.Item key={val.key}
             >
               <Link to={val.name}></Link>
-              <span className={subkeySelected === val.key ? 'unselected-submenu' : 'selected-submenu'}>{val.name}</span>
+              <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <div>o</div><span className={subkeySelected === val.key ? 'selected-submenu' : 'unselected-submenu'}>{val.name}</span>
+              </div>
             </Menu.Item>
           ))}
         </div>
@@ -89,6 +95,7 @@ const App: FC = () => {
               mode='inline'
               onClick={onSelectMenu}
               selectedKeys={openKey}
+              defaultSelectedKeys={['/dashboard']}
               theme='dark'
               className={!collapsed ? 'side-menu' : 'side-menu-collapsed'}
             >
@@ -100,15 +107,27 @@ const App: FC = () => {
                         key={val.key}
                       >
                         <Link to={val.to}></Link>
+                        {/* <div style={{display: 'flex', flexDirection: 'row'}}>
+                          {img === val.key && (
+                            <div className='side-progress'></div>
+                          )} */}
                         <img src={val.icon} className={img === val.key ? 'image-bright' : 'image-dim'} />
-                        <span>{val.name}</span>
+                        <span className={img === val.key ? 'title-bright' : ''}>{val.name}</span>
+                        {/* </div> */}
                       </Menu.Item>
                     );
                   } else {
                     return orderSubMenu(val);
                   }
                 })}
+              <Menu.Item>
+                <div className='logout-div'>
+                  <div style={{ opacity: '0.75' }}><LogoutOutlined /></div>
+                  <div className='logout' onClick={logoutClick}>Logout</div>
+                </div>
+              </Menu.Item>
             </Menu>
+
           </Sider>
         )}
         <Layout className='main-layout'>

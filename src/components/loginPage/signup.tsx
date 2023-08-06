@@ -1,11 +1,12 @@
 import React, { useState, type FC, useEffect, useRef, MouseEvent } from 'react';
 import { Form, Input, Button, Select, Row, Col } from 'antd';
-import { CameraOutlined, ArrowLeftOutlined, ArrowRightOutlined, PlusOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { CameraOutlined, ArrowLeftOutlined, ArrowRightOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import Cards from './card';
 import { useNavigate } from 'react-router-dom';
 import { successNotification, errorNotification } from '../../../src/shared/globalVariables';
 import { getAllCountries, getAllStatesByCountryId, getAllCitiesByStateId, email_phone_verify, sellerRegister, imageUpload, getImageLocate } from '../../../src/shared/urlHelper';
-
+import {get} from 'lodash';
+import cameraIcon from '../Home/Images/profilepicCamera.svg';
 interface Country {
   Country_Id: number;
   Country_Name: string;
@@ -62,8 +63,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
   const [gstNumber, setGstNumber] = useState<any>('');
   const [phoneNumber, setPhoneNumber] = useState<any>();
   const [zipCode, setZipCode] = useState<any>();
-  const [errorType, setErrorType] = useState<any>('');
-  const [errorText, setErrorText] = useState<any>('');
   const [entityErr, setEntityErr] = useState<boolean>(false);
   const [userNameErr, setUserNameErr] = useState<boolean>(false);
   const [emailErr, setEmailErr] = useState<boolean>(false);
@@ -73,7 +72,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
   const [confirmPasswordErr, setConfirmPasswordErr] = useState<boolean>(false);
   const [testConfirmPassword, setTestConfirmPassword] = useState<boolean>(false);
   const [phoneNumberErr, setPhoneNumberErr] = useState<boolean>(false);
-  // const [phoneNumberTestErr, setPhoneNumberTestErr] = useState<boolean>(false);
   const [regionErr, setRegionErr] = useState(false);
   const [stateErr, setStateErr] = useState(false);
   const [cityErr, setCityErr] = useState(false);
@@ -81,6 +79,8 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
   const [uniqueEmailErr, setUniqueEmailerr] = useState(false);
   const [uniquePhoneNumberErr, setUniquePhoneNumberErr] = useState(false);
   const [passwordcheck, setPasswordCheck] = useState<boolean>(false);
+  const [loader, setloader] = useState<boolean>(false);
+  const [isValid, setIsValid] = useState<boolean>(false);
   const [validation, setValidation] = useState<passwordProps>({
     upperCaseValidation: false,
     digitValidation: false,
@@ -105,9 +105,10 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
   const logoHandler = useRef<any>(null);
   const [cameraIconDisplay, setCameraIconDisplay] = useState<any>(true);
   const [image, setImage] = useState<any>();
+  const [profilePic, setProfilePic] = useState('');
 
   const navigate = useNavigate();
-
+    
   const onNextClick = async () => {
     const upperCaseRegex = /(?=.*[a-z])(?=.*[A-Z])/;
     const digitRegex = /(?=.*?[0-9])/;
@@ -134,58 +135,65 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     const pass = new RegExp(
       '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})'
     );
-    const verifyParams = {
-      emailId: email,
-      phoneNumber: phoneNumber,
-      userType: 'merchant',
-    };
     const passwordTest = pass.test(password);
     if (current === 0) {
+      const verifyParams = {
+        emailId: email,
+        phoneNumber: undefined,
+        userType: 'merchant',
+      };
       email_phone_verify(verifyParams)
-        .then((resp) => {
-          console.log(resp, 'resdfkdj');
+        .then(() => {
           if (!name) {
-            setEntityErr(true);
+            return setEntityErr(true);
           }
           if (!userName) {
-            setUserNameErr(true);
+            return setUserNameErr(true);
           }
           if (!email) {
-            setEmailErr(true);
+            return setEmailErr(true);
           }
-          if (reg.test(email) === false) {
-            setEmailValidErr(true);
+          if (reg.test(email) === false) {            
+            return setEmailValidErr(true);
           }
           if (!password) {
-            setPasswordErr(true);
+            return setPasswordErr(true);
           }
           if (!passwordTest) {
-            setPasswordTestErr(true);
+            return setPasswordTestErr(true);
           }
           if (!confirmPassword) {
-            setConfirmPasswordErr(true);
+            return setConfirmPasswordErr(true);
           }
           if (password !== confirmPassword) {
-            setTestConfirmPassword(true);
+            return setTestConfirmPassword(true);
           }
-          
-          if (password === confirmPassword && email && name && userName && !emailValidErr && !uniqueEmailErr) {
-            if (entityErr || userNameErr || passwordErr || passwordTestErr || testConfirmPassword) {
-              console.log('error');
-            } else {
+          if(password !== confirmPassword){
+            return;
+          }else if (password === confirmPassword && email && name && userName && !emailValidErr && !uniqueEmailErr) {
+            if (!entityErr && !userNameErr && !passwordErr && !passwordTestErr && !testConfirmPassword && isUppercaseValidate && isDigitValidate && isCharacterValidate && isSpecialCharValidate) {
               setCurrent(current + 1);
               setSteps(steps + 1);
             }
-
           }
-        }).catch(() => {
-          return setUniqueEmailerr(true);
+        }).catch((err) => {
+          const mailErr = get(err, 'error.mailError', '');
+          const phoneErr = get(err, 'error.phoneError', '');
+          if(mailErr && !current){
+            return setUniqueEmailerr(true);
+          }else if(phoneErr && current){
+            return setUniquePhoneNumberErr(true);
+          }
         });
 
     } else if (current === 1) {
+      const verifyParams = {
+        emailId: email,
+        phoneNumber: phoneNumber,
+        userType: 'merchant',
+      };
       email_phone_verify(verifyParams)
-        .then((resp) => {
-          console.log(resp, 'resdfkdj');
+        .then(() => {
           if (!phoneNumber) {
             setPhoneNumberErr(true);
           }
@@ -205,30 +213,18 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             setCurrent(current + 1);
             setSteps(steps + 1);
           }
-        }).catch(() => {
-          return setUniquePhoneNumberErr(true);
+        }).catch((err) => {
+          const phoneErr = get(err, 'error.phoneError', '');
+          if(phoneErr){
+            return setUniquePhoneNumberErr(true);
+          }
         });
-    } else if (current === 2) {
-      if (selectedFileList) {
-        setCurrent(current + 1);
-        setSteps(steps + 1);
-      }
     }
-
   };
-  const uploadButton = (
-    <Button className='buttonImage' style={{ backgroundColor: 'transparent' }}>
-      <CameraOutlined /> Add Profile
-    </Button>
-  );
+
   const prev = () => {
     setCurrent(current - 1);
     setSteps(steps - 1);
-  };
-
-  const fileSize = (size: any) => {
-    const isSize = size / 1024 / 1024 < 0.5;
-    return isSize;
   };
 
   const handleCountryChange = async (value: string) => {
@@ -275,40 +271,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
       }
     });
   };
-  const evaluatePasswordStrength = (password: any) => {
-    const lengthRegex = /.{8,}/;
-    const specialCharacterRegex = /[^A-Za-z0-9]/;
-    const uppercaseRegex = /[A-Z]/;
-    const lowercaseRegex = /[a-z]/;
-    const numberRegex = /\d/;
-
-    let strength = 0;
-
-    if (lengthRegex.test(password)) {
-      strength += 20;
-    }
-
-    if (specialCharacterRegex.test(password)) {
-      strength += 20;
-    }
-
-    if (uppercaseRegex.test(password)) {
-      strength += 20;
-    }
-
-    if (lowercaseRegex.test(password)) {
-      strength += 20;
-    }
-
-    if (numberRegex.test(password)) {
-      strength += 20;
-    }
-
-    return strength;
-  };
-
-  const passwordStrength = evaluatePasswordStrength(password);
-
+  
   const getState = (value: any) => {
     const params = { id: countryId, searchValue: value };
     getAllStatesByCountryId(params).then((response) => {
@@ -351,9 +314,27 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     setEmailValidErr(false);
     setUniqueEmailerr(false);
   };
-
   const handlePasswordChange = (e: any) => {
     setPassword(e.target.value);
+    const upperCaseRegex = /(?=.*[a-z])(?=.*[A-Z])/;
+    const digitRegex = /(?=.*?[0-9])/;
+    const characterLengthRegex = /[a-zA-Z0-9].{7,}/;
+    const specialCharRegex = /(?=.*[!@#$%^&*])/;
+    const isUppercaseValidate = upperCaseRegex.test(password);
+    const isDigitValidate = digitRegex.test(password);
+    const isCharacterValidate = characterLengthRegex.test(password);
+    const isSpecialCharValidate = specialCharRegex.test(password);
+    setValidation({
+      ...validation,
+      upperCaseValidation: isUppercaseValidate,
+      digitValidation: isDigitValidate,
+      charValidation: isCharacterValidate,
+      specialCharValidation: isSpecialCharValidate,
+      upperCaseClass: isUppercaseValidate ? 'check-success' : 'check-error',
+      digitClass: isDigitValidate ? 'check-success' : 'check-error',
+      charClass: isCharacterValidate ? 'check-success' : 'check-error',
+      specialCharClass: isSpecialCharValidate ? 'check-success' : 'check-error',
+    });
     setPasswordErr(false);
     setPasswordTestErr(false);
     setPasswordCheck(true);
@@ -368,7 +349,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
   const handlePhoneNumberChange = (e: any) => {
     setPhoneNumber(e.target.value.trim());
     setPhoneNumberErr(false);
-    // setPhoneNumberTestErr(false);
     setUniquePhoneNumberErr(false);
   };
 
@@ -440,9 +420,18 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
 
   const changeLogoHandler = (event: any) => {
     const fileUploaded: any = event.target.files[0];
-    const img = new Image();
-    img.src = URL.createObjectURL(event.target.files[0]);
-    setImage(img.src);
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setImage(reader.result);
+      setProfilePic('');
+    };
+    if (fileUploaded) {
+      reader.readAsDataURL(fileUploaded);
+    } else {
+      setImage(null);
+      setProfilePic('Please upload an image.');
+    }
     setSelectedFileList(fileUploaded);
   };
 
@@ -477,9 +466,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                 required: true,
                 message: 'Please Enter Publishing Entity Name!',
               },
-            ]}
-            validateStatus={errorType === 'name' ? 'error' : ''}
-            help={errorType === 'name' ? errorText : ''}>
+            ]}>
             <Input
               type='text'
               placeholder='Enter Publishing Entity Name'
@@ -529,12 +516,9 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               placeholder='Enter Your Email Address'
               onChange={(e) => handleEmailChange(e)}
               value={email} />
-            {(emailErr === true) && (
+            {emailValidErr === true && (
               <div className='error'>Please Enter Valid Email Address</div>
             )}
-            {/* {emailValidErr === true && (
-              <div className='error'>Please Enter Valid Email Address</div>
-            )} */}
             {uniqueEmailErr === true && (
               <div className='error'>This email is already taken. Please choose a different one.</div>
             )}
@@ -555,6 +539,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             <Input.Password
               className='password-label'
               minLength={8}
+              autoComplete="off"
               type='password'
               placeholder='Enter your Password '
               onChange={(e) => handlePasswordChange(e)}
@@ -618,9 +603,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             )}
             {passwordErr === true && (
               <div className='error'>Please Enter your Password</div>
-            )}
-            {passwordTestErr === true && (
-              <div className='error'>Password must contain a minimum of 8 letters and at least one special character, one number, one Capital and one Small letters.</div>
             )}
           </Form.Item>
           <Form.Item
@@ -710,7 +692,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               ))}
             </Select>
             {regionErr === true && (
-              <div className='error'>Please Please Enter Region!</div>
+              <div className='error'>Please Select Region!</div>
             )}
           </Form.Item>
           <Form.Item
@@ -738,7 +720,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               ))}
             </Select>
             {stateErr === true && (
-              <div className='error'>Please Please Enter State!</div>
+              <div className='error'>Please Select State!</div>
             )}
           </Form.Item>
           <Form.Item
@@ -767,7 +749,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               ))}
             </Select>
             {cityErr === true && (
-              <div className='error'>Please Please Enter City/County!</div>
+              <div className='error'>Please Select City/County!</div>
             )}
           </Form.Item>
           <Form.Item
@@ -794,7 +776,16 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
       {
         current === 2 &&
         <div>
-          <Form.Item>
+          <Form.Item
+            className='profile-pic'
+            name='profilePic'
+            label='Add Your Profile Picture'
+            rules={[
+              {
+                required: true,
+                message: 'Please Enter Profile Picture!',
+              },
+            ]}>
             <div
               className="user-img-logo-content"
               onMouseLeave={cameraIconHandlerHide}
@@ -805,7 +796,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               >
                 <div className="profile-logo-img">
                   <img src={image} alt="" className="profile-img" />
-                  <div className='add-profile'><CameraOutlined />    Add Profile</div>
+                  <div className={image ? 'add-profile-img-selected': 'add-profile'}><CameraOutlined />    Add Profile</div>
                 </div>
               </div>
               <div
@@ -814,14 +805,17 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                 }
                 onClick={clickHandler}
               >
-                {uploadButton}
+                <img src={cameraIcon} alt="camera-icon" />
                 <input
+                  required
                   type="file"
                   accept="image/*"
                   ref={logoHandler}
                   onChange={changeLogoHandler}
                   className="input"
                 />
+                {image && <p>{profilePic}</p>}
+
               </div>
             </div>
 
