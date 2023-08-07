@@ -3,19 +3,19 @@ import Dashboard from './pages/Dashboard';
 import React, { type FC, useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import './App.scss';
-import { Button, Layout, Menu } from 'antd';
+import {Layout, Menu } from 'antd';
 import { modules } from './shared/ModuleHelper';
 import _ from 'lodash';
 import Logo from '../src/assets/columbusbig.png';
 import MiniLogo from '../src/assets/columbussmall.png';
-import menuBack from '../src/assets/menuback.png';
-import group from '../src/assets/group.png';
-import notification from '../src/assets/Group 56754.png';
+// import menuBack from '../src/assets/menuback.png';
+// import group from '../src/assets/group.png';
+// import notification from '../src/assets/Group 56754.png';
 import LoginPage from './components/loginPage';
 import Signup from './components/loginPage/signup';
 import ForgotPassword from './components/loginPage/ForgotPassword';
 import { LogoutOutlined } from '@ant-design/icons';
-import { Header } from 'antd/es/layout/layout';
+// import { Header } from 'antd/es/layout/layout';
 
 const { Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -114,13 +114,8 @@ const App: FC = () => {
                         key={val.key}
                       >
                         <Link to={val.to}></Link>
-                        {/* <div style={{display: 'flex', flexDirection: 'row'}}>
-                          {img === val.key && (
-                            <div className='side-progress'></div>
-                          )} */}
                         <img src={val.icon} className={img === val.key ? 'image-bright' : 'image-dim'} />
                         <span className={img === val.key ? 'title-bright' : ''}>{val.name}</span>
-                        {/* </div> */}
                       </Menu.Item>
                     );
                   } else {

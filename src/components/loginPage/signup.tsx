@@ -4,8 +4,8 @@ import { CameraOutlined, ArrowLeftOutlined, ArrowRightOutlined, CheckOutlined, C
 import Cards from './card';
 import { useNavigate } from 'react-router-dom';
 import { successNotification, errorNotification } from '../../../src/shared/globalVariables';
-import { getAllCountries, getAllStatesByCountryId, getAllCitiesByStateId, email_phone_verify, sellerRegister, imageUpload, getImageLocate } from '../../../src/shared/urlHelper';
-import { get, isEmpty } from 'lodash';
+import { getAllCountries, getAllStatesByCountryId, getAllCitiesByStateId, email_phone_verify, sellerRegister } from '../../../src/shared/urlHelper';
+import { get } from 'lodash';
 import cameraIcon from '../Home/Images/profilepicCamera.svg';
 interface Country {
   Country_Id: number;
@@ -79,8 +79,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
   const [uniqueEmailErr, setUniqueEmailerr] = useState(false);
   const [uniquePhoneNumberErr, setUniquePhoneNumberErr] = useState(false);
   const [passwordcheck, setPasswordCheck] = useState<boolean>(false);
-  const [loader, setloader] = useState<boolean>(false);
-  const [isValid, setIsValid] = useState<boolean>(false);
   const [validation, setValidation] = useState<passwordProps>({
     upperCaseValidation: false,
     digitValidation: false,
@@ -117,7 +115,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     const isDigitValidate = digitRegex.test(password);
     const isCharacterValidate = characterLengthRegex.test(password);
     const isSpecialCharValidate = specialCharRegex.test(password);
-    console.log(isUppercaseValidate, isDigitValidate, isCharacterValidate, isSpecialCharValidate, 'vallauau');
     setValidation({
       ...validation,
       upperCaseValidation: isUppercaseValidate,
