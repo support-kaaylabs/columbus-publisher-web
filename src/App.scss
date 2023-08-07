@@ -358,6 +358,9 @@
   font-size: 15px;
   text-transform: uppercase;
   background: transparent;
+  margin-inline: 0px !important;
+  padding-inline: 0px !important;
+  border-left: 5px white;
   span {
     display: flex;
     align-items: center;
@@ -599,6 +602,39 @@
     padding: 0 1px;
   }
 }
+.header {
+  height: 10%;
+  background-color: #FFFFFF;
+  padding: 0 16px;
+  .back-Button {
+    position: relative;
+    border: none;
+    border-color: transparent;
+    margin-left: 1%;
+  }
+  .group-Button {
+    position: relative;
+    border: none;
+    border-color: transparent;
+    margin-left: 70%;
+  }.notification-Button {
+    position: relative;
+    border: none;
+    border-color: transparent;
+  }.img-Button {
+    position: relative;
+    border: none;
+    border-color: transparent;
+    margin-left: -1%;
+  }
+}
+.content {
+  padding: 16px; 
+  overflow-y: auto;
+}
+.layout {
+  min-height: 50vh;
+}
 .side-menu {
   min-height: auto;
   margin-top: 160px !important;
@@ -702,7 +738,8 @@
 }
 
 .unselected-submenu {
-  color: #222222;
+  color: #0c0b0b;
+  margin-left: 10px;
 }
 
   .ant-submenu-openn,
@@ -720,4 +757,14 @@
 .logout-div {
   display: flex;
   flex-direction: row;
+}
+.selected-dot {
+  position: absolute;
+  top: 50%;
+  left: 24px; /* Adjust the position as per your design */
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: black; /* Replace with the color of your choice */
+  border-radius: 50%;
 }

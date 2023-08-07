@@ -5,7 +5,7 @@ import Cards from './card';
 import { useNavigate } from 'react-router-dom';
 import { successNotification, errorNotification } from '../../../src/shared/globalVariables';
 import { getAllCountries, getAllStatesByCountryId, getAllCitiesByStateId, email_phone_verify, sellerRegister, imageUpload, getImageLocate } from '../../../src/shared/urlHelper';
-import {get} from 'lodash';
+import { get, isEmpty } from 'lodash';
 import cameraIcon from '../Home/Images/profilepicCamera.svg';
 interface Country {
   Country_Id: number;
@@ -105,10 +105,9 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
   const logoHandler = useRef<any>(null);
   const [cameraIconDisplay, setCameraIconDisplay] = useState<any>(true);
   const [image, setImage] = useState<any>();
-  const [profilePic, setProfilePic] = useState('');
 
   const navigate = useNavigate();
-    
+
   const onNextClick = async () => {
     const upperCaseRegex = /(?=.*[a-z])(?=.*[A-Z])/;
     const digitRegex = /(?=.*?[0-9])/;
@@ -118,7 +117,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     const isDigitValidate = digitRegex.test(password);
     const isCharacterValidate = characterLengthRegex.test(password);
     const isSpecialCharValidate = specialCharRegex.test(password);
-    console.log(isUppercaseValidate,isDigitValidate,isCharacterValidate,isSpecialCharValidate, 'vallauau');
+    console.log(isUppercaseValidate, isDigitValidate, isCharacterValidate, isSpecialCharValidate, 'vallauau');
     setValidation({
       ...validation,
       upperCaseValidation: isUppercaseValidate,
@@ -153,7 +152,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
           if (!email) {
             return setEmailErr(true);
           }
-          if (reg.test(email) === false) {            
+          if (reg.test(email) === false) {
             return setEmailValidErr(true);
           }
           if (!password) {
@@ -168,9 +167,9 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
           if (password !== confirmPassword) {
             return setTestConfirmPassword(true);
           }
-          if(password !== confirmPassword){
+          if (password !== confirmPassword) {
             return;
-          }else if (password === confirmPassword && email && name && userName && !emailValidErr && !uniqueEmailErr) {
+          } else if (password === confirmPassword && email && name && userName && !emailValidErr && !uniqueEmailErr) {
             if (!entityErr && !userNameErr && !passwordErr && !passwordTestErr && !testConfirmPassword && isUppercaseValidate && isDigitValidate && isCharacterValidate && isSpecialCharValidate) {
               setCurrent(current + 1);
               setSteps(steps + 1);
@@ -179,9 +178,9 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
         }).catch((err) => {
           const mailErr = get(err, 'error.mailError', '');
           const phoneErr = get(err, 'error.phoneError', '');
-          if(mailErr && !current){
+          if (mailErr && !current) {
             return setUniqueEmailerr(true);
-          }else if(phoneErr && current){
+          } else if (phoneErr && current) {
             return setUniquePhoneNumberErr(true);
           }
         });
@@ -215,7 +214,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
           }
         }).catch((err) => {
           const phoneErr = get(err, 'error.phoneError', '');
-          if(phoneErr){
+          if (phoneErr) {
             return setUniquePhoneNumberErr(true);
           }
         });
@@ -271,7 +270,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
       }
     });
   };
-  
+
   const getState = (value: any) => {
     const params = { id: countryId, searchValue: value };
     getAllStatesByCountryId(params).then((response) => {
@@ -280,7 +279,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
       }
     });
   };
-
   const getCities = (value: any) => {
     setCityValue(value);
     searchCities();
@@ -404,6 +402,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
           });
         }
       });
+
   };
   const clickHandler = () => {
     logoHandler.current.click();
@@ -424,13 +423,11 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
 
     reader.onloadend = () => {
       setImage(reader.result);
-      setProfilePic('');
     };
     if (fileUploaded) {
       reader.readAsDataURL(fileUploaded);
     } else {
       setImage(null);
-      setProfilePic('Please upload an image.');
     }
     setSelectedFileList(fileUploaded);
   };
@@ -558,7 +555,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                       <span className="fs-12 jingle-blue fw-600">
                         Password Must Contain
                       </span>
-                      <div style={{ marginTop: '10px'}}>
+                      <div style={{ marginTop: '10px' }}>
                         <p className={upperCaseClass}>
                           {upperCaseValidation && (
                             <CheckOutlined className="icon-align" />
@@ -783,7 +780,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             rules={[
               {
                 required: true,
-                message: 'Please Enter Profile Picture!',
+                message: 'Please Select Profile Picture!',
               },
             ]}>
             <div
@@ -796,7 +793,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               >
                 <div className="profile-logo-img">
                   <img src={image} alt="" className="profile-img" />
-                  <div className={image ? 'add-profile-img-selected': 'add-profile'}><CameraOutlined />    Add Profile</div>
+                  <div className={image ? 'add-profile-img-selected' : 'add-profile'}><CameraOutlined />    Add Profile</div>
                 </div>
               </div>
               <div
@@ -807,15 +804,12 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               >
                 <img src={cameraIcon} alt="camera-icon" />
                 <input
-                  required
                   type="file"
                   accept="image/*"
                   ref={logoHandler}
                   onChange={changeLogoHandler}
                   className="input"
                 />
-                {image && <p>{profilePic}</p>}
-
               </div>
             </div>
 

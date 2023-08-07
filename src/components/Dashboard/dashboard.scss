@@ -6,16 +6,12 @@
   justify-content: center;
   margin: 10px;
   align-items: center;
- 
-  .impression-img, .favourite-img, .clicks-img, .call-to-action-img {
-    background-repeat: no-repeat;
-    background-size: 100%;
-    border-radius: 20px;
-    justify-content: space-between;
-    width: 100%;
     .row {
       display: flex;
       justify-content: space-between;
+      background-color: #FFFFFF;
+      border-color: #00000033;
+      border-width: 5px;
       .logo {
         display: flex;
         align-items: center;
@@ -48,7 +44,6 @@
             color: #222222;
             font-weight: 600;
           }
-        }
       }
 
       .column-wid {

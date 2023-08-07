@@ -3,15 +3,19 @@ import Dashboard from './pages/Dashboard';
 import React, { type FC, useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import './App.scss';
-import { Layout, Menu } from 'antd';
+import { Button, Layout, Menu } from 'antd';
 import { modules } from './shared/ModuleHelper';
 import _ from 'lodash';
 import Logo from '../src/assets/columbusbig.png';
 import MiniLogo from '../src/assets/columbussmall.png';
+import menuBack from '../src/assets/menuback.png';
+import group from '../src/assets/group.png';
+import notification from '../src/assets/Group 56754.png';
 import LoginPage from './components/loginPage';
 import Signup from './components/loginPage/signup';
 import ForgotPassword from './components/loginPage/ForgotPassword';
 import { LogoutOutlined } from '@ant-design/icons';
+import { Header } from 'antd/es/layout/layout';
 
 const { Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -48,7 +52,6 @@ const App: FC = () => {
   };
   const loginId = localStorage.getItem('Login');
   const orderSubMenu = (data: any) => {
-    console.log(data, 'datatta');
     return (
       <SubMenu
         key={data.key}
@@ -67,7 +70,11 @@ const App: FC = () => {
             >
               <Link to={val.name}></Link>
               <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <div>o</div><span className={subkeySelected === val.key ? 'selected-submenu' : 'unselected-submenu'}>{val.name}</span>
+                <div className='selected-dot'></div>
+                <div>
+                  <span className={subkeySelected === val
+                    .key ? 'selected-submenu' : 'unselected-submenu'}>{val.name}</span>
+                </div>
               </div>
             </Menu.Item>
           ))}
@@ -131,6 +138,12 @@ const App: FC = () => {
           </Sider>
         )}
         <Layout className='main-layout'>
+          {/* <Header className='header'>
+            <Button className='back-Button'><img src={menuBack} /></Button>
+            <Button className='group-Button'><img src={group} /></Button>
+            <Button className='notification-Button'><img src={notification} /></Button>
+            <Button className='img-Button'><img src={notification} /></Button>
+          </Header> */}
           <div className='spin-Loading'>
             <Content>
               <Routes>
