@@ -315,7 +315,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     setEmailValidErr(false);
     setUniqueEmailerr(false);
   };
-  const handlePasswordChange = (e: any) => {
+  const handlePasswordChange = (e: any) => {    
     setPassword(e.target.value);
     const upperCaseRegex = /(?=.*[a-z])(?=.*[A-Z])/;
     const digitRegex = /(?=.*?[0-9])/;
@@ -440,6 +440,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
       name='basic'
       size={'large'}
       form={form}
+      autoComplete='off'
       initialValues={{ remember: true }}
       className='form'
       layout='vertical'
@@ -529,6 +530,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             label='Password '
             required
             colon={false}
+            validateTrigger={['onChange', 'onBlur']}
             rules={[
               {
                 required: true,
@@ -539,7 +541,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             <Input.Password
               className='password-label'
               minLength={8}
-              autoComplete="off"
+              autoComplete="new-password"
               type='password'
               placeholder='Enter your Password '
               onChange={(e) => handlePasswordChange(e)}
