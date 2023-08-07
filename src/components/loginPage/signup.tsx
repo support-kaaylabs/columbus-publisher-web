@@ -302,6 +302,12 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     setUserName(e.target.value.trim());
     setUserNameErr(false);
   };
+  const customRules = [
+    {
+      required: true,
+      message: <span style={{marginLeft: '135px'}}>Please Select Your Profile Picture!</span>,
+    },
+  ];
 
   const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
@@ -774,12 +780,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             className='profile-pic'
             name='profilePic'
             label='Add Your Profile Picture'
-            rules={[
-              {
-                required: true,
-                message: 'Please Select Profile Picture!',
-              },
-            ]}>
+            rules={customRules}>
             <div
               className="user-img-logo-content"
               onMouseLeave={cameraIconHandlerHide}
