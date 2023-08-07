@@ -315,10 +315,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     setEmailValidErr(false);
     setUniqueEmailerr(false);
   };
-  const handlePasswordChange = (e: any) => {
-    console.log(e.target.value, 'value');
-    
-    
+  const handlePasswordChange = (e: any) => {    
     setPassword(e.target.value);
     const upperCaseRegex = /(?=.*[a-z])(?=.*[A-Z])/;
     const digitRegex = /(?=.*?[0-9])/;
@@ -328,8 +325,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     const isDigitValidate = digitRegex.test(password);
     const isCharacterValidate = characterLengthRegex.test(password);
     const isSpecialCharValidate = specialCharRegex.test(password);
-    console.log(digitRegex.test(password), 'testtt');
-
     setValidation({
       ...validation,
       upperCaseValidation: isUppercaseValidate,
