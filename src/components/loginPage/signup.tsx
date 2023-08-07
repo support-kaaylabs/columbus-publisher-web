@@ -321,10 +321,10 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     const digitRegex = /(?=.*?[0-9])/;
     const characterLengthRegex = /[a-zA-Z0-9].{7,}/;
     const specialCharRegex = /(?=.*[!@#$%^&*])/;
-    const isUppercaseValidate = upperCaseRegex.test(password);
-    const isDigitValidate = digitRegex.test(password);
-    const isCharacterValidate = characterLengthRegex.test(password);
-    const isSpecialCharValidate = specialCharRegex.test(password);
+    const isUppercaseValidate = upperCaseRegex.test(e.target.value);
+    const isDigitValidate = digitRegex.test(e.target.value);
+    const isCharacterValidate = characterLengthRegex.test(e.target.value);
+    const isSpecialCharValidate = specialCharRegex.test(e.target.value);
     setValidation({
       ...validation,
       upperCaseValidation: isUppercaseValidate,
