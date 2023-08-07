@@ -316,6 +316,9 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     setUniqueEmailerr(false);
   };
   const handlePasswordChange = (e: any) => {
+    console.log(e.target.value, 'value');
+    
+    
     setPassword(e.target.value);
     const upperCaseRegex = /(?=.*[a-z])(?=.*[A-Z])/;
     const digitRegex = /(?=.*?[0-9])/;
@@ -325,6 +328,8 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     const isDigitValidate = digitRegex.test(password);
     const isCharacterValidate = characterLengthRegex.test(password);
     const isSpecialCharValidate = specialCharRegex.test(password);
+    console.log(digitRegex.test(password), 'testtt');
+
     setValidation({
       ...validation,
       upperCaseValidation: isUppercaseValidate,
@@ -440,6 +445,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
       name='basic'
       size={'large'}
       form={form}
+      autoComplete='off'
       initialValues={{ remember: true }}
       className='form'
       layout='vertical'
@@ -529,6 +535,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             label='Password '
             required
             colon={false}
+            validateTrigger={['onChange', 'onBlur']}
             rules={[
               {
                 required: true,
@@ -539,7 +546,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             <Input.Password
               className='password-label'
               minLength={8}
-              autoComplete="off"
+              autoComplete="new-password"
               type='password'
               placeholder='Enter your Password '
               onChange={(e) => handlePasswordChange(e)}
