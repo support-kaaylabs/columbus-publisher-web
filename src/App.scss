@@ -358,6 +358,9 @@
   font-size: 15px;
   text-transform: uppercase;
   background: transparent;
+  margin-inline: 0px !important;
+  padding-inline: 0px !important;
+  border-left: 5px white;
   span {
     display: flex;
     align-items: center;
@@ -480,20 +483,55 @@
     }
   }
 }
+.side-progress {
+  border-left: 3px #F2F2F2 solid;
+  height: 19px;
+  margin-top: 10px;
+  border-radius: 5px;
+  position: relative;
+  left: 0px;
+}
 .image-bright {
-  opacity: 5;
-  width: 20px;
-  margin-right: 15px;
+  opacity: 1;
+  width: 18px;
+  height: 18px;
+  margin-right: 20px;
+  margin-left: 5px;
+  margin-top: 12px;
+  margin-bottom: -3px;
   color: white;
+  object-fit: cover;
 }
 .image-dim {
-  width: 20px;
+  width: 18px;
+  height: 18px;
   opacity: 50%;
-  margin-right: 15px;
+  margin-right: 20px;
+  margin-left: 5px;
+  margin-top: 12px;
+  margin-bottom: -3px;
 
 }
+.title-bright{
+  height: 19px;
+  text-align: left;
+  letter-spacing: 0px;
+  margin-bottom: 17px;
+  color: #FFFFFF;
+  opacity: 1;}
+
+.title-dim{
+  height: 19px;
+  text-align: left;
+  letter-spacing: 0px;
+  margin-bottom: 15px;
+  color: white;
+  opacity: 0.75;
+}
+
 .Sider-Layout {
   z-index: 2;
+  width: 257px;
   .ant-menu.ant-menu-inline-collapsed{
     width: 50px !important;
   }
@@ -505,7 +543,7 @@
     position: fixed;
     .ant-menu-item{
       padding-left: 1px !important;
-    }
+}
     .ant-menu-item-selected{
       padding-left: 1px !important;
     }
@@ -536,9 +574,12 @@
   
 }
 .logoC {
-  height: 150px;
-  width: 207px;
+  height: 107px;
+  width: 136px;
   object-fit: fill;
+  margin-left: 22%;
+  margin-right: 22%;
+  margin-top: 10%;
 }
 .logoColumbus {
   height: 50px;
@@ -561,23 +602,60 @@
     padding: 0 1px;
   }
 }
+.header {
+  height: 10%;
+  background-color: #FFFFFF;
+  padding: 0 16px;
+  .back-Button {
+    position: relative;
+    border: none;
+    border-color: transparent;
+    margin-left: 1%;
+  }
+  .group-Button {
+    position: relative;
+    border: none;
+    border-color: transparent;
+    margin-left: 70%;
+  }.notification-Button {
+    position: relative;
+    border: none;
+    border-color: transparent;
+  }.img-Button {
+    position: relative;
+    border: none;
+    border-color: transparent;
+    margin-left: -1%;
+  }
+}
+.content {
+  padding: 16px; 
+  overflow-y: auto;
+}
+.layout {
+  min-height: 50vh;
+}
 .side-menu {
   min-height: auto;
-  margin-top: 155px !important;
+  margin-top: 160px !important;
+  &.ant-menu-dark .ant-menu-item-selected {
+    background-color: transparent !important;
+  }
   &.ant-menu.ant-menu-dark {
     width: 207px;
     background-color: #570026;
     & .ant-menu-submenu-selected {
       background-color: #570026;
       & .ant-menu-item-selected {
-        background-color: #570026;
+        background-color: transparent !important;
+        border-left: 3px solid;    
       }
     }
   }
 }
 .side-menu-collapsed {
   min-height: auto;
-  margin-top: 60px !important;
+  margin-top: 230% !important;
   &.ant-menu.ant-menu-dark {
     width: 207px;
     background-color: #570026;
@@ -587,7 +665,7 @@
     & .ant-menu-submenu-selected {
       background-color: #570026;
       & .ant-menu-item-selected {
-        background-color: #570026;
+        background-color: transparent;
       }
     }
   }
@@ -636,28 +714,57 @@
   
 }
 .subimage-bright {
-  opacity: 5;
-  width: 20px;
-  margin-right: 17px;
+  opacity: 1;
+  width: 18px;
+  height: 18px;
+  margin-right: 20px;
+  margin-left: 0px;
+  margin-top: 12px;
+  margin-bottom: -3px;
+  color: white;
+  object-fit: cover;
 }
 .subimage-dim {
-  width: 20px;
+  width: 18px;
+  height: 18px;
   opacity: 50%;
-  margin-right: 17px;
-
+  margin-right: 20px;
+  margin-left: 0px;
+  margin-top: 12px;
+  margin-bottom: -3px;
 }
 .selected-submenu {
   color: #C20155;
 }
 
 .unselected-submenu {
-  color: #222222;
+  color: #0c0b0b;
+  margin-left: 10px;
 }
 
-.ant-menu-submenu-open {
-  .ant-menu-submenu-active{
+  .ant-submenu-openn,
 .ant-menu-dark.ant-menu-inline .ant-menu-sub.ant-menu-inline {
   background-color: #570026 !important;
 }
-  }
+.logout {
+  background-color: transparent;
+  border: none;
+  color: #FFFFFF;
+  opacity: 0.75;
+  margin-left: 20px;
+}
+
+.logout-div {
+  display: flex;
+  flex-direction: row;
+}
+.selected-dot {
+  position: absolute;
+  top: 50%;
+  left: 24px; /* Adjust the position as per your design */
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: black; /* Replace with the color of your choice */
+  border-radius: 50%;
 }

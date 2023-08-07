@@ -90,6 +90,7 @@ export const modules = [
       {
         key: '/Profile',
         to: '/Profile',
+        type: 'profile',
         Module_Name: 'Profile',
         name: 'Profile',
         sequence: 1,
