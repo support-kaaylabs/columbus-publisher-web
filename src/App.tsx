@@ -15,7 +15,6 @@ import LoginPage from './components/loginPage';
 import Signup from './components/loginPage/signup';
 import ForgotPassword from './components/loginPage/ForgotPassword';
 import { LogoutOutlined } from '@ant-design/icons';
-// import { Header } from 'antd/es/layout/layout';
 
 const { Sider, Content } = Layout;
 const { SubMenu } = Menu;
