@@ -1,21 +1,20 @@
 
 import Dashboard from './pages/Dashboard';
 import React, { type FC, useState, useEffect } from 'react';
-import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import './App.scss';
 import {Layout, Menu } from 'antd';
 import { modules } from './shared/ModuleHelper';
 import _ from 'lodash';
 import Logo from '../src/assets/columbusbig.png';
 import MiniLogo from '../src/assets/columbussmall.png';
-// import menuBack from '../src/assets/menuback.png';
-// import group from '../src/assets/group.png';
-// import notification from '../src/assets/Group 56754.png';
+import menuBack from '../src/assets/menuback.png';
+import group from '../src/assets/group.png';
+import notification from '../src/assets/Group 56754.png';
 import LoginPage from './components/loginPage';
 import Signup from './components/loginPage/signup';
 import ForgotPassword from './components/loginPage/ForgotPassword';
 import { LogoutOutlined } from '@ant-design/icons';
-// import { Header } from 'antd/es/layout/layout';
 
 const { Sider, Content } = Layout;
 const { SubMenu } = Menu;

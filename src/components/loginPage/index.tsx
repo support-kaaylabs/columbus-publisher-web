@@ -23,16 +23,20 @@ const LoginPage: FC<Props> = ({signupValidate}) => {
   };
   return (
     <Row className='login'>
-      <Col span={12} className='login-left'>
-        <div className='login-title'>
-          <p className='login-main-title'>Welcome to Columbus</p>
-          <p className='login-sub-title'>&quot; The Discovery Platform &quot;</p>
-        </div>
-        <div className='login-logo'>
-          <img src={Logo} alt='Columbus-Logo' />
-        </div>
+      <Col xs={0} sm={0} md={12} lg={12} xl={12} className='login-left'>
+        <Row justify='space-between'>
+          <Col md={{offset: 8, span: 8}} lg={{offset: 8, span: 8}} xl={{offset: 8, span: 8}} className='login-content-div'>
+            <div className='login-title'>
+              <p className='login-main-title'>Welcome to Columbus</p>
+              <p className='login-sub-title'>&quot; The Discovery Platform &quot;</p>
+            </div>
+            <div className='login-logo'>
+              <img src={Logo} alt='Columbus-Logo' />
+            </div>
+          </Col>
+        </Row>
       </Col>
-      <Col span={12} className='login-right'>
+      <Col xs={24} sm={24} md={12} lg={12} xl={12} className='login-right'>
         {signup &&
         <Signup signupPageValidation={signupPageValidation} forgotPageValidation={forgotPageValidation}/>
         }

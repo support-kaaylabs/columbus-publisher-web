@@ -141,28 +141,28 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
       email_phone_verify(verifyParams)
         .then(() => {
           if (!name) {
-            return setEntityErr(true);
+            setEntityErr(true);
           }
           if (!userName) {
-            return setUserNameErr(true);
+            setUserNameErr(true);
           }
           if (!email) {
-            return setEmailErr(true);
+            setEmailErr(true);
           }
           if (reg.test(email) === false) {
-            return setEmailValidErr(true);
+            setEmailValidErr(true);
           }
           if (!password) {
-            return setPasswordErr(true);
+            setPasswordErr(true);
           }
           if (!passwordTest) {
-            return setPasswordTestErr(true);
+            setPasswordTestErr(true);
           }
           if (!confirmPassword) {
-            return setConfirmPasswordErr(true);
+            setConfirmPasswordErr(true);
           }
           if (password !== confirmPassword) {
-            return setTestConfirmPassword(true);
+            setTestConfirmPassword(true);
           }
           if (password !== confirmPassword) {
             return;
@@ -294,18 +294,18 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     getCountry();
   }, []);
   const handleEntityNameChange = (e: any) => {
-    setName(e.target.value.trim());
+    setName(e.target.value);
     setEntityErr(false);
   };
 
   const handleUserNameChange = (e: any) => {
-    setUserName(e.target.value.trim());
+    setUserName(e.target.value);
     setUserNameErr(false);
   };
   const customRules = [
     {
       required: true,
-      message: <span style={{marginLeft: '135px'}}>Please Select Your Profile Picture!</span>,
+      message: <span style={{ marginLeft: '5px' }}>Please Select Your Profile Picture!</span>,
     },
   ];
 
@@ -315,7 +315,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     setEmailValidErr(false);
     setUniqueEmailerr(false);
   };
-  const handlePasswordChange = (e: any) => {    
+  const handlePasswordChange = (e: any) => {
     setPassword(e.target.value);
     const upperCaseRegex = /(?=.*[a-z])(?=.*[A-Z])/;
     const digitRegex = /(?=.*?[0-9])/;
@@ -345,6 +345,8 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     setConfirmPassword(e.target.value.trim());
     setConfirmPasswordErr(false);
     setTestConfirmPassword(false);
+    setPasswordCheck(false);
+
   };
 
   const handlePhoneNumberChange = (e: any) => {
@@ -379,11 +381,11 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
       .then((resp) => {
         if (resp.success) {
           const params = {
-            User_Name: userName,
-            Email_ID: email,
+            User_Name: userName.trim(),
+            Email_ID: email.trim(),
             Password: password,
             Phone_Number: phoneNumber,
-            Store_Name: name,
+            Store_Name: name.trim(),
             GST_Number: gstNumber,
             Country: selectedCountry?.Country_Name,
             Country_Id: countryId,
@@ -469,6 +471,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               },
             ]}>
             <Input
+              style={{ marginTop: '-2%', marginBottom: '10px' }}
               type='text'
               placeholder='Enter Publishing Entity Name'
               onChange={(e) => handleEntityNameChange(e)}
@@ -488,6 +491,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               },
             ]}>
             <Input
+              style={{ marginTop: '-2%', marginBottom: '10px' }}
               type='text'
               placeholder='Enter your UserName'
               onChange={(e) => handleUserNameChange(e)}
@@ -513,6 +517,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               },
             ]}>
             <Input
+              style={{ marginTop: '-2%', marginBottom: '10px' }}
               type='email'
               placeholder='Enter Your Email Address'
               onChange={(e) => handleEmailChange(e)}
@@ -539,6 +544,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             ]}
           >
             <Input.Password
+              style={{ marginTop: '-2%', marginBottom: '10px' }}
               className='password-label'
               minLength={8}
               autoComplete="new-password"
@@ -621,6 +627,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               },
             ]}>
             <Input.Password
+              style={{ marginTop: '-2%', marginBottom: '10px' }}
               className='password-label'
               placeholder='Enter your Confirm Password'
               onChange={(e) => handleConfirmPasswordChange(e)}
@@ -636,6 +643,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             colon={false}
             rules={[{ required: true, message: 'Please Enter GST Number!' }]}>
             <Input
+              style={{ marginTop: '-2%', marginBottom: '10px' }}
               type='text'
               placeholder='Enter your GST Number'
               onChange={(e) => setGstNumber(e.target.value.trim())}
@@ -657,13 +665,14 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               },
             ]}>
             <Input
-              type='tel'
+              style={{ marginTop: '-2%', marginBottom: '10px' }}
+              type='number'
               pattern="[0-9]{10}"
-              placeholder='Please enter a 10-digit phone number.'
+              placeholder='Please Enter Your Phone Number.'
               onChange={(e) => handlePhoneNumberChange(e)}
               value={phoneNumber} />
             {phoneNumberErr === true && (
-              <div className='error'>Please enter a 10-digit phone number.</div>
+              <div className='error'>Please enter your phone number.</div>
             )}
             {uniquePhoneNumberErr === true && (
               <div className='error'>This Phone Number is already taken. Please choose a different one.</div>
@@ -680,6 +689,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               },
             ]}>
             <Select
+              style={{ marginTop: '-2%', marginBottom: '10px' }}
               placeholder='Select Country'
               showSearch
               onSearch={() => getCountry()}
@@ -708,6 +718,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               },
             ]}>
             <Select
+              style={{ marginTop: '-2%', marginBottom: '10px' }}
               placeholder='Select State'
               showSearch
               onSearch={(e) => getState(e)}
@@ -736,6 +747,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               },
             ]}>
             <Select
+              style={{ marginTop: '-2%', marginBottom: '10px' }}
               placeholder="Select City"
               showSearch
               onChange={handleCityChange}
@@ -765,6 +777,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               },
             ]}>
             <Input
+              style={{ marginTop: '-2%', marginBottom: '10px' }}
               type='text'
               placeholder='Enter Zip code'
               onChange={(e) => handleZipCode(e)}
@@ -781,7 +794,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
           <Form.Item
             className='profile-pic'
             name='profilePic'
-            label='Add Your Profile Picture'
             rules={customRules}>
             <div
               className="user-img-logo-content"
@@ -825,6 +837,47 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
         )
       }
       <div>
+        {/* <Row>
+          <Col>
+            <div>
+              <div>
+                {current < 2 ? (
+                  <div className='steps'>
+                    {`Step${steps}/3`}
+                  </div>
+                ) : <div className='steps-current2'>
+                  {`Step${steps}/3`}
+                </div>}
+              </div>
+              <div>
+                {current > 0 && (
+                  current < 2 ?
+                    <Button className='prev-button' onClick={() => prev()}>
+                      <ArrowLeftOutlined />
+                    </Button> :
+                    <Button className='prev-button-current2' onClick={() => prev()}>
+                      <ArrowLeftOutlined />
+                    </Button>
+                )}
+              </div>
+              <div>
+                {current < 2 && (
+                  current === 0 ?
+                    <Button className='next-button' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button> :
+                    <Button className='next-button-current1' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button>
+                )}
+              </div>
+              {current === 2 && (
+                <Form.Item>
+                  <div>
+                    <Button
+                      htmlType="submit"
+                      className='signup-button'>Sign Up</Button>
+                  </div>
+                </Form.Item>
+              )}
+            </div></Col>
+        </Row> */}
         <div className='prev-button-div' style={{ marginTop: '20px' }}>
           {current < 2 ? (
             <div className='steps'>
