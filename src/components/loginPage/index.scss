@@ -229,7 +229,6 @@
           height: 130px;
           border-radius: 10px;
           border: none;
-          display: flex;
           justify-content: center;
           align-items: center;
           background: #F2F2F2 0% 0% no-repeat padding-box;
@@ -248,7 +247,6 @@
             object-fit: contain;
             height: 130px;
             border: none;
-            width: 200px;
 
             .profile-img {
               width: 100%;
@@ -270,11 +268,6 @@
               color: transparent;
               background-color: transparent;
               border: none;
-              // position: absolute;
-              // top: 50px;
-              // left: 50px;
-              // margin-left: 1px;
-              // opacity: 0;
             }
           }
         }
@@ -291,8 +284,7 @@
 
       .signup-button {
         margin-top: 100%;
-        margin-left: 10px;
-        width: 150px;
+        width: auto;
         font-size: 13px;
         background: #570026;
         color: white;
@@ -309,29 +301,26 @@
         font-weight: 700;
       }
       .next-button {
-        margin-top: 1px;
-        width: 150px;
+        width: auto;
         font-size: 13px;
         background: #570026;
         color: white;
         font-weight: 700;
-        margin-left: 300px;
+        justify-content: right;
         cursor: pointer;
       }
 
       .next-button-current1 {
-        margin-top: 1px;
-        width: 150px;
+        width: auto;
         font-size: 13px;
         background: #570026;
         color: white;
         font-weight: 700;
-        margin-left: 50px;
         cursor: pointer;
       }
 
       .next-button-current2 {
-        margin-top: 250px;
+        margin-top: auto;
         width: 150px;
         font-size: 13px;
         background: #570026;
@@ -342,26 +331,26 @@
       }
 
       .prev-button {
-        margin-top: 1px;
-        width: 80px;
+        width: auto;
         font-size: 13px;
         background: white;
         color: #570026;
         font-weight: 700;
-        margin-left: 200px;
+        justify-content: left;
+        align-items: end;
         border-color: #570026;
         cursor: pointer;
       }
 
       .prev-button-current2 {
-        margin-top: 36%;
-        width: 80px;
+        margin-top: 120%;
+        width: auto;
         height: 38px;
         font-size: 13px;
         background: white;
         color: #570026;
         font-weight: 700;
-        margin-left: 200px;
+        align-items: end;
         border-color: #570026;
         cursor: pointer;
       }
@@ -457,15 +446,15 @@
         margin-top: 1px;
         color: #C20155;
         font-weight: 700;
-        width: 100px;
+        width: auto;
       }
 
       .steps-current2 {
-        margin-top: 36%;
-        margin-left: 1%;
+        margin-top: 48%;
+        margin-left: 2%;
         color: #C20155;
         font-weight: 700;
-        width: 100px;
+        width: auto;
       }
 
       .avatar {
@@ -484,6 +473,7 @@
     }
     @media screen and (max-width : 430px){
       padding: 8px;
+      
     }
     @media screen and (min-width : 440px){
       padding: 8px;

@@ -837,48 +837,45 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
         )
       }
       <div>
-        {/* <Row>
-          <Col>
-            <div>
-              <div>
-                {current < 2 ? (
-                  <div className='steps'>
-                    {`Step${steps}/3`}
-                  </div>
-                ) : <div className='steps-current2'>
-                  {`Step${steps}/3`}
-                </div>}
+        <Row>
+          <Col span={13}>
+            {current < 2 ? (
+              <div className='steps'>
+                {`Step${steps}/3`}
               </div>
-              <div>
-                {current > 0 && (
-                  current < 2 ?
-                    <Button className='prev-button' onClick={() => prev()}>
-                      <ArrowLeftOutlined />
-                    </Button> :
-                    <Button className='prev-button-current2' onClick={() => prev()}>
-                      <ArrowLeftOutlined />
-                    </Button>
-                )}
-              </div>
-              <div>
-                {current < 2 && (
-                  current === 0 ?
-                    <Button className='next-button' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button> :
-                    <Button className='next-button-current1' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button>
-                )}
-              </div>
-              {current === 2 && (
-                <Form.Item>
-                  <div>
-                    <Button
-                      htmlType="submit"
-                      className='signup-button'>Sign Up</Button>
-                  </div>
-                </Form.Item>
-              )}
-            </div></Col>
-        </Row> */}
-        <div className='prev-button-div' style={{ marginTop: '20px' }}>
+            ) : <div className='steps-current2'>
+              {`Step${steps}/3`}
+            </div>}
+          </Col>
+          <Col span={5}>
+            {current > 0 && (
+              current < 2 ?
+                <Button className='prev-button' onClick={() => prev()}>
+                  <ArrowLeftOutlined />
+                </Button> :
+                <Button className='prev-button-current2' onClick={() => prev()}>
+                  <ArrowLeftOutlined />
+                </Button>
+            )}
+          </Col>
+          {current <= 2 && (
+            <Col span={6}>
+              {current === 0 ?
+                <Button className='next-button' onClick={onNextClick}>Next     <ArrowRightOutlined /></Button> :
+                current === 1 ?
+                  <Button className='next-button-current1' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button>:
+                  <Form.Item>
+                    <div>
+                      <Button
+                        htmlType="submit"
+                        className='signup-button'>Sign Up</Button>
+                    </div>
+                  </Form.Item>
+              }
+            </Col>
+          )}
+        </Row>
+        {/* <div className='prev-button-div' style={{ marginTop: '20px' }}>
           {current < 2 ? (
             <div className='steps'>
               {`Step${steps}/3`}
@@ -909,7 +906,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               </div>
             </Form.Item>
           )}
-        </div>
+        </div> */}
       </div>
     </Form>
   );
