@@ -79,6 +79,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
   const [uniqueEmailErr, setUniqueEmailerr] = useState(false);
   const [uniquePhoneNumberErr, setUniquePhoneNumberErr] = useState(false);
   const [passwordcheck, setPasswordCheck] = useState<boolean>(false);
+  const [passwordValidate, setPasswordValidate] = useState<boolean>(false);
   const [validation, setValidation] = useState<passwordProps>({
     upperCaseValidation: false,
     digitValidation: false,
@@ -217,7 +218,11 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
         });
     }
   };
-
+  const signIn = () => {
+    signupPageValidation(false);
+    forgotPageValidation(false);
+    navigate('/');
+  };
   const prev = () => {
     setCurrent(current - 1);
     setSteps(steps - 1);
@@ -436,7 +441,13 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     }
     setSelectedFileList(fileUploaded);
   };
-
+  const handleBlur = () => {
+    setPasswordCheck(false);
+    if(upperCaseClass === 'check-error' || digitClass === 'check-error'|| charClass === 'check-error' || specialCharClass === 'check-error') {
+      setPasswordValidate(true);
+    }else{
+      setPasswordValidate(false);
+    }  };
   return (
     <Form
       name='basic'
@@ -535,7 +546,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             label='Password '
             required
             colon={false}
-            validateTrigger={['onChange', 'onBlur']}
+            validateTrigger={['onChange']}
             rules={[
               {
                 required: true,
@@ -551,8 +562,10 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               type='password'
               placeholder='Enter your Password '
               onChange={(e) => handlePasswordChange(e)}
-              value={password} />
-            {passwordcheck && (
+              value={password}
+              onBlur={handleBlur}
+            />
+            {(passwordcheck || passwordValidate) && (
               <div className='password-condition-check-div'>
                 <Row>
                   <Col
@@ -649,6 +662,9 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               onChange={(e) => setGstNumber(e.target.value.trim())}
               value={gstNumber} />
           </Form.Item>
+          <div className='sign-in-link-div'>Already have an account? <a className="sign-in-link" onClick={signIn}>
+          Sign In
+          </a></div>
         </div >
       }
       {
@@ -839,74 +855,40 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
       <div>
         <Row>
           <Col span={13}>
-            {current < 2 ? (
-              <div className='steps'>
-                {`Step${steps}/3`}
-              </div>
-            ) : <div className='steps-current2'>
+            <div className={current === 2? 'steps-current2':'steps'}>
               {`Step${steps}/3`}
-            </div>}
-          </Col>
-          <Col span={5}>
-            {current > 0 && (
-              current < 2 ?
-                <Button className='prev-button' onClick={() => prev()}>
-                  <ArrowLeftOutlined />
-                </Button> :
-                <Button className='prev-button-current2' onClick={() => prev()}>
-                  <ArrowLeftOutlined />
-                </Button>
-            )}
+            </div>
           </Col>
           {current <= 2 && (
-            <Col span={6}>
-              {current === 0 ?
-                <Button className='next-button' onClick={onNextClick}>Next     <ArrowRightOutlined /></Button> :
-                current === 1 ?
-                  <Button className='next-button-current1' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button>:
-                  <Form.Item>
-                    <div>
-                      <Button
-                        htmlType="submit"
-                        className='signup-button'>Sign Up</Button>
-                    </div>
-                  </Form.Item>
-              }
+            <Col span={11} >
+              <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <div>
+                  {current > 0 && (
+                    current < 3 &&(
+                      <Button className={current === 2 ? 'prev-button-current2':'prev-button'} onClick={() => prev()}>
+                        <ArrowLeftOutlined />
+                      </Button> 
+                    )
+                  )}
+                </div>
+                <div>
+                  {current === 0 ?
+                    <Button className='next-button' onClick={onNextClick}>Next     <ArrowRightOutlined /></Button> :
+                    current === 1 ?
+                      <Button className='next-button-current1' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button>:
+                      <Form.Item>
+                        <div>
+                          <Button
+                            htmlType="submit"
+                            className='signup-button'>Sign Up</Button>
+                        </div>
+                      </Form.Item>
+                  }
+                </div>
+              </div>
             </Col>
           )}
         </Row>
-        {/* <div className='prev-button-div' style={{ marginTop: '20px' }}>
-          {current < 2 ? (
-            <div className='steps'>
-              {`Step${steps}/3`}
-            </div>
-          ) : <div className='steps-current2'>
-            {`Step${steps}/3`}
-          </div>}
-          {current > 0 && (
-            current < 2 ?
-              <Button className='prev-button' onClick={() => prev()}>
-                <ArrowLeftOutlined />
-              </Button> :
-              <Button className='prev-button-current2' onClick={() => prev()}>
-                <ArrowLeftOutlined />
-              </Button>
-          )}
-          {current < 2 && (
-            current === 0 ?
-              <Button className='next-button' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button> :
-              <Button className='next-button-current1' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button>
-          )}
-          {current === 2 && (
-            <Form.Item>
-              <div>
-                <Button
-                  htmlType="submit"
-                  className='signup-button'>Sign Up</Button>
-              </div>
-            </Form.Item>
-          )}
-        </div> */}
       </div>
     </Form>
   );
