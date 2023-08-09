@@ -495,10 +495,6 @@
   opacity: 1;
   width: 18px;
   height: 18px;
-  margin-right: 20px;
-  margin-left: 5px;
-  margin-top: 12px;
-  margin-bottom: -3px;
   color: white;
   object-fit: cover;
 }
@@ -506,11 +502,6 @@
   width: 18px;
   height: 18px;
   opacity: 50%;
-  margin-right: 20px;
-  margin-left: 5px;
-  margin-top: 12px;
-  margin-bottom: -3px;
-
 }
 .title-bright{
   height: 19px;
@@ -535,20 +526,29 @@
   .ant-menu.ant-menu-inline-collapsed{
     width: 50px !important;
   }
-  span {
-    margin-left: 5px !important;
+  .ant-menu-dark.ant-menu-inline .ant-menu-sub.ant-menu-inline {
+    background-color: white !important;
+  }
+  .ant-menu-item-active{
+    // background-color: #993b3b !important;
+    background-color: transparent !important;
+  }
+  .ant-menu-inline .ant-menu-item{
+    width: 100% !important;
   }
   .ant-layout-sider-children {
     background-color: #570026;
     position: fixed;
     .ant-menu-item{
-      padding-left: 1px !important;
-}
+      padding-left: 10px !important;
+    }
+    
     .ant-menu-item-selected{
-      padding-left: 1px !important;
+      padding-left: 10px !important;
     }
     .ant-menu-title-content{
       align-items: left;
+      margin-left: 30px !important;
     }
     overflow-y: scroll;
     &::-webkit-scrollbar-track {
@@ -569,7 +569,7 @@
     }
   }
   .ant-menu-submenu-title {
-    padding-left: 0px !important;
+    padding-left: 10px !important;
   }
   
 }
@@ -603,11 +603,10 @@
   }
 }
 .header {
-  height: 10%;
+  height: 60px;
   background-color: #FFFFFF;
   padding: 0 16px;
   .back-Button {
-    position: relative;
     border: none;
     border-color: transparent;
     margin-left: 1%;
@@ -616,7 +615,8 @@
     position: relative;
     border: none;
     border-color: transparent;
-    margin-left: 70%;
+    align-items: center;
+    justify-content: center;
   }.notification-Button {
     position: relative;
     border: none;
@@ -625,7 +625,6 @@
     position: relative;
     border: none;
     border-color: transparent;
-    margin-left: -1%;
   }
 }
 .content {
@@ -648,7 +647,8 @@
       background-color: #570026;
       & .ant-menu-item-selected {
         background-color: transparent !important;
-        border-left: 3px solid;    
+        border-left: 3px solid;
+        border-radius: 2px;    
       }
     }
   }
@@ -680,6 +680,11 @@
     box-shadow: inset 0 4px 4px #00000036;
     background-color: #f9f9f9;
     border-radius: 0em;
+  }
+  .ant-layout-content {
+    height: calc(100vh - 60px);
+    margin-top: 60px;
+    background-color: #F2F2F2;
   }
 }
 
@@ -717,54 +722,61 @@
   opacity: 1;
   width: 18px;
   height: 18px;
-  margin-right: 20px;
-  margin-left: 0px;
-  margin-top: 12px;
-  margin-bottom: -3px;
-  color: white;
+  color: rgb(246, 47, 47);
   object-fit: cover;
 }
 .subimage-dim {
   width: 18px;
   height: 18px;
   opacity: 50%;
-  margin-right: 20px;
-  margin-left: 0px;
-  margin-top: 12px;
-  margin-bottom: -3px;
 }
 .selected-submenu {
-  color: #C20155;
+  color: #e53935 !important;
+  margin-left: 10px;
 }
 
 .unselected-submenu {
-  color: #0c0b0b;
+  color: #0c0b0b !important;
   margin-left: 10px;
 }
 
   .ant-submenu-openn,
 .ant-menu-dark.ant-menu-inline .ant-menu-sub.ant-menu-inline {
-  background-color: #570026 !important;
+  background-color:#570026 !important;
 }
 .logout {
   background-color: transparent;
   border: none;
   color: #FFFFFF;
   opacity: 0.75;
-  margin-left: 20px;
+  margin-left: 30px;
+  margin-top: 10px;
 }
 
 .logout-div {
   display: flex;
   flex-direction: row;
+  margin-left: 15px;
+  margin-top: 15px;
+}
+.ant-menu .ant-menu-item {
+  border-radius: 0px !important;
 }
 .selected-dot {
   position: absolute;
-  top: 50%;
-  left: 24px; /* Adjust the position as per your design */
-  transform: translateY(-50%);
+  top: 45%;
+  left: 9%;
   width: 6px;
   height: 6px;
-  background-color: black; /* Replace with the color of your choice */
+  background-color: #C20155;
+  border-radius: 50%;
+}
+.unselected-dot {
+  position: absolute;
+  top: 45%;
+  left: 9%;
+  width: 6px;
+  height: 6px;
+  background-color: #222222; 
   border-radius: 50%;
 }

@@ -48,7 +48,7 @@ const Dashboard: FC = () => {
           </div>
         )}
         {!loader && (
-          <div>
+          <div className='content-div'>
             <div>Dashboard</div>
             <Row>
               {dashboardData?.map((item, index) => (
@@ -60,25 +60,59 @@ const Dashboard: FC = () => {
                 </Col>
               ))}
             </Row>
+            {/* <Row>
+              <Col span={8}>
+                <div className='impression-div'></div>
+              </Col>
+              <Col span={8}>cdcd</Col>
+              <Col span={8}>cdcd</Col>
+            </Row> */}
           </div>
         )}
-        {/* {!loader && (
-        <Row>
-          <Col sm={24} xs={24} md={0} lg={0}>
-            <div className="content-name">DASHBOARD</div>
-          </Col>
-          <Col>
-            {dashboardData?.map((item, index) => (
-              <div key={index}>
-                <PublisherDashboard data={item} />
-              </div>
-            ))}
-            <div>{!loading && <Charts />}</div>
-          </Col>
-        </Row>
-      )} */}
       </div>
     </div>
+
+  // <div className='spin-Loading'>
+  //   <div className="dashboard-head">
+  //     {loader && (
+  //       <div className="loader">
+  //         <Spin tip="Loading" size="large">
+  //           <div className="content" />
+  //         </Spin>
+  //       </div>
+  //     )}
+  //     {!loader && (
+  //       <div>
+  //         <div>Dashboard</div>
+  //         <Row>
+  //           {dashboardData?.map((item, index) => (
+  //             // eslint-disable-next-line react/jsx-key
+  //             <Col span={8} className='col'>
+  //               <div key={index}>
+  //                 <PublisherDashboard data={item} />
+  //               </div>
+  //             </Col>
+  //           ))}
+  //         </Row>
+  //       </div>
+  //     )}
+  //     {/* {!loader && (
+  //     <Row>
+  //       <Col sm={24} xs={24} md={0} lg={0}>
+  //         <div className="content-name">DASHBOARD</div>
+  //       </Col>
+  //       <Col>
+  //         {dashboardData?.map((item, index) => (
+  //           <div key={index}>
+  //             <PublisherDashboard data={item} />
+  //           </div>
+  //         ))}
+  //         <div>{!loading && <Charts />}</div>
+  //       </Col>
+  //     </Row>
+  //   )} */}
+  //   </div>
+  // </div>
   );
 };
 

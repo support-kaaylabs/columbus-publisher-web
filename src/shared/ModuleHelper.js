@@ -36,21 +36,21 @@ export const modules = [
     darkIcon: benchmark,
     submenu: [
       {
-        key: '/dashboard',
-        to: '/:dashboard',
+        key: '/management',
+        to: '/Management',
         Module_Name: 'Management',
         name: 'Management',
         sequence: 1,
       },
       {
-        key: '/Matrics',
+        key: '/matrics',
         to: '/Matrics',
         Module_Name: 'Matrics',
         name: 'Matrics',
         sequence: 2,
       },
       {
-        key: '/Analysis',
+        key: '/analysis',
         to: '/Analysis',
         Module_Name: 'Analysis',
         name: 'Analysis',
@@ -59,7 +59,7 @@ export const modules = [
     ],
   },
   {
-    key: '/Shoutout',
+    key: '/shoutout',
     to: '/Shoutout',
     type: 'shoutout',
     Module_Name: 'Shoutout',
@@ -69,7 +69,7 @@ export const modules = [
     darkIcon: benchmark,
   },
   {
-    key: '/Knowledge Hub',
+    key: '/knowledge Hub',
     to: '/Knowledge Hub',
     type: 'knowledge Hub',
     Module_Name: 'Knowledge Hub',
@@ -78,7 +78,7 @@ export const modules = [
     icon:knowledge,
   },
   {
-    key: '/Settings',
+    key: '/settings',
     to: '/Settings',
     type: 'settings',
     Module_Name: 'Settings',
@@ -88,7 +88,7 @@ export const modules = [
     darkIcon: benchmark,
     submenu:[
       {
-        key: '/Profile',
+        key: '/profile',
         to: '/Profile',
         type: 'profile',
         Module_Name: 'Profile',
@@ -96,7 +96,7 @@ export const modules = [
         sequence: 1,
       },
       {
-        key: '/Subscription',
+        key: '/subscription',
         to: '/Subscription',
         Module_Name: 'Subscription',
         name: 'Subscription',
@@ -106,7 +106,7 @@ export const modules = [
   },
   
   {
-    key: '/Support',
+    key: '/support',
     to: '/Support',
     type: 'support',
     Module_Name: 'Support',
