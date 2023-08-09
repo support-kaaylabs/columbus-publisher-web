@@ -498,10 +498,6 @@
   color: white;
   object-fit: cover;
 }
-// .ant-menu-item {
-//   border-left: 1px solid #fff !important;
-//   border-radius: 1px;
-// }
 .image-dim {
   width: 18px;
   height: 18px;
@@ -772,7 +768,7 @@
   left: 9%;
   width: 6px;
   height: 6px;
-  background-color: #C20155; /* Replace with the color of your choice */
+  background-color: #C20155;
   border-radius: 50%;
 }
 .unselected-dot {
@@ -781,6 +777,6 @@
   left: 9%;
   width: 6px;
   height: 6px;
-  background-color: #222222; /* Replace with the color of your choice */
+  background-color: #222222; 
   border-radius: 50%;
 }
