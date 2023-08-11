@@ -105,10 +105,10 @@ const App: FC = () => {
             {loginId === 'true' && (
               <Header className='header'>
                 <Row>
-                  <Col span={17}>
+                  <Col md={12} lg={17}>
                     <Button className='back-Button'><img src={menuBack} /></Button>
                   </Col>
-                  <Col span={7}>
+                  <Col md={12} lg={7}>
                     <Button className='group-Button'><img src={group} /></Button>
                     <Button className='notification-Button'><img src={notification} /></Button>
                     <Button className='img-Button'><img src={notification} /></Button>
@@ -116,15 +116,13 @@ const App: FC = () => {
                 </Row>
               </Header>
             )} 
-            <div className='spin-Loading'>
-              <Content>
-                <Routes>
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
-                  <Route path="/forgot-password" element={<ForgotPassword />} />
-                </Routes>
-              </Content>
-            </div>
+            <Content>
+              <Routes>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+              </Routes>
+            </Content>
           </Layout>
         </Layout>
       )}

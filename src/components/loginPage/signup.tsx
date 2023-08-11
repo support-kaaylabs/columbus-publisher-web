@@ -662,7 +662,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               onChange={(e) => setGstNumber(e.target.value.trim())}
               value={gstNumber} />
           </Form.Item>
-          <div className='sign-in-link-div'>Already have an account? <a className="sign-in-link" onClick={signIn}>
+          <div className='sign-in-link-div'>Already have an account?  <a className="sign-in-link" onClick={signIn}>
           Sign In
           </a></div>
         </div >
@@ -853,15 +853,15 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
         )
       }
       <div>
-        <Row>
-          <Col span={13}>
+        <Row align='bottom' style={{marginTop: '20px'}}>
+          <Col span={9}>
             <div className={current === 2? 'steps-current2':'steps'}>
               {`Step${steps}/3`}
             </div>
           </Col>
           {current <= 2 && (
-            <Col span={11} >
-              <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <Col span={15} >
+              <div style={{display: 'flex', justifyContent: 'right'}}>
                 <div>
                   {current > 0 && (
                     current < 3 &&(

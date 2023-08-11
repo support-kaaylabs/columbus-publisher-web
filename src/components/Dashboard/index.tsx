@@ -1,8 +1,10 @@
 import React from 'react';
 import './dashboard.scss';
 import { Col, Row } from 'antd';
-import arrowDown from '../../assets/arrow-down.svg';
-import arrowUp from '../../assets/arrow-up.svg';
+import impressions from '../../assets/impressionImg.png';
+import calltoAction from '../../assets/calltoAction.png';
+import clicks from '../../assets/clicksGreen.png';
+
 
 interface dashboardDetails {
   data: {
@@ -24,89 +26,51 @@ interface dashboardDetails {
 
 const Dashboard = (props: dashboardDetails) => {
   const { data } = props;
-
   return (
-    <div className="dashboard-page">     
-      <Row className="row">
-        <Col xs={24} sm={24} md={24} lg={4} className="logo">
-          <div className="icon-img">
-            <div className="icon-img-back">
-              <img
-                src={require(`../../assets/${data.Event_Name}.png`)}
-                alt="eye-icon"
-              />
-            </div>
-            <p className='event-name'>
-              {data?.Event_Name === 'PRODUCT_VIEWS'
-                ? 'Impressions'
-                : null || data?.Event_Name === 'PRODUCT_CLICK'
-                  ? 'Clicks'
-                  : null || data?.Event_Name === 'FAVOURITES_CLICK'
-                    ? 'Favourite'
+    <div className="dashboard-page">
+      <Row className='row' gutter={1}>
+        <Col span={24} className='col'>
+          <div>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <div className='left-div'>
+
+                <Row className='event-name'>
+                  <Col><p>
+                    {data?.Event_Name === 'PRODUCT_VIEWS'
+                      ? 'Impressions'
+                      : null || data?.Event_Name === 'PRODUCT_CLICK'
+                        ? 'Clicks'
+                        : null || data?.Event_Name === 'CALL_TO_ACTION'
+                          ? 'Call to Action'
+                          : ''}
+                  </p></Col>
+                  <Col><p>45615</p></Col>
+                  <Col><div>Jun01- Till Date</div></Col>
+                </Row>
+              </div>
+              <div className='right-div'>
+                {data?.Event_Name === 'PRODUCT_VIEWS'
+                  ?
+                  <div className="container">
+                    <img className="background" src={impressions} alt="eye-icon" />
+                    <div className="logo"><img src={require(`../../assets/${data.Event_Name}.png`)} /></div>
+                  </div>
+                  : null || data?.Event_Name === 'PRODUCT_CLICK'
+                    ? <div className="container">
+                      <img className="background" src={clicks} alt="eye-icon" />
+                      <div className="logo"><img src={require(`../../assets/${data.Event_Name}.png`)} /></div>
+                    </div>
                     : null || data?.Event_Name === 'CALL_TO_ACTION'
-                      ? 'Call to Action'
+                      ? <div className="container">
+                        <img className="background" src={calltoAction} alt="eye-icon" />
+                        <div className="logo"><img src={require(`../../assets/${data.Event_Name}.png`)} /></div>
+                      </div>
                       : ''}
-            </p>
-          </div>
-        </Col>
-        <Col md={6} sm={11} xs={11} lg={4} className="column-wid">
-          <p className='basic'>Today</p>
-          <p className="percentage">
-            {data?.todayPercent ? data?.todayPercent : '0'} %
-          </p>
-          <div className="d-flex">
-            <span className="diffrence">{data.Today}&nbsp; </span> &nbsp;
-            {data.Today < data.Predate ? (
-              <img src={arrowDown} alt='down-arrow' />
-            ) : (
-              <img src={arrowUp} alt='up-arrow' />
-            )}
-          </div>
-        </Col>
-        <Col md={6} sm={11} xs={11} lg={4} className="column-wid">
-          <p className='basic'>This Week</p>
-          <p className="percentage">
-            {data.weekPercent ? data.weekPercent : '0'} %
-          </p>
-          <div className="d-flex">
-            <span className="diffrence">{data.Week}&nbsp;</span> &nbsp;
-            {data.Week < data.Preweek ? (
-              <img src={arrowDown} alt='down-arrow' />
-            ) : (
-              <img src={arrowUp} alt='up-arrow' />
-            )}
-          </div>
-        </Col>
-        <Col md={6} sm={11} xs={11} lg={4} className="column-wid">
-          <p className='basic'>This Month</p>
-          <p className="percentage">
-            {data.monthPercent ? data.monthPercent : '0'} %
-          </p>
-          <div className="d-flex">
-            <span className="diffrence">{data.Month}&nbsp;</span> &nbsp;
-            {data.Month < data.Premonth ? (
-              <img src={arrowDown} alt='down-arrow' />
-            ) : (
-              <img src={arrowUp} alt='up-arrow' />
-            )}
-          </div>
-        </Col>
-        <Col md={6} sm={11} xs={11} lg={4} className="column-wid">
-          <p className='basic'>Quarter</p>
-          <p className="percentage">
-            {data.quarterPercent ? data.quarterPercent : '0'} %
-          </p>
-          <div className="d-flex">
-            <span className="diffrence">{data.Quarter}&nbsp;</span> &nbsp;
-            {data.Quarter < data.Prequarter ? (
-              <img src={arrowDown} alt='down-arrow' />
-            ) : (
-              <img src={arrowUp} alt='up-arrow' />
-            )}
+              </div>
+            </div>
           </div>
         </Col>
       </Row>
-      {/* </div> */}
     </div>
   );
 };
