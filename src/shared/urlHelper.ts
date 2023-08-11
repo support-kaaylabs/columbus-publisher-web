@@ -31,3 +31,13 @@ export const getImageLocate = () => http.get('user-profile');
 export const getProduct = (data: any) => http.post('get-seller-products', data);
 
 export const getProductDetail = (data: any) => http.post('get-seller-product-detail', data);
+
+export const getAllCountries = () => http.get('get-all-country');
+
+export const getAllStatesByCountryId = (data: any) => http.post('get-all-states',data);
+
+export const getAllCitiesByStateId = (data: any) => http.post('get-all-cities',data);
+
+export const email_phone_verify = (data: any) => http.get('verification', data);
+
+export const sellerRegister = (data: any, file: any) => http.handleMultipart('seller-register', data, file,'POST');

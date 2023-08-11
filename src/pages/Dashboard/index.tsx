@@ -38,7 +38,7 @@ const Dashboard: FC = () => {
   };
 
   return (
-    <div className="dashboard-head">
+    <div className="dashboard-head" style={{overflowY: 'auto',height: '100vh'}}>
       {loader && (
         <div className="loader">
           <Spin tip="Loading" size="large">

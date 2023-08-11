@@ -1,8 +1,8 @@
 import React from 'react';
 import './dashboard.scss';
 import { Col, Row } from 'antd';
-import arrowDown from '../Images/arrow-down.svg';
-import arrowUp from '../Images/arrow-up.svg';
+import arrowDown from '../../assets/arrow-down.svg';
+import arrowUp from '../../assets/arrow-up.svg';
 
 interface dashboardDetails {
   data: {
@@ -46,7 +46,7 @@ const Dashboard = (props: dashboardDetails) => {
             <div className="icon-img">
               <div className="icon-img-back">
                 <img
-                  src={require(`../Images/${data.Event_Name}.png`)}
+                  src={require(`../../assets/${data.Event_Name}.png`)}
                   alt="eye-icon"
                 />
               </div>

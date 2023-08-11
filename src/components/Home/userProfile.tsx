@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { imageUpload, getImageLocate } from '../../shared/urlHelper';
 import { Col, Row } from 'antd';
 import Arrow from './Images/leftArrowIconLarge.png';
-import DefaultUser from '../Images/defaultUser.png';
+import DefaultUser from '../../assets/defaultUser.png';
 import StoreImg from './Images/storeLarge.png';
 import UserImg from './Images/userLarge.png';
 import cameraIcon from './Images/cameraIcon.svg';
