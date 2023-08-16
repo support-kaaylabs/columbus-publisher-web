@@ -103,11 +103,11 @@ const Signin: FC<signinProps> = ({signupPageValidation, forgotPageValidation}) =
       </Form.Item>
 
       <Form.Item>
-        {/* <a className="form-forgot" 
-          // onClick={forgotClick}
+        <a className="form-forgot" 
+          onClick={forgotClick}
         >
           Forgot password
-        </a> */}
+        </a>
         <Button
           htmlType="submit"
           className='form-button'

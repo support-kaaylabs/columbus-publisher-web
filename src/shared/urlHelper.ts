@@ -41,3 +41,7 @@ export const getAllCitiesByStateId = (data: any) => http.post('get-all-cities',d
 export const email_phone_verify = (data: any) => http.get('verification', data);
 
 export const sellerRegister = (data: any, file: any) => http.handleMultipart('seller-register', data, file,'POST');
+
+export const forgotPassword = (data: any) => http.post('forgot-passwordd', data);
+
+export const resetPassword = (data: any) => http.post('reset-password', data);

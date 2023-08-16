@@ -22,7 +22,7 @@ import type { MenuProps } from 'antd';
 import { Dropdown } from 'antd';
 import Signup from './components/loginPage/signup';
 import LoginPage from './components/loginPage';
-import ForgotPassword from './components/loginPage/ForgotPassword';
+import ResetPassword from './components/loginPage/resetPassword';
 
 const { Header, Sider, Content } = Layout;
 
@@ -35,7 +35,6 @@ const App: FC = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [image, setImage] = useState<any>(DefaultUser);
   const [open, setOpen] = useState(false);
-
   const handleOpenChange = () => {
     setOpen((data) => !data);
   };
@@ -95,7 +94,7 @@ const App: FC = () => {
 
   useEffect(() => {
     if (userID == null || userID == undefined) {
-      navigate('/');
+      // navigate('/');
     } else {
       setImage(
         localStorage.getItem('Image') === 'null'
@@ -351,7 +350,6 @@ const App: FC = () => {
                   <Route path="myProfile" element={<UserProfile />} />
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
-                  <Route path="/forgot-password" element={<ForgotPassword />} />
                 </Routes>
               </Content>
             </Layout>
@@ -359,9 +357,12 @@ const App: FC = () => {
 
         </Layout>
       )}
-      <Routes>
-        <Route path="/" element={<LoginPage signupValidate={false} />} />
-      </Routes>
+      {(!loginId) && (
+        <Routes>
+          <Route path="/" element={<LoginPage signupValidate={false} />} />
+          <Route path="/reset-password/:id" element={<ResetPassword signupPageValidation={false} forgotPageValidation={false}/>} />
+        </Routes>
+      )}
     </>
   );
 };
