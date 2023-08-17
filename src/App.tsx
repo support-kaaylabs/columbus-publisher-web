@@ -360,7 +360,7 @@ const App: FC = () => {
       {(!loginId) && (
         <Routes>
           <Route path="/" element={<LoginPage signupValidate={false} />} />
-          <Route path="/reset-password/:id" element={<ResetPassword signupPageValidation={false} forgotPageValidation={false}/>} />
+          <Route path="/reset-password/:token/:id" element={<ResetPassword signupPageValidation={false} forgotPageValidation={false}/>} />
         </Routes>
       )}
     </>

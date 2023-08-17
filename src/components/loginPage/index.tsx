@@ -20,8 +20,6 @@ const LoginPage: FC<Props> = ({ signupValidate }) => {
   const forgotPageValidation = (e: any) => {
     setForgot(e);
   };
-  console.log(signup, signupValidate, forgot, 'vallues');
-
   return (
     <Row className='login'>
       <Col xs={0} sm={0} md={12} lg={12} xl={12} className='login-left'>
