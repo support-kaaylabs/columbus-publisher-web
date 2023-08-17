@@ -1,11 +1,10 @@
 
-import Dashboard from './pages/Dashboard';
+// import Dashboard from './pages/Dashboard';
 import React, { type FC, useState } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import './App.scss';
-import {Button, Col, Layout, Menu, Row } from 'antd';
+import { Button, Col, Layout, Menu, Row } from 'antd';
 import { modules } from './shared/ModuleHelper';
-import _ from 'lodash';
 import Logo from '../src/assets/columbusbig.png';
 import MiniLogo from '../src/assets/columbussmall.png';
 import menuBack from '../src/assets/menuback.png';
@@ -15,6 +14,7 @@ import LoginPage from './components/loginPage';
 import Signup from './components/loginPage/signup';
 import ForgotPassword from './components/loginPage/ForgotPassword';
 import { LogoutOutlined } from '@ant-design/icons';
+import DashboardPage from './components/dashboardPage';
 
 const { Sider, Content, Header } = Layout;
 
@@ -41,7 +41,7 @@ const App: FC = () => {
   const onCollapsedChange = () => {
     setCollapsed(!collapsed);
   };
-  const loginId = localStorage.getItem('Login');  
+  const loginId = localStorage.getItem('Login');
   return (
     <>
       {loginId === 'true' && (
@@ -73,13 +73,13 @@ const App: FC = () => {
                       key={module.key}
                       title={module.Module_Name}
                       icon={<img src={module.icon} alt={module.name}
-                        className={img === module.key ? 'subimage-bright' : 'subimage-dim'}  />} 
+                        className={img === module.key ? 'subimage-bright' : 'subimage-dim'} />}
                     >
                       {module.submenu.map((subModule) => (
                         <Menu.Item key={subModule.key}>
                           <div>
                             <div className={img === subModule.key ? 'selected-dot' : 'unselected-dot'}></div>
-                            <Link to={subModule.to}/>
+                            <Link to={subModule.to} />
                             <span className={img === subModule.key ? 'selected-submenu' : 'unselected-submenu'}>{subModule.name}</span>
                           </div>
                         </Menu.Item>
@@ -106,20 +106,21 @@ const App: FC = () => {
               <Header className='header'>
                 <Row>
                   <Col span={17}>
-                    <Button className='back-Button'><img src={menuBack} /></Button>
+                    <Button className='back-Button'><img src={menuBack} alt='menu-back' /></Button>
                   </Col>
                   <Col span={7}>
-                    <Button className='group-Button'><img src={group} /></Button>
-                    <Button className='notification-Button'><img src={notification} /></Button>
-                    <Button className='img-Button'><img src={notification} /></Button>
+                    <Button className='group-Button'><img src={group} alt='group' /></Button>
+                    <Button className='notification-Button'><img src={notification} alt='notification' /></Button>
+                    <Button className='img-Button'><img src={notification} alt='notification' /></Button>
                   </Col>
                 </Row>
               </Header>
-            )} 
+            )}
             <div className='spin-Loading'>
               <Content>
                 <Routes>
-                  <Route path="/dashboard" element={<Dashboard />} />
+                  {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+                  <Route path="/dashboard" element={<DashboardPage collapsed={collapsed} />} />
                   <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
                   <Route path="/forgot-password" element={<ForgotPassword />} />
                 </Routes>

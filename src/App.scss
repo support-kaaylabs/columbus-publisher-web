@@ -191,30 +191,30 @@
             }
           }
 
-          .products,
-          .dashboard,
-          .insights,
-          .wallet,
-          .setting,
-          .help,
-          .logout {
-            background: transparent;
+          // .products,
+          // .dashboard,
+          // .insights,
+          // .wallet,
+          // .setting,
+          // .help,
+          // .logout {
+          //   background: transparent;
 
-            a {
-              text-align: left;
-              font-size: 15px;
-              color: #222222;
-              text-transform: uppercase;
-              background: transparent;
+          //   a {
+          //     text-align: left;
+          //     font-size: 15px;
+          //     color: #222222;
+          //     text-transform: uppercase;
+          //     background: transparent;
 
-              &:focus {
-                color: #e53935;
-              }
-              span {
-                margin-right: 31px;
-              }
-            }
-          }
+          //     &:focus {
+          //       color: #e53935;
+          //     }
+          //     span {
+          //       margin-right: 31px;
+          //     }
+          //   }
+          // }
         }
       }
 
@@ -246,71 +246,71 @@
   }
 }
 
-.ant-dropdown .ant-dropdown-menu,
-.ant-dropdown-menu-submenu .ant-dropdown-menu {
-  border-radius: 0px;
-  width: 100vw;
-  margin-top: -2px;
-  .ant-dropdown-menu-item {
-    .ant-dropdown-menu-title-content {
-      .products,
-      .dashboard,
-      .insights,
-      .wallet,
-      .setting,
-      .help,
-      .logout {
-        background: transparent;
-        a {
-          text-align: left;
-          font-size: 18px;
-          letter-spacing: 0px;
-          color: #222222;
-          text-transform: uppercase;
-          background: transparent;
+// .ant-dropdown .ant-dropdown-menu,
+// .ant-dropdown-menu-submenu .ant-dropdown-menu {
+//   border-radius: 0px;
+//   width: 100vw;
+//   margin-top: -2px;
+//   .ant-dropdown-menu-item {
+//     .ant-dropdown-menu-title-content {
+//       .products,
+//       .dashboard,
+//       .insights,
+//       .wallet,
+//       .setting,
+//       .help,
+//       .logout {
+//         background: transparent;
+//         a {
+//           text-align: left;
+//           font-size: 18px;
+//           letter-spacing: 0px;
+//           color: #222222;
+//           text-transform: uppercase;
+//           background: transparent;
 
-          &:focus {
-            color: #e53935;
-          }
+//           &:focus {
+//             color: #e53935;
+//           }
 
-          span {
-            font-size: 15px;
-            letter-spacing: 0px;
-            color: #222222;
-            text-transform: uppercase;
-            svg {
-              margin-right: 25px;
-            }
-          }
-        }
-      }
-      .activeMenu {
-        a {
-          text-align: left;
-          font-size: 18px;
-          letter-spacing: 0px;
-          color: #e53935;
-          text-transform: uppercase;
-          background: transparent;
+//           span {
+//             font-size: 15px;
+//             letter-spacing: 0px;
+//             color: #222222;
+//             text-transform: uppercase;
+//             svg {
+//               margin-right: 25px;
+//             }
+//           }
+//         }
+//       }
+//       .activeMenu {
+//         a {
+//           text-align: left;
+//           font-size: 18px;
+//           letter-spacing: 0px;
+//           color: #e53935;
+//           text-transform: uppercase;
+//           background: transparent;
 
-          &:focus {
-            color: #222222;
-          }
+//           &:focus {
+//             color: #222222;
+//           }
 
-          span {
-            font-size: 15px;
-            letter-spacing: 0px;
-            color: #e53935;
-            text-transform: uppercase;
-            svg {
-              margin-right: 25px;
-            }
-          }
-        }
-      }
-    }
-  }
-}
+//           span {
+//             font-size: 15px;
+//             letter-spacing: 0px;
+//             color: #e53935;
+//             text-transform: uppercase;
+//             svg {
+//               margin-right: 25px;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
 @media screen and (max-width: 1000px) {
   .header-content-row {
     justify-content: space-around;
@@ -779,4 +779,16 @@
   height: 6px;
   background-color: #222222; 
   border-radius: 50%;
+}
+
+.ant-tabs-nav {
+  position: unset !important;
+}
+
+.apexcharts-toolbar {
+  display: none !important;
+}
+
+.apexcharts-legend {
+  display: none !important;
 }
