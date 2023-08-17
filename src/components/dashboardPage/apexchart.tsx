@@ -35,12 +35,6 @@ const ApexChart: React.FC<chartDataType> = ({ viewDate, viewCount, clickCount, c
       type: 'date',
       categories: viewDate,
     },
-    // tooltip: {
-    //   x: {
-    //     format: 'MM',
-    //   },
-
-    // },
     colors: ['#4099FF', '#13C64F', '#F7Af2D'],
     fill: {
       type: 'gradient',
