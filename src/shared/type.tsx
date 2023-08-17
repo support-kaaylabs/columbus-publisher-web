@@ -34,3 +34,9 @@ export interface chartContainerDataType {
 export interface dashboardPageType {
   collapsed: boolean;
 }
+
+export interface fetchDataType {
+  success: boolean; 
+  count: any; 
+  data: any[];
+}

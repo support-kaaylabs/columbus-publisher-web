@@ -1,8 +1,10 @@
 .dashboard {
-  padding: 25px;
+  padding: 24px;
+  overflow: auto;
 
   .dashboard-header {
     display: flex;
+
     p {
       font-size: 20px;
       font-weight: 600;
@@ -26,6 +28,7 @@
     justify-content: center;
     align-items: center;
     height: 350px;
+
     .ant-spin-spinning {
       display: flex;
       position: absolute;
@@ -81,6 +84,10 @@
       .ant-tabs-nav-wrap {
         display: none;
       }
+    }
+
+    .ant-tabs-content-holder {
+      padding: 0px 10px;
     }
   }
 
