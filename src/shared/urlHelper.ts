@@ -45,3 +45,5 @@ export const sellerRegister = (data: any, file: any) => http.handleMultipart('se
 export const forgotPassword = (data: any) => http.post('forgot-passwordd', data);
 
 export const resetPassword = (data: any) => http.post('reset-password', data);
+
+export const resetPasswordLinkVerification = (data: any) => http.post('resetpassword-linkVerify', data);

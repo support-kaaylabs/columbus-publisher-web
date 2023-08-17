@@ -9,6 +9,7 @@
 
     .login-title {
       text-align: center;
+
       .login-main-title {
         margin: 0px;
         font-size: 24px;
@@ -26,11 +27,13 @@
         font-weight: 400;
       }
     }
+
     .login-content-div {
       height: 50%;
       padding-top: 25%;
       justify-content: space-between;
     }
+
     .login-logo {
       margin-top: 30px;
     }
@@ -130,19 +133,22 @@
         margin-top: 20px;
         margin-bottom: 40px;
       }
+
       .sign-in-link {
         margin-top: 1px;
         color: #C20155;
         font-weight: 700;
         text-decoration: underline;
-       
+
       }
+
       .sign-in-link-div {
         font-size: 14px;
-          color: #0c0c0c;
-          font-weight: 400;
-          opacity: 1;
+        color: #0c0c0c;
+        font-weight: 400;
+        opacity: 1;
       }
+
       .form-button {
         border-radius: 5px;
         background: #570026;
@@ -260,6 +266,7 @@
             object-fit: contain;
             height: 100% !important;
             width: 200px !important;
+
             .profile-img {
               position: absolute;
               width: 200px !important;
@@ -311,6 +318,7 @@
         color: white;
         font-weight: 700;
       }
+
       .next-button {
         width: 160px;
         font-size: 13px;
@@ -483,27 +491,32 @@
       }
 
     }
-    
+
     @media (max-width: 768px) {
       .next-button {
         width: 100%;
       }
+
       .next-button-current1 {
         width: 100%;
       }
+
       .signup-button {
         width: 100%;
       }
     }
-    @media screen and (max-width : 430px){
+
+    @media screen and (max-width : 430px) {
       padding: 8px;
-      
+
     }
-    @media screen and (min-width : 440px){
+
+    @media screen and (min-width : 440px) {
       padding: 8px;
     }
   }
 }
+
 .password-condition-check-div {
   margin-top: 5px;
   width: 400px;
@@ -566,30 +579,37 @@
 
 .forgot-div {
   margin-top: 100px;
-.forgot {
-  max-width: 450px;
-  flex-direction: column;
-  justify-content: center;
-  margin: auto;
-  .button {
-    height: 40px;
-    border-color: #570026;
-    .img{
-      margin-top: 5px;
+
+  .forgot {
+    max-width: 450px;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+
+    .button {
+      height: 40px;
+      border-color: #570026;
+
+      .img {
+        margin-top: 5px;
+      }
+
     }
-    
-  }
-  .p-forgot {
-    font-size: 24px;
-    color: #C20155;
-    font-weight: 600;
-    opacity: 0.8;
-    .send-emailmessage {
-      color: #A9A9A9;
-      font-size: 10px;
+
+    .p-forgot {
+      font-size: 24px;
+      color: #C20155;
+      font-weight: 600;
+      opacity: 0.8;
+
+      .send-emailmessage {
+        color: #A9A9A9;
+        font-size: 10px;
+        font-size: 13px;
+        margin-top: 2px;
+      }
     }
   }
-}
 }
 
 .form-forgot {
@@ -598,27 +618,53 @@
   justify-content: center;
   margin: auto;
   margin-top: 50px;
+
   .form-item {
     font-size: 14px;
     color: #222222;
     font-weight: 600;
     opacity: 0.7;
   }
+
   .input {
-    margin-top: -10px;
+    margin-top: -20px;
+    font-size: 14px;
+    color: #222222;
+    font-weight: 600;
+    opacity: 0.7;
+    background: #F2F2F2;
+    border-radius: 5px;
   }
+
   .get-link {
     border-radius: 5px;
-        background: #570026;
-        font-size: 14px;
-        font-weight: 600;
-        color: #FFFFFF;
-        margin-top: 50px;
-        margin-bottom: 30px;
-        padding-top: 12px;
-        padding-bottom: 36px;
-        width: 450px;
-        max-width: 100%;
+    background: #570026;
+    font-size: 14px;
+    font-weight: 600;
+    color: #FFFFFF;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    padding-top: 12px;
+    padding-bottom: 36px;
+    width: 450px;
+    max-width: 100%;
   }
 }
+.link-Expired {
+  width: auto;
+  height: 100px;
+  margin-top: 100px;
+  text-align: center;
+  background-color: #e1dfdf;
+  border-radius: 10px;
+  .link {
+    padding-top: 25px;
+  }
+  .sign-in {
+    margin-top: 1px;
+    color: #C20155;
+    font-weight: 700;
+    text-decoration: underline;
 
+  }
+}
