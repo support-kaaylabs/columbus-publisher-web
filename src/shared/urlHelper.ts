@@ -42,4 +42,10 @@ export const email_phone_verify = (data: any) => http.get('verification', data);
 
 export const sellerRegister = (data: any, file: any) => http.handleMultipart('seller-register', data, file,'POST');
 
-export const getPublisherChartDataClbs = (data: any) => http.post('get-publisher-chart-data', data);
+export const getPublisherChartDataClbs = () => http.get('get-publisher-chart-data');
+
+export const getPublisherChartYearlyData = () => http.get('get-publisher-chart-yearly-data');
+
+export const getPublisherChartMonthlyData = () => http.get('get-publisher-chart-monthly-data');
+
+export const getPublisherChartWeeklyData = () => http.get('get-publisher-chart-weekly-data');

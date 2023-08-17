@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Spin } from 'antd';
 import { get } from 'lodash';
-import { getPublisherChartDataClbs } from '../../shared/urlHelper';
+import { getPublisherChartDataClbs, getPublisherChartYearlyData, getPublisherChartMonthlyData, getPublisherChartWeeklyData } from '../../shared/urlHelper';
 import { errorNotification } from '../../shared/globalVariables';
-import { chartDataType, curValue, dashboardPageType } from '../../shared/type';
+import { chartDataType, curValue, dashboardPageType, fetchDataType } from '../../shared/type';
 import ApexChart from './apexchart';
 import ChartContainer from './chartContainer';
 import DashboardImg from '../columbusImages/dashboard-img.svg';
 import './index.scss';
 
-const DashboardPage: React.FC<dashboardPageType> = ({collapsed}) => {
-
+const DashboardPage: React.FC<dashboardPageType> = ({ collapsed }) => {
   const [viewsCount, setViewsCount] = useState([]);
   const [viewsDate, setViewsDate] = useState([]);
   const [viewsTotalCount, setViewsTotalCount] = useState<string>('0');
@@ -21,53 +20,93 @@ const DashboardPage: React.FC<dashboardPageType> = ({collapsed}) => {
   const [ctaStartDate, setCtaStartDate] = useState<string>('');
   const [clicksCount, setClicksCount] = useState([]);
   const [ctaCount, setCtaCount] = useState([]);
-  const [chartMode, setChartMode] = useState<string>('Weekly');
+  const [chartMode, setChartMode] = useState<string>('All');
   const [loading, setLoading] = useState<boolean>(true);
-  useEffect(() => {
-    fetchData();
-  }, [chartMode, collapsed]);
 
-  const fetchData = () => {
-    const params = { chartMode };
+  useEffect(() => {
+    if (chartMode === 'All') {
+      allData();
+    } else if (chartMode === 'Yearly') {
+      yearlyData();
+    } else if (chartMode === 'Monthly') {
+      monthlyData();
+    } else if (chartMode === 'Weekly') {
+      weeklyData();
+    }
+  }, [chartMode, collapsed]);
+  const fetchData = (resp: fetchDataType) => {
+    if (resp.success) {
+      const viewsTotalCount = get(resp.count, '[0].Interactions', '0');
+      const clicksTotalCount = get(resp.count, '[1].Interactions', '0');
+      const ctaTotalCount = get(resp.count, '[2].Interactions', '0');
+      const viewsStartDate = get(resp.count, '[0].DateWise', '');
+      const clicksStartDate = get(resp.count, '[1].DateWise', '');
+      const ctaStartDate = get(resp.count, '[2].DateWise', '');
+      setViewsTotalCount(viewsTotalCount);
+      setClicksTotalCount(clicksTotalCount);
+      setCtaTotalCount(ctaTotalCount);
+      setViewsStartDate(viewsStartDate);
+      setClicksStartDate(clicksStartDate);
+      setCtaStartDate(ctaStartDate);
+      const chartData = {
+        viewDate: [],
+        viewCount: [],
+        clickDate: [],
+        clickCount: [],
+        ctaDate: [],
+        ctaCount: []
+      };
+      resp.data.reduce((acc: chartDataType, currentValue: curValue) => {
+        if (currentValue['Event_Name'] === 'PRODUCT_VIEWS') {
+          acc.viewCount.push(currentValue['Interactions']);
+          acc.viewDate.push(currentValue['DateWise']);
+        } else if (currentValue['Event_Name'] === 'PRODUCT_CLICK') {
+          acc.clickCount.push(currentValue['Interactions']);
+        } else if (currentValue['Event_Name'] === 'CALL_TO_ACTION') {
+          acc.ctaCount.push(currentValue['Interactions']);
+        }
+        return acc;
+      }, chartData);
+      setViewsCount(chartData['viewCount']);
+      setViewsDate(chartData['viewDate']);
+      setClicksCount(chartData['clickCount']);
+      setCtaCount(chartData['ctaCount']);
+    }
+  };
+  const weeklyData = () => {
     setLoading(true);
-    getPublisherChartDataClbs(params).then((resp) => {
-      if (resp.success) {
-        const viewsTotalCount = get(resp.count, '[0].Interactions', '0');
-        const clicksTotalCount = get(resp.count, '[1].Interactions', '0');
-        const ctaTotalCount = get(resp.count, '[2].Interactions', '0');
-        const viewsStartDate = get(resp.count, '[0].DateWise', '');
-        const clicksStartDate = get(resp.count, '[1].DateWise', '');
-        const ctaStartDate = get(resp.count, '[2].DateWise', '');
-        setViewsTotalCount(viewsTotalCount);
-        setClicksTotalCount(clicksTotalCount);
-        setCtaTotalCount(ctaTotalCount);
-        setViewsStartDate(viewsStartDate);
-        setClicksStartDate(clicksStartDate);
-        setCtaStartDate(ctaStartDate);
-        const chartData = {
-          viewDate: [],
-          viewCount: [],
-          clickDate: [],
-          clickCount: [],
-          ctaDate: [],
-          ctaCount: []
-        };
-        resp.data.reduce((acc: chartDataType, currentValue: curValue) => {
-          if (currentValue['Event_Name'] === 'PRODUCT_VIEWS') {
-            acc.viewCount.push(currentValue['Interactions']);            
-            acc.viewDate.push(currentValue['DateWise']);
-          } else if (currentValue['Event_Name'] === 'PRODUCT_CLICK') {
-            acc.clickCount.push(currentValue['Interactions']);
-          } else if (currentValue['Event_Name'] === 'CALL_TO_ACTION') {
-            acc.ctaCount.push(currentValue['Interactions']);
-          }
-          return acc;
-        }, chartData);
-        setViewsCount(chartData['viewCount']);
-        setViewsDate(chartData['viewDate']);
-        setClicksCount(chartData['clickCount']);
-        setCtaCount(chartData['ctaCount']);
-      }
+    getPublisherChartWeeklyData().then((resp) => {
+      fetchData(resp);
+      setLoading(false);
+    }).catch((err) => {
+      errorNotification(err);
+      setLoading(false);
+    });
+  };
+  const monthlyData = () => {
+    setLoading(true);
+    getPublisherChartMonthlyData().then((resp) => {
+      fetchData(resp);
+      setLoading(false);
+    }).catch((err) => {
+      errorNotification(err);
+      setLoading(false);
+    });
+  };
+  const yearlyData = () => {
+    setLoading(true);
+    getPublisherChartYearlyData().then((resp) => {
+      fetchData(resp);
+      setLoading(false);
+    }).catch((err) => {
+      errorNotification(err);
+      setLoading(false);
+    });
+  };
+  const allData = () => {
+    setLoading(true);
+    getPublisherChartDataClbs().then((resp) => {
+      fetchData(resp);
       setLoading(false);
     }).catch((err) => {
       errorNotification(err);
@@ -82,7 +121,7 @@ const DashboardPage: React.FC<dashboardPageType> = ({collapsed}) => {
       </div>
       <div className='dashboard-container'>
         <ChartContainer viewsTotalCount={viewsTotalCount} clicksTotalCount={clicksTotalCount} ctaTotalCount={ctaTotalCount} viewsStartDate={viewsStartDate} clicksStartDate={clicksStartDate} ctaStartDate={ctaStartDate} />
-      </div>      
+      </div>
       {loading && (<div className='dashboard-loading'>
         <Spin size='large' />
       </div>)}
