@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Spin } from 'antd';
 import { get } from 'lodash';
-import { getPublisherChartDataClbs, getPublisherChartYearlyData, getPublisherChartMonthlyData, getPublisherChartWeeklyData } from '../../shared/urlHelper';
+import { getPublisherChartData, getPublisherChartYearlyData, getPublisherChartMonthlyData, getPublisherChartWeeklyData } from '../../shared/urlHelper';
 import { errorNotification } from '../../shared/globalVariables';
-import { chartDataType, curValue, dashboardPageType, fetchDataType } from '../../shared/type';
+import { chartDataType, curValue, dashboardPageType, respDataType } from '../../shared/type';
 import ApexChart from './apexchart';
 import ChartContainer from './chartContainer';
 import DashboardImg from '../columbusImages/dashboard-img.svg';
@@ -24,17 +24,27 @@ const DashboardPage: React.FC<dashboardPageType> = ({ collapsed }) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    setLoading(true);
     if (chartMode === 'All') {
-      allData();
+      chartModeFunc(getPublisherChartData);
     } else if (chartMode === 'Yearly') {
-      yearlyData();
+      chartModeFunc(getPublisherChartYearlyData);
     } else if (chartMode === 'Monthly') {
-      monthlyData();
+      chartModeFunc(getPublisherChartMonthlyData);
     } else if (chartMode === 'Weekly') {
-      weeklyData();
+      chartModeFunc(getPublisherChartWeeklyData);
     }
   }, [chartMode, collapsed]);
-  const fetchData = (resp: fetchDataType) => {
+  const chartModeFunc = (getChartFuncApi: () => Promise<any>) => {
+    getChartFuncApi().then((resp: respDataType) => {
+      fetchData(resp);
+      setLoading(false);
+    }).catch((err: any) => {
+      errorNotification(err);
+      setLoading(false);
+    });
+  };
+  const fetchData = (resp: respDataType) => {
     if (resp.success) {
       const viewsTotalCount = get(resp.count, '[0].Interactions', '0');
       const clicksTotalCount = get(resp.count, '[1].Interactions', '0');
@@ -73,46 +83,7 @@ const DashboardPage: React.FC<dashboardPageType> = ({ collapsed }) => {
       setCtaCount(chartData['ctaCount']);
     }
   };
-  const weeklyData = () => {
-    setLoading(true);
-    getPublisherChartWeeklyData().then((resp) => {
-      fetchData(resp);
-      setLoading(false);
-    }).catch((err) => {
-      errorNotification(err);
-      setLoading(false);
-    });
-  };
-  const monthlyData = () => {
-    setLoading(true);
-    getPublisherChartMonthlyData().then((resp) => {
-      fetchData(resp);
-      setLoading(false);
-    }).catch((err) => {
-      errorNotification(err);
-      setLoading(false);
-    });
-  };
-  const yearlyData = () => {
-    setLoading(true);
-    getPublisherChartYearlyData().then((resp) => {
-      fetchData(resp);
-      setLoading(false);
-    }).catch((err) => {
-      errorNotification(err);
-      setLoading(false);
-    });
-  };
-  const allData = () => {
-    setLoading(true);
-    getPublisherChartDataClbs().then((resp) => {
-      fetchData(resp);
-      setLoading(false);
-    }).catch((err) => {
-      errorNotification(err);
-      setLoading(false);
-    });
-  };
+
   return (
     <div className='dashboard'>
       <div className='dashboard-header'>

@@ -35,8 +35,8 @@ export interface dashboardPageType {
   collapsed: boolean;
 }
 
-export interface fetchDataType {
-  success: boolean; 
-  count: any; 
+export interface respDataType {
+  success: boolean;
+  count: any;
   data: any[];
 }
