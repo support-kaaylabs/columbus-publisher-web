@@ -46,7 +46,7 @@ export const forgotPassword = (data: any) => http.post('forgot-passwordd', data)
 
 export const resetPassword = (data: any) => http.post('reset-password', data);
 
-export const resetPasswordLinkVerification = (data: any) => http.post('resetpassword-linkVerify', data);
+export const resetPasswordLinkVerification = (data: any) => http.post('resetpassword-linkverify', data);
 
 export const getPublisherChartData = () => http.get('get-publisher-chart-data');
 
