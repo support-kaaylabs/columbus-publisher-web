@@ -11,11 +11,12 @@ interface forgotProps {
 
 const ForgotPassword: FC<forgotProps> = ({ signupPageValidation, forgotPageValidation }) => {
   const [email, setEmail] = useState<any>();
+  const [forgotLinkSent, setForgotLinkSent] = useState<boolean>(false);
   const navigate = useNavigate();
   const handleSubmit = () => {
     const params = { emailId: email, userType: 'merchant' };
-    forgotPassword(params).then((res) => {
-      alert(res.status);
+    forgotPassword(params).then(() => {
+      setForgotLinkSent(true);
     });
 
   };
@@ -28,7 +29,7 @@ const ForgotPassword: FC<forgotProps> = ({ signupPageValidation, forgotPageValid
   const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
   };
-  
+  console.log(forgotLinkSent, 'sennenenen');
   return (
 
     <div className='forgot-div'>
@@ -70,6 +71,9 @@ const ForgotPassword: FC<forgotProps> = ({ signupPageValidation, forgotPageValid
           </Form.Item>
           <Form.Item className='get-link' >
             <Button htmlType='submit'>Get Link</Button>
+            {forgotLinkSent && (
+              <div className= 'mail-message'>Mail has been sent to your Mail Account. Please Check Your Mail to Reset Your Password.</div>
+            )}
           </Form.Item>
         </Form>
       </div>
