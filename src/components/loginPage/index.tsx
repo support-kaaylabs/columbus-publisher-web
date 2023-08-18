@@ -51,7 +51,7 @@ const LoginPage: FC<Props> = ({ signupValidate }) => {
           <Signup signupPageValidation={signupPageValidation} forgotPageValidation={forgotPageValidation} />
         }
         {forgot &&
-          <ForgotPassword />
+          <ForgotPassword signupPageValidation={signupPageValidation} forgotPageValidation={forgotPageValidation}  />
         }
         {!signupValidate && !signup && !forgot &&
           <Signin

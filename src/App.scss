@@ -606,7 +606,7 @@
   .back-Button {
     border: none;
     border-color: transparent;
-    margin-left: 1%;
+    padding-left: 10px;
   }
   .group-Button {
     position: relative;
@@ -788,4 +788,11 @@
 
 .apexcharts-legend {
   display: none !important;
+}
+.col-div{
+  display: flex;
+  flex-direction: row;
+  padding-top: 5px;
+  padding-right: 10px;
+  
 }
