@@ -1,7 +1,8 @@
-import React, { useState, type FC } from 'react';
+import React, { useState, type FC, useEffect } from 'react';
 import { Row, Col } from 'antd';
 import './index.scss';
 import Logo from '../columbusImages/logo.svg';
+import { useNavigate } from 'react-router-dom';
 import Signin from './signin';
 import Signup from './signup';
 import ForgotPassword from './ForgotPassword';
@@ -16,10 +17,18 @@ const LoginPage: FC<Props> = ({ signupValidate }) => {
   const signupPageValidation = (e: any) => {
     setsignUp(e);
   };
+  const navigate = useNavigate();
+  const loginId = localStorage.getItem('Login');
 
+  useEffect(() => {
+    if (loginId === 'true') {
+      navigate('/dashboard');
+    }
+  });
   const forgotPageValidation = (e: any) => {
     setForgot(e);
   };
+
   return (
     <Row className='login'>
       <Col xs={0} sm={0} md={12} lg={12} xl={12} className='login-left'>

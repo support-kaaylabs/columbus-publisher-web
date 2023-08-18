@@ -253,9 +253,6 @@ const Charts: FC = () => {
             </TabPane>
           </Tabs>
         </div>
-        {loading && (<div className='loading'>
-          <Spin size='large' />
-        </div>)}
       </Row>
     </>
   );

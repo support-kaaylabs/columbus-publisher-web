@@ -34,9 +34,9 @@ export const getProductDetail = (data: any) => http.post('get-seller-product-det
 
 export const getAllCountries = () => http.get('get-all-country');
 
-export const getAllStatesByCountryId = (data: any) => http.post('get-all-states',data);
+export const getAllStatesByCountryId = (data: any) => http.post('get-all-states', data);
 
-export const getAllCitiesByStateId = (data: any) => http.post('get-all-cities',data);
+export const getAllCitiesByStateId = (data: any) => http.post('get-all-cities', data);
 
 export const email_phone_verify = (data: any) => http.get('verification', data);
 
@@ -47,3 +47,11 @@ export const forgotPassword = (data: any) => http.post('forgot-passwordd', data)
 export const resetPassword = (data: any) => http.post('reset-password', data);
 
 export const resetPasswordLinkVerification = (data: any) => http.post('resetpassword-linkVerify', data);
+
+export const getPublisherChartData = () => http.get('get-publisher-chart-data');
+
+export const getPublisherChartYearlyData = () => http.get('get-publisher-chart-yearly-data');
+
+export const getPublisherChartMonthlyData = () => http.get('get-publisher-chart-monthly-data');
+
+export const getPublisherChartWeeklyData = () => http.get('get-publisher-chart-weekly-data');
