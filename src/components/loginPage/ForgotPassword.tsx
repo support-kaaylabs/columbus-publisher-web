@@ -13,19 +13,14 @@ const ForgotPassword: FC<forgotProps> = ({ signupPageValidation, forgotPageValid
   const [email, setEmail] = useState<any>();
   const navigate = useNavigate();
   const handleSubmit = () => {
-    console.log(email, 'submitted');
     const params = { emailId: email, userType: 'merchant' };
     forgotPassword(params).then((res) => {
-      
       alert(res.status);
-    }).catch(err => {
-      console.log(err, 'errrororor');
     });
 
   };
   
   const backHandle = () => {
-    console.log('backed');
     signupPageValidation(false);
     forgotPageValidation(false);
     navigate('/');
@@ -58,9 +53,11 @@ const ForgotPassword: FC<forgotProps> = ({ signupPageValidation, forgotPageValid
           <Form.Item
             className='form-item'
             label='Email Address'
+            name='Email'
             required
             rules={[
               {
+                required:true,
                 message: 'Please Enter Your Email Address!',
               },
             ]}>
@@ -71,8 +68,8 @@ const ForgotPassword: FC<forgotProps> = ({ signupPageValidation, forgotPageValid
               value={email}
             />
           </Form.Item>
-          <Form.Item>
-            <Button className='get-link' htmlType='submit'>Get Link</Button>
+          <Form.Item className='get-link' >
+            <Button htmlType='submit'>Get Link</Button>
           </Form.Item>
         </Form>
       </div>
