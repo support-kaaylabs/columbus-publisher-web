@@ -10,6 +10,8 @@ import MiniLogo from '../src/assets/columbussmall.png';
 import menuBack from '../src/assets/Group 56840.svg';
 import group from '../src/assets/group.png';
 import notification from '../src/assets/Group 56754.svg';
+import selectedDot from '../src/assets/Ellipse 16.svg';
+import UnSelectedDot from '../src/assets/Ellipse 17.svg';
 import LoginPage from './components/loginPage';
 import Signup from './components/loginPage/signup';
 import { LogoutOutlined } from '@ant-design/icons';
@@ -78,7 +80,9 @@ const App: FC = () => {
                       {module.submenu.map((subModule) => (
                         <Menu.Item key={subModule.key}>
                           <div>
-                            <div className={img === subModule.key ? 'selected-dot' : 'unselected-dot'}></div>
+                            <div className={img === subModule.key ? 'selected-line' : 'selected-line'}></div>
+                            {img === subModule.key ?(<img src={selectedDot} className='selected-dot'/>): (<img src={UnSelectedDot} className='unselected-dot'/>)}
+                            {/* </div> */}
                             <Link to={subModule.to} />
                             <span className={img === subModule.key ? 'selected-submenu' : 'unselected-submenu'}>{subModule.name}</span>
                           </div>

@@ -28,7 +28,11 @@ const ResetPassword: FC<ResetProps> = () => {
   const [passwordcheck, setPasswordCheck] = useState<boolean>(false);
   const [confirmPassword, setConfirmPassword] = useState<any>();
   const [passwordValidate, setPasswordValidate] = useState<boolean>(false);
+  const [passwordErr, setPasswordErr] = useState<boolean>(false);
+  const [confirmPasswordErr, setConfirmPasswordErr] = useState<boolean>(false);
+  const [newPasswordValid, setNewPasswordValid] = useState<boolean>(false);
   const [linkVerified, setLinkVerified] = useState<boolean>(false);
+  const [passwordMatch, setPasswordMatch] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(true);
   const { id } = useParams();
   const [validation, setValidation] = useState<passwordProps>({
@@ -68,15 +72,27 @@ const ResetPassword: FC<ResetProps> = () => {
   };
   const handleSubmit = () => {
     const params = { id: id, password: newPassword };
-    resetPassword(params).then((res: any) => {
-      if (res.success) {
-        successNotification('Your Password Updated Successfully');
-        navigate('/');
-        empty();
-      }
-    }).catch(() => {
-      errorNotification('This Password is Already Used By You. Please Change Another Password!');
-    });
+    if(!newPassword){
+      setPasswordErr(true);
+    }
+    if(!confirmPassword){
+      setConfirmPasswordErr(true);
+    }
+    if(newPassword === confirmPassword){
+      resetPassword(params).then((res: any) => {
+        if (res.success) {
+          successNotification('Your Password Updated Successfully');
+          navigate('/');
+          empty();
+        }
+      }).catch(() => {
+        errorNotification('You have Already Used This Password. Try New One!');
+        setNewPasswordValid(true);
+      });
+    }else{
+      setPasswordMatch(true);
+    }
+    
   };
 
   const backHandle = () => {
@@ -85,7 +101,8 @@ const ResetPassword: FC<ResetProps> = () => {
   const handleConfirmPasswordChange = (e: any) => {
     setConfirmPassword(e.target.value);
     setPasswordCheck(false);
-
+    setConfirmPasswordErr(false);
+    setPasswordMatch(false);
   };
 
   const handleBlur = () => {
@@ -123,6 +140,9 @@ const ResetPassword: FC<ResetProps> = () => {
       specialCharClass: isSpecialCharValidate ? 'check-success' : 'check-error',
     });
     setPasswordCheck(true);
+    setPasswordErr(false);
+    setNewPasswordValid(false);
+    setPasswordMatch(false);
   };
   return (
     <div>
@@ -169,7 +189,6 @@ const ResetPassword: FC<ResetProps> = () => {
                     required
                     rules={[
                       {
-                        required: true,
                         message: 'Please Enter Your New Password!',
                       },
                     ]}
@@ -242,6 +261,12 @@ const ResetPassword: FC<ResetProps> = () => {
                         </Row>
                       </div>
                     )}
+                    {passwordErr === true && (
+                      <div className='error'>Please Enter Your New Password!</div>
+                    )}
+                    {newPasswordValid === true && (
+                      <div className='error'>You have Already Used This Password. Try New One</div>
+                    )}
                   </Form.Item>
                   <Form.Item
                     className='form-item'
@@ -260,6 +285,12 @@ const ResetPassword: FC<ResetProps> = () => {
                       onChange={(e) => handleConfirmPasswordChange(e)}
                       value={confirmPassword}
                     />
+                    {confirmPasswordErr === true && (
+                      <div className='error'>Please Enter Your Confirm Password!</div>
+                    )}
+                    {passwordMatch === true && (
+                      <div className='error'>New Password and Confirm Password are not Matched!</div>
+                    )}
                   </Form.Item>
                   <Form.Item className='get-link'>
                     <Button htmlType='submit'>Done</Button>
