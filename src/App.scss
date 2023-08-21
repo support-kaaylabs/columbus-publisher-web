@@ -358,6 +358,8 @@
   font-size: 15px;
   text-transform: uppercase;
   background: transparent;
+  margin-block: 0px !important;
+  margin-inline: 0px !important;
   span {
     display: flex;
     align-items: center;
@@ -506,7 +508,9 @@
   letter-spacing: 0px;
   margin-bottom: 17px;
   color: #FFFFFF;
-  opacity: 1;}
+  opacity: 1;
+  // padding-left: 15px;
+}
 
 .title-dim{
   height: 19px;
@@ -515,6 +519,7 @@
   margin-bottom: 15px;
   color: white;
   opacity: 0.75;
+  // padding-left: 15px;
 }
 
 .Sider-Layout {
@@ -536,16 +541,15 @@
   .ant-layout-sider-children {
     background-color: #570026;
     position: fixed;
-    .ant-menu-item{
-      padding-left: 10px !important;
-    }
+    // .ant-menu-item{
+    //   padding-left: 10px !important;
+    // }
     
-    .ant-menu-item-selected{
-      padding-left: 10px !important;
-    }
+    // .ant-menu-item-selected{
+    //   padding-left: 10px !important;
+    // }
     .ant-menu-title-content{
       align-items: left;
-      margin-left: 30px !important;
     }
     overflow-y: scroll;
     &::-webkit-scrollbar-track {
@@ -565,11 +569,17 @@
       width: 0px;
     }
   }
-  .ant-menu-submenu-title {
-    padding-left: 10px !important;
+  .ant-menu-submenu-open{
+    color: #fff !important;
+    border-left: 2px solid #fff !important;
+    border-radius: 0 !important;
   }
+  // .ant-menu-submenu-title {
+  //   padding-left: 10px !important;
+  // }
   
 }
+
 .logoC {
   height: 107px;
   width: 136px;
@@ -634,8 +644,9 @@
 .side-menu {
   min-height: auto;
   margin-top: 160px !important;
-  &.ant-menu-dark .ant-menu-item-selected {
+  &.ant-menu-dark .ant-menu-item-selected,.ant-menu-item-active {
     background-color: transparent !important;
+    border-left: 2px solid #fff;
   }
   &.ant-menu.ant-menu-dark {
     width: 207px;
@@ -746,18 +757,20 @@
   border: none;
   color: #FFFFFF;
   opacity: 0.75;
-  margin-left: 30px;
-  margin-top: 10px;
+  margin-left: 32px;
+  margin-top: 6px;
 }
 
 .logout-div {
   display: flex;
   flex-direction: row;
-  margin-left: 15px;
+  margin-left: 28px;
   margin-top: 15px;
+  cursor: pointer;
 }
 .ant-menu .ant-menu-item {
   border-radius: 0px !important;
+  margin-inline: 0px !important;
 }
 .selected-dot {
   position: absolute;
