@@ -527,11 +527,11 @@
     background-color: white !important;
   }
   .ant-menu-item-active{
-    // background-color: #993b3b !important;
     background-color: transparent !important;
   }
   .ant-menu-inline .ant-menu-item{
     width: 100% !important;
+    margin-block: 0px !important;
   }
   .ant-layout-sider-children {
     background-color: #570026;
@@ -763,19 +763,23 @@
   position: absolute;
   top: 45%;
   left: 9%;
-  width: 6px;
-  height: 6px;
-  background-color: #C20155;
-  border-radius: 50%;
+  width: 7px;
+  height: 7.5px;
+}
+.selected-line {
+  position: absolute;
+  top: 0%;
+  left: 10.5%;
+  width: 0.5px;
+  height: 100px;
+  background-color: #a7a6a6;
 }
 .unselected-dot {
   position: absolute;
   top: 45%;
   left: 9%;
-  width: 6px;
-  height: 6px;
-  background-color: #222222; 
-  border-radius: 50%;
+  width: 7px;
+  height: 7.5px;
 }
 
 .ant-tabs-nav {
