@@ -220,6 +220,7 @@
         border-radius: 50%;
         margin-left: 0%;
         margin-top: 0%;
+        border: none;
 
         .camera-icon {
           display: flex;
@@ -236,11 +237,13 @@
 
           input {
             display: none;
+            border:none;
           }
         }
 
         .camera-icon-hide {
           display: none;
+          border: none;
         }
 
         .profile-head {
@@ -264,14 +267,15 @@
             position: absolute;
             cursor: pointer;
             object-fit: contain;
-            height: 100% !important;
+            height: 130px !important;
             width: 200px !important;
-
-            .profile-img {
-              position: absolute;
-              width: 200px !important;
-              height: 100% !important;
-            }
+            border: none;
+            
+            .image-container{
+            height: 130px;
+            width: 200px;
+            border: none;
+           }
 
             .add-profile {
               position: absolute;
@@ -487,10 +491,7 @@
       }
 
       .ant-select-selector {
-        background: #F2F2F2;
-      }
-      .ant-select-selection-search {
-        background: #F2F2F2;
+        background: #f2f2f2;
       }
 
     }
@@ -636,9 +637,12 @@
     font-size: 14px;
     color: #222222;
     font-weight: 600;
-    opacity: 0.7;
+    opacity: 1;
     background: #F2F2F2;
     border-radius: 5px;
+  }
+  .error {
+    color: red;
   }
 
   .get-link{
@@ -685,6 +689,6 @@
 }
 .mail-message {
   margin-top: -20px;
-  color: red;
+  color: green;
   font-size: 13px;
 }

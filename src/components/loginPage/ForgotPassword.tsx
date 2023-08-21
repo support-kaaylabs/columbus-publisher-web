@@ -12,15 +12,25 @@ interface forgotProps {
 const ForgotPassword: FC<forgotProps> = ({ signupPageValidation, forgotPageValidation }) => {
   const [email, setEmail] = useState<any>();
   const [forgotLinkSent, setForgotLinkSent] = useState<boolean>(false);
+  const [emailErr, setEmailErr] = useState<boolean>(false);
+  const [emptyEmail, setEmptyEmail] = useState<boolean>(false);
   const navigate = useNavigate();
   const handleSubmit = () => {
-    const params = { emailId: email, userType: 'merchant' };
-    forgotPassword(params).then(() => {
-      setForgotLinkSent(true);
-    });
+    if (!email) {
+      setEmptyEmail(true);
+    } else {
+      const params = { emailId: email, userType: 'merchant' };
+      forgotPassword(params).then(() => {
+        setForgotLinkSent(true);
+        setEmailErr(false);
+        setEmail('');
+      }).catch(() => {
+        setEmailErr(true);
+      });
+    }
 
   };
-  
+
   const backHandle = () => {
     signupPageValidation(false);
     forgotPageValidation(false);
@@ -28,8 +38,11 @@ const ForgotPassword: FC<forgotProps> = ({ signupPageValidation, forgotPageValid
   };
   const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
+    setEmptyEmail(false);
+    setEmailErr(false);
+    setForgotLinkSent(false);
+
   };
-  console.log(forgotLinkSent, 'sennenenen');
   return (
 
     <div className='forgot-div'>
@@ -54,11 +67,10 @@ const ForgotPassword: FC<forgotProps> = ({ signupPageValidation, forgotPageValid
           <Form.Item
             className='form-item'
             label='Email Address'
-            name='Email'
             required
             rules={[
               {
-                required:true,
+                required: true,
                 message: 'Please Enter Your Email Address!',
               },
             ]}>
@@ -68,11 +80,17 @@ const ForgotPassword: FC<forgotProps> = ({ signupPageValidation, forgotPageValid
               onChange={(e) => handleEmailChange(e)}
               value={email}
             />
+            {(emailErr === true && !emptyEmail) && (
+              <div className='error'>Please Enter Valid Email Address!</div>
+            )}
+            {emptyEmail === true && (
+              <div className='error'>Please Enter Your Email Address!</div>
+            )}
           </Form.Item>
           <Form.Item className='get-link' >
             <Button htmlType='submit'>Get Link</Button>
             {forgotLinkSent && (
-              <div className= 'mail-message'>Mail has been sent to your Mail Account. Please Check Your Mail to Reset Your Password.</div>
+              <div className='mail-message'>Mail has been sent to your Mail Account. Please Check Your Mail to Reset Your Password.</div>
             )}
           </Form.Item>
         </Form>
