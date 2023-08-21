@@ -443,11 +443,12 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
   };
   const handleBlur = () => {
     setPasswordCheck(false);
-    if(upperCaseClass === 'check-error' || digitClass === 'check-error'|| charClass === 'check-error' || specialCharClass === 'check-error') {
+    if (upperCaseClass === 'check-error' || digitClass === 'check-error' || charClass === 'check-error' || specialCharClass === 'check-error') {
       setPasswordValidate(true);
-    }else{
+    } else {
       setPasswordValidate(false);
-    }  };
+    }
+  };
   return (
     <Form
       name='basic'
@@ -663,7 +664,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               value={gstNumber} />
           </Form.Item>
           <div className='sign-in-link-div'>Already have an account?  <a className="sign-in-link" onClick={signIn}>
-          Sign In
+            Sign In
           </a></div>
         </div >
       }
@@ -820,7 +821,10 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                 onMouseEnter={cameraIconHandlerDisplay}
               >
                 <div className="profile-logo-img">
-                  <img src={image} alt="" className="profile-img" />
+                  <div className='image-container'>
+                    {image && (
+                      <img src={image} style={{width: '200px', height: '130px', borderRadius: '10px'}}/>)}
+                  </div>
                   <div className={image ? 'add-profile-img-selected' : 'add-profile'}><CameraOutlined />    Add Profile</div>
                 </div>
               </div>
@@ -853,21 +857,21 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
         )
       }
       <div>
-        <Row align='middle' style={{marginTop: '20px'}}>
+        <Row align='middle' style={{ marginTop: '20px' }}>
           <Col span={9}>
-            <div className={current === 2? 'steps-current2':'steps'}>
+            <div className={current === 2 ? 'steps-current2' : 'steps'}>
               {`Step${steps}/3`}
             </div>
           </Col>
           {current <= 2 && (
             <Col span={15} >
-              <div style={{display: 'flex', justifyContent: 'right'}}>
+              <div style={{ display: 'flex', justifyContent: 'right' }}>
                 <div>
                   {current > 0 && (
-                    current < 3 &&(
-                      <Button className={current === 2 ? 'prev-button-current2':'prev-button'} onClick={() => prev()}>
+                    current < 3 && (
+                      <Button className={current === 2 ? 'prev-button-current2' : 'prev-button'} onClick={() => prev()}>
                         <ArrowLeftOutlined />
-                      </Button> 
+                      </Button>
                     )
                   )}
                 </div>
@@ -875,7 +879,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                   {current === 0 ?
                     <Button className='next-button' onClick={onNextClick}>Next     <ArrowRightOutlined /></Button> :
                     current === 1 ?
-                      <Button className='next-button-current1' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button>:
+                      <Button className='next-button-current1' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button> :
                       <Form.Item>
                         <div>
                           <Button
