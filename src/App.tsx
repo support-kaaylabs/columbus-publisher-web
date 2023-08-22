@@ -1,9 +1,8 @@
 
-// import Dashboard from './pages/Dashboard';
 import React, { type FC, useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import './App.scss';
-import { Anchor, Button, Col, Layout, Menu, Row } from 'antd';
+import { Button, Col, Layout, Menu, Row } from 'antd';
 import headerIcon from '../src/assets/Icon feather-menu.svg';
 import { modules } from './shared/ModuleHelper';
 import Logo from '../src/assets/columbusbig.png';
@@ -18,34 +17,49 @@ import Signup from './components/loginPage/signup';
 import { LogoutOutlined } from '@ant-design/icons';
 import DashboardPage from './components/dashboardPage';
 import ResetPassword from './components/loginPage/resetPassword';
-import { differenceBy } from 'lodash';
+import { differenceBy, get } from 'lodash';
+import BenchMarking from  '../src/components/benchMarking/benchMarking';
+import Management from  '../src/components/selections/management';
+import Matrics from  '../src/components/selections/matrics';
+import Analysis from  '../src/components/selections/analysis';
+import ShoutOut from  '../src/components/shoutOut/shoutout';
+import KnowledgeHub from  '../src/components/knowledgeHub/knowledgeHub';
+import Profile from  '../src/components/settings/profile';
+import Subscription from  '../src/components/settings/subscription';
+import Support from  '../src/components/support/support';
+
 
 const { Sider, Content, Header } = Layout;
 
 const App: FC = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
-  const [img, setImg] = useState<any>(window.location.pathname);
   const [activeKey, setActiveKey] = useState<any>(window.location.pathname);
   const [openKey, setOpenKey] = useState<any>([]);
-  console.log(window.location.pathname,'pathnameee');
+  const [subMenuKey, setSubMenuKey] = useState<string>('');
   
   const navigate = useNavigate();
   useEffect(()=>{
     setActiveKey(window.location.pathname);
-    setImg(window.location.pathname);
-  },[window.location.pathname]);
+  },[window.location.pathname, collapsed]);
 
   const onSelectMenu = (key: any) => {
     setActiveKey(key);
-    setImg(key.key);
-    setOpenKey([]);
+    setSubMenuKey('');
+    if(key.keyPath.length<2){
+      setOpenKey([]);
+    }
     navigate(key.key);
   };
   const onOpenChange = (key:any) =>{
     const diffKey = differenceBy(key,openKey);
-    setActiveKey('');
-    setImg('');
+    if(!collapsed){
+      setActiveKey('');
+    }
     setOpenKey(diffKey);
+    if(diffKey.length){
+      const keys= get(diffKey, '[0]','');
+      setSubMenuKey(keys);
+    }
   };
 
   const logoutClick = () => {
@@ -59,15 +73,12 @@ const App: FC = () => {
     setCollapsed(!collapsed);
   };
   const loginId = localStorage.getItem('Login');
-
-  console.log(img,'imgimg');
-  
   return (
     <>
       {loginId === 'true' && (
         <Layout>
           <Sider
-            className='Sider-Layout'
+            className='sider-layout'
             trigger={null}
             collapsible
             collapsedWidth={50}
@@ -78,10 +89,11 @@ const App: FC = () => {
                 <img src={!collapsed ? Logo : MiniLogo} alt='ColumbusLogo' className={!collapsed ? 'logoC' : 'logoColumbus'} />
               </div>
             </div>
-            <Menu mode="inline"
+            <Menu 
+              mode="inline"
               selectedKeys={activeKey}
               defaultSelectedKeys={['/dashboard']}
-              activeKey={img}
+              activeKey={activeKey}
               onClick={onSelectMenu}
               theme='dark'
               openKeys={openKey}
@@ -92,20 +104,20 @@ const App: FC = () => {
                 if (module.submenu) {
                   return (
                     <Menu.SubMenu
-                      className='ant-submenu-openn'
+                      className={((subMenuKey === module.key)) ? 'submenu-active':''}
                       key={module.key}
                       title={module.Module_Name}
                       icon={<img src={module.icon} alt={module.name}
-                        className={img === module.key ? 'subimage-bright' : 'subimage-dim'} />}
+                        className={activeKey === module.key ? 'subimage-bright' : 'subimage-dim'} />}
                     >
                       {module.submenu.map((subModule) => (
                         <Menu.Item key={subModule.key}>
                           <div>
-                            <div className={img === subModule.key ? 'selected-line' : 'selected-line'}></div>
-                            {img === subModule.key ? (<img src={selectedDot} className='selected-dot' />) : (<img src={UnSelectedDot} className='unselected-dot' />)}
+                            <div className={activeKey === subModule.key ? 'selected-line' : 'unselected-line'}></div>
+                            {activeKey === subModule.key ? (<img src={selectedDot} className='selected-dot' />) : (<img src={UnSelectedDot} className='unselected-dot' />)}
                             {/* </div> */}
                             <Link to={subModule.to} />
-                            <span className={img === subModule.key ? 'selected-submenu' : 'unselected-submenu'}>{subModule.name}</span>
+                            <span className={activeKey === subModule.key ? 'selected-submenu' : 'unselected-submenu'}>{subModule.name}</span>
                           </div>
                         </Menu.Item>
                       ))}
@@ -113,9 +125,9 @@ const App: FC = () => {
                   );
                 } else {
                   return (
-                    <Menu.Item key={module.key} icon={<img src={module.icon} className={img === module.key ? 'image-bright' : 'image-dim'} alt={module.name} />}>
+                    <Menu.Item key={module.key} icon={<img src={module.icon} className={activeKey === module.key ? 'image-bright' : 'image-dim'} alt={module.name} />}>
                       <Link to={module.to} />
-                      <span className={img === module.key ? 'title-bright' : 'title-dim'}>{module.Module_Name}</span>
+                      <span className={activeKey === module.key ? 'title-bright' : 'title-dim'}>{module.Module_Name}</span>
                     </Menu.Item>
                   );
                 }
@@ -148,6 +160,15 @@ const App: FC = () => {
               <Content>
                 <Routes>
                   <Route path="/dashboard" element={<DashboardPage collapsed={collapsed} />} />
+                  <Route path="/benchmarking" element={<BenchMarking/>} />
+                  <Route path="/management" element={<Management/>} />
+                  <Route path="/matrics" element={<Matrics/>} />
+                  <Route path="/analysis" element={<Analysis/>} />
+                  <Route path="/shoutout" element={<ShoutOut/>} />
+                  <Route path="/knowledgeHub" element={<KnowledgeHub/>} />
+                  <Route path="/support" element={<Support/>} />
+                  <Route path="/profile" element={<Profile/>} />
+                  <Route path="/subscription" element={<Subscription/>} />
                   <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
                 </Routes>
               </Content>

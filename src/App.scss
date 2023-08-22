@@ -496,6 +496,7 @@
   height: 18px;
   color: white;
   object-fit: cover;
+
 }
 .image-dim {
   width: 18px;
@@ -509,7 +510,6 @@
   margin-bottom: 17px;
   color: #FFFFFF;
   opacity: 1;
-  // padding-left: 15px;
 }
 
 .title-dim{
@@ -522,7 +522,7 @@
   // padding-left: 15px;
 }
 
-.Sider-Layout {
+.sider-layout {
   z-index: 2;
   width: 257px;
   .ant-menu.ant-menu-inline-collapsed{
@@ -541,15 +541,9 @@
   .ant-layout-sider-children {
     background-color: #570026;
     position: fixed;
-    // .ant-menu-item{
-    //   padding-left: 10px !important;
-    // }
-    
-    // .ant-menu-item-selected{
-    //   padding-left: 10px !important;
-    // }
     .ant-menu-title-content{
       align-items: left;
+      margin-left: 22px !important;
     }
     overflow-y: scroll;
     &::-webkit-scrollbar-track {
@@ -574,10 +568,6 @@
     border-left: 2px solid #fff !important;
     border-radius: 0 !important;
   }
-  // .ant-menu-submenu-title {
-  //   padding-left: 10px !important;
-  // }
-  
 }
 
 .logoC {
@@ -664,11 +654,16 @@
 .side-menu-collapsed {
   min-height: auto;
   margin-top: 230% !important;
+  &.ant-menu-dark .ant-menu-item-selected,.ant-menu-item-active {
+    background-color: transparent !important;
+    border-left: 2px solid #fff;
+  }
   &.ant-menu.ant-menu-dark {
     width: 207px;
     background-color: #570026;
     & .ant-menu-item-selected {
       background-color: #570026;
+      border-left: 2px solid #fff !important;
     }
     & .ant-menu-submenu-selected {
       background-color: #570026;
@@ -698,10 +693,12 @@
 
 .submenu-item {
   .ant-menu-submenu-title {
-    padding-left: 0px !important;
+    padding-left: 20px !important;
   }
 }
-
+.ant-menu-submenu-title {
+  margin-inline: 0 !important;
+}
 .main-content {
   margin: 16px;
   min-height: auto !important;
@@ -730,27 +727,31 @@
   opacity: 1;
   width: 18px;
   height: 18px;
-  color: rgb(246, 47, 47);
   object-fit: cover;
 }
 .subimage-dim {
   width: 18px;
   height: 18px;
-  opacity: 50%;
+  opacity: 0.5;
+}
+.subimage-dim .ant-menu-item-icon {
+margin-left: -5px !important;
 }
 .selected-submenu {
   color: #e53935 !important;
-  margin-left: 10px;
 }
 
 .unselected-submenu {
   color: #0c0b0b !important;
-  margin-left: 10px;
 }
 
   .ant-submenu-openn,
 .ant-menu-dark.ant-menu-inline .ant-menu-sub.ant-menu-inline {
   background-color:#570026 !important;
+}
+.submenu-active, .ant-submenu, .ant-menu-submenu-selected {
+  border-left: 2px solid #fff !important;
+  border-radius: 0 !important;
 }
 .logout {
   background-color: transparent;
@@ -775,14 +776,22 @@
 .selected-dot {
   position: absolute;
   top: 45%;
-  left: 9%;
+  left: 14%;
   width: 7px;
   height: 7.5px;
 }
 .selected-line {
   position: absolute;
   top: 0%;
-  left: 10.5%;
+  left: 15.7%;
+  width: 0.5px;
+  height: 100px;
+  background-color: #a7a6a6;
+}
+.unselected-line {
+  position: absolute;
+  top: 0%;
+  left: 16.7%;
   width: 0.5px;
   height: 100px;
   background-color: #a7a6a6;
@@ -790,7 +799,7 @@
 .unselected-dot {
   position: absolute;
   top: 45%;
-  left: 9%;
+  left: 15%;
   width: 7px;
   height: 7.5px;
 }
