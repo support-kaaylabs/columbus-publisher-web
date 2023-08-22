@@ -9,15 +9,18 @@ import CtaBgIcon from '../columbusImages/dashboard-cta-background-icon.svg';
 import { chartContainerDataType } from '../../shared/type';
 import './chartContainer.scss';
 
-const ChartContainer: React.FC<chartContainerDataType> = ({ viewsTotalCount, viewsStartDate, clicksTotalCount, clicksStartDate, ctaTotalCount, ctaStartDate }) => {
+const ChartContainer: React.FC<chartContainerDataType> = ({ viewsTotalCount, viewsStartDate, clicksTotalCount, clicksStartDate, ctaTotalCount, ctaStartDate, userOnboard, chartMode }) => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth();
   return (
     <Row gutter={8} className='dashboard-container'>
       <Col sm={24} md={24} lg={8}>
         <div className='chart-container-column'>
           <div className='chart-container-column-left'>
-            <p className='actions'>Impressoions</p>
+            <p className='actions'>Impressions</p>
             <p className='impressions-counts'>{viewsTotalCount ? viewsTotalCount : '0'}</p>
-            <p className='date'>{viewsStartDate ? viewsStartDate : 'mon-dd'} - Till Date</p>
+            <p className='date'>{chartMode === 'All' ? userOnboard : (viewsStartDate ? viewsStartDate : `${month} ${year}`)} - Till Date</p>
           </div>
           <div className='chart-container-column-right'>
             <div className='background'>
@@ -34,7 +37,7 @@ const ChartContainer: React.FC<chartContainerDataType> = ({ viewsTotalCount, vie
           <div className='chart-container-column-left'>
             <p className='actions'>Clicks</p>
             <p className='clicks-counts'>{clicksTotalCount ? clicksTotalCount : '0'}</p>
-            <p className='date'>{clicksStartDate ? clicksStartDate : 'mon-dd'} - Till Date</p>
+            <p className='date'>{chartMode === 'All' ? userOnboard : (clicksStartDate ? clicksStartDate : year)} - Till Date</p>
           </div>
           <div className='chart-container-column-right'>
             <div className='background'>
@@ -51,7 +54,7 @@ const ChartContainer: React.FC<chartContainerDataType> = ({ viewsTotalCount, vie
           <div className='chart-container-column-left'>
             <p className='actions'>Call to Action</p>
             <p className='cta-counts'>{ctaTotalCount ? ctaTotalCount : '0'}</p>
-            <p className='date'>{ctaStartDate ? ctaStartDate : 'mon-dd'} - Till Date</p>
+            <p className='date'>{chartMode === 'All' ? userOnboard : (ctaStartDate ? ctaStartDate : year)} - Till Date</p>
           </div>
           <div className='chart-container-column-right'>
             <div className='background'>
