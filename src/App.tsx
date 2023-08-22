@@ -18,15 +18,15 @@ import { LogoutOutlined } from '@ant-design/icons';
 import DashboardPage from './components/dashboardPage';
 import ResetPassword from './components/loginPage/resetPassword';
 import { differenceBy, get } from 'lodash';
-import BenchMarking from  '../src/components/benchMarking/benchMarking';
-import Management from  '../src/components/selections/management';
-import Matrics from  '../src/components/selections/matrics';
-import Analysis from  '../src/components/selections/analysis';
-import ShoutOut from  '../src/components/shoutOut/shoutout';
-import KnowledgeHub from  '../src/components/knowledgeHub/knowledgeHub';
-import Profile from  '../src/components/settings/profile';
-import Subscription from  '../src/components/settings/subscription';
-import Support from  '../src/components/support/support';
+import BenchMarking from '../src/components/benchMarking/benchMarking';
+import Management from '../src/components/selections/management';
+import Matrics from '../src/components/selections/matrics';
+import Analysis from '../src/components/selections/analysis';
+import ShoutOut from '../src/components/shoutOut/shoutout';
+import KnowledgeHub from '../src/components/knowledgeHub/knowledgeHub';
+import Profile from '../src/components/settings/profile';
+import Subscription from '../src/components/settings/subscription';
+import Support from '../src/components/support/support';
 
 
 const { Sider, Content, Header } = Layout;
@@ -36,29 +36,33 @@ const App: FC = () => {
   const [activeKey, setActiveKey] = useState<any>(window.location.pathname);
   const [openKey, setOpenKey] = useState<any>([]);
   const [subMenuKey, setSubMenuKey] = useState<string>('');
-  
+
   const navigate = useNavigate();
-  useEffect(()=>{
+  useEffect(() => {
     setActiveKey(window.location.pathname);
-  },[window.location.pathname, collapsed]);
+  }, [window.location.pathname, collapsed]);
 
   const onSelectMenu = (key: any) => {
-    setActiveKey(key);
-    setSubMenuKey('');
-    if(key.keyPath.length<2){
+    if (key.keyPath.length < 2) {
       setOpenKey([]);
+    }
+    if (key.keyPath.length <= 1) {
+      setSubMenuKey('');
     }
     navigate(key.key);
   };
-  const onOpenChange = (key:any) =>{
-    const diffKey = differenceBy(key,openKey);
-    if(!collapsed){
-      setActiveKey('');
-    }
+  const onOpenChange = (key: any) => {
+
+    const diffKey = differenceBy(key, openKey);
+
     setOpenKey(diffKey);
-    if(diffKey.length){
-      const keys= get(diffKey, '[0]','');
+    if (diffKey.length > 0) {
+
+      const keys = get(diffKey, '[0]', '');
       setSubMenuKey(keys);
+      if (!collapsed) {
+        setActiveKey('');
+      }
     }
   };
 
@@ -73,6 +77,9 @@ const App: FC = () => {
     setCollapsed(!collapsed);
   };
   const loginId = localStorage.getItem('Login');
+  const toggleCollapsed = () => {
+    setCollapsed(!collapsed);
+  };
   return (
     <>
       {loginId === 'true' && (
@@ -89,7 +96,7 @@ const App: FC = () => {
                 <img src={!collapsed ? Logo : MiniLogo} alt='ColumbusLogo' className={!collapsed ? 'logoC' : 'logoColumbus'} />
               </div>
             </div>
-            <Menu 
+            <Menu
               mode="inline"
               selectedKeys={activeKey}
               defaultSelectedKeys={['/dashboard']}
@@ -104,20 +111,22 @@ const App: FC = () => {
                 if (module.submenu) {
                   return (
                     <Menu.SubMenu
-                      className={((subMenuKey === module.key)) ? 'submenu-active':''}
+                      className={((subMenuKey === module.key)) ? 'submenu-active' : ''}
                       key={module.key}
                       title={module.Module_Name}
-                      icon={<img src={module.icon} alt={module.name}
-                        className={activeKey === module.key ? 'subimage-bright' : 'subimage-dim'} />}
+                      icon={<img src={module.icon} alt={module.name} className='menu-icon' />}
                     >
                       {module.submenu.map((subModule) => (
                         <Menu.Item key={subModule.key}>
                           <div>
-                            <div className={activeKey === subModule.key ? 'selected-line' : 'unselected-line'}></div>
-                            {activeKey === subModule.key ? (<img src={selectedDot} className='selected-dot' />) : (<img src={UnSelectedDot} className='unselected-dot' />)}
-                            {/* </div> */}
+                            {!collapsed && (
+                              <div>
+                                <div className={activeKey === subModule.key ? 'selected-line' : 'unselected-line'}></div>
+                                {activeKey === subModule.key ? (<img src={selectedDot} className='selected-dot' />) : (<img src={UnSelectedDot} className='unselected-dot' />)}
+                              </div>
+                            )}
                             <Link to={subModule.to} />
-                            <span className={activeKey === subModule.key ? 'selected-submenu' : 'unselected-submenu'}>{subModule.name}</span>
+                            <span>{subModule.name}</span>
                           </div>
                         </Menu.Item>
                       ))}
@@ -125,17 +134,22 @@ const App: FC = () => {
                   );
                 } else {
                   return (
-                    <Menu.Item key={module.key} icon={<img src={module.icon} className={activeKey === module.key ? 'image-bright' : 'image-dim'} alt={module.name} />}>
+                    <Menu.Item
+                      key={module.key}
+                      icon={<img src={module.icon} alt={module.name} className='menu-icon' />}
+                    >
                       <Link to={module.to} />
-                      <span className={activeKey === module.key ? 'title-bright' : 'title-dim'}>{module.Module_Name}</span>
+                      <span >{module.Module_Name}</span>
                     </Menu.Item>
                   );
                 }
               })}
-              <div className='logout-div'>
-                <div style={{ opacity: '1' }}><LogoutOutlined /></div>
-                <div className='logout' onClick={logoutClick}>Logout</div>
-              </div>
+              {!collapsed && (
+                <div className='logout-div'>
+                  <div style={{ opacity: '1' }}><LogoutOutlined /></div>
+                  <div className='logout' onClick={logoutClick}>Logout</div>
+                </div>
+              )}
             </Menu>
           </Sider>
           <Layout className='main-layout'>
@@ -143,8 +157,8 @@ const App: FC = () => {
               <Header className='header'>
                 <Row>
                   <Col span={18}>
-                    <Button className='back-Button'>
-                      {collapsed? (<img src={menuBack} alt='menu-back' />):(<img src={headerIcon} alt='menu-back' />)}</Button>
+                    <Button className='back-Button' onClick={toggleCollapsed}>
+                      {collapsed ? (<img src={menuBack} alt='menu-back' />) : (<img src={headerIcon} alt='menu-back' />)}</Button>
                   </Col>
                   <Col span={6}>
                     <div className='col-div'>
@@ -160,15 +174,15 @@ const App: FC = () => {
               <Content>
                 <Routes>
                   <Route path="/dashboard" element={<DashboardPage collapsed={collapsed} />} />
-                  <Route path="/benchmarking" element={<BenchMarking/>} />
-                  <Route path="/management" element={<Management/>} />
-                  <Route path="/matrics" element={<Matrics/>} />
-                  <Route path="/analysis" element={<Analysis/>} />
-                  <Route path="/shoutout" element={<ShoutOut/>} />
-                  <Route path="/knowledgeHub" element={<KnowledgeHub/>} />
-                  <Route path="/support" element={<Support/>} />
-                  <Route path="/profile" element={<Profile/>} />
-                  <Route path="/subscription" element={<Subscription/>} />
+                  <Route path="/benchmarking" element={<BenchMarking />} />
+                  <Route path="/management" element={<Management />} />
+                  <Route path="/matrics" element={<Matrics />} />
+                  <Route path="/analysis" element={<Analysis />} />
+                  <Route path="/shoutout" element={<ShoutOut />} />
+                  <Route path="/knowledgeHub" element={<KnowledgeHub />} />
+                  <Route path="/support" element={<Support />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/subscription" element={<Subscription />} />
                   <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
                 </Routes>
               </Content>
