@@ -69,9 +69,9 @@ export const modules = [
     darkIcon: benchmark,
   },
   {
-    key: '/knowledge Hub',
-    to: '/knowledge Hub',
-    type: 'knowledge Hub',
+    key: '/knowledgehub',
+    to: '/knowledgeHub',
+    type: 'knowledge_Hub',
     Module_Name: 'Knowledge Hub',
     name: 'Knowledge Hub',
     sequence: 5,
