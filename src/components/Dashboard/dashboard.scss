@@ -1,3 +1,4 @@
+
 .dashboard-page {
   background-repeat: no-repeat;
   background-size: 100%;
@@ -6,12 +7,16 @@
   justify-content: center;
   margin: 10px;
   align-items: center;
+ 
+  .impression-img, .favourite-img, .clicks-img, .call-to-action-img {
+    background-repeat: no-repeat;
+    background-size: 100%;
+    border-radius: 20px;
+    justify-content: space-between;
+    width: 100%;
     .row {
       display: flex;
       justify-content: space-between;
-      background-color: #FFFFFF;
-      border-color: #00000033;
-      border-width: 5px;
       .logo {
         display: flex;
         align-items: center;
@@ -44,6 +49,7 @@
             color: #222222;
             font-weight: 600;
           }
+        }
       }
 
       .column-wid {
@@ -136,17 +142,17 @@ apexcharts-toolbar {
 
 @media screen and (min-width: 1025px) {
   .impression-img {
-    background-image: url('../../assets/pink-bg-md.svg');
-  }
-  .clicks-img {
-    background-image: url('../../assets/blue-bg-md.svg');
-  }
-  .favourite-img {
-    background-image: url('../../assets/green-bg-md.svg');
-  }
-  .call-to-action-img {
-    background-image: url('../../assets/brown-bg-md.svg');
-  }
+        background-image: url('../../assets/pink-bg-md.svg');
+      }
+      .clicks-img {
+        background-image: url('../../assets/blue-bg-md.svg');
+      }
+      .favourite-img {
+        background-image: url('../../assets/green-bg-md.svg');
+      }
+      .call-to-action-img {
+        background-image: url('../../assets/brown-bg-md.svg');
+      }
   .row {
     padding: 46px 50px 46px 33px;
     .logo {
@@ -166,17 +172,17 @@ apexcharts-toolbar {
 
 @media screen and (max-width: 1024px) {
   .impression-img {
-    background-image: url('../../assets/pink-bg-sm.svg');
-  }
-  .clicks-img {
-    background-image: url('../../assets/blue-bg-sm.svg');
-  }
-  .favourite-img {
-    background-image: url('../../assets/green-bg-sm.svg');
-  }
-  .call-to-action-img {
-    background-image: url('../../assets/brown-bg-sm.svg');
-  }
+        background-image: url('../../assets/pink-bg-sm.svg');
+      }
+      .clicks-img {
+        background-image: url('../../assets/blue-bg-sm.svg');
+      }
+      .favourite-img {
+        background-image: url('../../assets/green-bg-sm.svg');
+      }
+      .call-to-action-img {
+        background-image: url('../../assets/brown-bg-sm.svg');
+      }
   .row {
     padding: 20px 12px;
   }

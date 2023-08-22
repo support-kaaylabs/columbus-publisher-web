@@ -662,7 +662,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               onChange={(e) => setGstNumber(e.target.value.trim())}
               value={gstNumber} />
           </Form.Item>
-          <div className='sign-in-link-div'>Already have an account? <a className="sign-in-link" onClick={signIn}>
+          <div className='sign-in-link-div'>Already have an account?  <a className="sign-in-link" onClick={signIn}>
           Sign In
           </a></div>
         </div >
@@ -684,14 +684,14 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               style={{ marginTop: '-2%', marginBottom: '10px' }}
               type='number'
               pattern="[0-9]{10}"
-              placeholder='Please Enter Your Phone Number.'
+              placeholder='Please Enter Your Phone Number'
               onChange={(e) => handlePhoneNumberChange(e)}
               value={phoneNumber} />
             {phoneNumberErr === true && (
-              <div className='error'>Please enter your phone number.</div>
+              <div className='error'>Please enter your phone number</div>
             )}
             {uniquePhoneNumberErr === true && (
-              <div className='error'>This Phone Number is already taken. Please choose a different one.</div>
+              <div className='error'>This Phone Number is already taken. Please choose a different one</div>
             )}
           </Form.Item>
           <Form.Item
@@ -726,7 +726,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
           <Form.Item
             className='form-item-signup'
             name="State"
-            label="State"
+            label="State/Province"
             rules={[
               {
                 required: true,
@@ -735,7 +735,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             ]}>
             <Select
               style={{ marginTop: '-2%', marginBottom: '10px' }}
-              placeholder='Select State'
+              placeholder='Select State/Province'
               showSearch
               onSearch={(e) => getState(e)}
               onChange={handleStateChange}
@@ -749,7 +749,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               ))}
             </Select>
             {stateErr === true && (
-              <div className='error'>Please Select State!</div>
+              <div className='error'>Please Select State/Province!</div>
             )}
           </Form.Item>
           <Form.Item
@@ -853,15 +853,15 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
         )
       }
       <div>
-        <Row>
-          <Col span={13}>
+        <Row align='middle' style={{marginTop: '20px'}}>
+          <Col span={9}>
             <div className={current === 2? 'steps-current2':'steps'}>
               {`Step${steps}/3`}
             </div>
           </Col>
           {current <= 2 && (
-            <Col span={11} >
-              <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <Col span={15} >
+              <div style={{display: 'flex', justifyContent: 'right'}}>
                 <div>
                   {current > 0 && (
                     current < 3 &&(

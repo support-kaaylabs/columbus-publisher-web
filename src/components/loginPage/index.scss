@@ -32,7 +32,7 @@
       justify-content: space-between;
     }
     .login-logo {
-      margin-top: 20px;
+      margin-top: 30px;
     }
   }
 
@@ -138,10 +138,10 @@
        
       }
       .sign-in-link-div {
-        color: #222222;
-        font-size: 13px;
-        font-weight: 500;
-        opacity: 0.7;
+        font-size: 14px;
+          color: #0c0c0c;
+          font-weight: 400;
+          opacity: 1;
       }
       .form-button {
         border-radius: 5px;
@@ -149,6 +149,7 @@
         font-size: 14px;
         font-weight: 600;
         color: #FFFFFF;
+        margin-top: 50px;
         margin-bottom: 30px;
         padding-top: 12px;
         padding-bottom: 36px;
@@ -294,7 +295,7 @@
 
       .signup-button {
         margin-top: 200px;
-        width: auto;
+        width: 160px;
         font-size: 13px;
         background: #570026;
         color: white;
@@ -310,11 +311,8 @@
         color: white;
         font-weight: 700;
       }
-      .next-button-div {
-        background-color: blue;
-      }
       .next-button {
-        width: auto;
+        width: 160px;
         font-size: 13px;
         background: #570026;
         color: white;
@@ -323,7 +321,7 @@
       }
 
       .next-button-current1 {
-        width: auto;
+        width: 160px;
         font-size: 13px;
         background: #570026;
         color: white;
@@ -344,6 +342,7 @@
 
       .prev-button {
         width: auto;
+        height: 93%;
         font-size: 13px;
         background: white;
         color: #570026;
@@ -351,12 +350,14 @@
         justify-content: left;
         align-items: end;
         border-color: #570026;
+        margin-right: 10px;
+        margin-top: 2px;
         cursor: pointer;
       }
 
       .prev-button-current2 {
-        margin-top: 200px;
-        margin-left: 70px;
+        margin-top: 201px;
+        margin-left: -30%;
         width: auto;
         height: 38px;
         font-size: 13px;
@@ -456,7 +457,6 @@
       }
 
       .steps {
-        margin-top: 5px;
         color: #222222;
         font-weight: 700;
         width: auto;
@@ -486,6 +486,18 @@
       }
 
     }
+    
+    @media (max-width: 768px) {
+      .next-button {
+        width: 100%;
+      }
+      .next-button-current1 {
+        width: 100%;
+      }
+      .signup-button {
+        width: 100%;
+      }
+    }
     @media screen and (max-width : 430px){
       padding: 8px;
       
@@ -499,7 +511,6 @@
   margin-top: 5px;
   width: 400px;
   height: 120px;
-  // border-color: #474747;
   background: #FFFFFF 0% 0% no-repeat padding-box;
   box-shadow: 0px 1px 6px #00000029;
   border-radius: 10px;
