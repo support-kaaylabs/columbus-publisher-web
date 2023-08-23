@@ -22,6 +22,7 @@ const DashboardPage: React.FC<dashboardPageType> = ({ collapsed }) => {
   const [ctaCount, setCtaCount] = useState([]);
   const [chartMode, setChartMode] = useState<string>('All');
   const [loading, setLoading] = useState<boolean>(true);
+  const [userOnboard, setUserOnboard] = useState('');
 
   useEffect(() => {
     setLoading(true);
@@ -52,12 +53,14 @@ const DashboardPage: React.FC<dashboardPageType> = ({ collapsed }) => {
       const viewsStartDate = get(resp.count, '[0].DateWise', '');
       const clicksStartDate = get(resp.count, '[1].DateWise', '');
       const ctaStartDate = get(resp.count, '[2].DateWise', '');
+      const userCreatedAt = resp.user;
       setViewsTotalCount(viewsTotalCount);
       setClicksTotalCount(clicksTotalCount);
       setCtaTotalCount(ctaTotalCount);
       setViewsStartDate(viewsStartDate);
       setClicksStartDate(clicksStartDate);
       setCtaStartDate(ctaStartDate);
+      setUserOnboard(userCreatedAt);
       const chartData = {
         viewDate: [],
         viewCount: [],
@@ -91,7 +94,7 @@ const DashboardPage: React.FC<dashboardPageType> = ({ collapsed }) => {
         <p>Dashboard</p>
       </div>
       <div className='dashboard-container'>
-        <ChartContainer viewsTotalCount={viewsTotalCount} clicksTotalCount={clicksTotalCount} ctaTotalCount={ctaTotalCount} viewsStartDate={viewsStartDate} clicksStartDate={clicksStartDate} ctaStartDate={ctaStartDate} />
+        <ChartContainer viewsTotalCount={viewsTotalCount} clicksTotalCount={clicksTotalCount} ctaTotalCount={ctaTotalCount} viewsStartDate={viewsStartDate} clicksStartDate={clicksStartDate} ctaStartDate={ctaStartDate} userOnboard={userOnboard} chartMode={chartMode} />
       </div>
       {loading && (<div className='dashboard-loading'>
         <Spin size='large' />

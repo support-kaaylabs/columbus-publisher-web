@@ -8,8 +8,8 @@ import { modules } from './shared/ModuleHelper';
 import Logo from '../src/assets/columbusbig.png';
 import MiniLogo from '../src/assets/columbussmall.png';
 import menuBack from '../src/assets/Group 56840.svg';
-import group from '../src/assets/group.png';
-import notification from '../src/assets/Group 56754.svg';
+// import group from '../src/assets/group.png';
+// import notification from '../src/assets/Group 56754.svg';
 import selectedDot from '../src/assets/Ellipse 16.svg';
 import UnSelectedDot from '../src/assets/Ellipse 17.svg';
 import LoginPage from './components/loginPage';
@@ -27,6 +27,7 @@ import KnowledgeHub from '../src/components/knowledgeHub/knowledgeHub';
 import Profile from '../src/components/settings/profile';
 import Subscription from '../src/components/settings/subscription';
 import Support from '../src/components/support/support';
+import defaultUser from './components/columbusImages/defaultUser.png';
 
 
 const { Sider, Content, Header } = Layout;
@@ -36,7 +37,9 @@ const App: FC = () => {
   const [activeKey, setActiveKey] = useState<any>(window.location.pathname);
   const [openKey, setOpenKey] = useState<any>([]);
   const [subMenuKey, setSubMenuKey] = useState<string>('');
-
+  const userProfile :string | null = `${window.localStorage.getItem('Image')}`;
+  const imageUrl = userProfile === 'null' ? defaultUser : userProfile;
+  const userName : string | null = window.localStorage.getItem('User_Name');
   const navigate = useNavigate();
   useEffect(() => {
     setActiveKey(window.location.pathname);
@@ -120,7 +123,7 @@ const App: FC = () => {
                             {!collapsed && (
                               <div>
                                 <div className={activeKey === subModule.key ? 'selected-line' : 'unselected-line'}></div>
-                                {activeKey === subModule.key ? (<img src={selectedDot} className='selected-dot' />) : (<img src={UnSelectedDot} className='unselected-dot' />)}
+                                {activeKey === subModule.key ? (<img src={selectedDot} className='selected-dot' alt='select-dot' />) : (<img src={UnSelectedDot} className='unselected-dot' alt='un-select-dot' />)}
                               </div>
                             )}
                             <Link to={subModule.to} />
@@ -144,7 +147,7 @@ const App: FC = () => {
               })}
               {!collapsed && (
                 <div className='logout-div'>
-                  <div style={{ opacity: '1' }}><LogoutOutlined /></div>
+                  <div><LogoutOutlined /></div>
                   <div className='logout' onClick={logoutClick}>Logout</div>
                 </div>
               )}
@@ -154,15 +157,16 @@ const App: FC = () => {
             {loginId === 'true' && (
               <Header className='header'>
                 <Row>
-                  <Col span={18}>
+                  <Col span={12}>
                     <Button className='back-Button' onClick={toggleCollapsed}>
                       {collapsed ? (<img src={menuBack} alt='menu-back' />) : (<img src={headerIcon} alt='header-icon' />)}</Button>
                   </Col>
-                  <Col span={6}>
+                  <Col span={9}>
                     <div className='col-div'>
-                      <Col span={4}><img className='group-Button' src={group} alt='group' /></Col>
-                      <Col span={4}><img className='notification-Button' src={notification} alt='notification' /></Col>
-                      <Col span={5}><img src={notification} alt='notification' /></Col>
+                      {/* <Col span={4}><img className='group-Button' src={group} alt='group' /></Col>
+                      <Col span={4}><img className='notification-Button' src={notification} alt='notification' /></Col> */}
+                      <Col className='user-name'><p>{userName}</p></Col>
+                      <Col className='img-Button'><img src={imageUrl} alt='user-image' className='img-avatar' /></Col>
                     </div>
                   </Col>
                 </Row>
