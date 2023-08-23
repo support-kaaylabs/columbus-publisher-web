@@ -29,8 +29,6 @@ export interface chartContainerDataType {
   viewsStartDate: string;
   clicksStartDate: string;
   ctaStartDate: string;
-  userOnboard: string;
-  chartMode: string;
 }
 
 export interface dashboardPageType {
