@@ -46,6 +46,7 @@ const App: FC = () => {
   }, [window.location.pathname, collapsed]);
 
   const onSelectMenu = (key: any) => {
+    setActiveKey(window.location.pathname);
     if (key.keyPath.length < 2) {
       setOpenKey([]);
     }
@@ -55,15 +56,12 @@ const App: FC = () => {
     navigate(key.key);
   };
   const onOpenChange = (key: any) => {
-
     const diffKey = differenceBy(key, openKey);
-
-    setOpenKey(diffKey);
+    setOpenKey(diffKey);    
     if (diffKey.length > 0) {
-
       const keys = get(diffKey, '[0]', '');
       setSubMenuKey(keys);
-      if (!collapsed) {
+      if (!collapsed && !subMenuKey) {
         setActiveKey('');
       }
     }
@@ -80,9 +78,9 @@ const App: FC = () => {
     setCollapsed(!collapsed);
   };
   const loginId = localStorage.getItem('Login');
-  // const toggleCollapsed = () => {
-  //   setCollapsed(!collapsed);
-  // };
+  const toggleCollapsed = () => {
+    setCollapsed(!collapsed);
+  };
   return (
     <>
       {loginId === 'true' && (
@@ -160,8 +158,8 @@ const App: FC = () => {
               <Header className='header'>
                 <Row>
                   <Col span={12}>
-                    <Button className='back-Button'>
-                      {collapsed? (<img src={menuBack} alt='menu-back' />):(<img src={headerIcon} alt='menu-back' />)}</Button>
+                    <Button className='back-Button' onClick={toggleCollapsed}>
+                      {collapsed ? (<img src={menuBack} alt='menu-back' />) : (<img src={headerIcon} alt='header-icon' />)}</Button>
                   </Col>
                   <Col span={9}>
                     <div className='col-div'>
