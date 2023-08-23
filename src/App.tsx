@@ -36,7 +36,8 @@ const App: FC = () => {
   const [activeKey, setActiveKey] = useState<any>(window.location.pathname);
   const [openKey, setOpenKey] = useState<any>([]);
   const [subMenuKey, setSubMenuKey] = useState<string>('');
-  
+  const imageUrl :string | null = `${window.localStorage.getItem('Image')}`;
+  const userName : string | null = window.localStorage.getItem('User_Name');
   const navigate = useNavigate();
   useEffect(()=>{
     setActiveKey(window.location.pathname);
@@ -114,7 +115,7 @@ const App: FC = () => {
                         <Menu.Item key={subModule.key}>
                           <div>
                             <div className={activeKey === subModule.key ? 'selected-line' : 'unselected-line'}></div>
-                            {activeKey === subModule.key ? (<img src={selectedDot} className='selected-dot' />) : (<img src={UnSelectedDot} className='unselected-dot' />)}
+                            {activeKey === subModule.key ? (<img src={selectedDot} className='selected-dot' alt='select-dot' />) : (<img src={UnSelectedDot} className='unselected-dot' alt='un-select-dot' />)}
                             {/* </div> */}
                             <Link to={subModule.to} />
                             <span className={activeKey === subModule.key ? 'selected-submenu' : 'unselected-submenu'}>{subModule.name}</span>
@@ -142,15 +143,16 @@ const App: FC = () => {
             {loginId === 'true' && (
               <Header className='header'>
                 <Row>
-                  <Col span={18}>
+                  <Col span={12}>
                     <Button className='back-Button'>
                       {collapsed? (<img src={menuBack} alt='menu-back' />):(<img src={headerIcon} alt='menu-back' />)}</Button>
                   </Col>
-                  <Col span={6}>
+                  <Col span={9}>
                     <div className='col-div'>
-                      <Col span={4}><img className='group-Button' src={group} alt='group' /></Col>
-                      <Col span={4}><img className='notification-Button' src={notification} alt='notification' /></Col>
-                      <Col span={5}><img src={notification} alt='notification' /></Col>
+                      {/* <Col span={4}><img className='group-Button' src={group} alt='group' /></Col>
+                      <Col span={4}><img className='notification-Button' src={notification} alt='notification' /></Col> */}
+                      <Col className='user-name'><p>{userName}</p></Col>
+                      <Col className='img-Button'><img src={imageUrl} alt='user-image' className='img-avatar' /></Col>
                     </div>
                   </Col>
                 </Row>
