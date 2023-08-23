@@ -37,21 +37,21 @@ export const modules = [
     submenu: [
       {
         key: '/management',
-        to: '/Management',
+        to: '/management',
         Module_Name: 'Management',
         name: 'Management',
         sequence: 1,
       },
       {
         key: '/matrics',
-        to: '/Matrics',
+        to: '/matrics',
         Module_Name: 'Matrics',
         name: 'Matrics',
         sequence: 2,
       },
       {
         key: '/analysis',
-        to: '/Analysis',
+        to: '/analysis',
         Module_Name: 'Analysis',
         name: 'Analysis',
         sequence: 3,
@@ -60,7 +60,7 @@ export const modules = [
   },
   {
     key: '/shoutout',
-    to: '/Shoutout',
+    to: '/shoutout',
     type: 'shoutout',
     Module_Name: 'Shoutout',
     name: 'Shoutout',
@@ -69,9 +69,9 @@ export const modules = [
     darkIcon: benchmark,
   },
   {
-    key: '/knowledge Hub',
-    to: '/Knowledge Hub',
-    type: 'knowledge Hub',
+    key: '/knowledgehub',
+    to: '/knowledgeHub',
+    type: 'knowledge_Hub',
     Module_Name: 'Knowledge Hub',
     name: 'Knowledge Hub',
     sequence: 5,
@@ -79,7 +79,7 @@ export const modules = [
   },
   {
     key: '/settings',
-    to: '/Settings',
+    to: '/settings',
     type: 'settings',
     Module_Name: 'Settings',
     name: 'Settings',
@@ -89,7 +89,7 @@ export const modules = [
     submenu:[
       {
         key: '/profile',
-        to: '/Profile',
+        to: '/profile',
         type: 'profile',
         Module_Name: 'Profile',
         name: 'Profile',
@@ -97,7 +97,7 @@ export const modules = [
       },
       {
         key: '/subscription',
-        to: '/Subscription',
+        to: '/subscription',
         Module_Name: 'Subscription',
         name: 'Subscription',
         sequence: 2,
@@ -107,7 +107,7 @@ export const modules = [
   
   {
     key: '/support',
-    to: '/Support',
+    to: '/support',
     type: 'support',
     Module_Name: 'Support',
     name: 'Support',

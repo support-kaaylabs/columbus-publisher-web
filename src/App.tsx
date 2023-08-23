@@ -1,370 +1,205 @@
-import React, { type FC, useState, useEffect } from 'react';
-import Logo from './components/HomePage/Images/logoSymbolLarge.svg';
-import DefaultUser from '../src/assets/defaultUser.png';
-import MenuLogo from './components/HomePage/Images/menuLogo.svg';
-import LogoSymbolLarge from './components/HomePage/Images/logoSymbolLarge.svg';
-import MainLogo from '../src/assets/logo.svg';
-import LogoSymbolSmall from './components/HomePage/Images/logoSymbolSmall.svg';
-import CloseIcon from './components/HomePage/Images/closeIconSmall.png';
-import MenuIcon from './components/HomePage/Images/menuIconSmall.png';
-import './App.scss';
-import AvatarLogo from '../src/assets/avatar-menu-logo.svg';
-import { ProductIcon, DashboardIcon } from './components/icons/svgIcons';
-import Dashboard from './pages/Dashboard';
-import { Route, Routes, Link, useNavigate } from 'react-router-dom';
-import ProductList from './components/Product';
-import ProductDetail from './components/Product/detail';
-import { Col, Row, Popover } from 'antd';
-import UserProfile from './components/Home/userProfile';
-import { updateUserInfo } from './shared/urlHelper';
-import { Layout, Menu } from 'antd';
-import type { MenuProps } from 'antd';
-import { Dropdown } from 'antd';
-import Signup from './components/loginPage/signup';
-import LoginPage from './components/loginPage';
-import ForgotPassword from './components/loginPage/ForgotPassword';
 
-const { Header, Sider, Content } = Layout;
+import React, { type FC, useState, useEffect } from 'react';
+import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+import './App.scss';
+import { Button, Col, Layout, Menu, Row } from 'antd';
+import headerIcon from '../src/assets/Icon feather-menu.svg';
+import { modules } from './shared/ModuleHelper';
+import Logo from '../src/assets/columbusbig.png';
+import MiniLogo from '../src/assets/columbussmall.png';
+import menuBack from '../src/assets/Group 56840.svg';
+// import group from '../src/assets/group.png';
+// import notification from '../src/assets/Group 56754.svg';
+import selectedDot from '../src/assets/Ellipse 16.svg';
+import UnSelectedDot from '../src/assets/Ellipse 17.svg';
+import LoginPage from './components/loginPage';
+import Signup from './components/loginPage/signup';
+import { LogoutOutlined } from '@ant-design/icons';
+import DashboardPage from './components/dashboardPage';
+import ResetPassword from './components/loginPage/resetPassword';
+import { differenceBy, get } from 'lodash';
+import BenchMarking from '../src/components/benchMarking/benchMarking';
+import Management from '../src/components/selections/management';
+import Matrics from '../src/components/selections/matrics';
+import Analysis from '../src/components/selections/analysis';
+import ShoutOut from '../src/components/shoutOut/shoutout';
+import KnowledgeHub from '../src/components/knowledgeHub/knowledgeHub';
+import Profile from '../src/components/settings/profile';
+import Subscription from '../src/components/settings/subscription';
+import Support from '../src/components/support/support';
+import defaultUser from './components/columbusImages/defaultUser.png';
+
+
+const { Sider, Content, Header } = Layout;
 
 const App: FC = () => {
-  const locate = window.location.href;
-  const slug = locate.split('/')[3];
-  const [name, setName] = useState<any>();
-  const [userName, setUserName] = useState<any>();
-  const [userEmail, setUserEmail] = useState<any>();
   const [collapsed, setCollapsed] = useState<boolean>(false);
-  const [image, setImage] = useState<any>(DefaultUser);
-  const [open, setOpen] = useState(false);
-
-  const handleOpenChange = () => {
-    setOpen((data) => !data);
-  };
+  const [activeKey, setActiveKey] = useState<any>(window.location.pathname);
+  const [openKey, setOpenKey] = useState<any>([]);
+  const [subMenuKey, setSubMenuKey] = useState<string>('');
+  const userProfile :string | null = `${window.localStorage.getItem('Image')}`;
+  const imageUrl = userProfile === 'null' ? defaultUser : userProfile;
+  const userName : string | null = window.localStorage.getItem('User_Name');
   const navigate = useNavigate();
+  useEffect(() => {
+    setActiveKey(window.location.pathname);
+  }, [window.location.pathname, collapsed]);
 
-  const items: MenuProps['items'] = [
-    {
-      label: (
-        <div
-          className={name === 'DASHBOARD' ? 'activeMenu' : 'products'}
-          onClick={() => setName('DASHBOARD')}
-        >
-          <Link to="dashboard">
-            <span>
-              <DashboardIcon
-                color={name === 'DASHBOARD' ? '#E53935' : '#222222'}
-              />
-              DASHBOARD
-            </span>
-          </Link>
-        </div>
-      ),
-      key: 'dashboard',
-    },
-    {
-      label: (
-        <div
-          className={name === 'PRODUCT' ? 'activeMenu' : 'products'}
-          onClick={() => setName('PRODUCT')}
-        >
-          <Link to="product">
-            <span>
-              <ProductIcon color={name === 'PRODUCT' ? '#E53935' : '#222222'} />
-              PRODUCT
-            </span>
-          </Link>
-        </div>
-      ),
-      key: 'product',
-    },
-  ];
+  const onSelectMenu = (key: any) => {
+    setActiveKey(window.location.pathname);
+    if (key.keyPath.length < 2) {
+      setOpenKey([]);
+    }
+    if (key.keyPath.length <= 1) {
+      setSubMenuKey('');
+    }
+    navigate(key.key);
+  };
+  const onOpenChange = (key: any) => {
+    const diffKey = differenceBy(key, openKey);
+    setOpenKey(diffKey);    
+    if (diffKey.length > 0) {
+      const keys = get(diffKey, '[0]', '');
+      setSubMenuKey(keys);
+      if (!collapsed && !subMenuKey) {
+        setActiveKey('');
+      }
+    }
+  };
 
   const logoutClick = () => {
-    const userId: any = localStorage.getItem('User_ID');
-    const params = {
-      Device_ID: null,
-    };
-    updateUserInfo(userId, params).then((res) => {
-      if (res.success) {
-        localStorage.clear();
-        window.location.href = '/';
-      }
-    });
+    const keysToRemove = ['Phone_Number', 'User_Email', 'User_Name', 'User_ID', 'User_Uid', 'User_Type', 'Image', 'token', 'Store_Nme', 'publisherLogin', 'menu_collapse', 'Login'];
+    keysToRemove.forEach(k =>
+      localStorage.removeItem(k));
+    window.location.href = '/';
   };
-  const userID: any = localStorage.getItem('User_ID');
+
+  const onCollapsedChange = () => {
+    setCollapsed(!collapsed);
+  };
   const loginId = localStorage.getItem('Login');
-
-  useEffect(() => {
-    if (userID == null || userID == undefined) {
-      navigate('/');
-    } else {
-      setImage(
-        localStorage.getItem('Image') === 'null'
-          ? DefaultUser
-          : localStorage.getItem('Image')
-      );
-      setUserName(localStorage.getItem('User_Name'));
-      setUserEmail(localStorage.getItem('User_Email'));
-      setName(slug.toUpperCase());
-    }
-  }, [slug]);
-
+  const toggleCollapsed = () => {
+    setCollapsed(!collapsed);
+  };
   return (
     <>
       {loginId === 'true' && (
-
-        <Layout className="header">
-          <Row>
-            <Col sm={0} xs={0} md={0} lg={8} xl={10}>
-              <Sider
-                theme="light"
-                collapsible
-                collapsed={collapsed}
-                className="header-sider"
-                width="281px"
-              >
-                <span className="header-sider-logo">
-                  <div className="sider-logo-head">
-                    {collapsed ? (
-                      <img src={Logo} alt="LogoSymbol" className='logo-symbol-small' />
-                    ) : (
-                      <img src={MainLogo} alt="JINGLS" className='logo-symbol-large' />
-                    )}
-                  </div>
-                </span>
-                <div className="sider-menu">
-                  <div>
-                    <Menu className="sider-menu-item" mode="inline">
-                      <nav>
-                        {collapsed ? (
-                          <>
-                            <Menu.Item
-                              key="dashboard"
-                              title="DASHBOARD"
-                              className={
-                                name === 'DASHBOARD' ? 'activeMenu' : 'dashboard'
-                              }
-                              onClick={() => setName('DASHBOARD')}
-                            >
-                              <Link to="dashboard">
-                                <span>
-                                  <DashboardIcon
-                                    color={
-                                      name === 'DASHBOARD' ? '#E53935' : '#222222'
-                                    }
-                                  />
-                                </span>
-                              </Link>
-                            </Menu.Item>
-                            <Menu.Item
-                              key="product"
-                              title="PRODUCT"
-                              className={
-                                name === 'PRODUCT' ? 'activeMenu' : 'products'
-                              }
-                              onClick={() => setName('PRODUCT')}
-                            >
-                              <Link to="product">
-                                <span>
-                                  <ProductIcon
-                                    color={
-                                      name === 'PRODUCT' ? '#E53935' : '#222222'
-                                    }
-                                  />
-                                </span>
-                              </Link>
-                            </Menu.Item>
-                          </>
-                        ) : (
-                          <>
-                            <Menu.Item
-                              key="dashboard"
-                              className={
-                                name === 'DASHBOARD' ? 'activeMenu' : 'dashboard'
-                              }
-                              onClick={() => setName('DASHBOARD')}
-                            >
-                              <Link to="dashboard">
-                                <span>
-                                  <DashboardIcon
-                                    color={
-                                      name === 'DASHBOARD' ? '#E53935' : '#222222'
-                                    }
-                                  />
-                                  DASHBOARD
-                                </span>
-                              </Link>
-                            </Menu.Item>
-                            <Menu.Item
-                              key="product"
-                              className={
-                                name === 'PRODUCT' ? 'activeMenu' : 'products'
-                              }
-                              onClick={() => setName('PRODUCT')}
-                            >
-                              <Link to="product">
-                                <span>
-                                  <ProductIcon
-                                    color={
-                                      name === 'PRODUCT' ? '#E53935' : '#222222'
-                                    }
-                                  />
-                                  PRODUCT
-                                </span>
-                              </Link>
-                            </Menu.Item>
-                          </>
-                        )}
-                      </nav>
-                    </Menu>
-                    <div className="menu-item">
-                      <div className="menu-logo-item">
-                        {collapsed ? (
-                          <img src={LogoSymbolSmall} alt="LogoSymbol" className='menu-logo-icon-small' />
-                        ) : (
-                          <img src={MenuLogo} alt="JINGLS" className='menu-logo-icon-large' />
-                        )}
-                        {collapsed ? <p className='menu-logo-icon-small'>V1.0</p> : <p className='menu-logo-icon-large'>Publisher App version 1.0</p>}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Sider>
-            </Col>
-          </Row>
-          {loginId === 'true' && (
-            <Layout className="layout-right">
-              <Header className="header-content">
-                <Row className="header-content-row">
-                  <Col sm={0} xs={0} md={0} lg={6} className="menu-icon">
-                    <span
-                      onClick={() => setCollapsed(!collapsed)}
-                      className="header-content-icon"
+        <Layout>
+          <Sider
+            className='sider-layout'
+            trigger={null}
+            collapsible
+            collapsedWidth={50}
+            collapsed={collapsed}
+          >
+            <div className='logoss' onClick={() => onCollapsedChange()}>
+              <div>
+                <img src={!collapsed ? Logo : MiniLogo} alt='ColumbusLogo' className={!collapsed ? 'logoC' : 'logoColumbus'} />
+              </div>
+            </div>
+            <Menu
+              mode="inline"
+              selectedKeys={activeKey}
+              defaultSelectedKeys={['/dashboard']}
+              activeKey={activeKey}
+              onClick={onSelectMenu}
+              theme='dark'
+              openKeys={openKey}
+              onOpenChange={onOpenChange}
+              className={!collapsed ? 'side-menu' : 'side-menu-collapsed'}
+            >
+              {modules.map((module) => {
+                if (module.submenu) {
+                  return (
+                    <Menu.SubMenu
+                      className={((subMenuKey === module.key)) ? 'submenu-active' : ''}
+                      key={module.key}
+                      title={module.Module_Name}
+                      icon={<img src={module.icon} alt={module.name} className='menu-icon' />}
                     >
-                      {collapsed ? (
-                        <img src={CloseIcon} alt="closeicon" className='close-icon' />
-                      ) : (
-                        <img src={MenuIcon} alt="MenuIcon" className='open-icon' />
-                      )}
-                    </span>
-                    <span className="header-content-name">
-                      {slug === 'myProfile' ? 'MY PROFILE' : slug}
-                    </span>
-                  </Col>
-                  <Col
-                    sm={3}
-                    xs={3}
-                    md={0}
-                    lg={0}
-                    xl={0}
-                    className="header-left-content"
-                  >
-                    <span className="header-left">
-                      <span className="header-logo">
-                        <img src={LogoSymbolLarge} alt="Logo-symbol" />
-                      </span>
-                      <span className="menu-icon">
-                        <Dropdown menu={{ items }} trigger={['click']}>
-                          <span className="header-content-icon">
-                            <a>
-                              <img src={MenuIcon} alt="MenuIcon" />
-                            </a>
-                          </span>
-                        </Dropdown>
-                      </span>
-                    </span>
-                  </Col>
-                  <Col
-                    sm={0}
-                    xs={0}
-                    md={3}
-                    lg={0}
-                    xl={0}
-                    className="header-left-content"
-                  >
-                    <span className="header-left">
-                      <span className="header-logo">
-                        <img src={MainLogo} alt="Logo-symbol" />
-                      </span>
-                      <span className="menu-icon">
-                        <Dropdown menu={{ items }} trigger={['click']}>
-                          <span className="header-content-icon">
-                            <a>
-                              <img src={MenuIcon} alt="MenuIcon" />
-                            </a>
-                          </span>
-                        </Dropdown>
-                      </span>
-                    </span>
-                  </Col>
-                  <Col sm={3} xs={3} md={11} lg={0} xl={0}></Col>
-                  <Col className="header-right-content">
-                    <div className="header-user-name">{userName}</div>
-                    <div className="avatar">
-                      <Popover
-                        arrow={false}
-                        open={open}
-                        onOpenChange={handleOpenChange}
-                        content={<Row className="avatar-image-contain">
-                          <Col sm={8} md={8} lg={8} className="avatar-img">
-                            <div className="avatar-img-logo">
-                              <div className="profile-head">
-                                <div className="profile-logo-img">
-                                  <img src={image} alt="avatar" />
-                                </div>
+                      {module.submenu.map((subModule) => (
+                        <Menu.Item key={subModule.key}>
+                          <div>
+                            {!collapsed && (
+                              <div>
+                                <div className={activeKey === subModule.key ? 'selected-line' : 'unselected-line'}></div>
+                                {activeKey === subModule.key ? (<img src={selectedDot} className='selected-dot' alt='select-dot' />) : (<img src={UnSelectedDot} className='unselected-dot' alt='un-select-dot' />)}
                               </div>
-                            </div>
-                          </Col>
-                          <Col className="avatar-detail" sm={10} md={10} lg={10}>
-                            <Row className="avatar-info-icon">
-                              <Col className="seller-name">
-                                <p className="name">{userName}</p>
-                                <p className="email">{userEmail}</p>
-                              </Col>
-                              <Col
-                                className="seller-profile"
-                                onClick={handleOpenChange}
-                              >
-                                <Link to="myProfile" className="my-profile">
-                                  MyProfile
-                                </Link>
-                              </Col>
-                            </Row>
-                          </Col>
-                        </Row>}
-                        title={<div className="avatar-title">
-                          <img src={AvatarLogo} alt="avatar-logo" />
-                          <a onClick={logoutClick} className="logout">
-                            Sign out
-                          </a>
-                        </div>}
-                        trigger="click"
-                      >
-                        <img src={image} alt="avatar" className="profile-img" />
-                      </Popover>
+                            )}
+                            <Link to={subModule.to} />
+                            <span>{subModule.name}</span>
+                          </div>
+                        </Menu.Item>
+                      ))}
+                    </Menu.SubMenu>
+                  );
+                } else {
+                  return (
+                    <Menu.Item
+                      key={module.key}
+                      icon={<img src={module.icon} alt={module.name} className='menu-icon' />}
+                    >
+                      <Link to={module.to} />
+                      <span >{module.Module_Name}</span>
+                    </Menu.Item>
+                  );
+                }
+              })}
+              {!collapsed && (
+                <div className='logout-div'>
+                  <div><LogoutOutlined /></div>
+                  <div className='logout' onClick={logoutClick}>Logout</div>
+                </div>
+              )}
+            </Menu>
+          </Sider>
+          <Layout className='main-layout'>
+            {loginId === 'true' && (
+              <Header className='header'>
+                <Row>
+                  <Col span={12}>
+                    <Button className='back-Button' onClick={toggleCollapsed}>
+                      {collapsed ? (<img src={menuBack} alt='menu-back' />) : (<img src={headerIcon} alt='header-icon' />)}</Button>
+                  </Col>
+                  <Col span={9}>
+                    <div className='col-div'>
+                      {/* <Col span={4}><img className='group-Button' src={group} alt='group' /></Col>
+                      <Col span={4}><img className='notification-Button' src={notification} alt='notification' /></Col> */}
+                      <Col className='user-name'><p>{userName}</p></Col>
+                      <Col className='img-Button'><img src={imageUrl} alt='user-image' className='img-avatar' /></Col>
                     </div>
                   </Col>
                 </Row>
-              </Header><Content>
+              </Header>
+            )}
+            <div className='spin-Loading'>
+              <Content>
                 <Routes>
-                  <Route path="product" element={<ProductList />} />
-                  <Route path="product/:slug" element={<ProductDetail />} />
-                  <Route path="myProfile" element={<UserProfile />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/dashboard" element={<DashboardPage collapsed={collapsed} />} />
+                  <Route path="/benchmarking" element={<BenchMarking />} />
+                  <Route path="/management" element={<Management />} />
+                  <Route path="/matrics" element={<Matrics />} />
+                  <Route path="/analysis" element={<Analysis />} />
+                  <Route path="/shoutout" element={<ShoutOut />} />
+                  <Route path="/knowledgeHub" element={<KnowledgeHub />} />
+                  <Route path="/support" element={<Support />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/subscription" element={<Subscription />} />
                   <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
-                  <Route path="/forgot-password" element={<ForgotPassword />} />
                 </Routes>
               </Content>
-            </Layout>
-          )}
-
+            </div>
+          </Layout>
         </Layout>
       )}
-      <Routes>
-        <Route path="/" element={<LoginPage signupValidate={false} />} />
-      </Routes>
+      {(!loginId) && (
+        <Routes>
+          <Route path="/" element={<LoginPage signupValidate={false} />} />
+          <Route path="/reset-password/:id" element={<ResetPassword signupPageValidation={false} forgotPageValidation={false} />} />
+        </Routes>
+      )}
     </>
   );
 };
-
 
 export default App;
