@@ -65,6 +65,9 @@ const ResetPassword: FC<ResetProps> = () => {
     resetPasswordLinkVerification({ id }).then((res) => {
       setLoader(false);
       setLinkVerified(res.success);
+    }).catch((err)=>{
+      setLoader(false);
+      setLinkVerified(err.success);
     });
   };
   const empty = () => {
@@ -177,7 +180,7 @@ const ResetPassword: FC<ResetProps> = () => {
                 <div>
                   <Row className='forgot'>
                     <Col>
-                      <Button className='button' onClick={backHandle}><img className='img' src={backArrow} /></Button>
+                      <Button className='button' onClick={backHandle}><img className='img' src={backArrow} alt='back-arrow' /></Button>
                       <p className='p-forgot'> Change Password <div className='send-emailmessage'>Reset Your Password</div></p>
                     </Col>
                   </Row>
