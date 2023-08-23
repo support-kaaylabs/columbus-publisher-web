@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Spin } from 'antd';
-import { get } from 'lodash';
 import { getPublisherChartData, getPublisherChartYearlyData, getPublisherChartMonthlyData, getPublisherChartWeeklyData } from '../../shared/urlHelper';
 import { errorNotification } from '../../shared/globalVariables';
-import { chartDataType, curValue, dashboardPageType, respDataType } from '../../shared/type';
+import { chartDataType, curValue, dashboardPageType, respDataType, chartContainerDataType } from '../../shared/type';
 import ApexChart from './apexchart';
 import ChartContainer from './chartContainer';
 import DashboardImg from '../columbusImages/dashboard-img.svg';
@@ -22,7 +21,6 @@ const DashboardPage: React.FC<dashboardPageType> = ({ collapsed }) => {
   const [ctaCount, setCtaCount] = useState([]);
   const [chartMode, setChartMode] = useState<string>('All');
   const [loading, setLoading] = useState<boolean>(true);
-  const [userOnboard, setUserOnboard] = useState('');
 
   useEffect(() => {
     setLoading(true);
@@ -47,20 +45,33 @@ const DashboardPage: React.FC<dashboardPageType> = ({ collapsed }) => {
   };
   const fetchData = (resp: respDataType) => {
     if (resp.success) {
-      const viewsTotalCount = get(resp.count, '[0].Interactions', '0');
-      const clicksTotalCount = get(resp.count, '[1].Interactions', '0');
-      const ctaTotalCount = get(resp.count, '[2].Interactions', '0');
-      const viewsStartDate = get(resp.count, '[0].DateWise', '');
-      const clicksStartDate = get(resp.count, '[1].DateWise', '');
-      const ctaStartDate = get(resp.count, '[2].DateWise', '');
-      const userCreatedAt = resp.user;
-      setViewsTotalCount(viewsTotalCount);
-      setClicksTotalCount(clicksTotalCount);
-      setCtaTotalCount(ctaTotalCount);
-      setViewsStartDate(viewsStartDate);
-      setClicksStartDate(clicksStartDate);
-      setCtaStartDate(ctaStartDate);
-      setUserOnboard(userCreatedAt);
+      const containData = {
+        viewsTotalCount: '',
+        clicksTotalCount: '',
+        ctaTotalCount: '',
+        viewsStartDate: '',
+        clicksStartDate: '',
+        ctaStartDate: '',
+      };
+      resp.count.reduce((acc: chartContainerDataType, curValue: curValue) => {
+        if (curValue['Event_Name'] === 'PRODUCT_VIEWS') {
+          acc.viewsStartDate = curValue['DateWise'];
+          acc.viewsTotalCount = curValue['Interactions'];
+        } else if (curValue['Event_Name'] === 'PRODUCT_CLICK') {
+          acc.clicksStartDate = curValue['DateWise'];
+          acc.clicksTotalCount = curValue['Interactions'];
+        } else if (curValue['Event_Name'] === 'CALL_TO_ACTION') {
+          acc.ctaStartDate = curValue['DateWise'];
+          acc.ctaTotalCount = curValue['Interactions'];
+        }
+        return acc;
+      }, containData);
+      setViewsTotalCount(containData.viewsTotalCount);
+      setClicksTotalCount(containData.clicksTotalCount);
+      setCtaTotalCount(containData.ctaTotalCount);
+      setViewsStartDate(containData.viewsStartDate);
+      setClicksStartDate(containData.clicksStartDate);
+      setCtaStartDate(containData.ctaStartDate);
       const chartData = {
         viewDate: [],
         viewCount: [],
@@ -94,7 +105,7 @@ const DashboardPage: React.FC<dashboardPageType> = ({ collapsed }) => {
         <p>Dashboard</p>
       </div>
       <div className='dashboard-container'>
-        <ChartContainer viewsTotalCount={viewsTotalCount} clicksTotalCount={clicksTotalCount} ctaTotalCount={ctaTotalCount} viewsStartDate={viewsStartDate} clicksStartDate={clicksStartDate} ctaStartDate={ctaStartDate} userOnboard={userOnboard} chartMode={chartMode} />
+        <ChartContainer viewsTotalCount={viewsTotalCount} clicksTotalCount={clicksTotalCount} ctaTotalCount={ctaTotalCount} viewsStartDate={viewsStartDate} clicksStartDate={clicksStartDate} ctaStartDate={ctaStartDate} />
       </div>
       {loading && (<div className='dashboard-loading'>
         <Spin size='large' />
