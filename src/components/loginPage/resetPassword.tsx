@@ -1,5 +1,5 @@
 import React, { type FC, useState, useEffect } from 'react';
-import { Row, Col, Form, Input, Button } from 'antd';
+import { Row, Col, Form, Input, Button, Spin } from 'antd';
 import backArrow from '../../assets/backArrow.svg';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
@@ -58,8 +58,9 @@ const ResetPassword: FC<ResetProps> = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    setLoader(true);
     linkVerify();
-  });
+  }, []);
   const linkVerify = () => {
     resetPasswordLinkVerification({ id }).then((res) => {
       setLoader(false);
@@ -72,27 +73,31 @@ const ResetPassword: FC<ResetProps> = () => {
   };
   const handleSubmit = () => {
     const params = { id: id, password: newPassword };
-    if(!newPassword){
+    if (!newPassword) {
       setPasswordErr(true);
     }
-    if(!confirmPassword){
+    if (!confirmPassword) {
       setConfirmPasswordErr(true);
+      return;
     }
-    if(newPassword === confirmPassword){
+    if (newPassword === confirmPassword) {
       resetPassword(params).then((res: any) => {
         if (res.success) {
           successNotification('Your Password Updated Successfully');
           navigate('/');
           empty();
+          setLoader(false);
         }
       }).catch(() => {
         errorNotification('You have Already Used This Password. Try New One!');
         setNewPasswordValid(true);
+        setLoader(false);
       });
-    }else{
+    } else {
       setPasswordMatch(true);
+      setLoader(false);
     }
-    
+
   };
 
   const backHandle = () => {
@@ -146,6 +151,9 @@ const ResetPassword: FC<ResetProps> = () => {
   };
   return (
     <div>
+      {loader && (
+        <div className='loader'><Spin /></div>
+      )}
       {!loader && (
         linkVerified && (
           <Row className='login'>
@@ -196,7 +204,7 @@ const ResetPassword: FC<ResetProps> = () => {
                   >
                     <Input.Password
                       className='label'
-                      style={{ marginTop: '-2%'}}
+                      style={{ marginTop: '-2%' }}
                       placeholder='Enter Your New Password'
                       autoComplete="new-password"
                       type='password'
@@ -279,7 +287,7 @@ const ResetPassword: FC<ResetProps> = () => {
                       },
                     ]}>
                     <Input.Password
-                      style={{ marginTop: '-2%'}}
+                      style={{ marginTop: '-2%' }}
                       className='label'
                       placeholder='Enter Your Confirm Password'
                       onChange={(e) => handleConfirmPasswordChange(e)}
@@ -293,6 +301,9 @@ const ResetPassword: FC<ResetProps> = () => {
                     )}
                   </Form.Item>
                   <Form.Item className='get-link'>
+                    {loader && (
+                      <div className='loader'><Spin /></div>
+                    )}
                     <Button htmlType='submit'>Done</Button>
                   </Form.Item>
                 </Form>
@@ -300,7 +311,7 @@ const ResetPassword: FC<ResetProps> = () => {
             </Col>
           </Row>
         ))}
-      {!linkVerified && (
+      {!linkVerified && !loader && (
         <Row>
           <Col span={12} offset={6} className='link-Expired'>
             <div className='link'>Link Expired!!</div>

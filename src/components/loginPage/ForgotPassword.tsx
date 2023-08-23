@@ -1,5 +1,5 @@
 import React, { type FC, useState } from 'react';
-import { Row, Col, Form, Input, Button } from 'antd';
+import { Row, Col, Form, Input, Button, Spin } from 'antd';
 import backArrow from '../../assets/backArrow.svg';
 import { useNavigate } from 'react-router-dom';
 import { forgotPassword } from '../../shared/urlHelper';
@@ -14,18 +14,23 @@ const ForgotPassword: FC<forgotProps> = ({ signupPageValidation, forgotPageValid
   const [forgotLinkSent, setForgotLinkSent] = useState<boolean>(false);
   const [emailErr, setEmailErr] = useState<boolean>(false);
   const [emptyEmail, setEmptyEmail] = useState<boolean>(false);
+  const [loader, setLoader] = useState<boolean>(false);
   const navigate = useNavigate();
   const handleSubmit = () => {
     if (!email) {
       setEmptyEmail(true);
     } else {
       const params = { emailId: email, userType: 'merchant' };
+      setLoader(true);
       forgotPassword(params).then(() => {
         setForgotLinkSent(true);
         setEmailErr(false);
         setEmail('');
+        setLoader(false);
       }).catch(() => {
         setEmailErr(true);
+        setLoader(false);
+
       });
     }
 
@@ -89,7 +94,10 @@ const ForgotPassword: FC<forgotProps> = ({ signupPageValidation, forgotPageValid
           </Form.Item>
           <Form.Item className='get-link' >
             <Button htmlType='submit'>Get Link</Button>
-            {forgotLinkSent && (
+            {loader && (
+              <div className='loader'><Spin/></div>
+            )}
+            {forgotLinkSent && !loader &&(
               <div className='mail-message'>Mail has been sent to your Mail Account. Please Check Your Mail to Reset Your Password.</div>
             )}
           </Form.Item>
