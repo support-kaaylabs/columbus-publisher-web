@@ -178,7 +178,7 @@ const App: FC = () => {
                   <Route path="/dashboard" element={<DashboardPage collapsed={collapsed} />} />
                   <Route path="/benchmarking" element={<BenchMarking />} />
                   <Route path="/management" element={<Management />} />
-                  <Route path="/matrics" element={<Matrics />} />
+                  <Route path="/metrics" element={<Matrics />} />
                   <Route path="/analysis" element={<Analysis />} />
                   <Route path="/shoutout" element={<ShoutOut />} />
                   <Route path="/knowledgeHub" element={<KnowledgeHub />} />
