@@ -80,6 +80,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
   const [uniquePhoneNumberErr, setUniquePhoneNumberErr] = useState(false);
   const [passwordcheck, setPasswordCheck] = useState<boolean>(false);
   const [passwordValidate, setPasswordValidate] = useState<boolean>(false);
+  const [disable, setDisable] = useState<boolean>(false);
   const [validation, setValidation] = useState<passwordProps>({
     upperCaseValidation: false,
     digitValidation: false,
@@ -376,6 +377,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     setSelectedFileList({});
   };
   const handleSubmit = () => {
+    setDisable(true);
     const verifyParams = {
       emailId: email,
       phoneNumber: phoneNumber,
@@ -406,8 +408,10 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               successNotification('User Registered Successfully');
               navigate('/');
               empty();
+              setDisable(false);
             } else {
               errorNotification('Unable to Register');
+              setDisable(false);
             }
           });
         }
@@ -884,7 +888,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                         <div>
                           <Button
                             htmlType="submit"
-                            className='signup-button'>Sign Up</Button>
+                            className='signup-button' loading={disable}>Sign Up</Button>
                         </div>
                       </Form.Item>
                   }
