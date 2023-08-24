@@ -11,7 +11,7 @@ const Signin: FC<signinProps> = ({ signupPageValidation, forgotPageValidation })
   const navigate = useNavigate();
   const [emailId, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [disable, setDisable] = useState<boolean>(false);
+  const [btnLoading, setBtnLoading] = useState<boolean>(false);
   const signupClick = () => {
     signupPageValidation(true);
   };
@@ -21,7 +21,7 @@ const Signin: FC<signinProps> = ({ signupPageValidation, forgotPageValidation })
   };
 
   const handleSubmit = () => {
-    setDisable(true);
+    setBtnLoading(true);
     const params = {
       emailId,
       password,
@@ -30,7 +30,7 @@ const Signin: FC<signinProps> = ({ signupPageValidation, forgotPageValidation })
 
     if (emailId === '' && password === '') {
       errorNotification('Please Enter the Email and Password');
-      setDisable(false);
+      setBtnLoading(false);
     } else {
       authenticate(params)
         .then((resp: any) => {
@@ -62,7 +62,7 @@ const Signin: FC<signinProps> = ({ signupPageValidation, forgotPageValidation })
         })
         .catch(() => {
           errorNotification('Please Enter valid Email and Password');
-          setDisable(false);
+          setBtnLoading(false);
         });
     }
   };
@@ -117,7 +117,7 @@ const Signin: FC<signinProps> = ({ signupPageValidation, forgotPageValidation })
           className='form-button'
           size='large'
           block
-          loading={disable}
+          loading={btnLoading}
         >
           Sign In
         </Button>
