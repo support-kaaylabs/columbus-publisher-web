@@ -28,6 +28,7 @@ import Profile from '../src/components/settings/profile';
 import Subscription from '../src/components/settings/subscription';
 import Support from '../src/components/support/support';
 import defaultUser from './components/columbusImages/defaultUser.png';
+import DarkCLogo from '../src/assets/Smaller Logo Dark BG.svg';
 
 
 const { Sider, Content, Header } = Layout;
@@ -36,10 +37,12 @@ const App: FC = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [activeKey, setActiveKey] = useState<any>(window.location.pathname);
   const [openKey, setOpenKey] = useState<any>([]);
+  const [btnProfile, setBtnProfile] = useState<boolean>(false);
   const [subMenuKey, setSubMenuKey] = useState<string>('');
-  const userProfile :string | null = `${window.localStorage.getItem('Image')}`;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
   const imageUrl = userProfile === 'null' ? defaultUser : userProfile;
-  const userName : string | null = window.localStorage.getItem('User_Name');
+  const userName: string | null = window.localStorage.getItem('User_Name');
   const navigate = useNavigate();
   useEffect(() => {
     setActiveKey(window.location.pathname);
@@ -57,7 +60,7 @@ const App: FC = () => {
   };
   const onOpenChange = (key: any) => {
     const diffKey = differenceBy(key, openKey);
-    setOpenKey(diffKey);    
+    setOpenKey(diffKey);
     if (diffKey.length > 0) {
       const keys = get(diffKey, '[0]', '');
       setSubMenuKey(keys);
@@ -65,6 +68,12 @@ const App: FC = () => {
         setActiveKey('');
       }
     }
+  };
+
+  const handleViewProfile = () => {
+    setBtnProfile(true);
+    setIsModalOpen(true);
+
   };
 
   const logoutClick = () => {
@@ -81,7 +90,15 @@ const App: FC = () => {
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
-  return (
+
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  }; return (
     <>
       {loginId === 'true' && (
         <Layout>
@@ -165,13 +182,35 @@ const App: FC = () => {
                     <div className='col-div'>
                       {/* <Col span={4}><img className='group-Button' src={group} alt='group' /></Col>
                       <Col span={4}><img className='notification-Button' src={notification} alt='notification' /></Col> */}
-                      <Col className='user-name'><p>{userName}</p></Col>
-                      <Col className='img-Button'><img src={imageUrl} alt='user-image' className='img-avatar' /></Col>
+                      {/* <Col className='user-name'><p>{userName}</p></Col> */}
+                      <Col className='img-Button'><img src={imageUrl} alt='user-image' className='img-avatar' onClick={handleViewProfile} /></Col>
                     </div>
                   </Col>
                 </Row>
               </Header>
             )}
+            {/* {btnProfile && (
+              <div>
+                <Modal
+                  open={isModalOpen}
+                  onOk={handleOk} onCancel={handleCancel}
+                >
+                  <div>
+                    <Row>
+                      <Col span={24}>
+                        <div>
+                          <img src={DarkCLogo} alt='Dark-logo' />
+                          <Button>Sign out</Button>
+                        </div>
+                        <div>
+                          <img/>
+                        </div>
+                      </Col>
+                    </Row>
+                  </div>
+                </Modal>
+              </div>
+            )} */}
             <div className='spin-Loading'>
               <Content>
                 <Routes>

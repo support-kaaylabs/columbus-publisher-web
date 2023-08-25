@@ -2,10 +2,10 @@ import React, { type FC, useEffect, useState, MouseEvent, useRef } from 'react';
 import { Row, Col, Card, Button, Form, Input, Select } from 'antd';
 import DefaultUser from '../../assets/defaultUser.png';
 import './index.scss';
-import { getAllCountries, getAllStatesByCountryId, getAllCitiesByStateId } from '../../shared/urlHelper';
-import { CameraOutlined } from '@ant-design/icons';
+import { getAllCountries, getAllStatesByCountryId, getAllCitiesByStateId, email_phone_verify } from '../../shared/urlHelper';
 import cameraIcon from '../Home/Images/profilepicCamera.svg';
-
+import { getSellerDetails } from '../../shared/urlHelper';
+import { get } from 'lodash';
 const { Meta } = Card;
 
 interface Country {
@@ -25,8 +25,8 @@ interface City {
 
 const Profile: FC = () => {
   const [image, setImage] = useState<any>();
-  const [userName, setUserName] = useState<any>();
-  const [gstNumber, setGstNumber] = useState<any>();
+  // const [userName, setUserName] = useState<any>();
+  // const [gstNumber, setGstNumber] = useState<any>();
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
   const [selectedState, setSelectedState] = useState<State | null>(null);
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
@@ -36,34 +36,66 @@ const Profile: FC = () => {
   const [stateId, setStateId] = useState<any>();
   const [cityValue, setCityValue] = useState<any>();
   const [cityData, setCityData] = useState<any[]>([]);
-  const [email, setEmail] = useState<any>();
-  const [phoneNumber, setPhoneNumber] = useState<any>();
-  const [zipCode, setZipCode] = useState<any>();
-  const [editClick, setEditClick] = useState<boolean>();
+  // const [email, setEmail] = useState<any>();
+  // const [phoneNumber, setPhoneNumber] = useState<any>();
+  // const [zipCode, setZipCode] = useState<any>();
+  const [editClick, setEditClick] = useState<boolean>(false);
   const [cameraIconDisplay, setCameraIconDisplay] = useState<any>(true);
   const [selectedFileList, setSelectedFileList] = useState({});
-
-
+  const [emailValidErr, setEmailValidErr] = useState<boolean>(false);
+  const [uniqueEmailErr, setUniqueEmailerr] = useState(false);
+  const [uniquePhoneNumberErr, setUniquePhoneNumberErr] = useState(false);
+  const [country, setCountry] = useState<any>();
+  const [state, setState] = useState<any>();
+  const [city, setCity] = useState<any>();
+  const [values, setValues] = useState({
+    userName: '',
+    gstNumber: '',
+    email: '',
+    phoneNumber: '',
+    zipCode: '',
+  });
   const logoHandler = useRef<any>(null);
 
   const [form] = Form.useForm();
 
   const handleEntityNameChange = (e: any) => {
-    setUserName(e.target.value);
+    setValues({ ...values, userName: e.target.value });
   };
 
 
   const user_Name: any = localStorage.getItem('User_Name');
+
   const handleEditProfile = () => {
     setEditClick(true);
   };
 
   useEffect(() => {
+    getSeller();
     setImage(localStorage.getItem('Image') === 'null' ? DefaultUser : localStorage.getItem('Image'));
     getCountry();
 
   }, []);
 
+  const getSeller = () => {
+    getSellerDetails().then((res) => {
+      console.log(res, 'resssssuuulllt');
+      const userDetails = res.data[0];
+      console.log(userDetails, 'userDetails');
+      const sellerDetails = res.data[1];
+      console.log(sellerDetails.Store_Name, 'sellerDetails');
+      setValues({
+        ...values, userName: userDetails.User_Name,
+        gstNumber: sellerDetails.GST_Number, email: userDetails.Email_ID, phoneNumber: userDetails.Phone_Number,
+        zipCode: sellerDetails.Pincode
+      });
+      setCountry(sellerDetails.Country);
+      setState(sellerDetails.State);
+      setCity(sellerDetails.City);
+    });
+  };
+
+  const { userName, gstNumber, email, phoneNumber, zipCode } = values;
   const getCountry = async () => {
     await getAllCountries().then((res) => {
       if (res) {
@@ -109,14 +141,9 @@ const Profile: FC = () => {
     });
     setSelectedState(null);
     setSelectedCity(null);
-    // setRegionErr(false);
+    setState(null);
+    setCity(null);
   };
-  const customRules = [
-    {
-      required: true,
-      message: <span style={{ marginLeft: '5px' }}>Please Select Your Profile Picture!</span>,
-    },
-  ];
 
   const handleStateChange = (value: string) => {
     const selectedState = stateData.find((state) => state.State_Id === value);
@@ -130,7 +157,6 @@ const Profile: FC = () => {
       }
     });
     setSelectedCity(null);
-    // setStateErr(false);
   };
   const cameraIconHandlerHide = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -160,83 +186,107 @@ const Profile: FC = () => {
   };
 
   const handlePhoneNumberChange = (e: any) => {
-    setPhoneNumber(e.target.value.trim());
-    // setPhoneNumberErr(false);
-    // setUniquePhoneNumberErr(false);
+    setValues({ ...values, phoneNumber: e.target.value.trim() });
+    setUniquePhoneNumberErr(false);
   };
 
   const handleEmailChange = (e: any) => {
-    setEmail(e.target.value);
-    // setEmailErr(false);
-    // setEmailValidErr(false);
-    // setUniqueEmailerr(false);
+    setValues({ ...values, email: e.target.value.trim() });
+    setEmailValidErr(false);
+    setUniqueEmailerr(false);
   };
 
   const handleZipCode = (e: any) => {
-    setZipCode(e.target.value.trim());
+    setValues({ ...values, zipCode: e.target.value.trim() });
   };
   const handleCityChange = (value: string) => {
     const selectedCity = cityData.find((city) => city.City_Id === value);
     setSelectedCity(selectedCity || null);
   };
+  const handleSubmit = () => {
+    console.log('jfhsdjkfhkjd');
+    //eslint-disable-next-line
+    const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const verifyParams = {
+      emailId: email,
+      phoneNumber: phoneNumber,
+      userType: 'merchant',
+    };
+    email_phone_verify(verifyParams)
+      .then(() => {
+        if (reg.test(email) === false) {
+          setEmailValidErr(true);
+        }
+      }).catch((err) => {
+        const mailErr = get(err, 'error.mailError', '');
+        const phoneErr = get(err, 'error.phoneError', '');
+        if (mailErr) {
+          return setUniqueEmailerr(true);
+        } else if (phoneErr) {
+          return setUniquePhoneNumberErr(true);
+        }
+      });
+
+      
+  };
+  const handleCancel = () => {
+    setEditClick(false);
+  };
+  console.log(userName, 'userName');
+  console.log(values, 'valuesss');
   return (
     <div>
       <div className='text-div'>
-        <p>Profile</p>
+        {editClick ? (<p>Edit Profile</p>) : (<p>Profile</p>)}
       </div>
       <Row>
-        <Col sm={24} md={6} xs={22} lg={6} xl={6} className='profile-col'>
-          <Card
-
-            cover={<img src={image} alt='profile-img' className='img' />}
-          >
-            {/* <div>
-                <Form.Item
-                  className='profile-pic'
-                  name='profilePic'
-                  rules={customRules}>
+        <Col sm={24} md={6} xs={22} lg={5} xl={5} className='profile-col'>
+          {!editClick ? (
+            <Card
+              className='ant-card'
+              cover={<img src={image} alt='profile-img' className='img' />}
+            >
+              <Meta title={`${user_Name}`} />
+              <div className='ant-btn-div'>
+                <Button className='edit-profile-button' onClick={handleEditProfile}>Edit Profile</Button>
+              </div>
+            </Card>
+          ) : (
+            <Card
+              cover={<img src={image} alt='profile-img' className='img' />}
+            >
+              <div className='edit-profile'>
+                <div
+                  className="user-img-logo-content"
+                  onMouseLeave={cameraIconHandlerHide}
+                >
                   <div
-                    className="user-img-logo-content"
-                    onMouseLeave={cameraIconHandlerHide}
+                    className="profile-head"
+                    onMouseEnter={cameraIconHandlerDisplay}
                   >
-                    <div
-                      className="profile-head"
-                      onMouseEnter={cameraIconHandlerDisplay}
-                    >
-                      <div className="profile-logo-img">
-                        <div className='image-container'>
-                          {image && (
-                            <img src={image} style={{ width: '200px', height: '130px', borderRadius: '10px' }} />)}
-                        </div>
-                        <div className={image ? 'add-profile-img-selected' : 'add-profile'}><CameraOutlined />    Add Profile</div>
-                      </div>
-                    </div>
-                    <div
-                      className={
-                        cameraIconDisplay ? 'camera-icon-hide' : 'camera-icon'
-                      }
-                      onClick={clickHandler}
-                    >
-                      <img src={cameraIcon} alt="camera-icon" />
-                      <input
-                        type="file"
-                        accept="image/*"
-                        ref={logoHandler}
-                        onChange={changeLogoHandler}
-                        className="input"
-                      />
-                    </div>
                   </div>
-
-                </Form.Item>
-              </div> */}
-            <Meta title={`${user_Name}`} />
-            <div className='ant-btn-div'>
-              <Button className='edit-profile-button' onClick={handleEditProfile}>Edit Profile</Button>
-            </div>
-          </Card>
+                  <div
+                    className={
+                      cameraIconDisplay ? 'camera-icon-hide' : 'camera-icon'
+                    }
+                    onClick={clickHandler}
+                  >
+                    <img src={cameraIcon} alt="camera-icon" />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      ref={logoHandler}
+                      onChange={changeLogoHandler}
+                      className="input"
+                    />
+                  </div>
+                </div>
+                <div className='store-ptag'><label className='edit-card-label'>{`${user_Name}`}</label></div>
+              </div>
+            </Card>
+          )}
         </Col >
-        <Col sm={0} md={17} xs={0} lg={18} xl={18} className='form-col'>
+        <Col sm={0} md={18} xs={0} lg={19} xl={19} className='form-col'>
           <div className='right-Column-div'>
             <div >
               <Form
@@ -247,24 +297,23 @@ const Profile: FC = () => {
                 initialValues={{ remember: true }}
                 className='form'
                 layout='vertical'
-              // onFinish={handleSubmit}
+                onFinish={handleSubmit}
               >
                 <Row className='form-row'>
                   <Col sm={0} md={9} xs={0} lg={12} xl={12} className='form-col'>
                     <Form.Item
                       className='form-item'
-                      name="entity"
-                      label="Publishing Entity Name"
-
+                      required
+                      label="User Name"
                       rules={[
                         {
                           required: true,
-                          message: 'Please Enter Publishing Entity Name!',
+                          message: 'Please Enter User Name',
                         },
                       ]}>
                       <Input
                         type='text'
-                        placeholder='Enter Publishing Entity Name'
+                        placeholder='Enter Your User Name'
                         onChange={(e) => handleEntityNameChange(e)}
                         value={userName}
                         disabled={editClick ? false : true}
@@ -278,14 +327,14 @@ const Profile: FC = () => {
                       <Input
                         type='text'
                         placeholder='Enter your GST Number'
-                        onChange={(e) => setGstNumber(e.target.value.trim())}
+                        onChange={(e) => setValues({ ...values, gstNumber: e.target.value.trim() })}
                         value={gstNumber}
                         disabled={editClick ? false : true}
                       />
                     </Form.Item>
                     <Form.Item
-                      className='form-item'
-                      name="Region"
+                      className='form-item-select'
+                      required
                       label="Region"
                       rules={[
                         {
@@ -294,14 +343,15 @@ const Profile: FC = () => {
                         },
                       ]}>
                       <Select
-                        style={{ marginTop: '-2%', marginBottom: '10px' }}
+                        style={{marginTop: '-2%'}}
                         placeholder='Select Country'
                         showSearch
+                        defaultValue={country}
                         onSearch={() => getCountry()}
                         onChange={handleCountryChange}
-                        value={selectedCountry?.Country_Name}
+                        value={selectedCountry? selectedCountry.Country_Id : country}
                         optionFilterProp="children"
-                      // disabled={editClick? false:true}
+                        disabled={editClick ? false : true}
                       >
                         {regionDatas.map((country) => (
                           <Select.Option key={country.Country_Name} value={country.Country_Id} onClick={() => handleCountryChange(country)}>
@@ -311,8 +361,8 @@ const Profile: FC = () => {
                       </Select>
                     </Form.Item>
                     <Form.Item
-                      className='form-item'
-                      name="State"
+                      className='form-item-select'
+                      required
                       label="State/Province"
                       rules={[
                         {
@@ -321,12 +371,12 @@ const Profile: FC = () => {
                         },
                       ]}>
                       <Select
-                        style={{ marginTop: '-2%', marginBottom: '10px' }}
+                        style={{marginTop: '-2%'}}
                         placeholder='Select State/Province'
                         showSearch
                         onSearch={(e) => getState(e)}
                         onChange={handleStateChange}
-                        value={selectedState?.State_Name}
+                        value={selectedState? selectedState?.State_Id : state}
                         optionFilterProp="children"
                         disabled={!selectedCountry}
                       >
@@ -339,14 +389,15 @@ const Profile: FC = () => {
                     </Form.Item>
                     {editClick && (
                       <Form.Item>
-                        <Button>Cancel</Button>
+                        <div className='cancel-Button-div'>
+                          <Button className='cancel-Button' onClick={handleCancel}>Cancel</Button>
+                        </div>
                       </Form.Item>
                     )}
                   </Col>
                   <Col sm={0} md={9} xs={0} lg={12} xl={12} className='form-col'>
                     <Form.Item
                       className='form-item'
-                      name='email'
                       label='Email Address'
                       required
                       colon={false}
@@ -367,11 +418,17 @@ const Profile: FC = () => {
                         value={email}
                         disabled={editClick ? false : true}
                       />
+                      {emailValidErr === true && (
+                        <div className='error'>Please Enter Valid Email Address</div>
+                      )}
+                      {uniqueEmailErr === true && (
+                        <div className='error'>This email is already taken. Please choose a different one.</div>
+                      )}
                     </Form.Item>
                     <Form.Item
                       className='form-item'
-                      name="phone"
                       label="Phone Number"
+                      required
                       rules={[
                         {
                           required: true,
@@ -386,10 +443,13 @@ const Profile: FC = () => {
                         value={phoneNumber}
                         disabled={editClick ? false : true}
                       />
+                      {uniquePhoneNumberErr === true && (
+                        <div className='error'>This Phone Number is already taken. Please choose a different one</div>
+                      )}
                     </Form.Item>
                     <Form.Item
-                      className='form-item'
-                      name="City/County"
+                      className='form-item-select'
+                      required  
                       label="City/County"
                       rules={[
                         {
@@ -398,11 +458,11 @@ const Profile: FC = () => {
                         },
                       ]}>
                       <Select
-                        style={{ marginTop: '-2%', marginBottom: '10px' }}
+                        style={{marginTop: '-2%'}}
                         placeholder="Select City"
                         showSearch
                         onChange={handleCityChange}
-                        value={selectedCity?.City_Id}
+                        value={selectedCity? selectedCity.City_Id : city}
                         onSearch={(e) => getCities(e)}
                         disabled={!selectedState}
                         optionFilterProp="children"
@@ -416,7 +476,7 @@ const Profile: FC = () => {
                     </Form.Item>
                     <Form.Item
                       className='form-item'
-                      name="zip"
+                      required
                       label="ZipCode"
                       rules={[
                         {
@@ -435,7 +495,9 @@ const Profile: FC = () => {
                     </Form.Item>
                     {editClick && (
                       <Form.Item>
-                        <Button htmlType="submit">Save</Button>
+                        <div className='submit-Button-div'>
+                          <Button htmlType="submit" className='submit-Button'>Save</Button>
+                        </div>
                       </Form.Item>
                     )}
                   </Col>

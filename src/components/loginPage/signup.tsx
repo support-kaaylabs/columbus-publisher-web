@@ -860,7 +860,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
         <Row align='middle' style={{ marginTop: '20px' }}>
           <Col span={9}>
             <div className={current === 2 ? 'steps-current2' : 'steps'}>
-              {`Step${steps}/3`}
+              {`Step  ${steps}/3`}
             </div>
           </Col>
           {current <= 2 && (

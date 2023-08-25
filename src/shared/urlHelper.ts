@@ -55,3 +55,5 @@ export const getPublisherChartYearlyData = () => http.get('get-publisher-chart-y
 export const getPublisherChartMonthlyData = () => http.get('get-publisher-chart-monthly-data');
 
 export const getPublisherChartWeeklyData = () => http.get('get-publisher-chart-weekly-data');
+
+export const getSellerDetails = () => http.get('get-seller-details');
