@@ -2,9 +2,10 @@ import React, { type FC, useEffect, useState, MouseEvent, useRef } from 'react';
 import { Row, Col, Card, Button, Form, Input, Select } from 'antd';
 import DefaultUser from '../../assets/defaultUser.png';
 import './index.scss';
-import { getAllCountries, getAllStatesByCountryId, getAllCitiesByStateId, email_phone_verify } from '../../shared/urlHelper';
+import { getAllCountries, getAllStatesByCountryId, getAllCitiesByStateId, email_verification, updateSellerDetails, phone_verification, storeImageUpload } from '../../shared/urlHelper';
 import cameraIcon from '../Home/Images/profilepicCamera.svg';
 import { getSellerDetails } from '../../shared/urlHelper';
+import { errorNotification } from '../../../src/shared/globalVariables';
 import { get } from 'lodash';
 const { Meta } = Card;
 
@@ -49,6 +50,7 @@ const Profile: FC = () => {
   const [state, setState] = useState<any>();
   const [city, setCity] = useState<any>();
   const [values, setValues] = useState({
+    storeName: '',
     userName: '',
     gstNumber: '',
     email: '',
@@ -85,17 +87,18 @@ const Profile: FC = () => {
       const sellerDetails = res.data[1];
       console.log(sellerDetails.Store_Name, 'sellerDetails');
       setValues({
-        ...values, userName: userDetails.User_Name,
+        ...values, storeName: sellerDetails.Store_Name, userName: userDetails.User_Name,
         gstNumber: sellerDetails.GST_Number, email: userDetails.Email_ID, phoneNumber: userDetails.Phone_Number,
         zipCode: sellerDetails.Pincode
       });
+      setImage(userDetails.Image);
       setCountry(sellerDetails.Country);
       setState(sellerDetails.State);
       setCity(sellerDetails.City);
     });
   };
 
-  const { userName, gstNumber, email, phoneNumber, zipCode } = values;
+  const { userName, storeName, gstNumber, email, phoneNumber, zipCode } = values;
   const getCountry = async () => {
     await getAllCountries().then((res) => {
       if (res) {
@@ -127,8 +130,6 @@ const Profile: FC = () => {
   };
 
   const handleCountryChange = async (value: string) => {
-    console.log('hjdkfjdkjfk');
-
     setCountryId(value);
     const selectedCountry = regionDatas.find((country) => country.Country_Id === value);
     const country = selectedCountry?.Country_Id;
@@ -178,7 +179,14 @@ const Profile: FC = () => {
       setImage(reader.result);
     };
     if (fileUploaded) {
+      const userId: any = localStorage.getItem('User_ID');
       reader.readAsDataURL(fileUploaded);
+      storeImageUpload(userId, '', fileUploaded).then((data: any) => {
+        if (data.success) {
+          console.log(data, 'datatata');
+        }
+        setImage(image);
+      });
     } else {
       setImage(null);
     }
@@ -203,8 +211,10 @@ const Profile: FC = () => {
     const selectedCity = cityData.find((city) => city.City_Id === value);
     setSelectedCity(selectedCity || null);
   };
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log('jfhsdjkfhkjd');
+    const userId = localStorage.getItem('User_ID');
+
     //eslint-disable-next-line
     const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const verifyParams = {
@@ -212,28 +222,51 @@ const Profile: FC = () => {
       phoneNumber: phoneNumber,
       userType: 'merchant',
     };
-    email_phone_verify(verifyParams)
-      .then(() => {
-        if (reg.test(email) === false) {
-          setEmailValidErr(true);
-        }
-      }).catch((err) => {
-        const mailErr = get(err, 'error.mailError', '');
-        const phoneErr = get(err, 'error.phoneError', '');
-        if (mailErr) {
-          return setUniqueEmailerr(true);
-        } else if (phoneErr) {
-          return setUniquePhoneNumberErr(true);
-        }
-      });
+    const emailParams = {userId,emailId: email, userType: 'merchant'};
+    const phoneParams = {userId,phoneNumber: phoneNumber, userType: 'merchant'};
+    email_verification(emailParams).then((res)=>{
+      console.log(res, 'resultttt');
+      if(res){
+        phone_verification(phoneParams).then((res)=>{
+          console.log(res, 'phone response============>');
+        }).catch((err)=>{
+          console.log(err, 'errrrororo');
+        });
+      }
+    }).catch((err)=>{
+      console.log(err, 'errororor');
+    });
+    const params = {
+      userDetails: {
+        User_Name: userName,
+        Email_ID: email,
+        Phone_Number: phoneNumber,
+      },
+      sellerDetails: {
+        Store_Name: storeName,
+        GST_Number: gstNumber,
+        Country: selectedCountry ? selectedCountry.Country_Name : country,
+        State: selectedState ? selectedState.State_Name : state,
+        City: selectedCity ? selectedCity.City_Name : city,
+        Pincode: zipCode,
+        Country_Id: countryId,
+        State_ID: stateId,
+      }
 
-      
+    };
+    updateSellerDetails({userId},params).then((res) => {
+      if (res.success) {
+        console.log(res.success, 'successs');
+      } else {
+        errorNotification('Unable to Update');
+      }
+    });
+
+
   };
   const handleCancel = () => {
     setEditClick(false);
   };
-  console.log(userName, 'userName');
-  console.log(values, 'valuesss');
   return (
     <div>
       <div className='text-div'>
@@ -246,7 +279,7 @@ const Profile: FC = () => {
               className='ant-card'
               cover={<img src={image} alt='profile-img' className='img' />}
             >
-              <Meta title={`${user_Name}`} />
+              <Meta title={`${storeName}`} />
               <div className='ant-btn-div'>
                 <Button className='edit-profile-button' onClick={handleEditProfile}>Edit Profile</Button>
               </div>
@@ -281,7 +314,21 @@ const Profile: FC = () => {
                     />
                   </div>
                 </div>
-                <div className='store-ptag'><label className='edit-card-label'>{`${user_Name}`}</label></div>
+                <Form.Item
+                  className='store-ptag'
+                  // name='store'
+                  // colon={false}
+                  rules={[{ required: true, message: 'Please Enter Store Name!' }]}>
+                  <Input
+                    className='edit-card-label'
+                    type='text'
+                    placeholder='Enter your GST Number'
+                    onChange={(e) => setValues({ ...values, gstNumber: e.target.value.trim() })}
+                    value={storeName}
+                    disabled={editClick ? false : true}
+                  />
+                </Form.Item>
+                {/* <div className='store-ptag'><label className='edit-card-label'>{`${storeName}`}</label></div> */}
               </div>
             </Card>
           )}
@@ -304,11 +351,11 @@ const Profile: FC = () => {
                     <Form.Item
                       className='form-item'
                       required
-                      label="User Name"
+                      label="Username"
                       rules={[
                         {
                           required: true,
-                          message: 'Please Enter User Name',
+                          message: 'Please Enter Username',
                         },
                       ]}>
                       <Input
@@ -343,13 +390,13 @@ const Profile: FC = () => {
                         },
                       ]}>
                       <Select
-                        style={{marginTop: '-2%'}}
+                        style={{ marginTop: '-2%' }}
                         placeholder='Select Country'
                         showSearch
                         defaultValue={country}
                         onSearch={() => getCountry()}
                         onChange={handleCountryChange}
-                        value={selectedCountry? selectedCountry.Country_Id : country}
+                        value={selectedCountry ? selectedCountry.Country_Id : country}
                         optionFilterProp="children"
                         disabled={editClick ? false : true}
                       >
@@ -371,12 +418,12 @@ const Profile: FC = () => {
                         },
                       ]}>
                       <Select
-                        style={{marginTop: '-2%'}}
+                        style={{ marginTop: '-2%' }}
                         placeholder='Select State/Province'
                         showSearch
                         onSearch={(e) => getState(e)}
                         onChange={handleStateChange}
-                        value={selectedState? selectedState?.State_Id : state}
+                        value={selectedState ? selectedState?.State_Id : state}
                         optionFilterProp="children"
                         disabled={!selectedCountry}
                       >
@@ -449,7 +496,7 @@ const Profile: FC = () => {
                     </Form.Item>
                     <Form.Item
                       className='form-item-select'
-                      required  
+                      required
                       label="City/County"
                       rules={[
                         {
@@ -458,11 +505,11 @@ const Profile: FC = () => {
                         },
                       ]}>
                       <Select
-                        style={{marginTop: '-2%'}}
+                        style={{ marginTop: '-2%' }}
                         placeholder="Select City"
                         showSearch
                         onChange={handleCityChange}
-                        value={selectedCity? selectedCity.City_Id : city}
+                        value={selectedCity ? selectedCity.City_Id : city}
                         onSearch={(e) => getCities(e)}
                         disabled={!selectedState}
                         optionFilterProp="children"

@@ -68,11 +68,11 @@
       font-size: 13px;
       color: #000000;
       font-weight: 600;
+      height:37px;
       border: 1px solid #a9a9a9;
-      padding: 5px;
       border-radius: 5px;
    .edit-card-label {
-    padding: 10px;
+    // padding: 5px;
    }
   }
   }
@@ -165,6 +165,7 @@
       .form-col {
         padding-left: 20px;
         .cancel-Button-div {
+          padding: 10px;
           align-items: right;
         .cancel-Button {
           width: 200px;
