@@ -239,7 +239,7 @@ const Profile: FC = () => {
     const selectedCity = cityData.find((city) => city.City_Id === value);
     setSelectedCity(selectedCity || null);
   };
-  const handleSubmit = async (value: any) => {
+  const handleSubmit = async () => {
     const userId = localStorage.getItem('User_ID');
 
     //eslint-disable-next-line
