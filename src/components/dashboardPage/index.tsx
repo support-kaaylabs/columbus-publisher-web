@@ -7,6 +7,7 @@ import ApexChart from './apexchart';
 import ChartContainer from './chartContainer';
 import DashboardImg from '../columbusImages/dashboard-img.svg';
 import './index.scss';
+import ChartSelect from './chartSelect';
 
 const DashboardPage: React.FC<dashboardPageType> = ({ collapsed }) => {
   const [viewsCount, setViewsCount] = useState([]);
@@ -21,6 +22,7 @@ const DashboardPage: React.FC<dashboardPageType> = ({ collapsed }) => {
   const [ctaCount, setCtaCount] = useState([]);
   const [chartMode, setChartMode] = useState<string>('All');
   const [loading, setLoading] = useState<boolean>(true);
+  const countStyle = new Intl.NumberFormat('en-IN');
 
   useEffect(() => {
     setLoading(true);
@@ -56,13 +58,13 @@ const DashboardPage: React.FC<dashboardPageType> = ({ collapsed }) => {
       resp.count.reduce((acc: chartContainerDataType, curValue: curValue) => {
         if (curValue['Event_Name'] === 'PRODUCT_VIEWS') {
           acc.viewsStartDate = curValue['DateWise'];
-          acc.viewsTotalCount = curValue['Interactions'];
+          acc.viewsTotalCount = countStyle.format(Number(curValue['Interactions']));
         } else if (curValue['Event_Name'] === 'PRODUCT_CLICK') {
           acc.clicksStartDate = curValue['DateWise'];
-          acc.clicksTotalCount = curValue['Interactions'];
+          acc.clicksTotalCount = countStyle.format(Number(curValue['Interactions']));
         } else if (curValue['Event_Name'] === 'CALL_TO_ACTION') {
           acc.ctaStartDate = curValue['DateWise'];
-          acc.ctaTotalCount = curValue['Interactions'];
+          acc.ctaTotalCount = countStyle.format(Number(curValue['Interactions']));
         }
         return acc;
       }, containData);
@@ -107,13 +109,18 @@ const DashboardPage: React.FC<dashboardPageType> = ({ collapsed }) => {
       <div className='dashboard-container'>
         <ChartContainer viewsTotalCount={viewsTotalCount} clicksTotalCount={clicksTotalCount} ctaTotalCount={ctaTotalCount} viewsStartDate={viewsStartDate} clicksStartDate={clicksStartDate} ctaStartDate={ctaStartDate} />
       </div>
-      {loading && (<div className='dashboard-loading'>
-        <Spin size='large' />
-      </div>)}
       <div className='dashboard-chart'>
-        {!loading &&
-          <ApexChart loading={loading} viewCount={viewsCount} viewDate={viewsDate} clickCount={clicksCount} ctaCount={ctaCount} setChartMode={setChartMode} chartMode={chartMode} />
-        }
+        <div className='chart-select'>
+          <ChartSelect setChartMode={setChartMode} chartMode={chartMode} />
+        </div>
+        {loading && (<div className='chart-loading'>
+          <Spin size='large' />
+        </div>)}
+        <div className='chart-flow'>
+          {!loading &&
+            <ApexChart loading={loading} viewCount={viewsCount} viewDate={viewsDate} clickCount={clicksCount} ctaCount={ctaCount} />
+          }
+        </div>
       </div>
     </div>
   );
