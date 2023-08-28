@@ -11,8 +11,8 @@ import './chartContainer.scss';
 
 const ChartContainer: React.FC<chartContainerDataType> = ({ viewsTotalCount, viewsStartDate, clicksTotalCount, clicksStartDate, ctaTotalCount, ctaStartDate }) => {
   return (
-    <Row gutter={8} className='dashboard-container'>
-      <Col sm={24} md={24} lg={8}>
+    <Row gutter={[24, 8]} className='dashboard-container'>
+      <Col xs={24} sm={24} md={24} lg={8}>
         <div className='chart-container-column'>
           <div className='chart-container-column-left'>
             <p className='actions'>Impressions</p>
@@ -29,7 +29,7 @@ const ChartContainer: React.FC<chartContainerDataType> = ({ viewsTotalCount, vie
           </div>
         </div>
       </Col>
-      <Col sm={24} md={24} lg={8}>
+      <Col xs={24} sm={24} md={24} lg={8}>
         <div className='chart-container-column'>
           <div className='chart-container-column-left'>
             <p className='actions'>Clicks</p>
@@ -46,7 +46,7 @@ const ChartContainer: React.FC<chartContainerDataType> = ({ viewsTotalCount, vie
           </div>
         </div>
       </Col>
-      <Col sm={24} md={24} lg={8}>
+      <Col xs={24} sm={24} md={24} lg={8}>
         <div className='chart-container-column'>
           <div className='chart-container-column-left'>
             <p className='actions'>Call to Action</p>
