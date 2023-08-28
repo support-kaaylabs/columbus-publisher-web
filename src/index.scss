@@ -8,7 +8,14 @@ body, #root {
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'Gilroy-medium' !important;
+}
+@font-face {
+  font-family: "Gilroy-medium";
+  src: url('../src/assets/fonts/Gilroy/Gilroy-Medium.ttf');
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 .ant-layout-sider-trigger {
   display: none !important;

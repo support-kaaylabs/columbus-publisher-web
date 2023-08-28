@@ -2,8 +2,7 @@
 import React, { type FC, useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import './App.scss';
-import './index.scss';
-import { Button, Col, Layout, Menu, Row, Drawer, ConfigProvider } from 'antd';
+import { Button, Col, Layout, Menu, Row, ConfigProvider, Dropdown, Card, Drawer } from 'antd';
 import headerIcon from '../src/assets/Icon feather-menu.svg';
 import { modules } from './shared/ModuleHelper';
 import Logo from '../src/assets/columbusbig.png';
@@ -29,6 +28,7 @@ import Profile from '../src/components/settings/profile';
 import Subscription from '../src/components/settings/subscription';
 import Support from '../src/components/support/support';
 import defaultUser from './components/columbusImages/defaultUser.png';
+import DarkCLogo from '../src/assets/Smaller Logo Dark BG.svg';
 
 const { Sider, Content, Header } = Layout;
 
@@ -36,6 +36,7 @@ const App: FC = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [activeKey, setActiveKey] = useState<any>(window.location.pathname);
   const [openKey, setOpenKey] = useState<any>([]);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
   const [subMenuKey, setSubMenuKey] = useState<string>('');
   const [open, setOpen] = useState(false);
   const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
@@ -67,6 +68,33 @@ const App: FC = () => {
         setActiveKey('');
       }
     }
+  };
+  const myProfileClick = ()=>{
+    navigate('/profile');
+  };
+  const userEmail: string | null = window.localStorage.getItem('User_Email');
+
+  const menu = (
+    <Card className='profile-card' title={<img src={DarkCLogo} />} extra={<a>Sign out</a>}>
+      <Row>
+        <Col className='image-col'>
+          <img src={imageUrl} />
+        </Col>
+        <Col className='user-col'>
+          <div className='user-div'>
+            <div className='user-name'>{userName}</div>
+            <div className='user-email'>{userEmail}</div>
+            <div className='user-button-div'>
+              <a onClick={myProfileClick}>My Profile</a>
+            </div>
+          </div>
+        </Col>
+      </Row>
+    </Card>
+  );
+
+  const handleDropdownVisibleChange = () => {
+    setDropdownVisible(false);
   };
 
   const logoutClick = () => {
@@ -176,8 +204,18 @@ const App: FC = () => {
                           {collapsed ? (<img src={menuBack} alt='menu-back' />) : (<img src={headerIcon} alt='header-icon' />)}</Button>
                       </Col>
                       <Col span={12} className='col-div'>
-                        <Col className='user-name'><p>{userName}</p></Col>
-                        <Col className='img-Button'><img src={imageUrl} alt='user-image' className='img-avatar' /></Col>
+                        <Col className='img-Button'>
+                          <div>
+                            <img src={imageUrl} alt='user-image' className='img-avatar' onClick={() => setDropdownVisible(true)} />
+                            <Dropdown
+                              overlay={menu}
+                              visible={dropdownVisible}
+                              onVisibleChange={handleDropdownVisibleChange}
+                            >
+                              <span></span>
+                            </Dropdown>
+                          </div>
+                        </Col>
                       </Col>
                     </Row>
                   </Header>

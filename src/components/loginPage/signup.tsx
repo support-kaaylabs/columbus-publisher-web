@@ -7,6 +7,11 @@ import { successNotification, errorNotification } from '../../../src/shared/glob
 import { getAllCountries, getAllStatesByCountryId, getAllCitiesByStateId, email_phone_verify, sellerRegister } from '../../../src/shared/urlHelper';
 import { get } from 'lodash';
 import cameraIcon from '../Home/Images/profilepicCamera.svg';
+import backArrow from '../../assets/BackArroww.svg';
+import frontArrow from '../../assets/frontArroww.svg';
+import addProfileCameraIcon from '../../assets/Icon feather-camera.svg';
+
+
 interface Country {
   Country_Id: number;
   Country_Name: string;
@@ -487,7 +492,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               },
             ]}>
             <Input
-              style={{ marginTop: '-2%', marginBottom: '10px' }}
+              style={{ marginTop: '-1%', marginBottom: '10px' }}
               type='text'
               placeholder='Enter Publishing Entity Name'
               onChange={(e) => handleEntityNameChange(e)}
@@ -507,7 +512,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               },
             ]}>
             <Input
-              style={{ marginTop: '-2%', marginBottom: '10px' }}
+              style={{ marginTop: '-1%', marginBottom: '10px' }}
               type='text'
               placeholder='Enter your UserName'
               onChange={(e) => handleUserNameChange(e)}
@@ -533,7 +538,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               },
             ]}>
             <Input
-              style={{ marginTop: '-2%', marginBottom: '10px' }}
+              style={{ marginTop: '-1%', marginBottom: '10px' }}
               type='email'
               placeholder='Enter Your Email Address'
               onChange={(e) => handleEmailChange(e)}
@@ -546,7 +551,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             )}
           </Form.Item>
           <Form.Item
-            className='form-item-signup'
             name='password'
             label='Password '
             required
@@ -560,7 +564,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             ]}
           >
             <Input.Password
-              style={{ marginTop: '-2%', marginBottom: '10px' }}
+              style={{ marginTop: '-1%', marginBottom: '10px' }}
               className='password-label'
               minLength={8}
               autoComplete="new-password"
@@ -632,7 +636,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             )}
           </Form.Item>
           <Form.Item
-            className='form-item-signup'
             name='confirm'
             label='Confirm Password'
             dependencies={['password']}
@@ -645,7 +648,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               },
             ]}>
             <Input.Password
-              style={{ marginTop: '-2%', marginBottom: '10px' }}
+              style={{ marginTop: '-1%', marginBottom: '10px' }}
               className='password-label'
               placeholder='Enter your Confirm Password'
               onChange={(e) => handleConfirmPasswordChange(e)}
@@ -661,7 +664,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             colon={false}
             rules={[{ required: true, message: 'Please Enter GST Number!' }]}>
             <Input
-              style={{ marginTop: '-2%', marginBottom: '10px' }}
+              style={{ marginTop: '-1%', marginBottom: '10px' }}
               type='text'
               placeholder='Enter your GST Number'
               onChange={(e) => setGstNumber(e.target.value.trim())}
@@ -686,7 +689,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               },
             ]}>
             <Input
-              style={{ marginTop: '-2%', marginBottom: '10px' }}
+              style={{ marginTop: '-1%', marginBottom: '10px' }}
               type='number'
               pattern="[0-9]{10}"
               placeholder='Please Enter Your Phone Number'
@@ -700,7 +703,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             )}
           </Form.Item>
           <Form.Item
-            className='form-item-signup'
+            className='form-item-select'
             name="Region"
             label="Region"
             rules={[
@@ -710,7 +713,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               },
             ]}>
             <Select
-              style={{ marginTop: '-2%', marginBottom: '10px' }}
+              style={{ marginTop: '-1%', marginBottom: '10px' }}
               placeholder='Select Country'
               showSearch
               onSearch={() => getCountry()}
@@ -729,7 +732,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             )}
           </Form.Item>
           <Form.Item
-            className='form-item-signup'
+            className='form-item-select'
             name="State"
             label="State/Province"
             rules={[
@@ -739,13 +742,14 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               },
             ]}>
             <Select
-              style={{ marginTop: '-2%', marginBottom: '10px' }}
+              style={{ marginTop: '-1%', marginBottom: '10px' }}
               placeholder='Select State/Province'
               showSearch
               onSearch={(e) => getState(e)}
               onChange={handleStateChange}
               value={selectedState?.State_Name}
               optionFilterProp="children"
+              disabled={!selectedCountry}
             >
               {stateData.map((state) => (
                 <Select.Option key={state.State_Name} value={state.State_Id} onClick={() => handleStateChange(state)}>
@@ -758,7 +762,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             )}
           </Form.Item>
           <Form.Item
-            className='form-item-signup'
+            className='form-item-select'
             name="City/County"
             label="City/County"
             rules={[
@@ -768,7 +772,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               },
             ]}>
             <Select
-              style={{ marginTop: '-2%', marginBottom: '10px' }}
+              style={{ marginTop: '-1%', marginBottom: '10px' }}
               placeholder="Select City"
               showSearch
               onChange={handleCityChange}
@@ -798,7 +802,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               },
             ]}>
             <Input
-              style={{ marginTop: '-2%', marginBottom: '10px' }}
+              style={{ marginTop: '-1%', marginBottom: '10px' }}
               type='text'
               placeholder='Enter Zip code'
               onChange={(e) => handleZipCode(e)}
@@ -827,9 +831,9 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                 <div className="profile-logo-img">
                   <div className='image-container'>
                     {image && (
-                      <img src={image} style={{width: '200px', height: '130px', borderRadius: '10px'}}/>)}
+                      <img src={image} style={{width: '200px', height: '130px', borderRadius: '5px'}}/>)}
                   </div>
-                  <div className={image ? 'add-profile-img-selected' : 'add-profile'}><CameraOutlined />    Add Profile</div>
+                  <div className={image ? 'add-profile-img-selected' : 'add-profile'}>{!image && (<div className='button-div'><div className='image-div'><img src={addProfileCameraIcon} alt='camera'/></div><span>Add Profile </span></div>)}</div>
                 </div>
               </div>
               <div
@@ -864,7 +868,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
         <Row align='middle' style={{ marginTop: '20px' }}>
           <Col span={9}>
             <div className={current === 2 ? 'steps-current2' : 'steps'}>
-              {`Step${steps}/3`}
+              {`Step  ${steps}/3`}
             </div>
           </Col>
           {current <= 2 && (
@@ -874,16 +878,16 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                   {current > 0 && (
                     current < 3 && (
                       <Button className={current === 2 ? 'prev-button-current2' : 'prev-button'} onClick={() => prev()}>
-                        <ArrowLeftOutlined />
+                        <img src={frontArrow} alt='front-arrow'/>
                       </Button>
                     )
                   )}
                 </div>
                 <div>
                   {current === 0 ?
-                    <Button className='next-button' onClick={onNextClick}>Next     <ArrowRightOutlined /></Button> :
+                    <Button className='next-button' onClick={onNextClick}><div className='button-div'><span>Next </span><div className='backArrow'><img src={backArrow} alt='back-arrow'/></div></div></Button> :
                     current === 1 ?
-                      <Button className='next-button-current1' onClick={onNextClick}>Next    <ArrowRightOutlined /></Button> :
+                      <Button className='next-button-current1' onClick={onNextClick}><div className='button-div'><span>Next </span><div className='backArrow'><img src={backArrow} alt='back-arrow'/></div></div></Button> :
                       <Form.Item>
                         <div>
                           <Button
