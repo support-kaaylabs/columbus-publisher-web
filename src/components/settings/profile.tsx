@@ -1,11 +1,10 @@
 import React, { type FC, useEffect, useState, MouseEvent, useRef } from 'react';
-import { Row, Col, Card, Button, Form, Input, Select } from 'antd';
-import DefaultUser from '../../assets/defaultUser.png';
+import { Row, Col, Card, Button, Form, Input, Select, Spin } from 'antd';
 import './index.scss';
 import { getAllCountries, getAllStatesByCountryId, getAllCitiesByStateId, email_verification, updateSellerDetails, phone_verification, storeImageUpload } from '../../shared/urlHelper';
 import cameraIcon from '../Home/Images/profilepicCamera.svg';
 import { getSellerDetails } from '../../shared/urlHelper';
-import { errorNotification } from '../../../src/shared/globalVariables';
+import { errorNotification, successNotification } from '../../../src/shared/globalVariables';
 import { get } from 'lodash';
 const { Meta } = Card;
 
@@ -26,8 +25,6 @@ interface City {
 
 const Profile: FC = () => {
   const [image, setImage] = useState<any>();
-  // const [userName, setUserName] = useState<any>();
-  // const [gstNumber, setGstNumber] = useState<any>();
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
   const [selectedState, setSelectedState] = useState<State | null>(null);
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
@@ -37,9 +34,7 @@ const Profile: FC = () => {
   const [stateId, setStateId] = useState<any>();
   const [cityValue, setCityValue] = useState<any>();
   const [cityData, setCityData] = useState<any[]>([]);
-  // const [email, setEmail] = useState<any>();
-  // const [phoneNumber, setPhoneNumber] = useState<any>();
-  // const [zipCode, setZipCode] = useState<any>();
+  const [emailErr, setEmailErr] = useState<any>(false);
   const [editClick, setEditClick] = useState<boolean>(false);
   const [cameraIconDisplay, setCameraIconDisplay] = useState<any>(true);
   const [selectedFileList, setSelectedFileList] = useState({});
@@ -49,6 +44,9 @@ const Profile: FC = () => {
   const [country, setCountry] = useState<any>();
   const [state, setState] = useState<any>();
   const [city, setCity] = useState<any>();
+  const [phoneNumberErr, setPhoneNumberErr] = useState<boolean>(false);
+  const [loader, setLoader] = useState(false);
+  const [btnLoading, setBtnLoading] = useState(false);
   const [values, setValues] = useState({
     storeName: '',
     userName: '',
@@ -70,34 +68,47 @@ const Profile: FC = () => {
 
   const handleEditProfile = () => {
     setEditClick(true);
+    getAllStatesById();
+    searchCities();
   };
 
   useEffect(() => {
     getSeller();
-    setImage(localStorage.getItem('Image') === 'null' ? DefaultUser : localStorage.getItem('Image'));
+    // setImage(localStorage.getItem('Image') === 'null' ? DefaultUser : localStorage.getItem('Image'));
     getCountry();
-
   }, []);
 
+  console.log(selectedCountry, selectedState, selectedCity, 'gkjkgkfdgkn', country, state, city);
   const getSeller = () => {
+    setLoader(true);
     getSellerDetails().then((res) => {
-      console.log(res, 'resssssuuulllt');
       const userDetails = res.data[0];
-      console.log(userDetails, 'userDetails');
       const sellerDetails = res.data[1];
-      console.log(sellerDetails.Store_Name, 'sellerDetails');
       setValues({
         ...values, storeName: sellerDetails.Store_Name, userName: userDetails.User_Name,
         gstNumber: sellerDetails.GST_Number, email: userDetails.Email_ID, phoneNumber: userDetails.Phone_Number,
         zipCode: sellerDetails.Pincode
       });
+      form.setFieldsValue({
+        Store_Name: sellerDetails.Store_Name,
+        User_Name: userDetails.User_Name,
+        GST_Number: sellerDetails.GST_Number,
+        Country: sellerDetails.Country,
+        State: sellerDetails.State,
+        City: sellerDetails.City,
+        Phone_Number: userDetails.Phone_Number,
+        Zip_Code: sellerDetails.Pincode,
+        Email_Address: userDetails.Email_ID,
+      });
       setImage(userDetails.Image);
       setCountry(sellerDetails.Country);
       setState(sellerDetails.State);
       setCity(sellerDetails.City);
+      setCountryId(sellerDetails.Country_Id);
+      setStateId(sellerDetails.State_ID);
+      setLoader(false);
     });
   };
-
   const { userName, storeName, gstNumber, email, phoneNumber, zipCode } = values;
   const getCountry = async () => {
     await getAllCountries().then((res) => {
@@ -107,7 +118,7 @@ const Profile: FC = () => {
     });
   };
 
-  const getState = (value: any) => {
+  const getState = (value?: any) => {
     const params = { id: countryId, searchValue: value };
     getAllStatesByCountryId(params).then((response) => {
       if (response) {
@@ -129,16 +140,30 @@ const Profile: FC = () => {
     searchCities();
   };
 
+  const getAllStatesById = async () => {
+    const params = { id: countryId };
+    await getAllStatesByCountryId(params).then((response) => {
+      if (response) {
+        setStateData(response.data);
+      }
+    });
+  };
   const handleCountryChange = async (value: string) => {
     setCountryId(value);
     const selectedCountry = regionDatas.find((country) => country.Country_Id === value);
     const country = selectedCountry?.Country_Id;
+    const selectedRegion = selectedCountry.Country_Name;
+    setCountry(selectedCountry.Country_Name);
     setSelectedCountry(selectedCountry || null);
     const params = { id: country };
     await getAllStatesByCountryId(params).then((response) => {
       if (response) {
         setStateData(response.data);
       }
+    });
+    form.setFieldsValue({
+      State: undefined,
+      City: undefined,
     });
     setSelectedState(null);
     setSelectedCity(null);
@@ -156,6 +181,9 @@ const Profile: FC = () => {
       if (res) {
         setCityData(res?.data);
       }
+    });
+    form.setFieldsValue({
+      City: null,
     });
     setSelectedCity(null);
   };
@@ -183,7 +211,7 @@ const Profile: FC = () => {
       reader.readAsDataURL(fileUploaded);
       storeImageUpload(userId, '', fileUploaded).then((data: any) => {
         if (data.success) {
-          console.log(data, 'datatata');
+          successNotification('Image Uploaded Successfully');
         }
         setImage(image);
       });
@@ -196,14 +224,18 @@ const Profile: FC = () => {
   const handlePhoneNumberChange = (e: any) => {
     setValues({ ...values, phoneNumber: e.target.value.trim() });
     setUniquePhoneNumberErr(false);
+    setPhoneNumberErr(false);
   };
 
   const handleEmailChange = (e: any) => {
     setValues({ ...values, email: e.target.value.trim() });
     setEmailValidErr(false);
     setUniqueEmailerr(false);
+    setEmailErr(false);
   };
-
+  const handleStoreNameChange = (e: any) => {
+    setValues({ ...values, storeName: e.target.value.trim() });
+  };
   const handleZipCode = (e: any) => {
     setValues({ ...values, zipCode: e.target.value.trim() });
   };
@@ -211,350 +243,363 @@ const Profile: FC = () => {
     const selectedCity = cityData.find((city) => city.City_Id === value);
     setSelectedCity(selectedCity || null);
   };
-  const handleSubmit = async () => {
-    console.log('jfhsdjkfhkjd');
+  const handleSubmit = async (value: any) => {
+    console.log(value, 'value');
     const userId = localStorage.getItem('User_ID');
 
     //eslint-disable-next-line
     const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    const verifyParams = {
-      emailId: email,
-      phoneNumber: phoneNumber,
-      userType: 'merchant',
-    };
-    const emailParams = {userId,emailId: email, userType: 'merchant'};
-    const phoneParams = {userId,phoneNumber: phoneNumber, userType: 'merchant'};
-    email_verification(emailParams).then((res)=>{
-      console.log(res, 'resultttt');
-      if(res){
-        phone_verification(phoneParams).then((res)=>{
-          console.log(res, 'phone response============>');
-        }).catch((err)=>{
-          console.log(err, 'errrrororo');
-        });
+    if (reg.test(email) === false) {
+      setEmailValidErr(true);
+    }
+    const emailParams = { userId, emailId: email, userType: 'merchant' };
+    const phoneParams = { userId, phoneNumber: phoneNumber, userType: 'merchant' };
+    setBtnLoading(true);
+    await email_verification(emailParams).then((res) => {
+      console.log('email Verified', res);
+      phone_verification(phoneParams).then((res) => {
+        console.log('phone Verified', res);
+        const params = {
+          userDetails: {
+            User_Name: userName,
+            Email_ID: email,
+            Phone_Number: phoneNumber,
+          },
+          sellerDetails: {
+            Store_Name: storeName,
+            GST_Number: gstNumber,
+            Country: selectedCountry ? selectedCountry.Country_Name : country,
+            State: selectedState ? selectedState.State_Name : state,
+            City: selectedCity ? selectedCity.City_Name : city,
+            Pincode: zipCode,
+            Country_Id: countryId,
+            State_ID: stateId,
+          }
+
+        };
+        if (!uniqueEmailErr && !uniquePhoneNumberErr && !emailValidErr) {
+          updateSellerDetails({ userId }, params).then((res) => {
+            if (res.success) {
+              setBtnLoading(false);
+              successNotification('Updated Successfully');
+            } else {
+              setBtnLoading(false);
+              errorNotification('Unable to Update');
+            }
+          });
+        } else {
+          errorNotification('Please Fill All the Fields');
+        }
+      }).catch((err) => {
+        const phoneErr = get(err, 'error.phoneError', '');
+        console.log(phoneErr, 'phoneErr');
+        if (phoneErr) {
+          return setUniquePhoneNumberErr(true);
+        }
+      });
+    }).catch((err) => {
+      const mailErr = get(err, 'error.mailError', '');
+      if (mailErr) {
+        return setUniqueEmailerr(true);
       }
-    }).catch((err)=>{
-      console.log(err, 'errororor');
     });
-    const params = {
-      userDetails: {
-        User_Name: userName,
-        Email_ID: email,
-        Phone_Number: phoneNumber,
-      },
-      sellerDetails: {
-        Store_Name: storeName,
-        GST_Number: gstNumber,
-        Country: selectedCountry ? selectedCountry.Country_Name : country,
-        State: selectedState ? selectedState.State_Name : state,
-        City: selectedCity ? selectedCity.City_Name : city,
-        Pincode: zipCode,
-        Country_Id: countryId,
-        State_ID: stateId,
-      }
-
-    };
-    updateSellerDetails({userId},params).then((res) => {
-      if (res.success) {
-        console.log(res.success, 'successs');
-      } else {
-        errorNotification('Unable to Update');
-      }
-    });
-
-
   };
   const handleCancel = () => {
     setEditClick(false);
   };
   return (
-    <div>
-      <div className='text-div'>
-        {editClick ? (<p>Edit Profile</p>) : (<p>Profile</p>)}
-      </div>
-      <Row>
-        <Col sm={24} md={6} xs={22} lg={5} xl={5} className='profile-col'>
-          {!editClick ? (
-            <Card
-              className='ant-card'
-              cover={<img src={image} alt='profile-img' className='img' />}
-            >
-              <Meta title={`${storeName}`} />
-              <div className='ant-btn-div'>
-                <Button className='edit-profile-button' onClick={handleEditProfile}>Edit Profile</Button>
-              </div>
-            </Card>
-          ) : (
-            <Card
-              cover={<img src={image} alt='profile-img' className='img' />}
-            >
-              <div className='edit-profile'>
-                <div
-                  className="user-img-logo-content"
-                  onMouseLeave={cameraIconHandlerHide}
-                >
-                  <div
-                    className="profile-head"
-                    onMouseEnter={cameraIconHandlerDisplay}
-                  >
-                  </div>
-                  <div
-                    className={
-                      cameraIconDisplay ? 'camera-icon-hide' : 'camera-icon'
-                    }
-                    onClick={clickHandler}
-                  >
-                    <img src={cameraIcon} alt="camera-icon" />
-                    <input
-                      type="file"
-                      accept="image/*"
-                      ref={logoHandler}
-                      onChange={changeLogoHandler}
-                      className="input"
-                    />
-                  </div>
-                </div>
-                <Form.Item
-                  className='store-ptag'
-                  // name='store'
-                  // colon={false}
-                  rules={[{ required: true, message: 'Please Enter Store Name!' }]}>
-                  <Input
-                    className='edit-card-label'
-                    type='text'
-                    placeholder='Enter your GST Number'
-                    onChange={(e) => setValues({ ...values, gstNumber: e.target.value.trim() })}
-                    value={storeName}
-                    disabled={editClick ? false : true}
-                  />
-                </Form.Item>
-                {/* <div className='store-ptag'><label className='edit-card-label'>{`${storeName}`}</label></div> */}
-              </div>
-            </Card>
-          )}
-        </Col >
-        <Col sm={0} md={18} xs={0} lg={19} xl={19} className='form-col'>
-          <div className='right-Column-div'>
-            <div >
-              <Form
-                name='basic'
-                size={'large'}
-                form={form}
-                autoComplete='off'
-                initialValues={{ remember: true }}
-                className='form'
-                layout='vertical'
-                onFinish={handleSubmit}
-              >
-                <Row className='form-row'>
-                  <Col sm={0} md={9} xs={0} lg={12} xl={12} className='form-col'>
-                    <Form.Item
-                      className='form-item'
-                      required
-                      label="Username"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please Enter Username',
-                        },
-                      ]}>
-                      <Input
-                        type='text'
-                        placeholder='Enter Your User Name'
-                        onChange={(e) => handleEntityNameChange(e)}
-                        value={userName}
-                        disabled={editClick ? false : true}
-                      />
-                    </Form.Item>
-                    <Form.Item
-                      className='form-item'
-                      label='GST Number'
-                      colon={false}
-                      rules={[{ required: true, message: 'Please Enter GST Number!' }]}>
-                      <Input
-                        type='text'
-                        placeholder='Enter your GST Number'
-                        onChange={(e) => setValues({ ...values, gstNumber: e.target.value.trim() })}
-                        value={gstNumber}
-                        disabled={editClick ? false : true}
-                      />
-                    </Form.Item>
-                    <Form.Item
-                      className='form-item-select'
-                      required
-                      label="Region"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please Enter Region!',
-                        },
-                      ]}>
-                      <Select
-                        style={{ marginTop: '-2%' }}
-                        placeholder='Select Country'
-                        showSearch
-                        defaultValue={country}
-                        onSearch={() => getCountry()}
-                        onChange={handleCountryChange}
-                        value={selectedCountry ? selectedCountry.Country_Id : country}
-                        optionFilterProp="children"
-                        disabled={editClick ? false : true}
-                      >
-                        {regionDatas.map((country) => (
-                          <Select.Option key={country.Country_Name} value={country.Country_Id} onClick={() => handleCountryChange(country)}>
-                            {country.Country_Name}
-                          </Select.Option>
-                        ))}
-                      </Select>
-                    </Form.Item>
-                    <Form.Item
-                      className='form-item-select'
-                      required
-                      label="State/Province"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please Enter State!',
-                        },
-                      ]}>
-                      <Select
-                        style={{ marginTop: '-2%' }}
-                        placeholder='Select State/Province'
-                        showSearch
-                        onSearch={(e) => getState(e)}
-                        onChange={handleStateChange}
-                        value={selectedState ? selectedState?.State_Id : state}
-                        optionFilterProp="children"
-                        disabled={!selectedCountry}
-                      >
-                        {stateData.map((state) => (
-                          <Select.Option key={state.State_Name} value={state.State_Id} onClick={() => handleStateChange(state)}>
-                            {state.State_Name}
-                          </Select.Option>
-                        ))}
-                      </Select>
-                    </Form.Item>
-                    {editClick && (
-                      <Form.Item>
-                        <div className='cancel-Button-div'>
-                          <Button className='cancel-Button' onClick={handleCancel}>Cancel</Button>
-                        </div>
-                      </Form.Item>
-                    )}
-                  </Col>
-                  <Col sm={0} md={9} xs={0} lg={12} xl={12} className='form-col'>
-                    <Form.Item
-                      className='form-item'
-                      label='Email Address'
-                      required
-                      colon={false}
-                      rules={[
-                        {
-                          type: 'email',
-                          message: 'The input is not valid E-mail!',
-                        },
-                        {
-                          required: true,
-                          message: 'Please input your E-mail!',
-                        },
-                      ]}>
-                      <Input
-                        type='email'
-                        placeholder='Enter Your Email Address'
-                        onChange={(e) => handleEmailChange(e)}
-                        value={email}
-                        disabled={editClick ? false : true}
-                      />
-                      {emailValidErr === true && (
-                        <div className='error'>Please Enter Valid Email Address</div>
-                      )}
-                      {uniqueEmailErr === true && (
-                        <div className='error'>This email is already taken. Please choose a different one.</div>
-                      )}
-                    </Form.Item>
-                    <Form.Item
-                      className='form-item'
-                      label="Phone Number"
-                      required
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please Enter Phone Number!',
-                        },
-                      ]}>
-                      <Input
-                        type='number'
-                        pattern="[0-9]{10}"
-                        placeholder='Please Enter Your Phone Number'
-                        onChange={(e) => handlePhoneNumberChange(e)}
-                        value={phoneNumber}
-                        disabled={editClick ? false : true}
-                      />
-                      {uniquePhoneNumberErr === true && (
-                        <div className='error'>This Phone Number is already taken. Please choose a different one</div>
-                      )}
-                    </Form.Item>
-                    <Form.Item
-                      className='form-item-select'
-                      required
-                      label="City/County"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please Enter City/County!',
-                        },
-                      ]}>
-                      <Select
-                        style={{ marginTop: '-2%' }}
-                        placeholder="Select City"
-                        showSearch
-                        onChange={handleCityChange}
-                        value={selectedCity ? selectedCity.City_Id : city}
-                        onSearch={(e) => getCities(e)}
-                        disabled={!selectedState}
-                        optionFilterProp="children"
-                      >
-                        {cityData?.map((city) => (
-                          <Select.Option key={city.City_Name} value={city.City_Id} onClick={() => handleCityChange(city)}>
-                            {city.City_Name}
-                          </Select.Option>
-                        ))}
-                      </Select>
-                    </Form.Item>
-                    <Form.Item
-                      className='form-item'
-                      required
-                      label="ZipCode"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Please Enter ZipCode!',
-                        },
-                      ]}>
-                      <Input
-                        style={{ marginTop: '-2%', marginBottom: '10px' }}
-                        type='text'
-                        placeholder='Enter Zip code'
-                        onChange={(e) => handleZipCode(e)}
-                        value={zipCode}
-                        disabled={editClick ? false : true}
-                      />
-                    </Form.Item>
-                    {editClick && (
-                      <Form.Item>
-                        <div className='submit-Button-div'>
-                          <Button htmlType="submit" className='submit-Button'>Save</Button>
-                        </div>
-                      </Form.Item>
-                    )}
-                  </Col>
-                </Row>
-              </Form>
-            </div>
+    <>
+      {loader && (
+        <div className='loader'><Spin /></div>
+      )}
+      {!loader && (
+        <div>
+          <div className='text-div'>
+            {editClick ? (<p>Edit Profile</p>) : (<p>Profile</p>)}
           </div>
-        </Col>
-      </Row>
-    </div>
+          <Row>
+            <Col sm={24} md={6} xs={22} lg={5} xl={5} className='profile-col'>
+              {!editClick ? (
+                <Card
+                  className='ant-card'
+                  cover={<img src={image} alt='profile-img' className='img' />}
+                >
+                  <Meta title={`${storeName}`} />
+                  <div className='ant-btn-div'>
+                    <Button className='edit-profile-button' onClick={handleEditProfile}>Edit Profile</Button>
+                  </div>
+                </Card>
+              ) : (
+                <Card
+                  cover={<img src={image} alt='profile-img' className='img' />}
+                >
+                  <div className='edit-profile'>
+                    <div
+                      className="user-img-logo-content"
+                      onMouseLeave={cameraIconHandlerHide}
+                    >
+                      <div
+                        className="profile-head"
+                        onMouseEnter={cameraIconHandlerDisplay}
+                      >
+                      </div>
+                      <div
+                        className={
+                          cameraIconDisplay ? 'camera-icon-hide' : 'camera-icon'
+                        }
+                        onClick={clickHandler}
+                      >
+                        <img src={cameraIcon} alt="camera-icon" />
+                        <input
+                          type="file"
+                          accept="image/*"
+                          ref={logoHandler}
+                          onChange={changeLogoHandler}
+                          className="input"
+                        />
+                      </div>
+                    </div>
+                    <Form.Item
+                      className='store-ptag'
+                      rules={[{ required: true, message: 'Please Enter Store Name!' }]}>
+                      <Input
+                        className='edit-card-label'
+                        type='text'
+                        placeholder='Enter your Store Name'
+                        onChange={(e) => handleStoreNameChange(e)}
+                        value={`${storeName}`}
+                        disabled={editClick ? false : true}
+                      />
+                    </Form.Item>
+                  </div>
+                </Card>
+              )}
+            </Col >
+            <Col sm={0} md={18} xs={0} lg={19} xl={19} className='form-col'>
+              <div className='right-Column-div'>
+                <div >
+                  <Form
+                    name="control-hooks"
+                    size={'large'}
+                    form={form}
+                    autoComplete='off'
+                    initialValues={{ remember: true }}
+                    className='form'
+                    layout='vertical'
+                    onFinish={handleSubmit}
+                  >
+                    <Row className='form-row'>
+                      <Col sm={0} md={9} xs={0} lg={12} xl={12} className='form-col'>
+                        <Form.Item
+                          className='form-item'
+                          required
+                          name="User_Name"
+                          label="Username"
+                          rules={[{ required: true, message: 'Enter Your Name' }]}                    >
+                          <Input
+                            type='text'
+                            placeholder='Enter Your User Name'
+                            onChange={(e) => handleEntityNameChange(e)}
+                            disabled={editClick ? false : true}
+                          />
+                        </Form.Item>
+                        <Form.Item
+                          className='form-item'
+                          name='GST_Number'
+                          label='GST Number'
+                          colon={false}
+                        >
+                          <Input
+                            type='text'
+                            placeholder='Enter your GST Number'
+                            onChange={(e) => setValues({ ...values, gstNumber: e.target.value.trim() })}
+                            disabled={editClick ? false : true}
+                          />
+                        </Form.Item>
+                        <Form.Item
+                          className='form-item-select'
+                          name='Country'
+                          required
+                          label="Region"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please Enter Region!',
+                            },
+                          ]}>
+                          <Select
+                            style={{ marginTop: '-2%' }}
+                            placeholder='Select Country'
+                            showSearch
+                            onSearch={() => getCountry()}
+                            onChange={handleCountryChange}
+                            optionFilterProp="children"
+                            disabled={editClick ? false : true}
+                          >
+                            {regionDatas.map((country) => (
+                              <Select.Option key={country.Country_Name} value={country.Country_Id} onClick={() => handleCountryChange(country)}>
+                                {country.Country_Name}
+                              </Select.Option>
+                            ))}
+                          </Select>
+                        </Form.Item>
+                        <Form.Item
+                          className='form-item-select'
+                          name='State'
+                          required
+                          label="State/Province"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please Enter State!',
+                            },
+                          ]}>
+                          <Select
+                            style={{ marginTop: '-2%' }}
+                            placeholder='Select State/Province'
+                            showSearch
+                            onSearch={(e) => getState(e)}
+                            onChange={handleStateChange}
+                            optionFilterProp="children"
+                            disabled={!selectedCountry}
+                          >
+                            {stateData.map((state) => (
+                              <Select.Option key={state.State_Name} value={state.State_Id} onClick={() => handleStateChange(state)}>
+                                {state.State_Name}
+                              </Select.Option>
+                            ))}
+                          </Select>
+                        </Form.Item>
+                        {editClick && (
+                          <Form.Item>
+                            <div className='cancel-Button-div'>
+                              <Button className='cancel-Button' onClick={handleCancel}>Cancel</Button>
+                            </div>
+                          </Form.Item>
+                        )}
+                      </Col>
+                      <Col sm={0} md={9} xs={0} lg={12} xl={12} className='form-col'>
+                        <Form.Item
+                          className='form-item'
+                          name='Email_Address'
+                          label='Email Address'
+                          required
+                          colon={false}
+                          rules={[
+                            {
+                              type: 'email',
+                              message: 'The input is not valid E-mail!',
+                            },
+                            {
+                              required: true,
+                              message: 'Please input your E-mail!',
+                            },
+                          ]}>
+                          <Input
+                            type='email'
+                            placeholder='Enter Your Email Address'
+                            onChange={(e) => handleEmailChange(e)}
+                            value={email}
+                            disabled={editClick ? false : true}
+                          />
+                          {emailValidErr === true && !emailErr && (
+                            <div className='error'>Please Enter Valid Email Address</div>
+                          )}
+                          {uniqueEmailErr === true && (
+                            <div className='error'>This email is already taken. Please choose a different one.</div>
+                          )}
+                        </Form.Item>
+                        <Form.Item
+                          className='form-item'
+                          name='Phone_Number'
+                          label="Phone Number"
+                          required
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please Enter Phone Number!',
+                            },
+                          ]}>
+                          <Input
+                            type='number'
+                            pattern="[0-9]{10}"
+                            placeholder='Please Enter Your Phone Number'
+                            onChange={(e) => handlePhoneNumberChange(e)}
+                            value={phoneNumber}
+                            disabled={editClick ? false : true}
+                          />
+                          {phoneNumberErr === true && (
+                            <div className='error'>Please Enter your Phone Number!</div>
+                          )}
+                          {uniquePhoneNumberErr === true && !phoneNumberErr && (
+                            <div className='error'>This Phone Number is already taken. Please choose a different one</div>
+                          )}
+                        </Form.Item>
+                        <Form.Item
+                          className='form-item-select'
+                          name='City'
+                          required
+                          label="City/County"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please Enter City/County!',
+                            },
+                          ]}>
+                          <Select
+                            style={{ marginTop: '-2%' }}
+                            placeholder="Select City"
+                            showSearch
+                            onChange={handleCityChange}
+                            onSearch={(e) => getCities(e)}
+                            disabled={!selectedState}
+                            optionFilterProp="children"
+                          >
+                            {cityData?.map((city) => (
+                              <Select.Option key={city.City_Name} value={city.City_Id} onClick={() => handleCityChange(city)}>
+                                {city.City_Name}
+                              </Select.Option>
+                            ))}
+                          </Select>
+                        </Form.Item>
+                        <Form.Item
+                          className='form-item'
+                          name='Zip_Code'
+                          required
+                          label="ZipCode"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please Enter ZipCode!',
+                            },
+                          ]}>
+                          <Input
+                            style={{ marginTop: '-2%', marginBottom: '10px' }}
+                            type='text'
+                            placeholder='Enter Zip code'
+                            onChange={(e) => handleZipCode(e)}
+                            disabled={editClick ? false : true}
+                          />
+                        </Form.Item>
+                        {editClick && (
+                          <Form.Item>
+                            <div className='submit-Button-div'>
+                              <Button loading={btnLoading}
+                                htmlType="submit"
+                                className='submit-Button'>Save</Button>
+                            </div>
+                          </Form.Item>
+                        )}
+                      </Col>
+                    </Row>
+                  </Form>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </div>
+      )}
+    </>
   );
 };
 

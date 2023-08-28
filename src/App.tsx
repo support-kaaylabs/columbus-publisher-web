@@ -2,7 +2,7 @@
 import React, { type FC, useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import './App.scss';
-import { Button, Col, Layout, Menu, Row } from 'antd';
+import { Button, Col, Layout, Menu, Row, ConfigProvider, Dropdown, Card } from 'antd';
 import headerIcon from '../src/assets/Icon feather-menu.svg';
 import { modules } from './shared/ModuleHelper';
 import Logo from '../src/assets/columbusbig.png';
@@ -37,7 +37,7 @@ const App: FC = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [activeKey, setActiveKey] = useState<any>(window.location.pathname);
   const [openKey, setOpenKey] = useState<any>([]);
-  const [btnProfile, setBtnProfile] = useState<boolean>(false);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
   const [subMenuKey, setSubMenuKey] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
@@ -69,11 +69,32 @@ const App: FC = () => {
       }
     }
   };
+  const myProfileClick = ()=>{
+    navigate('/profile');
+  };
+  const userEmail: string | null = window.localStorage.getItem('User_Email');
 
-  const handleViewProfile = () => {
-    setBtnProfile(true);
-    setIsModalOpen(true);
+  const menu = (
+    <Card className='profile-card' title={<img src={DarkCLogo} />} extra={<a>Sign out</a>}>
+      <Row>
+        <Col className='image-col'>
+          <img src={imageUrl} />
+        </Col>
+        <Col className='user-col'>
+          <div className='user-div'>
+            <div className='user-name'>{userName}</div>
+            <div className='user-email'>{userEmail}</div>
+            <div className='user-button-div'>
+              <a onClick={myProfileClick}>My Profile</a>
+            </div>
+          </div>
+        </Col>
+      </Row>
+    </Card>
+  );
 
+  const handleDropdownVisibleChange = () => {
+    setDropdownVisible(false);
   };
 
   const logoutClick = () => {
@@ -91,152 +112,148 @@ const App: FC = () => {
     setCollapsed(!collapsed);
   };
 
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  }; return (
+  return (
     <>
-      {loginId === 'true' && (
-        <Layout>
-          <Sider
-            className='sider-layout'
-            trigger={null}
-            collapsible
-            collapsedWidth={50}
-            collapsed={collapsed}
-          >
-            <div className='logoss' onClick={() => onCollapsedChange()}>
-              <div>
-                <img src={!collapsed ? Logo : MiniLogo} alt='ColumbusLogo' className={!collapsed ? 'logoC' : 'logoColumbus'} />
-              </div>
-            </div>
-            <Menu
-              mode="inline"
-              selectedKeys={activeKey}
-              defaultSelectedKeys={['/dashboard']}
-              activeKey={activeKey}
-              onClick={onSelectMenu}
-              theme='dark'
-              openKeys={openKey}
-              onOpenChange={onOpenChange}
-              className={!collapsed ? 'side-menu' : 'side-menu-collapsed'}
+      <ConfigProvider theme={{
+        token: {
+          fontFamily: 'Gilroy-medium'
+        }
+      }}>
+        {loginId === 'true' && (
+          <Layout className='app-layout'>
+            <Sider
+              className='sider-layout'
+              trigger={null}
+              collapsible
+              collapsedWidth={50}
+              collapsed={collapsed}
             >
-              {modules.map((module) => {
-                if (module.submenu) {
-                  return (
-                    <Menu.SubMenu
-                      className={((subMenuKey === module.key)) ? 'submenu-active' : ''}
-                      key={module.key}
-                      title={module.Module_Name}
-                      icon={<img src={module.icon} alt={module.name} className='menu-icon' />}
-                    >
-                      {module.submenu.map((subModule) => (
-                        <Menu.Item key={subModule.key}>
-                          <div>
-                            {!collapsed && (
-                              <div>
-                                <div className={activeKey === subModule.key ? 'selected-line' : 'unselected-line'}></div>
-                                {activeKey === subModule.key ? (<img src={selectedDot} className='selected-dot' alt='select-dot' />) : (<img src={UnSelectedDot} className='unselected-dot' alt='un-select-dot' />)}
-                              </div>
-                            )}
-                            <Link to={subModule.to} />
-                            <span>{subModule.name}</span>
-                          </div>
-                        </Menu.Item>
-                      ))}
-                    </Menu.SubMenu>
-                  );
-                } else {
-                  return (
-                    <Menu.Item
-                      key={module.key}
-                      icon={<img src={module.icon} alt={module.name} className='menu-icon' />}
-                    >
-                      <Link to={module.to} />
-                      <span >{module.Module_Name}</span>
-                    </Menu.Item>
-                  );
-                }
-              })}
-              {!collapsed && (
-                <div className='logout-div'>
-                  <div><LogoutOutlined /></div>
-                  <div className='logout' onClick={logoutClick}>Logout</div>
+              <div className='logoss' onClick={() => onCollapsedChange()}>
+                <div>
+                  <img src={!collapsed ? Logo : MiniLogo} alt='ColumbusLogo' className={!collapsed ? 'logoC' : 'logoColumbus'} />
                 </div>
-              )}
-            </Menu>
-          </Sider>
-          <Layout className='main-layout'>
-            {loginId === 'true' && (
-              <Header className='header'>
-                <Row>
-                  <Col span={12}>
-                    <Button className='back-Button' onClick={toggleCollapsed}>
-                      {collapsed ? (<img src={menuBack} alt='menu-back' />) : (<img src={headerIcon} alt='header-icon' />)}</Button>
-                  </Col>
-                  <Col span={9}>
-                    <div className='col-div'>
-                      {/* <Col span={4}><img className='group-Button' src={group} alt='group' /></Col>
-                      <Col span={4}><img className='notification-Button' src={notification} alt='notification' /></Col> */}
-                      {/* <Col className='user-name'><p>{userName}</p></Col> */}
-                      <Col className='img-Button'><img src={imageUrl} alt='user-image' className='img-avatar' onClick={handleViewProfile} /></Col>
-                    </div>
-                  </Col>
-                </Row>
-              </Header>
-            )}
-            {/* {btnProfile && (
-              <div>
-                <Modal
-                  open={isModalOpen}
-                  onOk={handleOk} onCancel={handleCancel}
-                >
-                  <div>
-                    <Row>
-                      <Col span={24}>
-                        <div>
-                          <img src={DarkCLogo} alt='Dark-logo' />
-                          <Button>Sign out</Button>
-                        </div>
-                        <div>
-                          <img/>
-                        </div>
-                      </Col>
-                    </Row>
-                  </div>
-                </Modal>
               </div>
-            )} */}
-            <div className='spin-Loading'>
-              <Content>
-                <Routes>
-                  <Route path="/dashboard" element={<DashboardPage collapsed={collapsed} />} />
-                  <Route path="/benchmarking" element={<BenchMarking />} />
-                  <Route path="/management" element={<Management />} />
-                  <Route path="/matrics" element={<Matrics />} />
-                  <Route path="/analysis" element={<Analysis />} />
-                  <Route path="/shoutout" element={<ShoutOut />} />
-                  <Route path="/knowledgeHub" element={<KnowledgeHub />} />
-                  <Route path="/support" element={<Support />} />
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/subscription" element={<Subscription />} />
-                  <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
-                </Routes>
-              </Content>
-            </div>
+              <Menu
+                mode="inline"
+                selectedKeys={activeKey}
+                defaultSelectedKeys={['/dashboard']}
+                activeKey={activeKey}
+                onClick={onSelectMenu}
+                theme='dark'
+                openKeys={openKey}
+                onOpenChange={onOpenChange}
+                className={!collapsed ? 'side-menu' : 'side-menu-collapsed'}
+              >
+                {modules.map((module) => {
+                  if (module.submenu) {
+                    return (
+                      <Menu.SubMenu
+                        className={((subMenuKey === module.key)) ? 'submenu-active' : ''}
+                        key={module.key}
+                        title={module.Module_Name}
+                        icon={<img src={module.icon} alt={module.name} className='menu-icon' />}
+                      >
+                        {module.submenu.map((subModule) => (
+                          <Menu.Item key={subModule.key}>
+                            <div>
+                              {!collapsed && (
+                                <div>
+                                  <div className={activeKey === subModule.key ? 'selected-line' : 'unselected-line'}></div>
+                                  {activeKey === subModule.key ? (<img src={selectedDot} className='selected-dot' alt='select-dot' />) : (<img src={UnSelectedDot} className='unselected-dot' alt='un-select-dot' />)}
+                                </div>
+                              )}
+                              <Link to={subModule.to} />
+                              <span>{subModule.name}</span>
+                            </div>
+                          </Menu.Item>
+                        ))}
+                      </Menu.SubMenu>
+                    );
+                  } else {
+                    return (
+                      <Menu.Item
+                        key={module.key}
+                        icon={<img src={module.icon} alt={module.name} className='menu-icon' />}
+                      >
+                        <Link to={module.to} />
+                        <span >{module.Module_Name}</span>
+                      </Menu.Item>
+                    );
+                  }
+                })}
+                {!collapsed && (
+                  <div className='logout-div'>
+                    <div><LogoutOutlined /></div>
+                    <div className='logout' onClick={logoutClick}>Logout</div>
+                  </div>
+                )}
+              </Menu>
+            </Sider>
+            <Layout className='main-layout'>
+              {loginId === 'true' && (
+                <Header className='header'>
+                  <Row>
+                    <Col span={12}>
+                      <Button className='back-Button' onClick={toggleCollapsed}>
+                        {collapsed ? (<img src={menuBack} alt='menu-back' />) : (<img src={headerIcon} alt='header-icon' />)}</Button>
+                    </Col>
+                    <Col span={9}>
+                      <div className='col-div'>
+                        {/* <Col span={4}><img className='group-Button' src={group} alt='group' /></Col>
+                      <Col span={4}><img className='notification-Button' src={notification} alt='notification' /></Col> */}
+                        {/* <Col className='user-name'><p>{userName}</p></Col> */}
+                        <Col className='img-Button'>
+                          <div>
+                            <img src={imageUrl} alt='user-image' className='img-avatar' onClick={() => setDropdownVisible(true)} />
+                            <Dropdown
+                              overlay={menu}
+                              visible={dropdownVisible}
+                              onVisibleChange={handleDropdownVisibleChange}
+                            >
+                              {/* Placeholder for dropdown trigger */}
+                              <span></span>
+                            </Dropdown>
+                          </div>
+                        </Col>
+                        {/* <Dropdown trigger={['click']}>
+                          <a onClick={(e) => e.preventDefault()}>
+                            <Card>
+                              <div>kjgjhgd</div>
+                            </Card>
+                          </a>
+                        </Dropdown>; */}
+                      </div>
+                    </Col>
+                  </Row>
+                </Header>
+              )}
+              <div className='spin-Loading'>
+                <Content>
+                  <Routes>
+                    <Route path="/dashboard" element={<DashboardPage collapsed={collapsed} />} />
+                    <Route path="/benchmarking" element={<BenchMarking />} />
+                    <Route path="/management" element={<Management />} />
+                    <Route path="/matrics" element={<Matrics />} />
+                    <Route path="/analysis" element={<Analysis />} />
+                    <Route path="/shoutout" element={<ShoutOut />} />
+                    <Route path="/knowledgeHub" element={<KnowledgeHub />} />
+                    <Route path="/support" element={<Support />} />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/subscription" element={<Subscription />} />
+                    <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
+                  </Routes>
+                </Content>
+              </div>
+            </Layout>
           </Layout>
-        </Layout>
-      )}
-      {(!loginId) && (
-        <Routes>
-          <Route path="/" element={<LoginPage signupValidate={false} />} />
-          <Route path="/reset-password/:id" element={<ResetPassword signupPageValidation={false} forgotPageValidation={false} />} />
-        </Routes>
-      )}
+        )}
+        {(!loginId) && (
+          <Routes>
+            <Route path="/" element={<LoginPage signupValidate={false} />} />
+            <Route path="/reset-password/:id" element={<ResetPassword signupPageValidation={false} forgotPageValidation={false} />} />
+          </Routes>
+        )}
+      </ConfigProvider>
     </>
   );
 };

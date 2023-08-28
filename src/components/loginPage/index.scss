@@ -40,13 +40,16 @@
   }
 
   .login-right {
-
+    background-color: #FFFFFF;
     .form {
       max-width: 450px;
       flex-direction: column;
       justify-content: center;
       margin: auto;
 
+      .form-password {
+        border: none !important;
+      }
       .ant-form-item {
         margin-bottom: 0px;
       }
@@ -57,18 +60,47 @@
         p {
           font-size: 24px;
           color: #C20155;
-          font-weight: 600;
-          opacity: 0.8;
-          // text-decoration: underline;
+          font-weight: 400;
+          opacity: 1;
         }
       }
-
+.ant-select-selection-search-input {
+  height:48px !important;
+}
+.form-item-select {
+  z-index: 1;
+        margin-bottom: 0px;
+        .ant-select-selection-search{
+          height: 48px;
+        }
+        label {
+          font-size: 14px;
+          color: #222222;
+          opacity: 1;
+          border: none !important;
+        }
+        Select {
+          height: 48px;
+        }
+        input {
+          font-size: 13px;
+          color: #222222;
+          opacity: 1;
+          height: 48px;
+          background: #F2F2F2;
+          border-radius: 5px !important;
+          border: none !important;
+        }
+        .error {
+          color: red;
+        }
+      }
       .form-sign-in {
         p {
           font-size: 24px;
           color: #C20155;
-          font-weight: 600;
-          opacity: 0.8;
+          font-weight: 500;
+          opacity: 1;
         }
       }
 
@@ -78,36 +110,40 @@
         label {
           font-size: 14px;
           color: #222222;
-          font-weight: 600;
-          opacity: 0.7;
+          font-weight: 500;
+          opacity: 1;
         }
 
         input {
-          margin-top: 15px;
+          margin-top: 10px;
           font-size: 14px;
           color: #222222;
-          font-weight: 600;
-          opacity: 0.7;
+          opacity: 1;
           background: #F2F2F2;
           border-radius: 5px;
+          border: none !important;
+          font-weight: 500;
+          height: 48px;
         }
       }
 
       .form-password {
         margin-top: 20px;
-
+.input.password{
+  margin-top: 10px;
+}
         label {
           font-size: 14px;
+          font-weight: 500;
           color: #222222;
-          font-weight: 600;
-          opacity: 0.7;
+          opacity: 1;
         }
 
         input {
           font-size: 14px;
           color: #222222;
-          font-weight: 600;
-          opacity: 0.7;
+          opacity: 1;
+          font-weight: 500;
           background: #F2F2F2;
         }
 
@@ -115,6 +151,8 @@
           margin-top: 15px;
           background: #F2F2F2;
           border-radius: 5px;
+          border: none !important;
+          height: 48px;
         }
       }
 
@@ -128,15 +166,16 @@
         float: right;
         text-decoration: underline;
         color: #222222;
-        font-size: 13px;
-        font-weight: 650;
-        opacity: 0.7;
+        font-size: 14px;
+        font-weight: 500;
+        opacity: 1;
         margin-top: 20px;
         margin-bottom: 40px;
       }
 
       .sign-in-link {
         margin-top: 1px;
+        font-size: 14px;
         color: #C20155;
         font-weight: 700;
         text-decoration: underline;
@@ -144,17 +183,19 @@
       }
 
       .sign-in-link-div {
+        margin-top: 2%;
         font-size: 14px;
-        color: #0c0c0c;
-        font-weight: 400;
+        color: #222222;
+        font-weight: 500;
         opacity: 1;
+        margin-bottom: 8%;
       }
 
       .form-button {
         border-radius: 5px;
         background: #570026;
-        font-size: 14px;
-        font-weight: 600;
+        font-size: 17px;
+        font-weight: 700;
         color: #FFFFFF;
         margin-bottom: 30px;
         padding-top: 12px;
@@ -165,32 +206,34 @@
         margin-top: -10px;
         font-size: 14px;
         color: #222222;
-        font-weight: 600;
-        opacity: 0.7;
+        opacity: 1;
       }
 
       .form-signup {
-        font-size: 13px;
+        font-size: 14px;
         color: #C20155;
         font-weight: bold;
         cursor: pointer;
+        text-decoration: underline;
       }
 
       .form-item-signup {
         label {
           font-size: 14px;
           color: #222222;
-          font-weight: 600;
-          opacity: 0.7;
+          font-weight: 500;
+          opacity: 1;
         }
 
         input {
           font-size: 14px;
           color: #222222;
-          font-weight: 600;
-          opacity: 0.7;
+          font-weight: 500;
+          opacity: 1;
           background: #F2F2F2;
           border-radius: 5px;
+          border: none !important;
+          height: 48px;
         }
       }
 
@@ -232,7 +275,7 @@
           background-color: #575757;
           cursor: pointer;
           opacity: 0.75;
-          border-radius: 10px;
+          border-radius: 5px;
           justify-content: center;
           align-items: center;
 
@@ -279,12 +322,23 @@
            }
 
             .add-profile {
+              flex-direction: row;
               position: absolute;
               top: 50px;
-              left: 50px;
+              left: 40px;
               margin-left: 10px;
               border: none;
               opacity: 1;
+              img{
+                height: 18px;
+                width: 15px;
+              }
+              span{
+                padding-left: 14px;
+              }
+            }
+            .image-div {
+              padding-top: 2%;
             }
 
             .add-profile-img-selected {
@@ -294,10 +348,15 @@
             }
           }
         }
+      }  
+      .ant-input{
+        background-color: #f2f2f2;
       }
-
       .password-label {
         background-color: #F2F2F2;
+        height: 48px !important;
+        border: none !important;
+        border-radius: 5px !important;
       }
 
       .prev-button-div {
@@ -307,10 +366,12 @@
 
       .signup-button {
         margin-top: 200px;
-        width: 160px;
-        font-size: 13px;
+        width: 200px;
+        height: 48px;
+        font-size: 17px;
         background: #570026;
-        color: white;
+        border-radius: 5px;
+        color: #FFFFFF;
         font-weight: 700;
       }
 
@@ -325,21 +386,53 @@
       }
 
       .next-button {
-        width: 160px;
-        font-size: 13px;
+        width: 200px;
+        height: 48px;
+        border-radius: 5px !important;
+        font-size: 17px;
         background: #570026;
-        color: white;
+        color: #FFFFFF;
         font-weight: 700;
         cursor: pointer;
+        span {
+          margin-left: 35%;
+          padding-top: 1%;
+        }
+        .backArrow{
+          margin-left: 35%;
+          padding-top: 3%;
+          img{
+            height: 18px;
+            width: 18px;
+          }
+        }
+      }
+      .button-div{
+        display: flex;
+        flex-direction: row;
       }
 
       .next-button-current1 {
-        width: 160px;
-        font-size: 13px;
+        width: 200px;
+        height: 48px !important;
+        border-radius: 5px !important;
+        font-size: 17px;
         background: #570026;
         color: white;
         font-weight: 700;
         cursor: pointer;
+        span {
+          margin-left: 35%;
+          padding-top: 1%;
+        }
+        .backArrow{
+          margin-left: 35%;
+          padding-top: 3%;
+          img{
+            height: 18px;
+            width: 18px;
+          }
+        }
       }
 
       .next-button-current2 {
@@ -354,32 +447,32 @@
       }
 
       .prev-button {
-        width: auto;
-        height: 93%;
-        font-size: 13px;
-        background: white;
-        color: #570026;
-        font-weight: 700;
-        justify-content: left;
-        align-items: end;
+        width: 48px;
+        height: 47px;
         border-color: #570026;
-        margin-right: 10px;
-        margin-top: 2px;
+        border-radius: 5px !important;
+        margin-right: 20px;
         cursor: pointer;
+        padding-top: 20%;
+        img{
+          height: 18px;
+          width: 18px;
+        }
       }
 
       .prev-button-current2 {
         margin-top: 201px;
         margin-left: -30%;
-        width: auto;
-        height: 38px;
-        font-size: 13px;
-        background: white;
-        color: #570026;
-        font-weight: 700;
-        align-items: end;
+        width: 48px;
+        height: 47px;
         border-color: #570026;
         cursor: pointer;
+        border-radius: 5px !important;
+        padding-top: 25%;
+        img{
+          height: 18px;
+          width: 18px;
+        }
       }
 
       .upload {
@@ -471,14 +564,17 @@
 
       .steps {
         color: #222222;
+        font-size: 14px;
         font-weight: 700;
         width: auto;
       }
 
       .steps-current2 {
         margin-top: 200px;
+        font-size: 14px;
         color: #222222;
         font-weight: 700;
+        opacity: 1;
         width: auto;
       }
 
@@ -493,6 +589,8 @@
 
       .ant-select-selector {
         background: #f2f2f2;
+        height: 48px;
+
       }
 
     }
@@ -507,6 +605,12 @@
       }
 
       .signup-button {
+        width: 100%;
+      }
+      .prev-button {
+        width: 100%;
+      }
+      .prev-button-current2 {
         width: 100%;
       }
     }

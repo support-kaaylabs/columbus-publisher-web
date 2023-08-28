@@ -5,6 +5,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+@font-face {
+  font-family: "Gilroy-medium";
+  src: url('../src/assets/fonts/Gilroy/Gilroy-Medium.ttf');
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
