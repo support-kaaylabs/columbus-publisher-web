@@ -3,7 +3,7 @@ import React, { type FC, useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import './App.scss';
 import './index.scss';
-import { Button, Col, Layout, Menu, Row, Drawer } from 'antd';
+import { Button, Col, Layout, Menu, Row, Drawer, ConfigProvider } from 'antd';
 import headerIcon from '../src/assets/Icon feather-menu.svg';
 import { modules } from './shared/ModuleHelper';
 import Logo from '../src/assets/columbusbig.png';
@@ -29,7 +29,6 @@ import Profile from '../src/components/settings/profile';
 import Subscription from '../src/components/settings/subscription';
 import Support from '../src/components/support/support';
 import defaultUser from './components/columbusImages/defaultUser.png';
-
 
 const { Sider, Content, Header } = Layout;
 
@@ -92,209 +91,218 @@ const App: FC = () => {
   };
   return (
     <>
-      {loginId === 'true' && (
-        <Row>
-          <Col xs={0} sm={0} md={24} lg={24}>
-            <Layout>
-              <Sider
-                className='sider-layout'
-                trigger={null}
-                collapsible
-                collapsedWidth={50}
-                collapsed={collapsed}
-              >
-                <div className='logoss' onClick={() => onCollapsedChange()}>
-                  <div>
-                    <img src={!collapsed ? Logo : MiniLogo} alt='ColumbusLogo' className={!collapsed ? 'logoC' : 'logoColumbus'} />
-                  </div>
-                </div>
-                <Menu
-                  mode="inline"
-                  selectedKeys={activeKey}
-                  defaultSelectedKeys={['/dashboard']}
-                  activeKey={activeKey}
-                  onClick={onSelectMenu}
-                  theme='dark'
-                  openKeys={openKey}
-                  onOpenChange={onOpenChange}
-                  className={!collapsed ? 'side-menu' : 'side-menu-collapsed'}
+      <ConfigProvider theme={{
+        token: {
+          fontFamily: 'Gilroy-medium'
+        }
+      }}>
+        {loginId === 'true' && (
+          <Row>
+            <Col xs={0} sm={0} md={24} lg={24}>
+              <Layout>
+                <Sider
+                  className='sider-layout'
+                  trigger={null}
+                  collapsible
+                  collapsedWidth={50}
+                  collapsed={collapsed}
                 >
-                  {modules.map((module) => {
-                    if (module.submenu) {
-                      return (
-                        <Menu.SubMenu
-                          className={((subMenuKey === module.key)) ? 'submenu-active' : ''}
-                          key={module.key}
-                          title={module.Module_Name}
-                          icon={<img src={module.icon} alt={module.name} className='menu-icon' />}
-                        >
-                          {module.submenu.map((subModule) => (
-                            <Menu.Item key={subModule.key}>
-                              <div>
-                                {!collapsed && (
-                                  <div>
-                                    <div className={activeKey === subModule.key ? 'selected-line' : 'unselected-line'}></div>
-                                    {activeKey === subModule.key ? (<img src={selectedDot} className='selected-dot' alt='select-dot' />) : (<img src={UnSelectedDot} className='unselected-dot' alt='un-select-dot' />)}
-                                  </div>
-                                )}
-                                <Link to={subModule.to} />
-                                <span>{subModule.name}</span>
-                              </div>
-                            </Menu.Item>
-                          ))}
-                        </Menu.SubMenu>
-                      );
-                    } else {
-                      return (
-                        <Menu.Item
-                          key={module.key}
-                          icon={<img src={module.icon} alt={module.name} className='menu-icon' />}
-                        >
-                          <Link to={module.to} />
-                          <span >{module.Module_Name}</span>
-                        </Menu.Item>
-                      );
-                    }
-                  })}
-                  {!collapsed && (
-                    <div className='logout-div'>
-                      <div><LogoutOutlined /></div>
-                      <div className='logout' onClick={logoutClick}>Logout</div>
+                  <div className='logoss' onClick={() => onCollapsedChange()}>
+                    <div>
+                      <img src={!collapsed ? Logo : MiniLogo} alt='ColumbusLogo' className={!collapsed ? 'logoC' : 'logoColumbus'} />
                     </div>
-                  )}
-                </Menu>
-              </Sider>
-              <Layout className='main-layout'>
-                <Header className='header'>
-                  <Row>
-                    <Col span={9} className='col-div1'>
-                      <Button className='back-Button' onClick={toggleCollapsed}>
-                        {collapsed ? (<img src={menuBack} alt='menu-back' />) : (<img src={headerIcon} alt='header-icon' />)}</Button>
-                    </Col>
-                    <Col span={12} className='col-div'>
-                      <Col className='user-name'><p>{userName}</p></Col>
-                      <Col className='img-Button'><img src={imageUrl} alt='user-image' className='img-avatar' /></Col>
-                    </Col>
-                  </Row>
-                </Header>
-                <div className='spin-Loading'>
-                  <Content>
-                    <Routes>
-                      <Route path="/dashboard" element={<DashboardPage collapsed={collapsed} />} />
-                      <Route path="/benchmarking" element={<BenchMarking />} />
-                      <Route path="/management" element={<Management />} />
-                      <Route path="/matrics" element={<Matrics />} />
-                      <Route path="/analysis" element={<Analysis />} />
-                      <Route path="/shoutout" element={<ShoutOut />} />
-                      <Route path="/knowledgeHub" element={<KnowledgeHub />} />
-                      <Route path="/support" element={<Support />} />
-                      <Route path="/profile" element={<Profile />} />
-                      <Route path="/subscription" element={<Subscription />} />
-                      <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
-                    </Routes>
-                  </Content>
-                </div>
+                  </div>
+                  <Menu
+                    mode="inline"
+                    selectedKeys={activeKey}
+                    defaultSelectedKeys={['/dashboard']}
+                    activeKey={activeKey}
+                    onClick={onSelectMenu}
+                    theme='dark'
+                    openKeys={openKey}
+                    onOpenChange={onOpenChange}
+                    className={!collapsed ? 'side-menu' : 'side-menu-collapsed'}
+                  >
+                    {modules.map((module) => {
+                      if (module.submenu) {
+                        return (
+                          <Menu.SubMenu
+                            className={((subMenuKey === module.key)) ? 'submenu-active' : ''}
+                            key={module.key}
+                            title={module.Module_Name}
+                            icon={<img src={module.icon} alt={module.name} className='menu-icon' />}
+                          >
+                            {module.submenu.map((subModule) => (
+                              <Menu.Item key={subModule.key}>
+                                <div>
+                                  {!collapsed && (
+                                    <div>
+                                      <div className={activeKey === subModule.key ? 'selected-line' : 'unselected-line'}></div>
+                                      {activeKey === subModule.key ? (<img src={selectedDot} className='selected-dot' alt='select-dot' />) : (<img src={UnSelectedDot} className='unselected-dot' alt='un-select-dot' />)}
+                                    </div>
+                                  )}
+                                  <Link to={subModule.to} />
+                                  <span>{subModule.name}</span>
+                                </div>
+                              </Menu.Item>
+                            ))}
+                          </Menu.SubMenu>
+                        );
+                      } else {
+                        return (
+                          <Menu.Item
+                            key={module.key}
+                            icon={<img src={module.icon} alt={module.name} className='menu-icon' />}
+                          >
+                            <Link to={module.to} />
+                            <span >{module.Module_Name}</span>
+                          </Menu.Item>
+                        );
+                      }
+                    })}
+                    {!collapsed && (
+                      <div className='logout-div'>
+                        <div><LogoutOutlined /></div>
+                        <div className='logout' onClick={logoutClick}>Logout</div>
+                      </div>
+                    )}
+                  </Menu>
+                </Sider>
+                <Layout className='main-layout'>
+                  <Header className='header'>
+                    <Row>
+                      <Col span={9} className='col-div1'>
+                        <Button className='back-Button' onClick={toggleCollapsed}>
+                          {collapsed ? (<img src={menuBack} alt='menu-back' />) : (<img src={headerIcon} alt='header-icon' />)}</Button>
+                      </Col>
+                      <Col span={12} className='col-div'>
+                        <Col className='user-name'><p>{userName}</p></Col>
+                        <Col className='img-Button'><img src={imageUrl} alt='user-image' className='img-avatar' /></Col>
+                      </Col>
+                    </Row>
+                  </Header>
+                  <div className='spin-Loading'>
+                    <Content>
+                      <Routes>
+                        <Route path="/dashboard" element={<DashboardPage collapsed={collapsed} />} />
+                        <Route path="/benchmarking" element={<BenchMarking />} />
+                        <Route path="/management" element={<Management />} />
+                        <Route path="/matrics" element={<Matrics />} />
+                        <Route path="/analysis" element={<Analysis />} />
+                        <Route path="/shoutout" element={<ShoutOut />} />
+                        <Route path="/knowledgeHub" element={<KnowledgeHub />} />
+                        <Route path="/support" element={<Support />} />
+                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/subscription" element={<Subscription />} />
+                        <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
+                      </Routes>
+                    </Content>
+                  </div>
+                </Layout>
               </Layout>
-            </Layout>
-          </Col>
-          <Col xs={24} sm={24} md={0} lg={0}>
-            <Layout className='mobile-layout'>
-              <Drawer placement="left" open={open} onClose={onClose} width={207}>
-                <div className='logoss' onClick={onClose}>
-                  <div>
-                    <img src={!collapsed ? Logo : MiniLogo} alt='ColumbusLogo' className={!collapsed ? 'logoC' : 'logoColumbus'} />
-                  </div>
-                </div>
-                <Menu
-                  mode="inline"
-                  selectedKeys={activeKey}
-                  defaultSelectedKeys={['/dashboard']}
-                  activeKey={activeKey}
-                  onClick={onSelectMenu}
-                  theme='dark'
-                  openKeys={openKey}
-                  onOpenChange={onOpenChange}
-                  className={!collapsed ? 'side-menu' : 'side-menu-collapsed'}
-                >
-                  {modules.map((module) => {
-                    if (module.submenu) {
-                      return (
-                        <Menu.SubMenu
-                          className={((subMenuKey === module.key)) ? 'submenu-active' : ''}
-                          key={module.key}
-                          title={module.Module_Name}
-                          icon={<img src={module.icon} alt={module.name} className='menu-icon' />}
-                        >
-                          {module.submenu.map((subModule) => (
-                            <Menu.Item key={subModule.key}>
-                              <div>
-                                {!collapsed && (
-                                  <div>
-                                    <div className={activeKey === subModule.key ? 'selected-line' : 'unselected-line'}></div>
-                                    {activeKey === subModule.key ? (<img src={selectedDot} className='selected-dot' alt='select-dot' />) : (<img src={UnSelectedDot} className='unselected-dot' alt='un-select-dot' />)}
-                                  </div>
-                                )}
-                                <Link to={subModule.to} />
-                                <span>{subModule.name}</span>
-                              </div>
-                            </Menu.Item>
-                          ))}
-                        </Menu.SubMenu>
-                      );
-                    } else {
-                      return (
-                        <Menu.Item
-                          key={module.key}
-                          icon={<img src={module.icon} alt={module.name} className='menu-icon' />}
-                        >
-                          <Link to={module.to} />
-                          <span >{module.Module_Name}</span>
-                        </Menu.Item>
-                      );
-                    }
-                  })}
-                  {!collapsed && (
-                    <div className='logout-div'>
-                      <div><LogoutOutlined /></div>
-                      <div className='logout' onClick={logoutClick}>Logout</div>
+            </Col>
+            <Col xs={24} sm={24} md={0} lg={0}>
+              <Layout className='mobile-layout'>
+                <Drawer placement="left" open={open} onClose={onClose} width={207}>
+                  <div className='logoss' onClick={onClose}>
+                    <div>
+                      <img src={!collapsed ? Logo : MiniLogo} alt='ColumbusLogo' className={!collapsed ? 'logoC' : 'logoColumbus'} />
                     </div>
-                  )}
-                </Menu>
-              </Drawer>
-              <Header className='mobile-header'>
-                <Button className='back-Button' onClick={mobileMenuCollapsed}>
-                  <img src={headerIcon} alt='header-icon' />
-                </Button>
-                <div className='img-Button'>
-                  <img src={imageUrl} alt='user-image' className='img-avatar' />
-                </div>
-              </Header>
-              <Routes>
-                <Route path="/dashboard" element={<DashboardPage collapsed={collapsed} />} />
-                <Route path="/benchmarking" element={<BenchMarking />} />
-                <Route path="/management" element={<Management />} />
-                <Route path="/matrics" element={<Matrics />} />
-                <Route path="/analysis" element={<Analysis />} />
-                <Route path="/shoutout" element={<ShoutOut />} />
-                <Route path="/knowledgeHub" element={<KnowledgeHub />} />
-                <Route path="/support" element={<Support />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/subscription" element={<Subscription />} />
-                <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
-              </Routes>
-            </Layout>
-
-          </Col>
-        </Row >
-      )}
-      {
-        (!loginId) && (
+                  </div>
+                  <Menu
+                    mode="inline"
+                    selectedKeys={activeKey}
+                    defaultSelectedKeys={['/dashboard']}
+                    activeKey={activeKey}
+                    onClick={onSelectMenu}
+                    theme='dark'
+                    openKeys={openKey}
+                    onOpenChange={onOpenChange}
+                    className={!collapsed ? 'side-menu' : 'side-menu-collapsed'}
+                  >
+                    {modules.map((module) => {
+                      if (module.submenu) {
+                        return (
+                          <Menu.SubMenu
+                            className={((subMenuKey === module.key)) ? 'submenu-active' : ''}
+                            key={module.key}
+                            title={module.Module_Name}
+                            icon={<img src={module.icon} alt={module.name} className='menu-icon' />}
+                          >
+                            {module.submenu.map((subModule) => (
+                              <Menu.Item key={subModule.key}>
+                                <div>
+                                  {!collapsed && (
+                                    <div>
+                                      <div className={activeKey === subModule.key ? 'selected-line' : 'unselected-line'}></div>
+                                      {activeKey === subModule.key ? (<img src={selectedDot} className='selected-dot' alt='select-dot' />) : (<img src={UnSelectedDot} className='unselected-dot' alt='un-select-dot' />)}
+                                    </div>
+                                  )}
+                                  <Link to={subModule.to} />
+                                  <span>{subModule.name}</span>
+                                </div>
+                              </Menu.Item>
+                            ))}
+                          </Menu.SubMenu>
+                        );
+                      } else {
+                        return (
+                          <Menu.Item
+                            key={module.key}
+                            icon={<img src={module.icon} alt={module.name} className='menu-icon' />}
+                          >
+                            <Link to={module.to} />
+                            <span >{module.Module_Name}</span>
+                          </Menu.Item>
+                        );
+                      }
+                    })}
+                    {!collapsed && (
+                      <div className='logout-div'>
+                        <div><LogoutOutlined /></div>
+                        <div className='logout' onClick={logoutClick}>Logout</div>
+                      </div>
+                    )}
+                  </Menu>
+                </Drawer>
+                <Layout>
+                  <Header className='mobile-header'>
+                    <Button className='back-Button' onClick={mobileMenuCollapsed}>
+                      <img src={headerIcon} alt='header-icon' />
+                    </Button>
+                    <div className='img-Button'>
+                      <img src={imageUrl} alt='user-image' className='img-avatar' />
+                    </div>
+                  </Header>
+                  <div className='spin-Loading'>
+                    <Content>
+                      <Routes>
+                        <Route path="/dashboard" element={<DashboardPage collapsed={collapsed} />} />
+                        <Route path="/benchmarking" element={<BenchMarking />} />
+                        <Route path="/management" element={<Management />} />
+                        <Route path="/metrics" element={<Matrics />} />
+                        <Route path="/analysis" element={<Analysis />} />
+                        <Route path="/shoutout" element={<ShoutOut />} />
+                        <Route path="/knowledgeHub" element={<KnowledgeHub />} />
+                        <Route path="/support" element={<Support />} />
+                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/subscription" element={<Subscription />} />
+                        <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
+                      </Routes>
+                    </Content>
+                  </div>
+                </Layout>
+              </Layout>
+            </Col>
+          </Row>
+        )}
+        {(!loginId) && (
           <Routes>
             <Route path="/" element={<LoginPage signupValidate={false} />} />
             <Route path="/reset-password/:id" element={<ResetPassword signupPageValidation={false} forgotPageValidation={false} />} />
           </Routes>
-        )
-      }
+        )}
+      </ConfigProvider>
     </>
   );
 };

@@ -43,10 +43,10 @@ export const modules = [
         sequence: 1,
       },
       {
-        key: '/matrics',
-        to: '/matrics',
-        Module_Name: 'Matrics',
-        name: 'Matrics',
+        key: '/metrics',
+        to: '/metrics',
+        Module_Name: 'Metrics',
+        name: 'Metrics',
         sequence: 2,
       },
       {
