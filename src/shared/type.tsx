@@ -7,8 +7,6 @@ export interface chartDataType {
   ctaCount: string[];
   loading?: boolean;
   collapsed?: boolean;
-  setChartMode?: any;
-  chartMode?: string;
 }
 
 export interface curValue {
@@ -40,4 +38,9 @@ export interface respDataType {
   count: any;
   data: any[];
   user: string;
+}
+
+export interface chartSelectType {
+  setChartMode?: any;
+  chartMode?: string;
 }

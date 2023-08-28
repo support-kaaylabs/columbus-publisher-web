@@ -1,6 +1,10 @@
-body {
+@font-face {
+  font-family: "Gilroy-medium";
+  src: url("../src/assets/fonts/Gilroy/Gilroy-Medium.ttf");
+}
+
+body, #root {
   margin: 0;
-  font-family: 'Gilroy';
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
