@@ -20,15 +20,16 @@ const DashboardPage: React.FC<dashboardPageType> = ({ collapsed }) => {
   const [ctaStartDate, setCtaStartDate] = useState<string>('');
   const [clicksCount, setClicksCount] = useState([]);
   const [ctaCount, setCtaCount] = useState([]);
-  const [chartMode, setChartMode] = useState<string>('All');
+  const [chartMode, setChartMode] = useState<string>('Yearly');
   const [loading, setLoading] = useState<boolean>(true);
   const countStyle = new Intl.NumberFormat('en-IN');
 
   useEffect(() => {
     setLoading(true);
-    if (chartMode === 'All') {
-      chartModeFunc(getPublisherChartData);
-    } else if (chartMode === 'Yearly') {
+    // if (chartMode === 'All') {
+    //   chartModeFunc(getPublisherChartData);
+    // } else
+    if (chartMode === 'Yearly') {
       chartModeFunc(getPublisherChartYearlyData);
     } else if (chartMode === 'Monthly') {
       chartModeFunc(getPublisherChartMonthlyData);

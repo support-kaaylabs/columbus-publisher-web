@@ -12,7 +12,7 @@ const ChartSelect: React.FC<chartSelectType> = ({chartMode, setChartMode }) => {
         bordered={false}
         onChange={(value) => setChartMode(value)}
         options={[
-          { value: 'All', label: 'All' },
+          // { value: 'All', label: 'All' },
           { value: 'Yearly', label: 'YTD' },
           { value: 'Monthly', label: 'MTD' },
           { value: 'Weekly', label: 'Weekly' },
