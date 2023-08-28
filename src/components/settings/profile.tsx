@@ -63,9 +63,6 @@ const Profile: FC = () => {
     setValues({ ...values, userName: e.target.value });
   };
 
-
-  const user_Name: any = localStorage.getItem('User_Name');
-
   const handleEditProfile = () => {
     setEditClick(true);
     getAllStatesById();
@@ -74,11 +71,10 @@ const Profile: FC = () => {
 
   useEffect(() => {
     getSeller();
-    // setImage(localStorage.getItem('Image') === 'null' ? DefaultUser : localStorage.getItem('Image'));
     getCountry();
   }, []);
 
-  console.log(selectedCountry, selectedState, selectedCity, 'gkjkgkfdgkn', country, state, city);
+  console.log(selectedFileList, selectedState, selectedCity, 'gkjkgkfdgkn', country, state, city);
   const getSeller = () => {
     setLoader(true);
     getSellerDetails().then((res) => {
@@ -152,7 +148,7 @@ const Profile: FC = () => {
     setCountryId(value);
     const selectedCountry = regionDatas.find((country) => country.Country_Id === value);
     const country = selectedCountry?.Country_Id;
-    const selectedRegion = selectedCountry.Country_Name;
+    // const selectedRegion = selectedCountry.Country_Name;
     setCountry(selectedCountry.Country_Name);
     setSelectedCountry(selectedCountry || null);
     const params = { id: country };
@@ -244,7 +240,6 @@ const Profile: FC = () => {
     setSelectedCity(selectedCity || null);
   };
   const handleSubmit = async (value: any) => {
-    console.log(value, 'value');
     const userId = localStorage.getItem('User_ID');
 
     //eslint-disable-next-line
@@ -257,8 +252,7 @@ const Profile: FC = () => {
     setBtnLoading(true);
     await email_verification(emailParams).then((res) => {
       console.log('email Verified', res);
-      phone_verification(phoneParams).then((res) => {
-        console.log('phone Verified', res);
+      phone_verification(phoneParams).then(() => {
         const params = {
           userDetails: {
             User_Name: userName,
@@ -292,7 +286,6 @@ const Profile: FC = () => {
         }
       }).catch((err) => {
         const phoneErr = get(err, 'error.phoneError', '');
-        console.log(phoneErr, 'phoneErr');
         if (phoneErr) {
           return setUniquePhoneNumberErr(true);
         }

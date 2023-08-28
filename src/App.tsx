@@ -38,7 +38,6 @@ const App: FC = () => {
   const [openKey, setOpenKey] = useState<any>([]);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [subMenuKey, setSubMenuKey] = useState<string>('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
   const imageUrl = userProfile === 'null' ? defaultUser : userProfile;
