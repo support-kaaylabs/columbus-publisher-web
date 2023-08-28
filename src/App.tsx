@@ -127,7 +127,7 @@ const App: FC = () => {
         {loginId === 'true' && (
           <Row>
             <Col xs={0} sm={0} md={24} lg={24}>
-              <Layout>
+              <Layout className='app-layout'>
                 <Sider
                   className='sider-layout'
                   trigger={null}
