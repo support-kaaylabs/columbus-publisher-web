@@ -119,7 +119,7 @@ const DashboardPage: React.FC<dashboardPageType> = ({ collapsed }) => {
         </div>)}
         <div className='chart-flow'>
           {!loading &&
-            <ApexChart loading={loading} viewCount={viewsCount} viewDate={viewsDate} clickCount={clicksCount} ctaCount={ctaCount} />
+            <ApexChart loading={loading} collapsed={collapsed} viewCount={viewsCount} viewDate={viewsDate} clickCount={clicksCount} ctaCount={ctaCount} />
           }
         </div>
       </div>
