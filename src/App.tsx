@@ -75,10 +75,10 @@ const App: FC = () => {
   const userEmail: string | null = window.localStorage.getItem('User_Email');
 
   const menu = (
-    <Card className='profile-card' title={<img src={DarkCLogo} />} extra={<a>Sign out</a>}>
+    <Card className='profile-card' title={<img src={DarkCLogo} alt='dark-logo' />} extra={<a>Sign out</a>}>
       <Row>
         <Col className='image-col'>
-          <img src={imageUrl} />
+          <img src={imageUrl} alt='img-url' />
         </Col>
         <Col className='user-col'>
           <div className='user-div'>
