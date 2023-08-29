@@ -52,7 +52,7 @@ const ApexChart: React.FC<chartDataType> = ({ viewDate, viewCount, clickCount, c
   if(collapsed) {
     wd = '100%';
   } else {
-    wd = pageWidth < 768 ? 600 : pageWidth-260;
+    wd = pageWidth < 768 ? 600 : pageWidth-320;
   }
   
   return (
