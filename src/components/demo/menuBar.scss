@@ -1,0 +1,198 @@
+.menubar-layout-web {
+  .menubar-layout-sider {
+    position: fixed;
+    z-index: 2;
+    flex: 0 0 257px !important;
+    max-width: 257px !important;
+    min-width: 257px !important
+  }
+
+  .menubar-layout-sider-collapsed {
+    position: fixed;
+    z-index: 2;
+    flex: 0 0 82px !important;
+    max-width: 82px !important;
+
+    .ant-layout-sider-children {
+      .menubar-sider-menu {
+        margin-top: 40px;
+
+        .ant-menu-item {
+          line-height: 0px !important;
+        }
+
+        .ant-menu-submenu-title {
+          line-height: 0px !important;
+        }
+      }
+    }
+  }
+
+  .menubar-layout-sider,
+  .menubar-layout-sider-collapsed {
+    .ant-layout-sider-children {
+      background: #570026;
+      height: 100vh;
+
+      .menubar-layout-sider-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px 0px;
+        cursor: pointer;
+      }
+
+      .menubar-sider-menu {
+        background: #570026;
+
+        .ant-menu-item {
+          height: 22px;
+          margin: 25px 0px;
+
+          &:active {
+            background: transparent;
+          }
+
+          .menuBar-icons {
+            opacity: 0.6;
+          }
+
+          span {
+            margin-inline-start: 30px !important;
+          }
+        }
+
+        .ant-menu-submenu {
+          position: relative;
+
+          .ant-menu-submenu-title {
+            height: 22px;
+            margin-left: 0px;
+
+            &:active {
+              background: transparent;
+            }
+
+            .menuBar-icons {
+              opacity: 0.6;
+            }
+
+            span {
+              margin-inline-start: 30px !important;
+            }
+          }
+
+          .ant-menu-sub {
+            background: #FFFFFF;
+            margin-top: 15px;
+
+            .ant-menu-item {
+              border: none;
+              font-size: 13px;
+              color: #222222;
+              margin: 15px 0px;
+              padding-left: 26px !important;
+
+              &:hover {
+                background: transparent;
+              }
+
+              .ant-menu-title-content {}
+
+            }
+
+            .select-border {
+              position: absolute;
+              top: 36px;
+              left: 31px;
+            }
+
+            .ant-menu-item-selected {
+              color: #C20155;
+            }
+
+          }
+        }
+
+        .ant-menu-item-selected {
+          background: transparent;
+          border-radius: 0px;
+          border-left: 3px solid #FFFFFF;
+
+          .menuBar-icons {
+            opacity: 1;
+          }
+        }
+
+        .ant-menu-submenu-selected {
+          .ant-menu-submenu-title {
+            border-radius: 0px;
+            border-left: 3px solid #FFFFFF;
+
+            .menuBar-icons {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .menubar-layout-sub-layout {
+
+    .menubar-laybout-sub-layout-header {
+      padding: 0px 40px 0px 282px;
+    }
+
+    .menubar-laybout-sub-layout-header-collapsed {
+      padding: 0px 40px 0px 107px;
+    }
+
+    .menubar-laybout-sub-layout-header,
+    .menubar-laybout-sub-layout-header-collapsed {
+      position: fixed;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #FFFFFF;
+      width: 100%;
+      height: 80px;
+      z-index: 1;
+
+      .header-collapsed-button {
+        width: auto;
+
+        &:hover {
+          background: transparent;
+        }
+      }
+
+      .user-profile {
+        width: 33px;
+        height: 33px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .user-profile-img {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    .menubar-laybout-sub-layout-content {
+      padding: 100px 25px 0px 282px;
+    }
+
+    .menubar-laybout-sub-layout-content-collapsed {
+      padding: 100px 25px 0px 107px;
+    }
+
+    .menubar-laybout-sub-layout-content,
+    .menubar-laybout-sub-layout-content-collapsed {
+      background: #F2F2F2;
+    }
+  }
+}

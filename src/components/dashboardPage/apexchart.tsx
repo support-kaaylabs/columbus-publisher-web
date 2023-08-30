@@ -4,7 +4,7 @@ import ReactApexChart from 'react-apexcharts';
 import { chartDataType, seriesType } from '../../shared/type';
 import './apexchart.scss';
 
-const ApexChart: React.FC<chartDataType> = ({ viewDate, viewCount, clickCount, ctaCount, collapsed }) => {
+const ApexChart: React.FC<chartDataType> = ({ viewDate, viewCount, clickCount, ctaCount }) => {
   const [series] = useState<seriesType[]>([
     {
       name: 'Impressions',
@@ -49,10 +49,10 @@ const ApexChart: React.FC<chartDataType> = ({ viewDate, viewCount, clickCount, c
   };
   const pageWidth = window.innerWidth;
   let wd;
-  if(collapsed) {
-    wd = '100%';
+  if(pageWidth < 768) {    
+    wd = 600;
   } else {
-    wd = pageWidth < 768 ? 600 : pageWidth-320;
+    wd= '99%';
   }
   
   return (

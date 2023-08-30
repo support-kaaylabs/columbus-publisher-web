@@ -685,38 +685,38 @@
     // margin-block: 0px !important;
   }
 
-  .ant-layout-sider-children {
-    background-color: #570026;
-    width: auto;
-    position: fixed;
+  // .ant-layout-sider-children {
+  //   background-color: #570026;
+  //   width: auto;
+  //   position: fixed;
 
-    .ant-menu-title-content {
-      align-items: left;
-      margin-left: 22px !important;
-    }
+  //   .ant-menu-title-content {
+  //     align-items: left;
+  //     margin-left: 22px !important;
+  //   }
 
-    overflow-y: scroll;
+  //   overflow-y: scroll;
 
-    &::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
+  //   &::-webkit-scrollbar-track {
+  //     background-color: transparent;
+  //   }
 
-    &::-webkit-scrollbar {
-      width: 1px;
-      background-color: transparent;
-    }
+  //   &::-webkit-scrollbar {
+  //     width: 1px;
+  //     background-color: transparent;
+  //   }
 
-    &::-webkit-scrollbar-thumb {
-      background-color: transparent;
-      background-image: none;
-    }
+  //   &::-webkit-scrollbar-thumb {
+  //     background-color: transparent;
+  //     background-image: none;
+  //   }
 
-    &::-webkit-scrollbar-corner {
-      display: none;
-      height: 0px;
-      width: 0px;
-    }
-  }
+  //   &::-webkit-scrollbar-corner {
+  //     display: none;
+  //     height: 0px;
+  //     width: 0px;
+  //   }
+  // }
 
   .ant-menu-submenu-open {
     color: #fff !important;
@@ -762,10 +762,10 @@
     }
   }
 }
-.ant-layout-sider-children {
-  background-color: #570026;
-  position: fixed;
-}
+// .ant-layout-sider-children {
+//   background-color: #570026;
+//   position: fixed;
+// }
 .logoC {
   height: 107px;
   margin-left: 22%;

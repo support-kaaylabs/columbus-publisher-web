@@ -1,5 +1,4 @@
 
-
 export interface chartDataType {
   viewDate: string[];
   viewCount: string[];
@@ -28,11 +27,6 @@ export interface chartContainerDataType {
   clicksStartDate: string;
   ctaStartDate: string;
 }
-
-export interface dashboardPageType {
-  collapsed: boolean;
-}
-
 export interface respDataType {
   success: boolean;
   count: any;
@@ -43,4 +37,7 @@ export interface respDataType {
 export interface chartSelectType {
   setChartMode?: any;
   chartMode?: string;
+}
+export interface dropdownSelectedType {
+  dropdownSelected: string;
 }
