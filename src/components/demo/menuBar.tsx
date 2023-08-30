@@ -38,7 +38,6 @@ const { Header, Sider, Content } = Layout;
 
 const MenuBar: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [dropdownSelected, setDropdownSelected] = useState<string>('');
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [image, setImage] = useState('');
   const [updateImage, setUpdateImage] = useState<number>(0);
@@ -90,7 +89,7 @@ const MenuBar: React.FC = () => {
     <Card className='profile-card' title={<img src={DarkCLogo} />} extra={<a onClick={logoutClick}>Sign out</a>}>
       <Row>
         <Col className='image-col'>
-          <img src={image} />
+          <img src={image? image : defaultUser} />
         </Col>
         <Col className='user-col'>
           <div className='user-div'>
