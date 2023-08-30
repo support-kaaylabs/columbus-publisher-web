@@ -1,7 +1,7 @@
 import React from 'react';
-import { dropdownSelectedType } from '../../shared/type';
+import { currentKeyType } from '../../shared/type';
 
-const SelectionsDot = ({dropdownSelected}: dropdownSelectedType) => (
+const SelectionsDot = ({currentKey}: currentKeyType) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={7} height={128.082}>
     <g data-name="Group 57205" transform="translate(-38 -454.919)">
       <path
@@ -14,7 +14,7 @@ const SelectionsDot = ({dropdownSelected}: dropdownSelectedType) => (
         cx={3.5}
         cy={3.5}
         r={3.5}
-        fill={dropdownSelected === 'Management' ? '#C20155' : '#222222'}
+        fill={currentKey === 'management' ? '#C20155' : '#222222'}
         data-name="Ellipse 16"
         transform="translate(38 480)"
       />
@@ -22,7 +22,7 @@ const SelectionsDot = ({dropdownSelected}: dropdownSelectedType) => (
         cx={3.5}
         cy={3.5}
         r={3.5}
-        fill={dropdownSelected === 'Metrics' ? '#C20155' : '#222222'}
+        fill={currentKey === 'metrics' ? '#C20155' : '#222222'}
         data-name="Ellipse 17"
         transform="translate(38 516)"
       />
@@ -30,7 +30,7 @@ const SelectionsDot = ({dropdownSelected}: dropdownSelectedType) => (
         cx={3.5}
         cy={3.5}
         r={3.5}
-        fill={dropdownSelected === 'Analysis' ? '#C20155' : '#222222'}
+        fill={currentKey === 'analysis' ? '#C20155' : '#222222'}
         data-name="Ellipse 17"
         transform="translate(38 552)"
       />
