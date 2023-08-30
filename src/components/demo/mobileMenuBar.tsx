@@ -24,14 +24,33 @@ import Profile from '../settings/profile';
 import Subscription from '../settings/subscription';
 import Support from '../support/support';
 import Signup from '../loginPage/signup';
+import DefaultUserImg from '../columbusImages/defaultUser.png';
+import { menuBarKeyType } from '../../shared/type';
 
 const { Header, Content } = Layout;
 
 const MobileMenuBar: React.FC = () => {
   const [dropdownSelected, setDropdownSelected] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false);
+  const [openKey, setOpenKey] = useState(['1']);
   const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
-
+  const imageUrl = userProfile === 'null' ? DefaultUserImg : userProfile;
+  const onOpenKeyHandler = (key: string[]) => {
+    setOpenKey([key[1]]);
+  };
+  const onClickHandler = (key: menuBarKeyType) => {
+    const threeArr = ['4', '5', '6', '3'];
+    const twoArr = ['10', '11', '9'];
+    if (threeArr.includes(key.key)) {
+      setOpenKey(['3']);
+    } else if (twoArr.includes(key.key)) {
+      setOpenKey(['9']);
+    }
+    else {
+      setOpenKey([key.key]);
+    }
+    setOpen(false);
+  };
   const onClose = () => {
     setOpen(false);
   };
@@ -43,13 +62,15 @@ const MobileMenuBar: React.FC = () => {
         <Menu
           theme="dark"
           mode="inline"
+          onClick={onClickHandler}
+          openKeys={openKey}
+          onOpenChange={onOpenKeyHandler}
           defaultSelectedKeys={['1']}
           className='menubar-sider-menu'
-          onClick={onClose}
         >
           <Menu.Item
             key='1'
-            icon={<img src={DashboardIcon} alt='dashboard-icon' />}
+            icon={<img src={DashboardIcon} alt='dashboard-icon' className='menuBar-icons' />}
             onClick={() => setDropdownSelected('Dashboard')}
           >
             <Link to='/dashboard' />
@@ -57,29 +78,29 @@ const MobileMenuBar: React.FC = () => {
           </Menu.Item>
           <Menu.Item
             key='2'
-            icon={<img src={BenchMarkingIcon} alt='benchmarking-icon' />}
+            icon={<img src={BenchMarkingIcon} alt='benchmarking-icon' className='menuBar-icons' />}
             onClick={() => setDropdownSelected('Benchmarking')}
           >
             <Link to='/benchmarking' />
             Benchmarking
           </Menu.Item>
-          <Menu.SubMenu title='Selections' icon={<img src={SelectionIcon} alt='selections-icon' />}>
+          <Menu.SubMenu key='3' title='Selections' icon={<img src={SelectionIcon} alt='selections-icon' className='menuBar-icons' />} className='selections-dropdown'>
             <Menu.Item
-              key='3'
+              key='4'
               onClick={() => setDropdownSelected('Management')}
             >
               <Link to='/management' />
               Management
             </Menu.Item>
             <Menu.Item
-              key='4'
+              key='5'
               onClick={() => setDropdownSelected('Metrics')}
             >
               <Link to='/metrics' />
               Metrics
             </Menu.Item>
             <Menu.Item
-              key='5'
+              key='6'
               onClick={() => setDropdownSelected('Analysis')}
             >
               <Link to='/analysis' />
@@ -88,31 +109,31 @@ const MobileMenuBar: React.FC = () => {
             <div className='select-border'><SelectionDot dropdownSelected={dropdownSelected} /></div>
           </Menu.SubMenu>
           <Menu.Item
-            key='6'
-            icon={<img src={ShoutoutIcon} alt='shoutout-icon' />}
+            key='7'
+            icon={<img src={ShoutoutIcon} alt='shoutout-icon' className='menuBar-icons' />}
             onClick={() => setDropdownSelected('Shoutout')}
           >
             <Link to='/shoutout' />
             Shoutout
           </Menu.Item>
           <Menu.Item
-            key='7'
-            icon={<img src={KnowledgeHubIcon} alt='knowledgeHub-icon' />}
+            key='8'
+            icon={<img src={KnowledgeHubIcon} alt='knowledgeHub-icon' className='menuBar-icons' />}
             onClick={() => setDropdownSelected('KnowledgeHug')}
           >
             <Link to='/knowledgeHub' />
             Knowledge Hub
           </Menu.Item>
-          <Menu.SubMenu title='Settings' icon={<img src={SettingsIcon} alt='settings-icon' />}>
+          <Menu.SubMenu key='9' title='Settings' icon={<img src={SettingsIcon} alt='settings-icon' className='menuBar-icons' />} className='settings-dropdown'>
             <Menu.Item
-              key='8'
+              key='10'
               onClick={() => setDropdownSelected('Profile')}
             >
               <Link to='/profile' />
               Profile
             </Menu.Item>
             <Menu.Item
-              key='9'
+              key='11'
               onClick={() => setDropdownSelected('Subscription')}
             >
               <Link to='/subscription' />
@@ -121,8 +142,8 @@ const MobileMenuBar: React.FC = () => {
             <div className='select-border'><SettingDot dropdownSelected={dropdownSelected} /></div>
           </Menu.SubMenu>
           <Menu.Item
-            key='10'
-            icon={<img src={SupportIcon} alt='support-icon' />}
+            key='12'
+            icon={<img src={SupportIcon} alt='support-icon' className='menuBar-icons' />}
             onClick={() => setDropdownSelected('Support')}
           >
             <Link to='/support' />
@@ -138,7 +159,7 @@ const MobileMenuBar: React.FC = () => {
           className='header-collapsed-button'
         />
         <div className='user-profile'>
-          <img src={userProfile} alt='user-profile' className='user-profile-img' />
+          <img src={imageUrl} alt='user-profile' className='user-profile-img' />
         </div>
       </Header>
       <Content

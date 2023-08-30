@@ -27,14 +27,10 @@ import Subscription from '../settings/subscription';
 import Support from '../support/support';
 import Signup from '../loginPage/signup';
 import DefaultUserImg from '../columbusImages/defaultUser.png';
+import { menuBarKeyType } from '../../shared/type';
 
 const { Header, Sider, Content } = Layout;
 
-interface menuBarKeyType {
-  key: string;
-  keyPath: string[];
-  domEvent: any;
-}
 
 const MenuBar: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);

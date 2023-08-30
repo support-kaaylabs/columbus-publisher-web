@@ -41,3 +41,9 @@ export interface chartSelectType {
 export interface dropdownSelectedType {
   dropdownSelected: string;
 }
+
+export interface menuBarKeyType {
+  key: string;
+  keyPath: string[];
+  domEvent: any;
+}
