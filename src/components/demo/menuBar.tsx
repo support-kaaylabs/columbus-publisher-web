@@ -30,8 +30,11 @@ import DarkCLogo from '../../assets/Smaller Logo Dark BG.svg';
 import defaultUser from '../../assets/defaultUser.png';
 
 
+import DefaultUserImg from '../columbusImages/defaultUser.png';
+import { menuBarKeyType } from '../../shared/type';
 
 const { Header, Sider, Content } = Layout;
+
 
 const MenuBar: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -63,6 +66,26 @@ const MenuBar: React.FC = () => {
   const myProfileClick = ()=>{
     navigate('/profile');
   };
+  const [openKey, setOpenKey] = useState(['dashboard']);
+  const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
+  const imageUrl = userProfile === 'null' ? DefaultUserImg : userProfile;
+  const currentKey = (window.location.href).split('/')[3];
+  const onOpenKeyHandler = (key: string[]) => {
+    setOpenKey([key[1]]);
+  };
+  const onClickHandler = (key: menuBarKeyType) => {
+    const selectionArr = ['management', 'metrics', 'analysis', 'selections'];
+    const settingArr = ['profile', 'subscription', 'settings'];
+    if (selectionArr.includes(key.key)) {
+      setOpenKey(['selections']);
+    } else if (settingArr.includes(key.key)) {
+      setOpenKey(['settings']);
+    }
+    else {
+      setOpenKey([key.key]);
+    }
+  };
+
   const menu = (
     <Card className='profile-card' title={<img src={DarkCLogo} />} extra={<a onClick={logoutClick}>Sign out</a>}>
       <Row>
@@ -93,86 +116,79 @@ const MenuBar: React.FC = () => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={['1']}
+          onClick={onClickHandler}
+          openKeys={openKey}
+          onOpenChange={onOpenKeyHandler}
+          defaultSelectedKeys={[currentKey]}
           className='menubar-sider-menu'
         >
           <Menu.Item
-            key='1'
+            key='dashboard'
             icon={<img src={DashboardIcon} alt='dashboard-icon' className='menuBar-icons' />}
-            onClick={() => setDropdownSelected('Dashboard')}
           >
             <Link to='/dashboard' />
             Dashboard
           </Menu.Item>
           <Menu.Item
-            key='2'
+            key='benchmarking'
             icon={<img src={BenchMarkingIcon} alt='benchmarking-icon' className='menuBar-icons' />}
-            onClick={() => setDropdownSelected('Benchmarking')}
           >
             <Link to='/benchmarking' />
             Benchmarking
           </Menu.Item>
-          <Menu.SubMenu title='Selections' icon={<img src={SelectionIcon} alt='selections-icon' className='menuBar-icons' />}>
+          <Menu.SubMenu key='selections' title='Selections' icon={<img src={SelectionIcon} alt='selections-icon' className='menuBar-icons' />} className='selections-dropdown'>
             <Menu.Item
-              key='3'
-              onClick={() => setDropdownSelected('Management')}
+              key='management'
             >
               <Link to='/management' />
               Management
             </Menu.Item>
             <Menu.Item
-              key='4'
-              onClick={() => setDropdownSelected('Metrics')}
+              key='metrics'
             >
               <Link to='/metrics' />
               Metrics
             </Menu.Item>
             <Menu.Item
-              key='5'
-              onClick={() => setDropdownSelected('Analysis')}
+              key='analysis'
             >
               <Link to='/analysis' />
               Analysis
             </Menu.Item>
-            {!collapsed && <div className='select-border'><SelectionDot dropdownSelected={dropdownSelected} /></div>}
+            {!collapsed && <div className='select-border'><SelectionDot currentKey={currentKey} /></div>}
           </Menu.SubMenu>
           <Menu.Item
-            key='6'
+            key='shoutout'
             icon={<img src={ShoutoutIcon} alt='shoutout-icon' className='menuBar-icons' />}
-            onClick={() => setDropdownSelected('Shoutout')}
           >
             <Link to='/shoutout' />
             Shoutout
           </Menu.Item>
           <Menu.Item
-            key='7'
+            key='knowledgeHub'
             icon={<img src={KnowledgeHubIcon} alt='knowledgeHub-icon' className='menuBar-icons' />}
-            onClick={() => setDropdownSelected('KnowledgeHug')}
           >
             <Link to='/knowledgeHub' />
             Knowledge Hub
           </Menu.Item>
-          <Menu.SubMenu title='Settings' icon={<img src={SettingsIcon} alt='settings-icon' className='menuBar-icons' />}>
+          <Menu.SubMenu key='settings' title='Settings' icon={<img src={SettingsIcon} alt='settings-icon' className='menuBar-icons' />} className='settings-dropdown'>
             <Menu.Item
-              key='8'
-              onClick={() => setDropdownSelected('Profile')}
+              key='profile'
             >
               <Link to='/profile' />
               Profile
             </Menu.Item>
             <Menu.Item
-              key='9'
-              onClick={() => setDropdownSelected('Subscription')}
+              key='subscription'
             >
               <Link to='/subscription' />
               Subscription
             </Menu.Item>
-            {!collapsed && <div className='select-border'><SettingDot dropdownSelected={dropdownSelected} /></div>}
+            {!collapsed && <div className='select-border'><SettingDot currentKey={currentKey} /></div>}
           </Menu.SubMenu>
           <Menu.Item
-            key='10'
+            key='support'
             icon={<img src={SupportIcon} alt='support-icon' className='menuBar-icons' />}
-            onClick={() => setDropdownSelected('Support')}
           >
             <Link to='/support' />
             Support
