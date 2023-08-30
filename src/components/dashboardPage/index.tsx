@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Spin } from 'antd';
 import { getPublisherChartData, getPublisherChartYearlyData, getPublisherChartMonthlyData, getPublisherChartWeeklyData } from '../../shared/urlHelper';
 import { errorNotification } from '../../shared/globalVariables';
-import { chartDataType, curValue, dashboardPageType, respDataType, chartContainerDataType } from '../../shared/type';
+import { chartDataType, curValue, respDataType, chartContainerDataType } from '../../shared/type';
 import ApexChart from './apexchart';
 import ChartContainer from './chartContainer';
 import DashboardImg from '../columbusImages/dashboard-img.svg';
 import './index.scss';
 import ChartSelect from './chartSelect';
 
-const DashboardPage: React.FC<dashboardPageType> = ({ collapsed }) => {
+const DashboardPage: React.FC = () => {
   const [viewsCount, setViewsCount] = useState([]);
   const [viewsDate, setViewsDate] = useState([]);
   const [viewsTotalCount, setViewsTotalCount] = useState<string>('0');
@@ -36,7 +36,7 @@ const DashboardPage: React.FC<dashboardPageType> = ({ collapsed }) => {
     } else if (chartMode === 'Weekly') {
       chartModeFunc(getPublisherChartWeeklyData);
     }
-  }, [chartMode, collapsed]);
+  }, [chartMode]);
   const chartModeFunc = (getChartFuncApi: () => Promise<any>) => {
     getChartFuncApi().then((resp: respDataType) => {
       fetchData(resp);
@@ -119,7 +119,7 @@ const DashboardPage: React.FC<dashboardPageType> = ({ collapsed }) => {
         </div>)}
         <div className='chart-flow'>
           {!loading &&
-            <ApexChart loading={loading} collapsed={collapsed} viewCount={viewsCount} viewDate={viewsDate} clickCount={clicksCount} ctaCount={ctaCount} />
+            <ApexChart loading={loading} viewCount={viewsCount} viewDate={viewsDate} clickCount={clicksCount} ctaCount={ctaCount} />
           }
         </div>
       </div>

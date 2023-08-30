@@ -1,5 +1,4 @@
 .dashboard {
-  overflow: auto;
 
   .dashboard-header {
     display: flex;
@@ -44,6 +43,7 @@
         .ant-select {
           background: #F2F2F2;
           border-radius: 4px;
+
           .ant-select-selector {
             .ant-select-selection-item {
               font-family: 'Gilroy-medium';
@@ -79,7 +79,7 @@
     }
 
     .chart-flow {
-      padding: 0px 6px;
+      padding: 0px 10px 0px 0px;
     }
   }
 
@@ -101,18 +101,22 @@
 }
 
 @media screen and (min-width: 767px) {
-  .dashboard {
-    padding: 24px;
-  }
 }
 
 @media screen and (max-width: 767px) {
   .dashboard {
-    padding: 20px;
-    margin-top: 61px;
-    
-  .chart-flow {
-    overflow-x: auto;
-  }
+    .dashboard-chart {
+      .chart-select {
+        .select-div {
+          .ant-select {
+            width: 113px !important;
+          }
+        }
+      }
+    }
+
+    .chart-flow {
+      overflow-x: auto;
+    }
   }
 }
