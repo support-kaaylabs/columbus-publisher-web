@@ -38,8 +38,8 @@ export interface chartSelectType {
   setChartMode?: any;
   chartMode?: string;
 }
-export interface dropdownSelectedType {
-  dropdownSelected: string;
+export interface currentKeyType {
+  currentKey: string;
 }
 
 export interface menuBarKeyType {

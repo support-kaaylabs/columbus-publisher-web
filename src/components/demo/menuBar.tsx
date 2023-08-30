@@ -35,19 +35,18 @@ const { Header, Sider, Content } = Layout;
 const MenuBar: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [openKey, setOpenKey] = useState(['dashboard']);
-  const [dropdownSelected, setDropdownSelected] = useState<string>('');
   const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
   const imageUrl = userProfile === 'null' ? DefaultUserImg : userProfile;
-  const defaultKey = (window.location.href).split('/')[3];
+  const currentKey = (window.location.href).split('/')[3];
   const onOpenKeyHandler = (key: string[]) => {
     setOpenKey([key[1]]);
   };
   const onClickHandler = (key: menuBarKeyType) => {
-    const threeArr = ['management', 'metrics','analysis', 'selections'];
-    const twoArr = ['profile', 'subscription', 'settings'];
-    if(threeArr.includes(key.key)){
+    const selectionArr = ['management', 'metrics','analysis', 'selections'];
+    const settingArr = ['profile', 'subscription', 'settings'];
+    if(selectionArr.includes(key.key)){
       setOpenKey(['selections']);
-    } else if(twoArr.includes(key.key)){
+    } else if(settingArr.includes(key.key)){
       setOpenKey(['settings']);
     }
     else {
@@ -65,13 +64,12 @@ const MenuBar: React.FC = () => {
           onClick={onClickHandler}
           openKeys={openKey}
           onOpenChange={onOpenKeyHandler}
-          defaultSelectedKeys={[defaultKey]}
+          defaultSelectedKeys={[currentKey]}
           className='menubar-sider-menu'
         >
           <Menu.Item
             key='dashboard'
             icon={<img src={DashboardIcon} alt='dashboard-icon' className='menuBar-icons' />}
-            onClick={() => setDropdownSelected('Dashboard')}
           >
             <Link to='/dashboard' />
             Dashboard
@@ -79,7 +77,6 @@ const MenuBar: React.FC = () => {
           <Menu.Item
             key='benchmarking'
             icon={<img src={BenchMarkingIcon} alt='benchmarking-icon' className='menuBar-icons' />}
-            onClick={() => setDropdownSelected('Benchmarking')}
           >
             <Link to='/benchmarking' />
             Benchmarking
@@ -87,31 +84,27 @@ const MenuBar: React.FC = () => {
           <Menu.SubMenu key='selections' title='Selections' icon={<img src={SelectionIcon} alt='selections-icon' className='menuBar-icons' />} className='selections-dropdown'>
             <Menu.Item
               key='management'
-              onClick={() => setDropdownSelected('Management')}
             >
               <Link to='/management' />
               Management
             </Menu.Item>
             <Menu.Item
               key='metrics'
-              onClick={() => setDropdownSelected('Metrics')}
             >
               <Link to='/metrics' />
               Metrics
             </Menu.Item>
             <Menu.Item
               key='analysis'
-              onClick={() => setDropdownSelected('Analysis')}
             >
               <Link to='/analysis' />
               Analysis
             </Menu.Item>
-            {!collapsed && <div className='select-border'><SelectionDot dropdownSelected={dropdownSelected} /></div>}
+            {!collapsed && <div className='select-border'><SelectionDot currentKey={currentKey} /></div>}
           </Menu.SubMenu>
           <Menu.Item
             key='shoutout'
             icon={<img src={ShoutoutIcon} alt='shoutout-icon' className='menuBar-icons' />}
-            onClick={() => setDropdownSelected('Shoutout')}
           >
             <Link to='/shoutout' />
             Shoutout
@@ -119,7 +112,6 @@ const MenuBar: React.FC = () => {
           <Menu.Item
             key='knowledgeHub'
             icon={<img src={KnowledgeHubIcon} alt='knowledgeHub-icon' className='menuBar-icons' />}
-            onClick={() => setDropdownSelected('KnowledgeHug')}
           >
             <Link to='/knowledgeHub' />
             Knowledge Hub
@@ -127,24 +119,21 @@ const MenuBar: React.FC = () => {
           <Menu.SubMenu key='settings' title='Settings' icon={<img src={SettingsIcon} alt='settings-icon' className='menuBar-icons' />} className='settings-dropdown'>
             <Menu.Item
               key='profile'
-              onClick={() => setDropdownSelected('Profile')}
             >
               <Link to='/profile' />
               Profile
             </Menu.Item>
             <Menu.Item
               key='subscription'
-              onClick={() => setDropdownSelected('Subscription')}
             >
               <Link to='/subscription' />
               Subscription
             </Menu.Item>
-            {!collapsed && <div className='select-border'><SettingDot dropdownSelected={dropdownSelected} /></div>}
+            {!collapsed && <div className='select-border'><SettingDot currentKey={currentKey} /></div>}
           </Menu.SubMenu>
           <Menu.Item
             key='support'
             icon={<img src={SupportIcon} alt='support-icon' className='menuBar-icons' />}
-            onClick={() => setDropdownSelected('Support')}
           >
             <Link to='/support' />
             Support
