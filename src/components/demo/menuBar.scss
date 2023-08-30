@@ -53,12 +53,28 @@
             background: transparent;
           }
 
+          &:hover {
+            background: transparent;
+          }
+
           .menuBar-icons {
             opacity: 0.6;
           }
 
           span {
             margin-inline-start: 30px !important;
+          }
+        }
+
+        .selections-dropdown {
+          .ant-menu-sub {
+            height: 128px;
+          }
+        }
+
+        .settings-dropdown {          
+          .ant-menu-sub {
+            height: 92px;
           }
         }
 
@@ -70,6 +86,10 @@
             margin-left: 0px;
 
             &:active {
+              background: transparent;
+            }
+
+            &:hover {
               background: transparent;
             }
 
@@ -103,7 +123,7 @@
 
             .select-border {
               position: absolute;
-              top: 36px;
+              top: 37px;
               left: 31px;
             }
 
@@ -183,11 +203,13 @@
     }
 
     .menubar-laybout-sub-layout-content {
-      padding: 100px 25px 0px 282px;
+      padding: 80px 0px 0px 257px;    
+      min-height: 100vh;
     }
 
     .menubar-laybout-sub-layout-content-collapsed {
-      padding: 100px 25px 0px 107px;
+      padding: 80px 0px 0px 82px;
+      min-height: 100vh;
     }
 
     .menubar-laybout-sub-layout-content,
