@@ -9,7 +9,7 @@ import Logo from '../src/assets/columbusbig.png';
 import MiniLogo from '../src/assets/columbussmall.png';
 import menuBack from '../src/assets/Group 56840.svg';
 // import group from '../src/assets/group.png';
-// import notification from '../src/assets/Group 56754.svg';
+// import defaultUser from '../src/assets/defaultUser.png';
 import selectedDot from '../src/assets/Ellipse 16.svg';
 import UnSelectedDot from '../src/assets/Ellipse 17.svg';
 import LoginPage from './components/loginPage';
@@ -29,6 +29,7 @@ import Subscription from '../src/components/settings/subscription';
 import Support from '../src/components/support/support';
 import defaultUser from './components/columbusImages/defaultUser.png';
 import DarkCLogo from '../src/assets/Smaller Logo Dark BG.svg';
+import { getSellerDetails } from '../src/shared/urlHelper';
 
 const { Sider, Content, Header } = Layout;
 
@@ -39,13 +40,25 @@ const App: FC = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [subMenuKey, setSubMenuKey] = useState<string>('');
   const [open, setOpen] = useState(false);
-  const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
-  const imageUrl = userProfile === 'null' ? defaultUser : userProfile;
+  const [image, setImage] = useState('');
+  const [updateImage, setUpdateImage] = useState<number>(0);
   const userName: string | null = window.localStorage.getItem('User_Name');
   const navigate = useNavigate();
+  const img = `${window.localStorage.getItem('Image')}`;
+
+  useEffect(()=>{
+    const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
+    const imageUrl = userProfile === 'null' ? defaultUser : userProfile;
+    setImage(imageUrl);
+  }, [updateImage]);
+
+  const imageUpdate = ()=>{
+    setUpdateImage(updateImage + 1);
+  };
+
   useEffect(() => {
     setActiveKey(window.location.pathname);
-  }, [window.location.pathname, collapsed]);
+  }, [window.location.pathname, collapsed, img]);
 
   const onSelectMenu = (key: any) => {
     setActiveKey(window.location.pathname);
@@ -57,6 +70,12 @@ const App: FC = () => {
     }
     navigate(key.key);
     setOpen(false);
+  };
+  const logoutClick = () => {
+    const keysToRemove = ['Phone_Number', 'User_Email', 'User_Name', 'User_ID', 'User_Uid', 'User_Type', 'Image', 'token', 'Store_Nme', 'publisherLogin', 'menu_collapse', 'Login'];
+    keysToRemove.forEach(k =>
+      localStorage.removeItem(k));
+    window.location.href = '/';
   };
   const onOpenChange = (key: any) => {
     const diffKey = differenceBy(key, openKey);
@@ -75,10 +94,10 @@ const App: FC = () => {
   const userEmail: string | null = window.localStorage.getItem('User_Email');
 
   const menu = (
-    <Card className='profile-card' title={<img src={DarkCLogo} />} extra={<a>Sign out</a>}>
+    <Card className='profile-card' title={<img src={DarkCLogo} />} extra={<a onClick={logoutClick}>Sign out</a>}>
       <Row>
         <Col className='image-col'>
-          <img src={imageUrl} />
+          <img src={image} />
         </Col>
         <Col className='user-col'>
           <div className='user-div'>
@@ -97,12 +116,7 @@ const App: FC = () => {
     setDropdownVisible(false);
   };
 
-  const logoutClick = () => {
-    const keysToRemove = ['Phone_Number', 'User_Email', 'User_Name', 'User_ID', 'User_Uid', 'User_Type', 'Image', 'token', 'Store_Nme', 'publisherLogin', 'menu_collapse', 'Login'];
-    keysToRemove.forEach(k =>
-      localStorage.removeItem(k));
-    window.location.href = '/';
-  };
+  
 
   const onCollapsedChange = () => {
     setCollapsed(!collapsed);
@@ -188,25 +202,19 @@ const App: FC = () => {
                         );
                       }
                     })}
-                    {!collapsed && (
-                      <div className='logout-div'>
-                        <div><LogoutOutlined /></div>
-                        <div className='logout' onClick={logoutClick}>Logout</div>
-                      </div>
-                    )}
                   </Menu>
                 </Sider>
                 <Layout className='main-layout'>
                   <Header className='header'>
                     <Row>
-                      <Col span={9} className='col-div1'>
+                      <Col span={3} className='col-div1'>
                         <Button className='back-Button' onClick={toggleCollapsed}>
                           {collapsed ? (<img src={menuBack} alt='menu-back' />) : (<img src={headerIcon} alt='header-icon' />)}</Button>
                       </Col>
-                      <Col span={12} className='col-div'>
-                        <Col className='img-Button'>
-                          <div>
-                            <img src={imageUrl} alt='user-image' className='img-avatar' onClick={() => setDropdownVisible(true)} />
+                      <Col span={17} className='col-div'>
+                        <Col>
+                          <div className='img-Button'>
+                            <img src={image} alt='user-image' className='img-avatar' onClick={() => setDropdownVisible(true)} />
                             <Dropdown
                               overlay={menu}
                               visible={dropdownVisible}
@@ -230,7 +238,7 @@ const App: FC = () => {
                         <Route path="/shoutout" element={<ShoutOut />} />
                         <Route path="/knowledgeHub" element={<KnowledgeHub />} />
                         <Route path="/support" element={<Support />} />
-                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/profile" element={<Profile updateImage={imageUpdate} />} />
                         <Route path="/subscription" element={<Subscription />} />
                         <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
                       </Routes>
@@ -295,12 +303,6 @@ const App: FC = () => {
                         );
                       }
                     })}
-                    {!collapsed && (
-                      <div className='logout-div'>
-                        <div><LogoutOutlined /></div>
-                        <div className='logout' onClick={logoutClick}>Logout</div>
-                      </div>
-                    )}
                   </Menu>
                 </Drawer>
                 <Layout>
@@ -309,7 +311,7 @@ const App: FC = () => {
                       <img src={headerIcon} alt='header-icon' />
                     </Button>
                     <div className='img-Button'>
-                      <img src={imageUrl} alt='user-image' className='img-avatar' />
+                      <img src={image} alt='user-image' className='img-avatar' />
                     </div>
                   </Header>
                   <div className='spin-Loading'>
@@ -323,7 +325,7 @@ const App: FC = () => {
                         <Route path="/shoutout" element={<ShoutOut />} />
                         <Route path="/knowledgeHub" element={<KnowledgeHub />} />
                         <Route path="/support" element={<Support />} />
-                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/profile" element={<Profile updateImage={imageUpdate}/>} />
                         <Route path="/subscription" element={<Subscription />} />
                         <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
                       </Routes>

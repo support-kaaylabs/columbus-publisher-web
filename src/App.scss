@@ -17,22 +17,16 @@
   .ant-drawer-header {
     display: none;
   }
-
   .header {
     position: fixed;
     box-shadow: 3px 0px 6px #00000029;
     height: 64px;
+    line-height: 64px;
     width: 100%;
     background: #FFFFFF;
-    // padding: 0px 20px;
-    // z-index: 2;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0px 20px;
+    z-index: 100;
+    // display: flex;
 
-    .ant-row {
-      width: 100%;
       // .menu-button {
 
       //   .ant-btn {
@@ -58,10 +52,6 @@
       //   }
       // }
       .col-div1 {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-
         .back-Button {
           border: none;
           border-color: transparent;
@@ -73,11 +63,6 @@
       }
 
       .col-div {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        align-items: center;
-
         .img-Button {
           width: 50px;
           height: 50px;
@@ -372,10 +357,13 @@
           }
         }
       }
-    }
 
   }
 }
+
+// .ant-layout-header {
+//     padding-inline: 0px !important;
+// }
 
 .mobile-layout {
   
@@ -412,11 +400,6 @@
 
   // }
   // }
-}
-
-.ant-layout-header {
-  line-height: 0px;
-  width: 100%;
 }
 
 .ant-drawer {
@@ -673,12 +656,25 @@
   .ant-menu.ant-menu-inline-collapsed, .ant-layout-sider-collapsed {
     width: 50px !important;
   }
+  .ant-menu .ant-menu-title-content span{
+  color: #fff !important;
+  opacity: 0.7;
+  }
   .ant-menu-dark.ant-menu-inline .ant-menu-sub.ant-menu-inline {
     background-color: white !important;
+    color: #000000 !important;
   }
-  .ant-menu-item-active{
-    background-color: transparent !important;
+  .ant-menu-item-selected, .ant-menu-item-active {
+    border-left: 2px solid #ffffff;
+    background: transparent !important;
+    .ant-menu-title-content span{
+      color: #fff !important;
+      opacity: 1;
+      }
   }
+  // .ant-menu-item-active{
+  //   background-color: transparent !important;
+  // }
   
   .ant-menu-inline .ant-menu-item{
     width: 100% !important;
@@ -771,6 +767,7 @@
   margin-left: 22%;
   margin-right: 22%;
   margin-top: 10%;
+  padding-left: 18%;
 }
 
 .logoColumbus {
@@ -789,7 +786,7 @@
   z-index: 1;
   background-color: #570026;
   padding: 2px 0;
-  padding-left: 1.5%;
+  // padding-left: 1.5%;
   p{
     margin: 0;
     color: #fff;
@@ -894,6 +891,11 @@
             }
         }
       }
+      .ant-menu-title-content{
+        span{
+          color: #222222 !important;
+          }
+      }
     }
 
     .ant-menu-title-content {
@@ -905,10 +907,13 @@
     }
   }
 
-.side-menu .ant-menu-item-selected, .side-menu .ant-menu-item-active {
-  border-left: 2px solid #ffffff;
-  background: transparent !important;
-}
+// .side-menu, .ant-menu-item-selected, .ant-menu-item-active {
+//   border-left: 2px solid #ffffff;
+//   background: transparent !important;
+//   color: #fff !important;
+//   opacity: 1;
+// }
+
 .side-menu-collapsed {
   min-height: auto;
   margin-top: 230% !important;
@@ -1037,6 +1042,7 @@
 .ant-submenu-openn,
 .ant-menu-dark.ant-menu-inline .ant-menu-sub.ant-menu-inline {
   background-color: #FFFFFF !important;
+  color: #000000 !important;
 }
 
 .submenu-active,
@@ -1077,6 +1083,15 @@
   cursor: pointer;
 }
 
+
+// .submenu-menu .ant-menu-title-content span{
+//   color:#222222 !important;
+//   opacity: 0.7;
+// }
+.ant-menu-item .ant-menu-item-active .ant-menu-item-selected{
+  color: #fff !important;
+  opacity: 1;
+}
 .ant-menu .ant-menu-item {
   border-radius: 0px !important;
   margin-inline: 0px !important;
@@ -1095,8 +1110,11 @@
   top: 0%;
   left: 12.7%;
   width: 0.5px;
-  height: 100px;
+  height: 100%;
   background-color: #a7a6a6;
+}
+.ant-menu-inline .ant-menu-item{
+  margin-block: 0 !important;
 }
 
 .unselected-line {

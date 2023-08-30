@@ -6,6 +6,8 @@ import cameraIcon from '../Home/Images/profilepicCamera.svg';
 import { getSellerDetails } from '../../shared/urlHelper';
 import { errorNotification, successNotification } from '../../../src/shared/globalVariables';
 import { get } from 'lodash';
+import defaultUser from '../../assets/defaultUser.png';
+
 const { Meta } = Card;
 
 interface Country {
@@ -23,7 +25,10 @@ interface City {
   City_Name: string;
 }
 
-const Profile: FC = () => {
+interface ImageUpdate{
+  updateImage: any
+}
+const Profile: FC<ImageUpdate> = ({updateImage}) => {
   const [image, setImage] = useState<any>();
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
   const [selectedState, setSelectedState] = useState<State | null>(null);
@@ -66,6 +71,7 @@ const Profile: FC = () => {
   const handleEditProfile = () => {
     setEditClick(true);
     getAllStatesById();
+    getAllCitiesById();
     searchCities();
   };
 
@@ -74,7 +80,6 @@ const Profile: FC = () => {
     getCountry();
   }, []);
 
-  console.log(selectedFileList, selectedState, selectedCity, 'gkjkgkfdgkn', country, state, city);
   const getSeller = () => {
     setLoader(true);
     getSellerDetails().then((res) => {
@@ -101,7 +106,7 @@ const Profile: FC = () => {
       setState(sellerDetails.State);
       setCity(sellerDetails.City);
       setCountryId(sellerDetails.Country_Id);
-      setStateId(sellerDetails.State_ID);
+      setStateId(sellerDetails.State_Id);
       setLoader(false);
     });
   };
@@ -141,6 +146,14 @@ const Profile: FC = () => {
     await getAllStatesByCountryId(params).then((response) => {
       if (response) {
         setStateData(response.data);
+      }
+    });
+  };
+  const getAllCitiesById = async () => {
+    const params = { id: stateId };
+    getAllCitiesByStateId(params).then((res) => {
+      if (res) {
+        setCityData(res?.data);
       }
     });
   };
@@ -195,7 +208,7 @@ const Profile: FC = () => {
     logoHandler.current.click();
   };
 
-  const changeLogoHandler = (event: any) => {
+  const changeLogoHandler = async (event: any) => {
     const fileUploaded: any = event.target.files[0];
     const reader = new FileReader();
 
@@ -206,10 +219,16 @@ const Profile: FC = () => {
       const userId: any = localStorage.getItem('User_ID');
       reader.readAsDataURL(fileUploaded);
       storeImageUpload(userId, '', fileUploaded).then((data: any) => {
+        setLoader(true);
+
         if (data.success) {
+          getSeller();
           successNotification('Image Uploaded Successfully');
+          setImage(data.response.Location);
+          localStorage.setItem('Image', `${data.response.Location}`);
+          updateImage();
+          setLoader(false);
         }
-        setImage(image);
       });
     } else {
       setImage(null);
@@ -267,15 +286,16 @@ const Profile: FC = () => {
             City: selectedCity ? selectedCity.City_Name : city,
             Pincode: zipCode,
             Country_Id: countryId,
-            State_ID: stateId,
+            State_Id: stateId,
           }
-
         };
+
         if (!uniqueEmailErr && !uniquePhoneNumberErr && !emailValidErr) {
           updateSellerDetails({ userId }, params).then((res) => {
             if (res.success) {
               setBtnLoading(false);
               successNotification('Updated Successfully');
+              setEditClick(false);
             } else {
               setBtnLoading(false);
               errorNotification('Unable to Update');
@@ -311,20 +331,21 @@ const Profile: FC = () => {
             {editClick ? (<p>Edit Profile</p>) : (<p>Profile</p>)}
           </div>
           <Row>
-            <Col sm={24} md={6} xs={22} lg={5} xl={5} className='profile-col'>
+            <Col sm={0} md={0} xs={0} lg={6} xl={6} className='profile-col'>
               {!editClick ? (
                 <Card
                   className='ant-card'
-                  cover={<img src={image} alt='profile-img' className='img' />}
+                  cover={<img src={image? image: defaultUser} alt='profile-img' className='img' />}
                 >
                   <Meta title={`${storeName}`} />
                   <div className='ant-btn-div'>
-                    <Button className='edit-profile-button' onClick={handleEditProfile}>Edit Profile</Button>
+                    <Button  className='btn-edit' onClick={handleEditProfile}>Edit Profile</Button>
                   </div>
                 </Card>
               ) : (
                 <Card
-                  cover={<img src={image} alt='profile-img' className='img' />}
+                  cover={<img src={image? image: defaultUser} alt='profile-img' className='img' />}
+                  loading={loader}
                 >
                   <div className='edit-profile'>
                     <div
@@ -368,7 +389,78 @@ const Profile: FC = () => {
                 </Card>
               )}
             </Col >
-            <Col sm={0} md={18} xs={0} lg={19} xl={19} className='form-col'>
+            <Col sm={24} md={24} xs={24} lg={0} xl={0} className='mobile-profile-col'>
+              {!editClick ? (
+                <Card>
+                  <Row>
+                    <Col sm={12} md={12} xs={12} lg={0} xl={0} className='img-col'>
+                      <img src={image? image: defaultUser} alt='profile-img' className='img' />
+                    </Col>
+                    <Col sm={12} md={12} xs={12} lg={0} xl={0} className='card-profile-body'>
+                      <div>
+                        <Meta title={`${storeName}`} />
+                        <div className='ant-button-div'><Button className='ant-btn' onClick={handleEditProfile}>Edit Profile</Button></div>
+                      </div>
+                    </Col>
+                  </Row>
+                </Card>
+              ) : (
+                <Card>
+                  <Row align='middle'>
+                    <Col sm={12} md={12} xs={12} lg={0} xl={0}>
+
+                      <div className='edit-profile'>
+                        <div className='profile-img-div'>
+                          <img src={image? image: defaultUser} alt='profile-img' className='img' />
+                        </div>
+                        <div
+                          className="user-img-logo-content"
+                          onMouseLeave={cameraIconHandlerHide}
+                        >
+                          <div
+                            className="profile-head"
+                            onMouseEnter={cameraIconHandlerDisplay}
+                          >
+                          </div>
+                          <div
+                            className={
+                              cameraIconDisplay ? 'camera-icon-hide' : 'camera-icon'
+                            }
+                            onClick={clickHandler}
+                          >
+                            <img src={cameraIcon} alt="camera-icon" />
+                            <input
+                              type="file"
+                              accept="image/*"
+                              ref={logoHandler}
+                              onChange={changeLogoHandler}
+                              className="input"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </Col>
+                    <Col sm={12} md={12} xs={12} lg={0} xl={0}>
+                      <div className='form-store'>
+                        <Form.Item
+                          className='form-storeName'
+                          rules={[{ required: true, message: 'Please Enter Store Name!' }]}>
+                          <Input
+                            className='edit-card-label'
+                            type='text'
+                            placeholder='Enter your Store Name'
+                            onChange={(e) => handleStoreNameChange(e)}
+                            value={`${storeName}`}
+                            disabled={editClick ? false : true}
+                          />
+                        </Form.Item>
+                      </div>
+                    </Col>
+                  </Row>
+                </Card>
+              )}
+            </Col>
+            <Col sm={24} md={24} xs={24} lg={18} xl={18} className='form-col'>
               <div className='right-Column-div'>
                 <div >
                   <Form
@@ -382,7 +474,7 @@ const Profile: FC = () => {
                     onFinish={handleSubmit}
                   >
                     <Row className='form-row'>
-                      <Col sm={0} md={9} xs={0} lg={12} xl={12} className='form-col'>
+                      <Col sm={24} md={12} xs={24} lg={12} xl={12} className='form-col'>
                         <Form.Item
                           className='form-item'
                           required
@@ -396,82 +488,6 @@ const Profile: FC = () => {
                             disabled={editClick ? false : true}
                           />
                         </Form.Item>
-                        <Form.Item
-                          className='form-item'
-                          name='GST_Number'
-                          label='GST Number'
-                          colon={false}
-                        >
-                          <Input
-                            type='text'
-                            placeholder='Enter your GST Number'
-                            onChange={(e) => setValues({ ...values, gstNumber: e.target.value.trim() })}
-                            disabled={editClick ? false : true}
-                          />
-                        </Form.Item>
-                        <Form.Item
-                          className='form-item-select'
-                          name='Country'
-                          required
-                          label="Region"
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Please Enter Region!',
-                            },
-                          ]}>
-                          <Select
-                            style={{ marginTop: '-2%' }}
-                            placeholder='Select Country'
-                            showSearch
-                            onSearch={() => getCountry()}
-                            onChange={handleCountryChange}
-                            optionFilterProp="children"
-                            disabled={editClick ? false : true}
-                          >
-                            {regionDatas.map((country) => (
-                              <Select.Option key={country.Country_Name} value={country.Country_Id} onClick={() => handleCountryChange(country)}>
-                                {country.Country_Name}
-                              </Select.Option>
-                            ))}
-                          </Select>
-                        </Form.Item>
-                        <Form.Item
-                          className='form-item-select'
-                          name='State'
-                          required
-                          label="State/Province"
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Please Enter State!',
-                            },
-                          ]}>
-                          <Select
-                            style={{ marginTop: '-2%' }}
-                            placeholder='Select State/Province'
-                            showSearch
-                            onSearch={(e) => getState(e)}
-                            onChange={handleStateChange}
-                            optionFilterProp="children"
-                            disabled={!selectedCountry}
-                          >
-                            {stateData.map((state) => (
-                              <Select.Option key={state.State_Name} value={state.State_Id} onClick={() => handleStateChange(state)}>
-                                {state.State_Name}
-                              </Select.Option>
-                            ))}
-                          </Select>
-                        </Form.Item>
-                        {editClick && (
-                          <Form.Item>
-                            <div className='cancel-Button-div'>
-                              <Button className='cancel-Button' onClick={handleCancel}>Cancel</Button>
-                            </div>
-                          </Form.Item>
-                        )}
-                      </Col>
-                      <Col sm={0} md={9} xs={0} lg={12} xl={12} className='form-col'>
                         <Form.Item
                           className='form-item'
                           name='Email_Address'
@@ -529,6 +545,78 @@ const Profile: FC = () => {
                           )}
                         </Form.Item>
                         <Form.Item
+                          className='form-item'
+                          name='GST_Number'
+                          label='GST Number'
+                          colon={false}
+                        >
+                          <Input
+                            type='text'
+                            placeholder='Enter your GST Number'
+                            onChange={(e) => setValues({ ...values, gstNumber: e.target.value.trim() })}
+                            disabled={editClick ? false : true}
+                          />
+                        </Form.Item>
+                        
+                      </Col>
+                      <Col sm={24} md={12} xs={24} lg={12} xl={12} className='form-col'>
+                        <Form.Item
+                          className='form-item-select'
+                          name='Country'
+                          required
+                          label="Region"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please Enter Region!',
+                            },
+                          ]}>
+                          <Select
+                            // style={{ marginTop: '-2%' }}
+                            placeholder='Select Country'
+                            showSearch
+                            onSearch={() => getCountry()}
+                            onChange={handleCountryChange}
+                            optionFilterProp="children"
+                            disabled={editClick ? false : true}
+                          >
+                            {regionDatas.map((country) => (
+                              <Select.Option key={country.Country_Name} value={country.Country_Id} onClick={() => handleCountryChange(country)}>
+                                {country.Country_Name}
+                              </Select.Option>
+                            ))}
+                          </Select>
+                        </Form.Item>
+                        <Form.Item
+                          className='form-item-select'
+                          name='State'
+                          required
+                          label="State/Province"
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Please Enter State!',
+                            },
+                          ]}>
+                          <Select
+                            // style={{ marginTop: '-2%' }}
+                            placeholder='Select State/Province'
+                            showSearch
+                            onSearch={(e) => getState(e)}
+                            onChange={handleStateChange}
+                            optionFilterProp="children"
+                            // disabled={!selectedCountry}
+                            disabled={editClick ? false : true}
+                          >
+                            {stateData.map((state) => (
+                              <Select.Option key={state.State_Name} value={state.State_Id} onClick={() => handleStateChange(state)}>
+                                {state.State_Name}
+                              </Select.Option>
+                            ))}
+                          </Select>
+                        </Form.Item>
+                       
+                        <Form.Item
                           className='form-item-select'
                           name='City'
                           required
@@ -545,7 +633,8 @@ const Profile: FC = () => {
                             showSearch
                             onChange={handleCityChange}
                             onSearch={(e) => getCities(e)}
-                            disabled={!selectedState}
+                            // disabled={!selectedState}
+                            disabled={editClick  ? false : true}
                             optionFilterProp="children"
                           >
                             {cityData?.map((city) => (
@@ -574,7 +663,18 @@ const Profile: FC = () => {
                             disabled={editClick ? false : true}
                           />
                         </Form.Item>
-                        {editClick && (
+                      </Col>
+                    </Row>
+                    {editClick && (
+                      <Row className='cancel-div'>
+                        <Col sm={24} md={12} xs={24} lg={12} xl={12} >
+                          <Form.Item>
+                            <div className='cancel-Button-div'>
+                              <Button className='cancel-Button' onClick={handleCancel}>Cancel</Button>
+                            </div>
+                          </Form.Item>
+                        </Col>
+                        <Col sm={24} md={12} xs={24} lg={12} xl={12}>
                           <Form.Item>
                             <div className='submit-Button-div'>
                               <Button loading={btnLoading}
@@ -582,9 +682,9 @@ const Profile: FC = () => {
                                 className='submit-Button'>Save</Button>
                             </div>
                           </Form.Item>
-                        )}
-                      </Col>
-                    </Row>
+                        </Col>
+                      </Row> 
+                    )}
                   </Form>
                 </div>
               </div>

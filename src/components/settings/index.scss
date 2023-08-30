@@ -1,6 +1,6 @@
 .text-div {
   p {
-    margin-left: 30px;
+    margin-left: 2%;
     padding-top: 15px;
     color: #000000;
     font-weight: 600;
@@ -9,22 +9,33 @@
 }
 
 .profile-col {
-  padding-left: 30px;
-  padding-right: 20px;
+  padding-left: 2%;
+  // padding-right: 20px;
   
 
   .ant-card {
     box-shadow: 0px 2px 6px #00000033;
+    border-radius: 5px;
+    width: 91%;
+    position: inherit;
     .ant-card-cover {
-      padding-left: 14%;
-      padding-right: 14%;
-      padding-top: 10%;
-      padding-bottom: 7%;
+      padding: 10%;
+      padding-left: 15%;
+      // padding-left: 40px;
+      // padding-top: 30px;
+      // margin-left: 15%;
+      // // // margin-right: 10%;
+      // margin-top: 10%;
+      // padding-bottom: 7%;
+      // position: inherit;
 
       .img {
+        margin-left: 1%;
         border-radius: 5px !important;
         height: 168px;
-        width: 100%;
+        width: 90%;
+        position: inherit;
+
       }
     }
 
@@ -42,8 +53,11 @@
     }
 
     .ant-btn-div {
-      padding: 10px;
+      padding: 15px;
       padding-bottom: 40px;
+      .btn-edit{
+        height: 38px; 
+      }
     }
 
     .ant-btn {
@@ -52,6 +66,10 @@
       background-color: #570026;
       color: white;
       padding: 5px;
+      &:hover{
+        color: white;
+        border: none;
+      }
     }
   
 
@@ -60,8 +78,8 @@
   .edit-profile {
     padding-bottom: 40%;
     .store-ptag{
-      margin-left: 13%;
-      margin-right: 15%;
+      margin-left: 15%;
+      margin-right: 16.5%;
       background-color: #F2F2F2;
       text-align: left;
       color: #000000;
@@ -69,12 +87,14 @@
       height:0px;
       border-radius: 5px;
    .edit-card-label {
+    height:38px;
     color: #000000;
     font-size: 15px !important;
     background-color: #f2f2f2;
     border-color: #a9a9a9;
     padding: 5px;
     padding-left: 10%;
+    font-weight: 600;
    }
    .error {
     color: red;
@@ -101,12 +121,12 @@
     right: 0%;
     left: 0%;
     border: none;
-    height: 168px;
-    width: 73.5%;
-    margin-left: 13.2%;
+    height: 169px;
+    width: 68.5%;
+    margin-left: 15.2%;
     margin-top: 9.5%;
     margin-bottom: 50%;
-    margin-right: 27%;
+    margin-right: 27.3%;
     border-radius: 5px;
     opacity: 1;
     .camera-icon {
@@ -156,14 +176,60 @@
 
 
 .form-col {
-  padding-left: 10px;
-  padding-right: 20px;
+  padding-left: 2%;
+  padding-right: 4%;
 
   .right-Column-div {
     background-color: #fff !important;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0px 2px 6px #00000033;
+    border-radius: 5px;
+    .ant-form-item-control-input{
+      
+    }
+    .cancel-div{
+    .cancel-Button-div{
+      height: 38px;
 
+      .cancel-Button {
+        width: 200px;
+        height: 48px;
+        font-weight: 600;
+        font-size: 15px;
+        position: absolute;
+        left: 10%;
+        border: 1px solid #a9a9a9;
+        border-radius: 5px !important;
+        // border-height: 2px solid #a9a9a9;
+        &:hover{
+color: #222222;
+border-color: #a9a9a9;
+border-width: 2px solid #a9a9a9;
+
+        }
+      }
+      @media (max-width: 768px) {
+          .cancel-Button {
+            width: 76%;
+            position: absolute;
+            left: 13.5%;
+          }
+        }
+       
+      }
+    }
+    
+    .submit-Button-div{
+      height: 38px;
+      .submit-Button {
+        width: 200px;
+        height: 48px;
+        background-color: #570026;
+        color: white;
+        position: absolute;
+        right: 11%;
+      }
+  }
     .form-row {
       padding: 20px;
 
@@ -179,11 +245,7 @@
           font-size: 15px;
           position: absolute;
         }
-        @media (max-width: 768px) {
-          .cancel-Button {
-            width: 75%;
-          }
-        }
+        
       }
       .ant-select-selector {
         background: #f2f2f2;
@@ -199,10 +261,11 @@
           color: white;
           position: absolute;
           right: 0;
-          transform: translateY(-50%);
+          // transform: translateY(-50%);
         }
-        @media (max-width: 768px) {
+        @media (max-width: 425px) {
           .submit-Button {
+            // padding: ;
             width: 75%;
           }
         }
@@ -212,10 +275,22 @@
         .ant-select-single.ant-select-lg.ant-select-show-arrow .ant-select-selection-placeholder{
           z-index: 1;
         }
+        .ant-select-selector{
+          border-radius: 4px !important;
+          font-size: 14px;
+          color: #222222;
+          opacity: 0.8;
+          font-weight: 700;
+          margin-top: -8px;
+          .ant-select-selection-item {
+            font-weight: 800;
+          }
+        }
         label {
           font-size: 14px;
           color: #222222;
-          opacity: 1;
+          opacity: 0.8;
+          font-weight: 600;
           border: none !important;
         }
         Select {
@@ -223,18 +298,21 @@
           font-size: 14px;
           color: #222222;
           opacity: 1;
-          font-weight: 500;
+          font-weight: 600;
+          background: #F2F2F2;
+          border-radius: 5px !important;
+          border: none !important;
+          
         }
         input {
           font-size: 14px;
-          color: #222222;
-          opacity: 1;
-          font-weight: 500;
-          height: 48px;
-          background: #F2F2F2;
-          border-radius: 5px !important;
-          // margin-bottom: 10px !important;
-          border: none !important;
+            color: #222222;
+            font-weight: 600;
+            opacity: 0.7;
+            height: 48px;
+            background: #F2F2F2;
+            border-radius: 5px;
+            border: none !important;
         }
         .error {
           color: red;
@@ -247,8 +325,8 @@
           label {
             font-size: 14px;
             color: #222222;
-            opacity: 1;
-            font-weight: 500;
+            opacity: 0.8;
+            font-weight: 600;
             border: none !important;
           }
           .error {
@@ -258,8 +336,8 @@
           input {
             font-size: 14px;
             color: #222222;
-            font-weight: 500;
-            opacity: 1;
+            font-weight: 600;
+            opacity: 0.7;
             height: 48px;
             background: #F2F2F2;
             border-radius: 5px;
@@ -278,4 +356,147 @@ height: 48px;
 border: none !important;
 margin-bottom: 10px !important;
 padding-top: 5px !important;
+}
+.mobile-profile-col{
+  padding: 2%;
+  .ant-card {
+    box-shadow: 0px 2px 6px #00000033;
+    border-radius: 5px;
+    height: 188px;
+margin-right: 2%;
+    .img-col{
+      .img {
+        border-radius: 5px !important;
+        margin-left: 5%;
+        margin-top: 5%;
+        height: 168px;
+        width: 90%;
+        border-radius: 5px;
+      }
+    }
+    
+    .ant-card-body {
+      padding: 0px !important;
+    }
+
+  .card-profile-body{
+    .ant-card-meta {
+      margin-top: 25%;
+      text-align: center;
+      margin-bottom: 15%;
+    }
+
+    .ant-card-meta-title {
+      font-size: 18px;
+    }
+    .ant-button-div{
+      padding-left: 3%;
+    .ant-btn {
+      width: 95%;
+      height: 38px;
+      border-radius: 5px;
+      font-size: 14px;
+      background-color: #570026;
+      color: white;
+      text-align: center;
+    }
+    }
+  }
+  .edit-profile {
+    height: 188px;
+    .profile-img-div{
+    img{
+      position: absolute;
+      top: 0%;
+      right: 0%;
+      left: 0%;
+      border: none;
+      height: 168px;
+      width: 90%;
+      margin-left: 5%;
+      margin-top: 5%;
+      margin-bottom: 0 !important;
+      border-radius: 5px;
+      opacity: 1;
+    }
+  }
+  .user-img-logo-content {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    left: 0%;
+    border: none;
+    height: 168px;
+    width: 95%;
+    margin-left: 4%;
+    margin-top: 4%;
+    margin-bottom: 0 !important;
+    border-radius: 5px;
+    opacity: 1;
+    .camera-icon {
+      display: flex;
+      top: 0%;
+      position: absolute;
+      border: none;
+      height: 100%;
+      width: 100%;
+      background-color: #575757;
+      cursor: pointer;
+      opacity: 0.75;
+      border-radius: 5px;
+      justify-content: center;
+      align-items: center;
+
+      input {
+        display: none;
+        border: none;
+      }
+    }
+
+    .camera-icon-hide {
+      display: none;
+      border: none;
+    }
+
+    .profile-head {
+      height: 100%;
+      width: 100%;
+      border-radius: 5px;
+      border: none;
+      justify-content: center;
+      align-items: center;
+
+      .profile-loading {
+        width: 150px;
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+    }
+  }
+  }
+  .form-store{
+    padding-left: 5%;
+    margin-right: 5%;
+    height: 38px;
+  .ant-input{
+    height: 38px;
+    background-color: #F2F2F2;
+    border-color: #a9a9a9;
+    border-radius: 5px;
+  }
+  .form-storeName{
+    .edit-card-label{
+font-size: 15px;
+font-weight: 700;
+    }
+ .error {
+  color: red;
+}}
+}
+
+
+  }
 }
