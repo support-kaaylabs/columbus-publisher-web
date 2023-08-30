@@ -42,11 +42,11 @@ const MenuBar: React.FC = () => {
     setOpenKey([key[1]]);
   };
   const onClickHandler = (key: menuBarKeyType) => {
-    const selectionArr = ['management', 'metrics','analysis', 'selections'];
+    const selectionArr = ['management', 'metrics', 'analysis', 'selections'];
     const settingArr = ['profile', 'subscription', 'settings'];
-    if(selectionArr.includes(key.key)){
+    if (selectionArr.includes(key.key)) {
       setOpenKey(['selections']);
-    } else if(settingArr.includes(key.key)){
+    } else if (settingArr.includes(key.key)) {
       setOpenKey(['settings']);
     }
     else {
