@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './mobileMenuBar.scss';
-import { Link, Routes, Route } from 'react-router-dom';
-import { Layout, Menu, Button, Drawer } from 'antd';
+import { Link, Routes, Route, useNavigate } from 'react-router-dom';
+import { Layout, Menu, Button, Drawer, Card, Col, Row, Dropdown } from 'antd';
 import DashboardIcon from '../columbusImages/dashboard-icon.svg';
 import BenchMarkingIcon from '../columbusImages/benchmarking-icon.svg';
 import SelectionIcon from '../columbusImages/selections-icon.svg';
@@ -24,6 +24,8 @@ import Profile from '../settings/profile';
 import Subscription from '../settings/subscription';
 import Support from '../support/support';
 import Signup from '../loginPage/signup';
+import DarkCLogo from '../../assets/Smaller Logo Dark BG.svg';
+import defaultUser from '../../assets/defaultUser.png';
 
 const { Header, Content } = Layout;
 
@@ -31,6 +33,58 @@ const MobileMenuBar: React.FC = () => {
   const [dropdownSelected, setDropdownSelected] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false);
   const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
+  const [image, setImage] = useState('');
+  const [updateImage, setUpdateImage] = useState<number>(0);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const navigate = useNavigate();
+  const userName: string | null = window.localStorage.getItem('User_Name');
+  const userEmail: string | null = window.localStorage.getItem('User_Email');
+
+  useEffect(()=>{
+    const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
+    const imageUrl = userProfile === 'null' ? defaultUser : userProfile;
+    setImage(imageUrl);
+  }, [updateImage]);
+
+  const imageUpdate = ()=>{
+    setUpdateImage(updateImage + 1);
+  };
+
+  const logoutClick = () => {
+    const keysToRemove = ['Phone_Number', 'User_Email', 'User_Name', 'User_ID', 'User_Uid', 'User_Type', 'Image', 'token', 'Store_Nme', 'publisherLogin', 'menu_collapse', 'Login'];
+    keysToRemove.forEach(k =>
+      localStorage.removeItem(k));
+    window.location.href = '/';
+  };
+
+  const myProfileClick = ()=>{
+    navigate('/profile');
+  };
+
+  const menu = (
+    <Card className='profile-card' title={<img src={DarkCLogo} />} extra={<a onClick={logoutClick}>Sign out</a>}>
+      <Row>
+        <Col className='image-col'>
+          <img src={image} />
+        </Col>
+        <Col className='user-col'>
+          <div className='user-div'>
+            <div className='user-name'>{userName}</div>
+            <div className='user-email'>{userEmail}</div>
+            <div className='user-button-div'>
+              <a onClick={myProfileClick}>My Profile</a>
+            </div>
+          </div>
+        </Col>
+      </Row>
+    </Card>
+  );
+
+  const handleDropdownVisibleChange = () => {
+    setDropdownVisible(false);
+  };
+
+ 
 
   const onClose = () => {
     setOpen(false);
@@ -138,7 +192,14 @@ const MobileMenuBar: React.FC = () => {
           className='header-collapsed-button'
         />
         <div className='user-profile'>
-          <img src={userProfile} alt='user-profile' className='user-profile-img' />
+          <img src={userProfile} alt='user-profile' className='user-profile-img' onClick={() => setDropdownVisible(true)} />
+          <Dropdown
+            overlay={menu}
+            visible={dropdownVisible}
+            onVisibleChange={handleDropdownVisibleChange}
+          >
+            <span></span>
+          </Dropdown>
         </div>
       </Header>
       <Content
@@ -153,7 +214,7 @@ const MobileMenuBar: React.FC = () => {
           <Route path="/shoutout" element={<ShoutOut />} />
           <Route path="/knowledgeHub" element={<KnowledgeHub />} />
           <Route path="/support" element={<Support />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile updateImage={imageUpdate} />}/>
           <Route path="/subscription" element={<Subscription />} />
           <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
         </Routes>
