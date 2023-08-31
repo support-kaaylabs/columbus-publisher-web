@@ -279,20 +279,19 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
           userDetails: {
             User_Name: userName.trim(),
             Email_ID: email.trim(),
-            Phone_Number: phoneNumber.trim(),
+            Phone_Number: phoneNumber,
           },
           sellerDetails: {
             Store_Name: storeName.trim(),
-            GST_Number: gstNumber.trim(),
+            GST_Number: gstNumber,
             Country: selectedCountry ? selectedCountry.Country_Name : country,
             State: selectedState ? selectedState.State_Name : state,
             City: selectedCity ? selectedCity.City_Name : city,
-            Pincode: zipCode.trim(),
+            Pincode: zipCode,
             Country_Id: countryId,
             State_Id: stateId,
           }
         };
-
         if (!uniqueEmailErr && !uniquePhoneNumberErr && !emailValidErr) {
           updateSellerDetails({ userId }, params).then((res) => {
             if (res.success) {

@@ -244,7 +244,6 @@
     border-radius: 5px;
     position: absolute;
     top: 20%;
-    right: -10%;
     .ant-card-head-title{
       height: 42px;
       img{
@@ -277,14 +276,20 @@
       }
     }
     .user-col{
-      width: auto;
+      width: 170px;
       .user-div{
         padding-left: 30%;
         .user-name{
           font-weight: 700;
           font-size: 20px;
           color: #222222;
-        }
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;        }
+        .user-email{
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;        }
         .user-button-div{
           padding-top: 25%;
           color: #c20155;
@@ -298,22 +303,103 @@
       }
     }
   }
-  @media only screen and (max-width: 600px){
-    .ant-card {
-     height:100px;
-     width: 50px;
-    }
-  }
-  @media only screen and (max-width: 800px) and (min-width: 600px){
-    p {
-      margin-left: 5%;
-     }
-  }
-  @media only screen and (max-width: 1400px) and (min-width: 800px){
-    p {
-      margin-left: 3%;
-     }
-  }
+ 
 
 }
+}
+@media only screen and (max-width: 330px){
+  .ant-dropdown{
+width: 300px;;
+   .ant-card{
+    width: 300px;
+    position: absolute;
+    left: 2%;
+    .ant-card-head{
+      width: 300px;
+    }
+    .ant-card-body{
+      .user-col{
+        width: 100px;
+        .user-div{
+          // padding-left: 30%;
+          .user-name{
+            font-weight: 700;
+            font-size: 20px;
+            color: #222222;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; 
+                 }
+          .user-email{
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;        }
+          }}
+    }
+  }
+}
+}
+@media only screen and (max-width: 400px) and (min-width: 340px){
+  .ant-dropdown{
+    width: 400px;;
+       .ant-card{
+        width: 355px;
+        position: absolute;
+        top: 15%;
+        left: 7%;
+        .ant-card-head{
+          width: 355px;
+        }
+        .ant-card-body{
+          .user-col{
+            width: 150px;
+            .user-div{
+              .user-name{
+                font-weight: 700;
+                font-size: 20px;
+                color: #222222;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis; 
+                     }
+              .user-email{
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;        }
+              }}
+        }
+      }
+    }
+}
+@media only screen and (max-width: 700px) and (min-width: 400px){
+  .ant-dropdown{
+    width: 425px;
+       .ant-card{
+        width: 403px;
+        position: absolute;
+        top: 15%;
+        left: 6%;
+        .ant-card-head{
+          width: 403px;
+        }
+        .ant-card-body{
+          .user-col{
+            width: 150px;
+            .user-div{
+              .user-name{
+                font-weight: 700;
+                font-size: 20px;
+                color: #222222;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis; 
+                     }
+              .user-email{
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;        }
+              }}
+        }
+      }
+    }
 }
