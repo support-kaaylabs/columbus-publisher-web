@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './menuBar.scss';
 import { get } from 'lodash';
-import { Link, Routes, Route } from 'react-router-dom';
-import { Layout, Menu, Button } from 'antd';
+import { Link, Routes, Route, useNavigate} from 'react-router-dom';
+import { Layout, Menu, Button, Card, Col, Row, Dropdown } from 'antd';
 import DashboardIcon from '../columbusImages/dashboard-icon.svg';
 import BenchMarkingIcon from '../columbusImages/benchmarking-icon.svg';
 import SelectionIcon from '../columbusImages/selections-icon.svg';
@@ -27,6 +27,10 @@ import Profile from '../settings/profile';
 import Subscription from '../settings/subscription';
 import Support from '../support/support';
 import Signup from '../loginPage/signup';
+import DarkCLogo from '../../assets/Smaller Logo Dark BG.svg';
+import defaultUser from '../../assets/defaultUser.png';
+
+
 import DefaultUserImg from '../columbusImages/defaultUser.png';
 import { menuBarKeyType } from '../../shared/type';
 
@@ -35,6 +39,33 @@ const { Header, Sider, Content } = Layout;
 
 const MenuBar: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [image, setImage] = useState('');
+  const [updateImage, setUpdateImage] = useState<number>(0);
+  const navigate = useNavigate();
+  const userName: string | null = window.localStorage.getItem('User_Name');
+  const userEmail: string | null = window.localStorage.getItem('User_Email');
+
+  useEffect(()=>{
+    const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
+    const imageUrl = userProfile === 'null' ? defaultUser : userProfile;
+    setImage(imageUrl);
+  }, [updateImage]);
+
+  const imageUpdate = ()=>{
+    setUpdateImage(updateImage + 1);
+  };
+
+  const logoutClick = () => {
+    const keysToRemove = ['Phone_Number', 'User_Email', 'User_Name', 'User_ID', 'User_Uid', 'User_Type', 'Image', 'token', 'Store_Nme', 'publisherLogin', 'menu_collapse', 'Login'];
+    keysToRemove.forEach(k =>
+      localStorage.removeItem(k));
+    window.location.href = '/';
+  };
+
+  const myProfileClick = ()=>{
+    navigate('/profile');
+  };
   const [openKey, setOpenKey] = useState(['dashboard']);
   const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
   const imageUrl = get(userProfile, '', DefaultUserImg);
@@ -56,6 +87,29 @@ const MenuBar: React.FC = () => {
     else {
       setOpenKey([key.key]);
     }
+  };
+
+  const menu = (
+    <Card className='profile-card' title={<img src={DarkCLogo} />} extra={<a onClick={logoutClick}>Sign out</a>}>
+      <Row>
+        <Col className='image-col'>
+          <img src={image? image : defaultUser} />
+        </Col>
+        <Col className='user-col'>
+          <div className='user-div'>
+            <div className='user-name'>{userName}</div>
+            <div className='user-email'>{userEmail}</div>
+            <div className='user-button-div'>
+              <a onClick={myProfileClick}>My Profile</a>
+            </div>
+          </div>
+        </Col>
+      </Row>
+    </Card>
+  );
+
+  const handleDropdownVisibleChange = () => {
+    setDropdownVisible(false);
   };
 
   return (
@@ -153,7 +207,14 @@ const MenuBar: React.FC = () => {
             className='header-collapsed-button'
           />
           <div className='user-profile'>
-            <img src={imageUrl} alt='user-profile' className='user-profile-img' />
+            <img src={image} alt='user-profile' className='user-profile-img' onClick={() => setDropdownVisible(true)} />
+            <Dropdown
+              overlay={menu}
+              visible={dropdownVisible}
+              onVisibleChange={handleDropdownVisibleChange}
+            >
+              <span></span>
+            </Dropdown>
           </div>
         </Header>
         <Content
@@ -168,7 +229,7 @@ const MenuBar: React.FC = () => {
             <Route path="/shoutout" element={<ShoutOut />} />
             <Route path="/knowledgeHub" element={<KnowledgeHub />} />
             <Route path="/support" element={<Support />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<Profile updateImage={imageUpdate} />} />
             <Route path="/subscription" element={<Subscription />} />
             <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
           </Routes>
