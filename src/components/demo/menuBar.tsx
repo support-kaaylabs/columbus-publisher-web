@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './menuBar.scss';
-import { Link, Routes, Route, useNavigate} from 'react-router-dom';
+import { Link, Routes, Route, useNavigate } from 'react-router-dom';
 import { Layout, Menu, Button, Card, Col, Row, Dropdown } from 'antd';
 import DashboardIcon from '../columbusImages/dashboard-icon.svg';
 import BenchMarkingIcon from '../columbusImages/benchmarking-icon.svg';
@@ -43,17 +43,17 @@ const MenuBar: React.FC = () => {
   const userName: string | null = window.localStorage.getItem('User_Name');
   const userEmail: string | null = window.localStorage.getItem('User_Email');
 
-  useEffect(()=>{
+  useEffect(() => {
     const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
     const imageUrl = userProfile === 'null' ? defaultUser : userProfile;
     setImage(imageUrl);
   }, [updateImage, profileChange]);
 
-  const imageUpdate = ()=>{
+  const imageUpdate = () => {
     setUpdateImage(updateImage + 1);
   };
 
-  const editProfileChange = ()=>{
+  const editProfileChange = () => {
     setProfileChange(profileChange + 1);
   };
 
@@ -64,13 +64,13 @@ const MenuBar: React.FC = () => {
     window.location.href = '/';
   };
 
-  const myProfileClick = ()=>{
+  const myProfileClick = () => {
     navigate('/profile');
   };
   const [openKey, setOpenKey] = useState(['dashboard']);
   const currentKey = (window.location.href).split('/')[3];
   useEffect(() => {
-    if(currentKey === 'profile') setOpenKey(['settings']);
+    if (currentKey === 'profile') setOpenKey(['settings']);
   }, [currentKey]);
   const onOpenKeyHandler = (key: string[]) => {
     setOpenKey([key[1]]);
@@ -89,15 +89,19 @@ const MenuBar: React.FC = () => {
   };
 
   const profileCard = (
-    <Card className='profile-card' title={<img src={DarkCLogo} />} extra={<a onClick={logoutClick}>Sign out</a>}>
+    <Card className='profile-card' title={<img src={DarkCLogo} alt='img' />} extra={<a onClick={logoutClick}>Sign out</a>}>
       <Row>
-        <Col className='image-col'>
-          <img src={image? image : defaultUser} alt='img' />
+        <Col span={8} className='image-col'>
+          <div className='img-div'>
+            <img src={image ? image : defaultUser} alt='img' />
+          </div>
         </Col>
-        <Col className='user-col'>
+        <Col span={16} className='user-col'>
           <div className='user-div'>
-            <div className='user-name'>{userName}</div>
-            <div className='user-email'>{userEmail}</div>
+            <div className='user-detail'>
+              <div className='user-name'>{userName}</div>
+              <div className='user-email'>{userEmail}</div>
+            </div>
             <div className='user-button-div'>
               <a onClick={myProfileClick}>My Profile</a>
             </div>
@@ -224,7 +228,7 @@ const MenuBar: React.FC = () => {
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/benchmarking" element={<BenchMarking />} />
             <Route path="/management" element={<BenchMarking />} />
-            <Route path="/matrics" element={<BenchMarking />} />
+            <Route path="/metrics" element={<BenchMarking />} />
             <Route path="/analysis" element={<BenchMarking />} />
             <Route path="/shoutout" element={<BenchMarking />} />
             <Route path="/knowledgeHub" element={<BenchMarking />} />

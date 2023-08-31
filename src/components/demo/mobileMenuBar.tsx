@@ -71,7 +71,7 @@ const MobileMenuBar: React.FC = () => {
   };
 
   const profileCard = (
-    <Card className='profile-card' title={<img src={DarkCLogo} />} extra={<a onClick={logoutClick}>Sign out</a>}>
+    <Card className='profile-card' title={<img src={DarkCLogo} alt='img' />} extra={<a onClick={logoutClick}>Sign out</a>}>
       <Row>
         <Col className='image-col'>
           <img src={image} alt='img' />
@@ -223,7 +223,7 @@ const MobileMenuBar: React.FC = () => {
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/benchmarking" element={<BenchMarking />} />
           <Route path="/management" element={<BenchMarking />} />
-          <Route path="/matrics" element={<BenchMarking />} />
+          <Route path="/metrics" element={<BenchMarking />} />
           <Route path="/analysis" element={<BenchMarking />} />
           <Route path="/shoutout" element={<BenchMarking />} />
           <Route path="/knowledgeHub" element={<BenchMarking />} />

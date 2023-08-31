@@ -74,6 +74,10 @@
       .ant-spin-spinning {
         display: flex;
         position: absolute;
+
+        .ant-spin-dot-item {
+          background-color: #570026;
+        }
       }
     }
 
@@ -102,13 +106,14 @@
 
 @media screen and (min-width: 767px) {
   .dashboard {
-  padding: 20px 25px;
+    padding: 20px 25px;
   }
 }
 
 @media screen and (max-width: 767px) {
   .dashboard {
     padding: 30px 20px;
+
     .dashboard-chart {
       .chart-select {
         .select-div {
