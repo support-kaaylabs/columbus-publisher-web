@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './mobileMenuBar.scss';
 import { Link, Routes, Route } from 'react-router-dom';
 import { Layout, Menu, Button, Drawer } from 'antd';
@@ -34,7 +34,10 @@ const MobileMenuBar: React.FC = () => {
   const [openKey, setOpenKey] = useState(['dashboard']);
   const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
   const imageUrl = userProfile === 'null' ? DefaultUserImg : userProfile;
-  const currentKey = (window.location.href).split('/')[3];
+  const currentKey = (window.location.href).split('/')[3];  
+  useEffect(() => {
+    if(currentKey === 'profile') setOpenKey(['settings']);
+  }, [currentKey]);
   const onOpenKeyHandler = (key: string[]) => {
     setOpenKey([key[1]]);
   };
