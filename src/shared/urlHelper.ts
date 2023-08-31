@@ -55,3 +55,15 @@ export const getPublisherChartYearlyData = () => http.get('get-publisher-chart-y
 export const getPublisherChartMonthlyData = () => http.get('get-publisher-chart-monthly-data');
 
 export const getPublisherChartWeeklyData = () => http.get('get-publisher-chart-weekly-data');
+
+export const getSellerDetails = () => http.get('get-seller-details');
+
+export const updateSellerDetails = (userId: any, data: any) =>http.put(`update-seller-info/${userId}`, data);
+
+export const storeImageUpload = (userId: number, object: any, file: any) =>
+  http.handleMultipart(`Store-image-upload/${userId}`, object, file, 'PUT');
+
+export const email_verification = ( data: any) => http.post('email-verification', data);
+
+export const phone_verification = ( data: any) => http.post('phone-verification', data);
+

@@ -1,0 +1,194 @@
+.menubar-layout-mobile {
+
+  .menubar-laybout-sub-layout-header {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #FFFFFF;
+    width: 100%;
+    height: 61px;
+    padding: 0px 20px;
+    z-index: 1;
+
+    .header-collapsed-button {
+      padding: 0px;
+      width: unset;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        background: transparent;
+      }
+    }
+
+    .user-profile {
+      cursor: pointer;
+      width: 33px;
+      height: 33px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #F2F2F2;
+      border-radius: 4px;
+
+      .user-profile-img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .menubar-laybout-sub-layout-content {
+    background: #F2F2F2;
+    padding: 61px 0px 0px 0px;
+    min-height: 100vh;
+  }
+
+}
+
+.ant-drawer {
+  .ant-drawer-content-wrapper {
+    .ant-drawer-content {
+      .ant-drawer-wrapper-body {
+        .ant-drawer-body {
+          padding: 0px;
+          background: #570026;
+
+          .menubar-layout-sider-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0px;
+            cursor: pointer;
+          }
+
+          .menubar-sider-menu {
+            background: #570026;
+
+            .ant-menu-item {
+              height: 22px;
+              margin: 25px 0px;
+
+              &:active {
+                background: transparent;
+              }
+
+              &:hover {
+                background: transparent;
+              }
+
+              .menuBar-icons {
+                opacity: 0.6;
+              }
+
+              span {
+                margin-inline-start: 30px !important;
+              }
+            }
+
+            .selections-dropdown {
+              .ant-menu-sub {
+                height: 128px;
+
+                .select-border {
+                  position: absolute;
+                  top: 37px;
+                  left: 31px;
+                }
+              }
+            }
+
+            .settings-dropdown {
+              .ant-menu-sub {
+                height: 92px;
+
+                .select-border {
+                  position: absolute;
+                  top: 37px;
+                  left: 31px;
+                }
+              }
+            }
+
+            .ant-menu-submenu {
+              position: relative;
+
+              .ant-menu-submenu-title {
+                height: 22px;
+                margin-left: 0px;
+
+                &:active {
+                  background: transparent;
+                }
+
+                &:hover {
+                  background: transparent;
+                }
+
+                .menuBar-icons {
+                  opacity: 0.6;
+                }
+
+                span {
+                  margin-inline-start: 30px !important;
+                }
+              }
+
+              .ant-menu-sub {
+                background: #FFFFFF;
+                margin-top: 15px;
+
+                .ant-menu-item {
+                  border: none;
+                  font-size: 13px;
+                  color: #222222;
+                  margin: 15px 0px;
+                  padding-left: 26px !important;
+
+                  &:hover {
+                    background: transparent;
+                  }
+
+                }
+
+                .ant-menu-item-selected {
+                  color: #C20155;
+                }
+
+              }
+            }
+
+            .ant-menu-item-selected {
+              background: transparent;
+              border-radius: 0px;
+              border-left: 3px solid #FFFFFF;
+
+              .menuBar-icons {
+                opacity: 1;
+              }
+            }
+
+            .ant-menu-submenu-selected {
+              .ant-menu-submenu-title {
+                border-radius: 0px;
+                border-left: 3px solid #FFFFFF;
+
+                .menuBar-icons {
+                  opacity: 1;
+                }
+              }
+            }
+          }
+        }
+
+        .ant-drawer-header {
+          display: none;
+        }
+      }
+    }
+  }
+}

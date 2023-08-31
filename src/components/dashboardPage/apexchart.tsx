@@ -1,11 +1,10 @@
 
 import React, { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
-import { Tabs, Select } from 'antd';
 import { chartDataType, seriesType } from '../../shared/type';
-const { TabPane } = Tabs;
+import './apexchart.scss';
 
-const ApexChart: React.FC<chartDataType> = ({ viewDate, viewCount, clickCount, ctaCount, setChartMode, chartMode }) => {
+const ApexChart: React.FC<chartDataType> = ({ viewDate, viewCount, clickCount, ctaCount }) => {
   const [series] = useState<seriesType[]>([
     {
       name: 'Impressions',
@@ -48,27 +47,18 @@ const ApexChart: React.FC<chartDataType> = ({ viewDate, viewCount, clickCount, c
       horizontalAlign: 'left'
     },
   };
+  const pageWidth = window.innerWidth;
+  let wd;
+  if(pageWidth < 768) {    
+    wd = 600;
+  } else {
+    wd= '99%';
+  }
+  
   return (
-    <Tabs tabBarExtraContent={
-      <><p>Chart</p>
-        <Select
-          defaultValue={chartMode}
-          style={{ width: 140 }}
-          bordered={false}
-          onChange={(value) => setChartMode(value)}
-          options={[
-            { value: 'All', label: 'All' },
-            { value: 'Yearly', label: 'YTD' },
-            { value: 'Monthly', label: 'MTD' },
-            { value: 'Weekly', label: 'Weekly' },
-          ]} /></>
-    }>
-      <TabPane>
-        <div id="chart">
-          <ReactApexChart options={options as ApexCharts.ApexOptions} series={series} type="area" height={350} />
-        </div>
-      </TabPane>
-    </Tabs>
+    <div className='chart'>
+      <ReactApexChart options={options as ApexCharts.ApexOptions} series={series} type="area" height={350} width={wd} />
+    </div>
   );
 };
 

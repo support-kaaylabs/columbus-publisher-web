@@ -1,5 +1,4 @@
 
-
 export interface chartDataType {
   viewDate: string[];
   viewCount: string[];
@@ -7,8 +6,6 @@ export interface chartDataType {
   ctaCount: string[];
   loading?: boolean;
   collapsed?: boolean;
-  setChartMode?: any;
-  chartMode?: string;
 }
 
 export interface curValue {
@@ -30,14 +27,23 @@ export interface chartContainerDataType {
   clicksStartDate: string;
   ctaStartDate: string;
 }
-
-export interface dashboardPageType {
-  collapsed: boolean;
-}
-
 export interface respDataType {
   success: boolean;
   count: any;
   data: any[];
   user: string;
+}
+
+export interface chartSelectType {
+  setChartMode?: any;
+  chartMode?: string;
+}
+export interface currentKeyType {
+  currentKey: string;
+}
+
+export interface menuBarKeyType {
+  key: string;
+  keyPath: string[];
+  domEvent: any;
 }

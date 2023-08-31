@@ -1,0 +1,144 @@
+.chart {
+  font-family: 'Gilroy' !important;
+
+  .apexcharts-canvas {
+    .apexcharts-svg {
+      .apexcharts-yaxis {
+        .apexcharts-yaxis-texts-g {
+          .apexcharts-text {
+            font-family: 'Gilroy-medium';
+            font-size: 12px;
+            font-weight: bold;
+            color: #373D3F;
+          }
+        }
+      }
+
+      .apexcharts-inner {
+        .apexcharts-xaxis {
+          .apexcharts-xaxis-texts-g {
+            text {
+              font-family: 'Gilroy-medium';
+              font-size: 12px;
+              font-weight: bold;
+              color: #373D3F;
+            }
+          }
+        }
+      }
+    }
+
+    .apexcharts-tooltip {
+      .apexcharts-tooltip-title {
+        font-family: 'Gilroy-medium';
+        font-size: 12px;
+        font-weight: bold;
+        color: #373D3F;
+      }
+
+      .apexcharts-tooltip-series-group {
+        .apexcharts-tooltip-text {
+          .apexcharts-tooltip-y-group {
+            .apexcharts-tooltip-text-y-label {
+              font-family: 'Gilroy-medium';
+              font-size: 12px;
+              font-weight: 600;
+              color: #222222;
+            }
+
+            .apexcharts-tooltip-text-y-value {
+              font-family: 'Gilroy-medium';
+              font-size: 12px;
+              font-weight: bold;
+              color: #373D3F;
+            }
+          }
+        }
+      }
+    }
+
+    .apexcharts-xaxistooltip {
+      .apexcharts-xaxistooltip-text {}
+    }
+
+    .apexcharts-legend {
+      display: none;
+    }
+
+    .apexcharts-toolbar {
+      display: none;
+    }
+  }
+
+  .ant-tabs-content-holder {
+    padding: 0px 10px;
+
+    .ant-tabs-content {
+      .ant-tabs-tabpane {
+        .chart-container {
+          .apexcharts-canvas {
+            .apexcharts-svg {
+              .apexcharts-yaxis {
+                .apexcharts-yaxis-texts-g {
+                  .apexcharts-text {
+                    font-family: 'Gilroy-medium';
+                    font-size: 12px;
+                    font-weight: bold;
+                    color: #373D3F;
+                  }
+                }
+              }
+
+              .apexcharts-inner {
+                .apexcharts-xaxis {
+                  .apexcharts-xaxis-texts-g {
+                    text {
+                      font-family: 'Gilroy-medium';
+                      font-size: 12px;
+                      font-weight: bold;
+                      color: #373D3F;
+                    }
+                  }
+                }
+              }
+            }
+
+            .apexcharts-tooltip {
+              .apexcharts-tooltip-title {
+                font-family: 'Gilroy-medium';
+                font-size: 12px;
+                font-weight: bold;
+                color: #373D3F;
+              }
+
+              .apexcharts-tooltip-series-group {
+                .apexcharts-tooltip-text {
+                  .apexcharts-tooltip-y-group {
+                    .apexcharts-tooltip-text-y-label {
+                      font-family: 'Gilroy-medium';
+                      font-size: 12px;
+                      font-weight: 600;
+                      color: #222222;
+                    }
+
+                    .apexcharts-tooltip-text-y-value {
+                      font-family: 'Gilroy-medium';
+                      font-size: 12px;
+                      font-weight: bold;
+                      color: #373D3F;
+                    }
+                  }
+                }
+              }
+            }
+
+            .apexcharts-xaxistooltip {
+              .apexcharts-xaxistooltip-text {}
+            }
+
+          }
+        }
+      }
+    }
+  }
+}
