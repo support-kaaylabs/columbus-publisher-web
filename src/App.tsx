@@ -8,8 +8,8 @@ import MenuBar from './components/demo/menuBar';
 import MobileMenuBar from './components/demo/mobileMenuBar';
 
 const App: FC = () => {
-  const [loginVisible] = useState(window.localStorage.getItem('Login'));
-
+  const [loginVisible, setLoginVisible] = useState(false);  
+  const userSignIn = window.localStorage.getItem('User_ID');
 
   return (
     <ConfigProvider theme={{
@@ -17,7 +17,7 @@ const App: FC = () => {
         fontFamily: 'Gilroy-medium'
       }
     }}>
-      {loginVisible && (
+      {userSignIn && (
         <Row>
           <Col xs={0} sm={0} md={24} lg={24}>
             <MenuBar />
@@ -29,7 +29,7 @@ const App: FC = () => {
       )}
       {(!loginVisible) && (
         <Routes>
-          <Route path="/" element={<LoginPage signupValidate={false} />} />
+          <Route path="/" element={<LoginPage signupValidate={false} setLoginVisible={setLoginVisible} />} />
           <Route path="/reset-password/:id" element={<ResetPassword signupPageValidation={false} forgotPageValidation={false} />} />
         </Routes>
       )}
