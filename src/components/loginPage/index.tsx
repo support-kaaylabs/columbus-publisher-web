@@ -8,9 +8,10 @@ import Signup from './signup';
 import ForgotPassword from './ForgotPassword';
 interface Props {
   signupValidate: boolean;
+  setLoginVisible: any;
 }
 
-const LoginPage: FC<Props> = ({ signupValidate }) => {
+const LoginPage: FC<Props> = ({ signupValidate, setLoginVisible }) => {
   const [signup, setsignUp] = useState(false);
   const [forgot, setForgot] = useState(false);
 
@@ -55,6 +56,7 @@ const LoginPage: FC<Props> = ({ signupValidate }) => {
         }
         {!signupValidate && !signup && !forgot &&
           <Signin
+            setLoginVisible={setLoginVisible}
             signupPageValidation={signupPageValidation}
             forgotPageValidation={forgotPageValidation} />
         }
