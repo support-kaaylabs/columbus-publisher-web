@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './mobileMenuBar.scss';
+import { get } from 'lodash';
 import { Link, Routes, Route } from 'react-router-dom';
 import { Layout, Menu, Button, Drawer } from 'antd';
 import DashboardIcon from '../columbusImages/dashboard-icon.svg';
@@ -32,8 +33,8 @@ const { Header, Content } = Layout;
 const MobileMenuBar: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);  
   const [openKey, setOpenKey] = useState(['dashboard']);
-  const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
-  const imageUrl = userProfile === 'null' ? DefaultUserImg : userProfile;
+  const userProfile: string | null = window.localStorage.getItem('Image');
+  const imageUrl = get(userProfile, '', DefaultUserImg);
   const currentKey = (window.location.href).split('/')[3];  
   useEffect(() => {
     if(currentKey === 'profile') setOpenKey(['settings']);
