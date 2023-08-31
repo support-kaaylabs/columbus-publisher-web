@@ -1,14 +1,13 @@
 import React, { type FC } from 'react';
 import { Row, Col } from 'antd';
 import CommingSoon from '../../assets/Group 56838.svg';
+import './benchMarking.scss';
 
 const BenchMarking: FC = () => {
   return (
     <div>
       <Row>
-        <Col span={4} >
-        </Col>
-        <Col span={6} offset={5}>
+        <Col sm={24} md={24} xs={24} lg={24} xl={24} className='img-div'>
           <img src={CommingSoon} />
         </Col>
       </Row>

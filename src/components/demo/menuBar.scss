@@ -228,6 +228,7 @@
   width: 426px;
   height: 191px;
   padding: 0px !important;
+
   .ant-dropdown-menu-submenu .ant-dropdown-menu{
     padding: 0px !important;
   }
@@ -241,6 +242,9 @@
     width: 426px;
     height: 191px;
     border-radius: 5px;
+    position: absolute;
+    top: 20%;
+    right: -10%;
     .ant-card-head-title{
       height: 42px;
       img{
@@ -263,8 +267,8 @@
     border-bottom: 3px solid #F2F2F2;
     border-radius: 10px;
     justify-content: space-between;
-  }
-  .ant-card-body{
+    }
+    .ant-card-body{
     .image-col{
       img{
         height: 91px;
@@ -294,5 +298,22 @@
       }
     }
   }
+  @media only screen and (max-width: 600px){
+    .ant-card {
+     height:100px;
+     width: 50px;
+    }
+  }
+  @media only screen and (max-width: 800px) and (min-width: 600px){
+    p {
+      margin-left: 5%;
+     }
+  }
+  @media only screen and (max-width: 1400px) and (min-width: 800px){
+    p {
+      margin-left: 3%;
+     }
+  }
+
 }
 }

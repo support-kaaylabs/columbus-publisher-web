@@ -26,9 +26,10 @@ interface City {
 }
 
 interface ImageUpdate{
-  updateImage: any
+  updateImage: any;
+  editProfile: any;
 }
-const Profile: FC<ImageUpdate> = ({updateImage}) => {
+const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
   const [image, setImage] = useState<any>();
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
   const [selectedState, setSelectedState] = useState<State | null>(null);
@@ -65,7 +66,7 @@ const Profile: FC<ImageUpdate> = ({updateImage}) => {
   const [form] = Form.useForm();
 
   const handleEntityNameChange = (e: any) => {
-    setValues({ ...values, userName: e.target.value });
+    setValues({ ...values, userName: e.target.value.trim() });
   };
 
   const handleEditProfile = () => {
@@ -228,6 +229,8 @@ const Profile: FC<ImageUpdate> = ({updateImage}) => {
           localStorage.setItem('Image', `${data.response.Location}`);
           updateImage();
           setLoader(false);
+        }else{
+          errorNotification('You Can Only Upload JPG/PNG/JPEG/WEBP Images ');
         }
       });
     } else {
@@ -274,17 +277,17 @@ const Profile: FC<ImageUpdate> = ({updateImage}) => {
       phone_verification(phoneParams).then(() => {
         const params = {
           userDetails: {
-            User_Name: userName,
-            Email_ID: email,
-            Phone_Number: phoneNumber,
+            User_Name: userName.trim(),
+            Email_ID: email.trim(),
+            Phone_Number: phoneNumber.trim(),
           },
           sellerDetails: {
-            Store_Name: storeName,
-            GST_Number: gstNumber,
+            Store_Name: storeName.trim(),
+            GST_Number: gstNumber.trim(),
             Country: selectedCountry ? selectedCountry.Country_Name : country,
             State: selectedState ? selectedState.State_Name : state,
             City: selectedCity ? selectedCity.City_Name : city,
-            Pincode: zipCode,
+            Pincode: zipCode.trim(),
             Country_Id: countryId,
             State_Id: stateId,
           }
@@ -293,8 +296,12 @@ const Profile: FC<ImageUpdate> = ({updateImage}) => {
         if (!uniqueEmailErr && !uniquePhoneNumberErr && !emailValidErr) {
           updateSellerDetails({ userId }, params).then((res) => {
             if (res.success) {
-              setBtnLoading(false);
+              getSeller();
               successNotification('Updated Successfully');
+              localStorage.setItem('User_Name', `${userName}`);
+              localStorage.setItem('User_Email', `${email}`);
+              editProfile();
+              setBtnLoading(false);
               setEditClick(false);
             } else {
               setBtnLoading(false);
@@ -322,10 +329,7 @@ const Profile: FC<ImageUpdate> = ({updateImage}) => {
   };
   return (
     <>
-      {loader && (
-        <div className='loader'><Spin /></div>
-      )}
-      {!loader && (
+      {!loader? (
         <div>
           <div className='text-div'>
             {editClick ? (<p>Edit Profile</p>) : (<p>Profile</p>)}
@@ -628,12 +632,11 @@ const Profile: FC<ImageUpdate> = ({updateImage}) => {
                             },
                           ]}>
                           <Select
-                            style={{ marginTop: '-2%' }}
+                            style={{ marginTop: '-2%'}}
                             placeholder="Select City"
                             showSearch
                             onChange={handleCityChange}
                             onSearch={(e) => getCities(e)}
-                            // disabled={!selectedState}
                             disabled={editClick  ? false : true}
                             optionFilterProp="children"
                           >
@@ -691,7 +694,10 @@ const Profile: FC<ImageUpdate> = ({updateImage}) => {
             </Col>
           </Row>
         </div>
-      )}
+      ):(
+        <Spin  className='spin-Loading' size="large" style={{alignSelf: 'center'}}/>
+      )
+      }
     </>
   );
 };

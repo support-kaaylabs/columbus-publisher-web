@@ -38,6 +38,7 @@ const MenuBar: React.FC = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [image, setImage] = useState('');
   const [updateImage, setUpdateImage] = useState<number>(0);
+  const [profileChange, setProfileChange] = useState<number>(0);
   const navigate = useNavigate();
   const userName: string | null = window.localStorage.getItem('User_Name');
   const userEmail: string | null = window.localStorage.getItem('User_Email');
@@ -46,10 +47,14 @@ const MenuBar: React.FC = () => {
     const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
     const imageUrl = userProfile === 'null' ? defaultUser : userProfile;
     setImage(imageUrl);
-  }, [updateImage]);
+  }, [updateImage, profileChange]);
 
   const imageUpdate = ()=>{
     setUpdateImage(updateImage + 1);
+  };
+
+  const editProfileChange = ()=>{
+    setProfileChange(profileChange + 1);
   };
 
   const logoutClick = () => {
@@ -83,8 +88,8 @@ const MenuBar: React.FC = () => {
     }
   };
 
-  const menu = (
-    <Card className='profile-card' title={<img src={DarkCLogo} alt='img' />} extra={<a onClick={logoutClick}>Sign out</a>}>
+  const profileCard = (
+    <Card className='profile-card' title={<img src={DarkCLogo} />} extra={<a onClick={logoutClick}>Sign out</a>}>
       <Row>
         <Col className='image-col'>
           <img src={image? image : defaultUser} alt='img' />
@@ -100,6 +105,7 @@ const MenuBar: React.FC = () => {
         </Col>
       </Row>
     </Card>
+
   );
 
   const handleDropdownVisibleChange = () => {
@@ -203,7 +209,7 @@ const MenuBar: React.FC = () => {
           <div className='user-profile'>
             <img src={image} alt='user-profile' className='user-profile-img' onClick={() => setDropdownVisible(true)} />
             <Dropdown
-              overlay={menu}
+              overlay={profileCard}
               visible={dropdownVisible}
               onVisibleChange={handleDropdownVisibleChange}
             >
@@ -223,7 +229,7 @@ const MenuBar: React.FC = () => {
             <Route path="/shoutout" element={<ShoutOut />} />
             <Route path="/knowledgeHub" element={<KnowledgeHub />} />
             <Route path="/support" element={<Support />} />
-            <Route path="/profile" element={<Profile updateImage={imageUpdate} />} />
+            <Route path="/profile" element={<Profile updateImage={imageUpdate} editProfile={editProfileChange} />} />
             <Route path="/subscription" element={<Subscription />} />
             <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
           </Routes>

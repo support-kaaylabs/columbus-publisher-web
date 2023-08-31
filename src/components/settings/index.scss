@@ -1,13 +1,50 @@
+.img-div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  img{
+    height:476px;
+  }
+  @media only screen and (max-width: 600px){
+    img{
+      width: 189px;
+    }
+  }
+}
+
 .text-div {
   p {
     margin-left: 2%;
-    padding-top: 15px;
     color: #000000;
     font-weight: 600;
     font-size: 20px;
   }
-}
+  @media only screen and (max-width: 600px){
+    p {
+     margin-left: 5%;
+    }
+  }
+  @media only screen and (max-width: 800px) and (min-width: 600px){
+    p {
+      margin-left: 5%;
+     }
+  }
+  @media only screen and (max-width: 1400px) and (min-width: 800px){
+    p {
+      margin-left: 3%;
+     }
+  }
+    
+  }
 
+.spin-Loading {
+  .ant-spin-dot {
+    position: absolute !important;
+    top: 30%;
+    left: 55%;
+  }
+}
 .profile-col {
   padding-left: 2%;
   // padding-right: 20px;
@@ -177,6 +214,39 @@
     box-shadow: 0px 2px 6px #00000033;
     border-radius: 5px;
     .cancel-div{
+      .submit-Button-div{
+        height: 38px;
+        .submit-Button {
+          width: 200px;
+          height: 48px;
+          background-color: #570026;
+          color: white;
+          position: absolute;
+          right: 11%;
+        }
+         @media only screen and (max-width: 600px){
+          .submit-Button {
+            width: 80%;
+            position: absolute;
+            left: 11%;
+          }
+        }
+        @media only screen and (max-width: 800px) and (min-width: 600px){
+          .submit-Button {
+            width: 75.5%;
+            position: absolute;
+            right: 15%;
+          }
+        }
+        @media only screen and (max-width: 1400px) and (min-width: 800px){
+          .submit-Button {
+            width: 75.5%;
+            position: absolute;
+            right: 15%;
+          }
+        }
+        
+    }
     .cancel-Button-div{
       height: 38px;
 
@@ -189,7 +259,6 @@
         left: 10%;
         border: 1px solid #a9a9a9;
         border-radius: 5px !important;
-        // border-height: 2px solid #a9a9a9;
         &:hover{
 color: #222222;
 border-color: #a9a9a9;
@@ -197,28 +266,32 @@ border-width: 2px solid #a9a9a9;
 
         }
       }
-      @media (max-width: 768px) {
+      @media only screen and (max-width: 600px){
           .cancel-Button {
-            width: 76%;
+            width: 80%;
             position: absolute;
-            left: 13.5%;
+            left: 11%;
+          }
+        }
+        @media only screen and (max-width: 800px) and (min-width: 600px){
+          .cancel-Button {
+            width: 75.5%;
+            position: absolute;
+            left: 17%;
+          }
+        }
+        @media only screen and (max-width: 1400px) and (min-width: 800px){
+          .cancel-Button {
+            width: 75.5%;
+            position: absolute;
+            left: 15%;
           }
         }
        
       }
     }
     
-    .submit-Button-div{
-      height: 38px;
-      .submit-Button {
-        width: 200px;
-        height: 48px;
-        background-color: #570026;
-        color: white;
-        position: absolute;
-        right: 11%;
-      }
-  }
+    
     .form-row {
       padding: 20px;
 
@@ -244,19 +317,13 @@ border-width: 2px solid #a9a9a9;
         padding-top: 10%;
         align-items: right;
         .submit-Button {
-          width: 200px;
+          width: 50%;
           height: 48px;
           background-color: #570026;
           color: white;
           position: absolute;
           right: 0;
           // transform: translateY(-50%);
-        }
-        @media (max-width: 425px) {
-          .submit-Button {
-            // padding: ;
-            width: 75%;
-          }
         }
       }
       .form-item-select {
@@ -274,6 +341,7 @@ border-width: 2px solid #a9a9a9;
           .ant-select-selection-item {
             font-weight: 800;
           }
+          
         }
         label {
           font-size: 14px;
@@ -348,6 +416,7 @@ padding-top: 5px !important;
 }
 .mobile-profile-col{
   padding: 2%;
+  // padding-left: 2%;
   .ant-card {
     box-shadow: 0px 2px 6px #00000033;
     border-radius: 5px;
