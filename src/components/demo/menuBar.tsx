@@ -28,9 +28,6 @@ import Support from '../support/support';
 import Signup from '../loginPage/signup';
 import DarkCLogo from '../../assets/Smaller Logo Dark BG.svg';
 import defaultUser from '../../assets/defaultUser.png';
-
-
-import DefaultUserImg from '../columbusImages/defaultUser.png';
 import { menuBarKeyType } from '../../shared/type';
 
 const { Header, Sider, Content } = Layout;
@@ -71,9 +68,10 @@ const MenuBar: React.FC = () => {
     navigate('/profile');
   };
   const [openKey, setOpenKey] = useState(['dashboard']);
-  const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
-  const imageUrl = userProfile === 'null' ? DefaultUserImg : userProfile;
   const currentKey = (window.location.href).split('/')[3];
+  useEffect(() => {
+    if(currentKey === 'profile') setOpenKey(['settings']);
+  }, [currentKey]);
   const onOpenKeyHandler = (key: string[]) => {
     setOpenKey([key[1]]);
   };
@@ -94,7 +92,7 @@ const MenuBar: React.FC = () => {
     <Card className='profile-card' title={<img src={DarkCLogo} />} extra={<a onClick={logoutClick}>Sign out</a>}>
       <Row>
         <Col className='image-col'>
-          <img src={image? image : defaultUser} />
+          <img src={image? image : defaultUser} alt='img' />
         </Col>
         <Col className='user-col'>
           <div className='user-div'>
