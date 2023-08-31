@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './mobileMenuBar.scss';
-import { get } from 'lodash';
 import { Link, Routes, Route, useNavigate } from 'react-router-dom';
 import { Layout, Menu, Button, Drawer, Card, Col, Row, Dropdown } from 'antd';
 import DashboardIcon from '../columbusImages/dashboard-icon.svg';
@@ -27,7 +26,6 @@ import Support from '../support/support';
 import Signup from '../loginPage/signup';
 import DarkCLogo from '../../assets/Smaller Logo Dark BG.svg';
 import defaultUser from '../../assets/defaultUser.png';
-import DefaultUserImg from '../columbusImages/defaultUser.png';
 import { menuBarKeyType } from '../../shared/type';
 
 const { Header, Content } = Layout;
@@ -35,8 +33,6 @@ const { Header, Content } = Layout;
 const MobileMenuBar: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);  
   const [openKey, setOpenKey] = useState(['dashboard']);
-  const userProfile: string | null = window.localStorage.getItem('Image');
-  const imageUrl = get(userProfile, '', DefaultUserImg);
   const currentKey = (window.location.href).split('/')[3];  
   useEffect(() => {
     if(currentKey === 'profile') setOpenKey(['settings']);
@@ -70,10 +66,10 @@ const MobileMenuBar: React.FC = () => {
   };
 
   const menu = (
-    <Card className='profile-card' title={<img src={DarkCLogo} />} extra={<a onClick={logoutClick}>Sign out</a>}>
+    <Card className='profile-card' title={<img src={DarkCLogo} alt='img' />} extra={<a onClick={logoutClick}>Sign out</a>}>
       <Row>
         <Col className='image-col'>
-          <img src={image} />
+          <img src={image} alt='img' />
         </Col>
         <Col className='user-col'>
           <div className='user-div'>
@@ -205,7 +201,7 @@ const MobileMenuBar: React.FC = () => {
           className='header-collapsed-button'
         />
         <div className='user-profile'>
-          <img src={userProfile} alt='user-profile' className='user-profile-img' onClick={() => setDropdownVisible(true)} />
+          <img src={image} alt='user-profile' className='user-profile-img' onClick={() => setDropdownVisible(true)} />
           <Dropdown
             overlay={menu}
             visible={dropdownVisible}
