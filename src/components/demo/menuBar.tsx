@@ -223,14 +223,14 @@ const MenuBar: React.FC = () => {
           <Routes>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/benchmarking" element={<BenchMarking />} />
-            <Route path="/management" element={<Management />} />
-            <Route path="/metrics" element={<Matrics />} />
-            <Route path="/analysis" element={<Analysis />} />
-            <Route path="/shoutout" element={<ShoutOut />} />
-            <Route path="/knowledgeHub" element={<KnowledgeHub />} />
-            <Route path="/support" element={<Support />} />
+            <Route path="/management" element={<BenchMarking />} />
+            <Route path="/matrics" element={<BenchMarking />} />
+            <Route path="/analysis" element={<BenchMarking />} />
+            <Route path="/shoutout" element={<BenchMarking />} />
+            <Route path="/knowledgeHub" element={<BenchMarking />} />
+            <Route path="/support" element={<BenchMarking />} />
             <Route path="/profile" element={<Profile updateImage={imageUpdate} editProfile={editProfileChange} />} />
-            <Route path="/subscription" element={<Subscription />} />
+            <Route path="/subscription" element={<BenchMarking />} />
             <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
           </Routes>
         </Content>
