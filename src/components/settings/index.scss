@@ -411,6 +411,9 @@
     }
   }
 }
+.ant-select {
+  display: block;
+}
 .ant-select .ant-select-lg .ant-select-in-form-item, .ant-select-selector{
 background-color: #8a1616;
 height: 48px;
@@ -441,6 +444,9 @@ margin-right: 4%;
     
     .ant-card-body {
       padding: 0px !important;
+      .ant-row {
+        flex-flow: unset;
+      }
     }
 
   .card-profile-body{
