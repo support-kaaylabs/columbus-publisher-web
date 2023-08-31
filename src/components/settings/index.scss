@@ -39,6 +39,10 @@
   }
 
 .spin-Loading {
+  
+  .ant-spin-dot-item {
+    background-color: #570026;
+  }
   .ant-spin-dot {
     position: absolute !important;
     top: 30%;
