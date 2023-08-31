@@ -6,8 +6,9 @@ import { errorNotification } from '../../shared/globalVariables';
 interface signinProps {
   signupPageValidation: any;
   forgotPageValidation: any;
+  setLoginVisible: any;
 }
-const Signin: FC<signinProps> = ({ signupPageValidation, forgotPageValidation }) => {
+const Signin: FC<signinProps> = ({ signupPageValidation, forgotPageValidation, setLoginVisible }) => {
   const navigate = useNavigate();
   const [emailId, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -59,6 +60,7 @@ const Signin: FC<signinProps> = ({ signupPageValidation, forgotPageValidation })
           localStorage.setItem('menu_collapse', typeof false);
           localStorage.setItem('Login', 'true');
           navigate('/dashboard');
+          setLoginVisible(true);
         })
         .catch(() => {
           errorNotification('Please Enter valid Email and Password');
