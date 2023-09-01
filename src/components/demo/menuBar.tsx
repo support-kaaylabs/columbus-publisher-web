@@ -39,6 +39,7 @@ const MenuBar: React.FC = () => {
   const [image, setImage] = useState('');
   const [updateImage, setUpdateImage] = useState<number>(0);
   const [profileChange, setProfileChange] = useState<number>(0);
+  const [profileClr, setProfileClr] = useState<boolean>(false);
   const navigate = useNavigate();
   const userName: string | null = window.localStorage.getItem('User_Name');
   const userEmail: string | null = window.localStorage.getItem('User_Email');
@@ -70,7 +71,15 @@ const MenuBar: React.FC = () => {
   const [openKey, setOpenKey] = useState(['dashboard']);
   const currentKey = (window.location.href).split('/')[3];
   useEffect(() => {
-    if (currentKey === 'profile') setOpenKey(['settings']);
+    if (!(openKey[0] === 'settings')) { 
+      if (currentKey === 'profile') setProfileClr(true);
+    }
+    else {      
+      setProfileClr(false);
+    }
+    if (currentKey === 'profile') {
+      setOpenKey(['settings']);
+    }
   }, [currentKey]);
   const onOpenKeyHandler = (key: string[]) => {
     setOpenKey([key[1]]);
@@ -89,27 +98,26 @@ const MenuBar: React.FC = () => {
   };
 
   const profileCard = (
-    <Card className='profile-card' title={<img src={DarkCLogo} alt='img' />} extra={<a onClick={logoutClick}>Sign out</a>}>
+    <Card className='profile-dropdown-web' title={<img src={DarkCLogo} alt='img' />} extra={<a onClick={logoutClick}>Sign out</a>}>
       <Row>
-        <Col span={8} className='image-col'>
-          <div className='img-div'>
+        <Col span={8} className='img-col'>
+          <div className='img-col-div'>
             <img src={image ? image : defaultUser} alt='img' />
           </div>
         </Col>
         <Col span={16} className='user-col'>
-          <div className='user-div'>
+          <div className='user-col-div'>
             <div className='user-detail'>
               <div className='user-name'>{userName}</div>
               <div className='user-email'>{userEmail}</div>
             </div>
-            <div className='user-button-div'>
+            <div className='user-profile-button'>
               <a onClick={myProfileClick}>My Profile</a>
             </div>
           </div>
         </Col>
       </Row>
     </Card>
-
   );
 
   const handleDropdownVisibleChange = () => {
@@ -181,6 +189,7 @@ const MenuBar: React.FC = () => {
           <Menu.SubMenu key='settings' title='Settings' icon={<img src={SettingsIcon} alt='settings-icon' className='menuBar-icons' />} className='settings-dropdown'>
             <Menu.Item
               key='profile'
+              className={profileClr ? 'profile-text': ''}
             >
               <Link to='/profile' />
               Profile
@@ -216,9 +225,7 @@ const MenuBar: React.FC = () => {
               overlay={profileCard}
               visible={dropdownVisible}
               onVisibleChange={handleDropdownVisibleChange}
-            >
-              <span></span>
-            </Dropdown>
+            ><span /></Dropdown>
           </div>
         </Header>
         <Content
