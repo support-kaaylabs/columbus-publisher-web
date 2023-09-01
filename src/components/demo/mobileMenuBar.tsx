@@ -31,31 +31,43 @@ import { menuBarKeyType } from '../../shared/type';
 const { Header, Content } = Layout;
 
 const MobileMenuBar: React.FC = () => {
-  const [open, setOpen] = useState<boolean>(false);  
+  const [open, setOpen] = useState<boolean>(false);
   const [openKey, setOpenKey] = useState(['dashboard']);
-  const currentKey = (window.location.href).split('/')[3];  
+  const currentKey = (window.location.href).split('/')[3];
   useEffect(() => {
-    if(currentKey === 'profile') setOpenKey(['settings']);
+    if (currentKey === 'profile') setOpenKey(['settings']);
   }, [currentKey]);
   const [image, setImage] = useState('');
   const [updateImage, setUpdateImage] = useState<number>(0);
   const [profileChange, setProfileChange] = useState<number>(0);
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [profileClr, setProfileClr] = useState<boolean>(false);
   const navigate = useNavigate();
   const userName: string | null = window.localStorage.getItem('User_Name');
   const userEmail: string | null = window.localStorage.getItem('User_Email');
 
-  useEffect(()=>{
+  useEffect(() => {
+    if (!(openKey[0] === 'settings')) { 
+      if (currentKey === 'profile') setProfileClr(true);
+    }
+    else {      
+      setProfileClr(false);
+    }
+    if (currentKey === 'profile') {
+      setOpenKey(['settings']);
+    }
+  }, [currentKey]);
+  useEffect(() => {
     const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
     const imageUrl = userProfile === 'null' ? defaultUser : userProfile;
     setImage(imageUrl);
   }, [updateImage, profileChange]);
 
-  const imageUpdate = ()=>{
+  const imageUpdate = () => {
     setUpdateImage(updateImage + 1);
   };
 
-  const editProfileChange = ()=>{
+  const editProfileChange = () => {
     setProfileChange(profileChange + 1);
   };
 
@@ -66,21 +78,25 @@ const MobileMenuBar: React.FC = () => {
     window.location.href = '/';
   };
 
-  const myProfileClick = ()=>{
+  const myProfileClick = () => {
     navigate('/profile');
   };
 
   const profileCard = (
-    <Card className='profile-card' title={<img src={DarkCLogo} alt='img' />} extra={<a onClick={logoutClick}>Sign out</a>}>
+    <Card className='profile-dropdown-mobile' title={<img src={DarkCLogo} alt='img' />} extra={<a onClick={logoutClick}>Sign out</a>}>
       <Row>
-        <Col className='image-col'>
-          <img src={image} alt='img' />
+        <Col span={8} className='img-col'>
+          <div className='img-col-div'>
+            <img src={image ? image : defaultUser} alt='img' />
+          </div>
         </Col>
-        <Col className='user-col'>
-          <div className='user-div'>
-            <div className='user-name'>{userName}</div>
-            <div className='user-email'>{userEmail}</div>
-            <div className='user-button-div'>
+        <Col span={16} className='user-col'>
+          <div className='user-col-div'>
+            <div className='user-detail'>
+              <div className='user-name'>{userName}</div>
+              <div className='user-email'>{userEmail}</div>
+            </div>
+            <div className='user-profile-button'>
               <a onClick={myProfileClick}>My Profile</a>
             </div>
           </div>
@@ -96,11 +112,11 @@ const MobileMenuBar: React.FC = () => {
     setOpenKey([key[1]]);
   };
   const onClickHandler = (key: menuBarKeyType) => {
-    const selectionArr = ['management', 'metrics','analysis', 'selections'];
+    const selectionArr = ['management', 'metrics', 'analysis', 'selections'];
     const settingArr = ['profile', 'subscription', 'settings'];
-    if(selectionArr.includes(key.key)){
+    if (selectionArr.includes(key.key)) {
       setOpenKey(['selections']);
-    } else if(settingArr.includes(key.key)){
+    } else if (settingArr.includes(key.key)) {
       setOpenKey(['settings']);
     }
     else {
@@ -177,6 +193,7 @@ const MobileMenuBar: React.FC = () => {
           <Menu.SubMenu key='settings' title='Settings' icon={<img src={SettingsIcon} alt='settings-icon' className='menuBar-icons' />} className='settings-dropdown'>
             <Menu.Item
               key='profile'
+              className={profileClr ? 'profile-text': ''}
             >
               <Link to='/profile' />
               Profile
@@ -207,13 +224,15 @@ const MobileMenuBar: React.FC = () => {
         />
         <div className='user-profile'>
           <img src={image} alt='user-profile' className='user-profile-img' onClick={() => setDropdownVisible(true)} />
-          <Dropdown
-            overlay={profileCard}
-            visible={dropdownVisible}
-            onVisibleChange={handleDropdownVisibleChange}
-          >
-            <span></span>
-          </Dropdown>
+          <div className='dropdown-mobile-responsive'>
+            <Dropdown
+              overlay={profileCard}
+              visible={dropdownVisible}
+              onVisibleChange={handleDropdownVisibleChange}
+            >
+              <span />
+            </Dropdown>
+          </div>
         </div>
       </Header>
       <Content
@@ -228,7 +247,7 @@ const MobileMenuBar: React.FC = () => {
           <Route path="/shoutout" element={<BenchMarking />} />
           <Route path="/knowledgeHub" element={<BenchMarking />} />
           <Route path="/support" element={<BenchMarking />} />
-          <Route path="/profile" element={<Profile updateImage={imageUpdate} editProfile={editProfileChange} />}/>
+          <Route path="/profile" element={<Profile updateImage={imageUpdate} editProfile={editProfileChange} />} />
           <Route path="/subscription" element={<BenchMarking />} />
           <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
         </Routes>
