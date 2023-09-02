@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import Signin from './signin';
 import Signup from './signup';
 import ForgotPassword from './ForgotPassword';
+import mobLogo from '../columbusImages/menuBar-Small-Logo.svg';
+
 interface Props {
   signupValidate: boolean;
   setLoginVisible: any;
@@ -48,19 +50,29 @@ const LoginPage: FC<Props> = ({ signupValidate, setLoginVisible }) => {
         </Row>
       </Col>
       <Col xs={24} sm={24} md={12} lg={12} xl={12} className='login-right'>
-        {signup &&
+        <Row>
+          <Col sm={24} xs={24} md={0} lg={0}>
+            <div className='login-div'>
+              <div className='mobile-login-logo'><img src={mobLogo} alt='mob-logo'/></div>
+              <p className='login-main-title'>Welcome to Columbus</p>
+              <p className='login-sub-title'>&quot; The Discovery Platform &quot;</p>
+            </div>
+          </Col>
+          <Col sm={24} xs={24} md={24} lg={24}>
+            {signup &&
           <Signup signupPageValidation={signupPageValidation} forgotPageValidation={forgotPageValidation} />
-        }
-        {forgot &&
+            }
+            {forgot &&
           <ForgotPassword signupPageValidation={signupPageValidation} forgotPageValidation={forgotPageValidation}  />
-        }
-        {!signupValidate && !signup && !forgot &&
+            }
+            {!signupValidate && !signup && !forgot &&
           <Signin
             setLoginVisible={setLoginVisible}
             signupPageValidation={signupPageValidation}
             forgotPageValidation={forgotPageValidation} />
-        }
-
+            }
+          </Col>
+        </Row>
       </Col>
     </Row>
   );
