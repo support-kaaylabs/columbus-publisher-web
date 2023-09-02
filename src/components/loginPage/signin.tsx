@@ -73,15 +73,6 @@ const Signin: FC<signinProps> = ({ signupPageValidation, forgotPageValidation, s
   const subTitleLabel = 'The Discovery Platform';
   return (
     <div>
-      {/* <Row> */}
-      {/* <Col sm={24} xs={24} md={0} lg={0}>
-          <div className='login-div'>
-            <div className='mobile-login-logo'><img src={mobLogo} alt='mob-logo'/></div>
-            <div className='login-main-title'>Welcome to Columbus</div>
-            <div className='login-sub-title'>&quot;{subTitleLabel}&quot;</div>
-          </div>
-        </Col> */}
-      {/* <Col sm={24} xs={24} md={24} lg={24} > */}
       <div className='signin-div'>
         <Form
           name="basic"

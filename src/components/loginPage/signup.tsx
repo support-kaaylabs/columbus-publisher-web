@@ -893,9 +893,13 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                 <div className='prev-btn-div'>
                   {current > 0 && (
                     current < 3 && (
-                      <div className='left-align'><Button className={current === 2 ? 'prev-button-current2' : 'prev-button'} onClick={() => prev()}>
-                        <img src={frontArrow} alt='front-arrow' />
-                      </Button></div>
+                      current === 2 ? 
+                        <div className='left-align'><div className='prev-button-current2'><Button  className='prev' onClick={() => prev()}>
+                          <img src={frontArrow} alt='front-arrow' />
+                        </Button></div></div> :
+                        <div className='left-alignment'><div className='prev-button'><Button className='prev' onClick={() => prev()}>
+                          <img src={frontArrow} alt='front-arrow' />
+                        </Button></div></div>
                     )
                   )}
                 </div>
@@ -911,7 +915,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                         <div className='right-align-btn'><Button className='next-button-current1' onClick={onNextClick}><div className='button-div'><span>Next </span><div className='backArrow'><img src={backArrow} alt='back-arrow' /></div></div></Button></div>
                       </Form.Item> :
                       <Form.Item>
-                        <div>
+                        <div className='signup-btn-div'>
                           <Button
                             htmlType="submit"
                             className='signup-button' loading={btnLoading}>Sign Up</Button>

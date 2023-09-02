@@ -348,8 +348,10 @@
                         margin-left: 10px;
                         border: none;
                         opacity: 1;
-
-                        img {
+                        .button-div{
+                            display: flex;
+                            flex-direction: row;
+                            img {
                             height: 18px;
                             width: 15px;
                         }
@@ -357,6 +359,8 @@
                         span {
                             padding-left: 14px;
                         }
+                        }
+                        
                     }
 
                     .image-div {
@@ -367,6 +371,7 @@
                         color: transparent;
                         background-color: transparent;
                         border: none;
+                       
                     }
                 }
             }
@@ -387,6 +392,10 @@
             border-radius: 5px;
             color: #FFFFFF;
             font-weight: 700;
+            &:hover{
+                background-color: #570026;
+                color: #FFFFFF;
+            }
         }
 
         .payment {
@@ -493,7 +502,7 @@
 
             .steps-div {
                 .steps {
-                    padding-top: 5%;
+                    padding-top: 10%;
                     color: #222222;
                     font-size: 14px;
                     font-weight: 700;
@@ -503,6 +512,7 @@
                 }
 
                 .steps-current2 {
+                    padding-top: 10%;
                     margin-top: 200px;
                     font-size: 14px;
                     color: #222222;
@@ -513,41 +523,48 @@
             }
 
             .prev-btn-div {
-                margin-left: 30%;
                 .left-align{
-                    display: flex;
-                    justify-content: center !important;
-                .prev-button {
+                    position: absolute;
+                    bottom: 0;
+                   
+                    .prev-button-current2 {
+                        height: 48px;
+                        width: 48px;
+                        border-color: #570026;
+                        .prev{
+                            height: 48px;
+                        width: 48px;
+                        border-color: #570026;
+                            img {
+                                height: 18px;
+                                width: 18px;
+                                display: block;
+                                margin-top: auto;
+                                margin-bottom: auto;
+                            }
+                        }
+                       
+                    }
+            }
+            .left-alignment{
+                .prev-button{
+                    height: 48px;
                     width: 48px;
-                    height: 47px;
                     border-color: #570026;
-                    border-radius: 5px !important;
-                    margin-right: 20px;
-                    cursor: pointer;
-                    img {
-                        margin-top: auto;
-                        margin-bottom: auto;
-                        display: block;
-                        height: 18px;
-                        width: 18px;
+                    .prev{
+                        height: 48px;
+                    width: 48px;
+                    border-color: #570026;
+                        img {
+                            height: 18px;
+                            width: 18px;
+                            display: block;
+                            margin-top: auto;
+                            margin-bottom: auto;
+                        }
                     }
                 }
-
-                .prev-button-current2 {
-                    margin-top: 201px;
-                    margin-left: -30%;
-                    width: 48px;
-                    height: 47px;
-                    border-color: #570026;
-                    cursor: pointer;
-                    border-radius: 5px !important;
-                    padding-top: 25%;
-
-                    img {
-                        height: 18px;
-                        width: 18px;
-                    }
-                }
+                
             }
             }
 
@@ -653,7 +670,7 @@
         }
 
         .form {
-            padding: 1% 10% 5% 6%;
+            padding: 1% 6% 5% 6%;
 
             .form-signup-mobrow {
                 img {
@@ -670,13 +687,13 @@
             .lower-div {    
                 .steps-div {
                     width: 100px;
+                    .steps {
+                        padding-top: 10%;
+                    }
                     .steps-current2 {
+                        padding-top: 50%;
                         width: auto;
-                        margin-top: 200px;
-                        font-size: 14px;
-                        color: #222222;
-                        font-weight: 700;
-                        opacity: 1;
+                        margin-top: 50%;
                     }
                 }
     
@@ -692,6 +709,15 @@
                            margin-left: 25%;
                         }
                     }
+                    }
+                }
+                .signup-btn-div{
+                    
+                    .signup-button{
+                        width: 100%;
+                        margin-top: 50%;
+                        margin-bottom: 50%;
+                      
                     }
                 }
             }
@@ -729,11 +755,13 @@
                 .steps-div {
                     .steps {
                         width: auto;
+                        margin-top: 10%;
                     }
     
                     .steps-current2 {
+                        padding-top: 100%;
                         width: auto;
-                        margin-top: 200px;
+                        margin-top: 100%;
                         font-size: 14px;
                         color: #222222;
                         font-weight: 700;
@@ -747,6 +775,15 @@
                     justify-content: end;
                     }
                 }
+                .signup-btn-div{
+                    display: flex;
+                    justify-content: end;
+                    .signup-button{
+                        width: 80%;
+                        margin-top: 50%;
+                        margin-bottom: 50%;
+                    }
+                }
             }
 
 
@@ -757,22 +794,33 @@
     .signup-div {
         .form {
             margin: 1% 6.2% 0% 6.2%;
-            .lower-div {    
-                // .steps-div {
-                //     .steps {
-                //         width: auto;
-                //     }
-    
-                //     .steps-current2 {
-                //         width: auto;
-                //         margin-top: 200px;
-                //         font-size: 14px;
-                //         color: #222222;
-                //         font-weight: 700;
-                //         opacity: 1;
-                //     }
-                // }
-    
+            
+            .lower-div {  
+                .prev-btn-div {
+                    .left-align{
+                        position: absolute;
+                        bottom: 0;
+                        .prev-button-current2 {
+                            padding-top: 10%;
+                            height: 48px;
+                            width: 48px;
+                            border-color: #570026;
+                            .prev{
+                                height: 48px;
+                            width: 48px;
+                            border-color: #570026;
+                                img {
+                                    height: 18px;
+                                    width: 18px;
+                                    display: block;
+                                    margin-top: auto;
+                                    margin-bottom: auto;
+                                }
+                            }
+                           
+                        }
+                }
+                }
                 .next-btn-div {
                     .right-align-btn{
                         display: flex;

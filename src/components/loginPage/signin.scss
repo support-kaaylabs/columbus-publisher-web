@@ -94,6 +94,10 @@
           color: #FFFFFF;
           margin-bottom: 30px;
           height: 48px;
+          &:hover{
+            background-color: #570026;
+            color: #FFFFFF;
+        }
         }
   
         .form-account {
@@ -110,7 +114,7 @@
             font-weight: 700;
             opacity: 2;
           cursor: pointer;
-        //   text-decoration: underline;
+          text-decoration: underline;
         }
     }
 }
@@ -151,33 +155,3 @@
     }
   }
 }
-
-// .login-div{
-//     .mobile-login-logo{
-//         padding: 5% 0 2% 0;
-//         img{
-//             display: block;
-//             margin-left: auto;
-//             margin-right: auto;
-//         }
-//     }
-//     .login-main-title {
-//         margin: 0px;
-//         font-size: 24px;
-//         color: #FFFFFF;
-//         font-weight: 350;
-//         opacity: 0.9;
-//         text-align: center;
-//       }
-
-//       .login-sub-title {
-//         font-size: 16px;
-//         color: #FFFFFF;
-//         margin: 0;
-//         margin-top: 2%;
-//         opacity: 0.7;
-//         font-weight: 400;
-//         text-align: center;
-//         margin-bottom: -10% !important;
-//       }
-// }
