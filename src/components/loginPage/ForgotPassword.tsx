@@ -3,6 +3,9 @@ import { Row, Col, Form, Input, Button, Spin } from 'antd';
 import backArrow from '../../assets/backArrow.svg';
 import { useNavigate } from 'react-router-dom';
 import { forgotPassword } from '../../shared/urlHelper';
+import './forgotPassword.scss';
+import SignupBackButton from '../../assets/SignupBack.svg';
+
 
 interface forgotProps {
   signupPageValidation: any;
@@ -54,9 +57,18 @@ const ForgotPassword: FC<forgotProps> = ({ signupPageValidation, forgotPageValid
       <div>
         <div>
           <Row className='forgot'>
-            <Col>
+            <Col sm={0} xs={0} md={24} lg={24}>
               <Button className='button' onClick={backHandle}><img className='img' src={backArrow} /></Button>
               <p className='p-forgot'> Forgot Password <div className='send-emailmessage'>Send a link to your email for reset password</div></p>
+            </Col>
+            <Col sm={24} xs={24} md={0} lg={0}>
+              <div className='mob-forgot-div'>
+                <img src={SignupBackButton} alt='sign-up-back' onClick={() => backHandle()}/>
+                <div className='heading-div'>
+                  <div className='mob-forgot-heading'> Forgot Password</div>
+                  <div className='sendlink-label'>Send a link to your email for reset password</div>
+                </div>
+              </div>
             </Col>
           </Row>
         </div>
