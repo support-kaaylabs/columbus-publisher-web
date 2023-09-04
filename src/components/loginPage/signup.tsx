@@ -10,6 +10,8 @@ import cameraIcon from '../Home/Images/profilepicCamera.svg';
 import backArrow from '../../assets/BackArroww.svg';
 import frontArrow from '../../assets/frontArroww.svg';
 import addProfileCameraIcon from '../../assets/Icon feather-camera.svg';
+import SignupBackButton from '../../assets/SignupBack.svg';
+import './signup.scss';
 
 
 interface Country {
@@ -174,7 +176,9 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
           if (password !== confirmPassword) {
             return;
           } else if (password === confirmPassword && email && name && userName && !emailValidErr && !uniqueEmailErr) {
+            console.log('scm dcbej');
             if (!entityErr && !userNameErr && !passwordErr && !passwordTestErr && !testConfirmPassword && isUppercaseValidate && isDigitValidate && isCharacterValidate && isSpecialCharValidate) {
+              console.log('enterreret');
               setCurrent(current + 1);
               setSteps(steps + 1);
             }
@@ -459,450 +463,508 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     }
   };
   return (
-    <Form
-      name='basic'
-      size={'large'}
-      form={form}
-      autoComplete='off'
-      initialValues={{ remember: true }}
-      className='form'
-      layout='vertical'
-      onFinish={handleSubmit}
-    >
-      {current <= 2 && (
-        <div className='form-sign-up'>
-          <p>Sign Up</p>
-        </div>
-      )}
-      {current > 2 && (
-        <div className='form-sign-up'>
-          <p>Subscription</p>
-        </div>
-      )}
-      {current === 0 &&
-        <div>
-          <Form.Item
-            className='form-item-signup'
-            name="entity"
-            label="Publishing Entity Name"
-            rules={[
-              {
-                required: true,
-                message: 'Please Enter Publishing Entity Name!',
-              },
-            ]}>
-            <Input
-              style={{ marginTop: '-1%', marginBottom: '10px' }}
-              type='text'
-              placeholder='Enter Publishing Entity Name'
-              onChange={(e) => handleEntityNameChange(e)}
-              value={name} />
-            {entityErr === true && (
-              <div className='error'>Please Enter Publishing Entity Name</div>
-            )}
-          </Form.Item>
-          <Form.Item
-            className='form-item-signup'
-            name="username"
-            label="UserName"
-            rules={[
-              {
-                required: true,
-                message: 'Please Enter UserName!',
-              },
-            ]}>
-            <Input
-              style={{ marginTop: '-1%', marginBottom: '10px' }}
-              type='text'
-              placeholder='Enter your UserName'
-              onChange={(e) => handleUserNameChange(e)}
-              value={userName} />
-            {userNameErr === true && (
-              <div className='error'>Please Enter your UserName</div>
-            )}
-          </Form.Item>
-          <Form.Item
-            className='form-item-signup'
-            name='email'
-            label='Email Address'
-            required
-            colon={false}
-            rules={[
-              {
-                type: 'email',
-                message: 'The input is not valid E-mail!',
-              },
-              {
-                required: true,
-                message: 'Please input your E-mail!',
-              },
-            ]}>
-            <Input
-              style={{ marginTop: '-1%', marginBottom: '10px' }}
-              type='email'
-              placeholder='Enter Your Email Address'
-              onChange={(e) => handleEmailChange(e)}
-              value={email} />
-            {emailValidErr === true && (
-              <div className='error'>Please Enter Valid Email Address</div>
-            )}
-            {uniqueEmailErr === true && (
-              <div className='error'>This email is already taken. Please choose a different one.</div>
-            )}
-          </Form.Item>
-          <Form.Item
-            name='password'
-            label='Password '
-            required
-            colon={false}
-            validateTrigger={['onChange']}
-            rules={[
-              {
-                required: true,
-                message: 'Please input your password!',
-              },
-            ]}
-          >
-            <Input.Password
-              style={{ marginTop: '-1%', marginBottom: '10px' }}
-              className='password-label'
-              minLength={8}
-              autoComplete="new-password"
-              type='password'
-              placeholder='Enter your Password '
-              onChange={(e) => handlePasswordChange(e)}
-              value={password}
-              onBlur={handleBlur}
-            />
-            {(passwordcheck || passwordValidate) && (
-              <div className='password-condition-check-div'>
-                <Row>
-                  <Col
-                    xs={24}
-                    sm={24}
-                    md={{ offset: 1, span: 22 }}
-                    lg={{ offset: 3, span: 18 }}
-                    xl={{ offset: 4, span: 16 }}
-                  >
-                    <div className="password-condition-div">
-                      <span className="fs-12 jingle-blue fw-600">
-                        Password Must Contain
-                      </span>
-                      <div style={{ marginTop: '10px' }}>
-                        <p className={upperCaseClass}>
-                          {upperCaseValidation && (
-                            <CheckOutlined className="icon-align" />
-                          )}
-                          {!upperCaseValidation && (
-                            <CloseOutlined className="icon-align" />
-                          )}
-                          At least 1 capital letter and 1 small letter
-                        </p>
-                        <p className={digitClass}>
-                          {digitValidation && (
-                            <CheckOutlined className="icon-align" />
-                          )}
-                          {!digitValidation && (
-                            <CloseOutlined className="icon-align" />
-                          )}
-                          At least 1 number
-                        </p>
-                        <p className={charClass}>
-                          {charValidation && (
-                            <CheckOutlined className="icon-align" />
-                          )}
-                          {!charValidation && (
-                            <CloseOutlined className="icon-align" />
-                          )}
-                          At least 8 Characters
-                        </p>
-                        <p className={specialCharClass}>
-                          {specialCharValidation && (
-                            <CheckOutlined className="icon-align" />
-                          )}
-                          {!specialCharValidation && (
-                            <CloseOutlined className="icon-align" />
-                          )}
-                          At least 1 Special Character
-                        </p>
-                      </div>
-                    </div>
-                  </Col>
-                </Row>
-              </div>
-            )}
-            {passwordErr === true && (
-              <div className='error'>Please Enter your Password</div>
-            )}
-          </Form.Item>
-          <Form.Item
-            name='confirm'
-            label='Confirm Password'
-            dependencies={['password']}
-            required
-            colon={false}
-            rules={[
-              {
-                required: true,
-                message: 'Please confirm your password!',
-              },
-            ]}>
-            <Input.Password
-              style={{ marginTop: '-1%', marginBottom: '10px' }}
-              className='password-label'
-              placeholder='Enter your Confirm Password'
-              onChange={(e) => handleConfirmPasswordChange(e)}
-              value={confirmPassword}
-            />
-            {testConfirmPassword === true && (
-              <div className='error'>Password and Confirm Password does not match</div>
-            )}
-          </Form.Item>
-          <Form.Item
-            className='form-item-signup'
-            label='GST Number'
-            colon={false}
-            rules={[{ required: true, message: 'Please Enter GST Number!' }]}>
-            <Input
-              style={{ marginTop: '-1%', marginBottom: '10px' }}
-              type='text'
-              placeholder='Enter your GST Number'
-              onChange={(e) => setGstNumber(e.target.value.trim())}
-              value={gstNumber} />
-          </Form.Item>
-          <div className='sign-in-link-div'>Already have an account?  <a className="sign-in-link" onClick={signIn}>
-            Sign In
-          </a></div>
-        </div >
-      }
-      {
-        current === 1 &&
-        <div>
-          <Form.Item
-            className='form-item-signup'
-            name="phone"
-            label="Phone Number"
-            rules={[
-              {
-                required: true,
-                message: 'Please Enter Phone Number!',
-              },
-            ]}>
-            <Input
-              style={{ marginTop: '-1%', marginBottom: '10px' }}
-              type='number'
-              pattern="[0-9]{10}"
-              placeholder='Please Enter Your Phone Number'
-              onChange={(e) => handlePhoneNumberChange(e)}
-              value={phoneNumber} />
-            {phoneNumberErr === true && (
-              <div className='error'>Please enter your phone number</div>
-            )}
-            {uniquePhoneNumberErr === true && (
-              <div className='error'>This Phone Number is already taken. Please choose a different one</div>
-            )}
-          </Form.Item>
-          <Form.Item
-            className='form-item-select'
-            name="Region"
-            label="Region"
-            rules={[
-              {
-                required: true,
-                message: 'Please Enter Region!',
-              },
-            ]}>
-            <Select
-              style={{ marginTop: '-1%', marginBottom: '10px' }}
-              placeholder='Select Country'
-              showSearch
-              onSearch={() => getCountry()}
-              onChange={handleCountryChange}
-              value={selectedCountry?.Country_Name}
-              optionFilterProp="children"
-            >
-              {regionDatas.map((country) => (
-                <Select.Option key={country.Country_Name} value={country.Country_Id} onClick={() => handleCountryChange(country)}>
-                  {country.Country_Name}
-                </Select.Option>
-              ))}
-            </Select>
-            {regionErr === true && (
-              <div className='error'>Please Select Region!</div>
-            )}
-          </Form.Item>
-          <Form.Item
-            className='form-item-select'
-            name="State"
-            label="State/Province"
-            rules={[
-              {
-                required: true,
-                message: 'Please Enter State!',
-              },
-            ]}>
-            <Select
-              style={{ marginTop: '-1%', marginBottom: '10px' }}
-              placeholder='Select State/Province'
-              showSearch
-              onSearch={(e) => getState(e)}
-              onChange={handleStateChange}
-              value={selectedState?.State_Name}
-              optionFilterProp="children"
-              disabled={!selectedCountry}
-            >
-              {stateData.map((state) => (
-                <Select.Option key={state.State_Name} value={state.State_Id} onClick={() => handleStateChange(state)}>
-                  {state.State_Name}
-                </Select.Option>
-              ))}
-            </Select>
-            {stateErr === true && (
-              <div className='error'>Please Select State/Province!</div>
-            )}
-          </Form.Item>
-          <Form.Item
-            className='form-item-select'
-            name="City/County"
-            label="City/County"
-            rules={[
-              {
-                required: true,
-                message: 'Please Enter City/County!',
-              },
-            ]}>
-            <Select
-              style={{ marginTop: '-1%', marginBottom: '10px' }}
-              placeholder="Select City"
-              showSearch
-              onChange={handleCityChange}
-              value={selectedCity?.City_Id}
-              onSearch={(e) => getCities(e)}
-              disabled={!selectedState}
-              optionFilterProp="children"
-            >
-              {cityData?.map((city) => (
-                <Select.Option key={city.City_Name} value={city.City_Id} onClick={() => handleCityChange(city)}>
-                  {city.City_Name}
-                </Select.Option>
-              ))}
-            </Select>
-            {cityErr === true && (
-              <div className='error'>Please Select City/County!</div>
-            )}
-          </Form.Item>
-          <Form.Item
-            className='form-item-signup'
-            name="zip"
-            label="ZipCode"
-            rules={[
-              {
-                required: true,
-                message: 'Please Enter ZipCode!',
-              },
-            ]}>
-            <Input
-              style={{ marginTop: '-1%', marginBottom: '10px' }}
-              type='text'
-              placeholder='Enter Zip code'
-              onChange={(e) => handleZipCode(e)}
-              value={zipCode} />
-            {zipcodeErr === true && (
-              <div className='error'>Please Enter Zip code</div>
-            )}
-          </Form.Item>
-        </div>
-      }
-      {
-        current === 2 &&
-        <div>
-          <Form.Item
-            className='profile-pic'
-            name='profilePic'
-            rules={customRules}>
-            <div
-              className="user-img-logo-content"
-              onMouseLeave={cameraIconHandlerHide}
-            >
-              <div
-                className="profile-head"
-                onMouseEnter={cameraIconHandlerDisplay}
+    <div>
+      <div className='signup-div'>
+        <Form
+          name='basic'
+          size={'large'}
+          form={form}
+          autoComplete='off'
+          initialValues={{ remember: true }}
+          className='form'
+          layout='vertical'
+          onFinish={handleSubmit}
+        >
+          {current < 1 && (
+            <div className='form-sign-up'>
+              <p>Sign Up</p>
+            </div>
+          )}
+          {current > 0 && (
+            <div className='form-signup-mobrow'>
+              <Row>
+                <Col sm={3} xs={3} md={0} lg={0}>
+                  <div><img src={SignupBackButton} alt='sign-up-back' onClick={() => prev()}/></div>
+                </Col>
+                <Col sm={21} xs={21} md={24} lg={24}>
+                  <div className='signup-label'>Sign Up</div>
+                </Col>
+              </Row>
+            </div>
+          )}
+          {/* {current > 2 && (
+            <div className='form-sign-up'>
+              <p>Subscription</p>
+            </div>
+          )} */}
+          {current === 0 &&
+            <div>
+              <Form.Item
+                className='form-item-signup'
+                name="entity"
+                label="Publishing Entity Name"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please Enter Publishing Entity Name!',
+                  },
+                ]}>
+                <Input
+                  style={{ marginTop: '-1%', marginBottom: '10px' }}
+                  type='text'
+                  placeholder='Enter Publishing Entity Name'
+                  onChange={(e) => handleEntityNameChange(e)}
+                  value={name} />
+                {entityErr === true && (
+                  <div className='error'>Please Enter Publishing Entity Name</div>
+                )}
+              </Form.Item>
+              <Form.Item
+                className='form-item-signup'
+                name="username"
+                label="UserName"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please Enter UserName!',
+                  },
+                ]}>
+                <Input
+                  style={{ marginTop: '-1%', marginBottom: '10px' }}
+                  type='text'
+                  placeholder='Enter Your UserName'
+                  onChange={(e) => handleUserNameChange(e)}
+                  value={userName} />
+                {userNameErr === true && (
+                  <div className='error'>Please Enter your UserName</div>
+                )}
+              </Form.Item>
+              <Form.Item
+                className='form-item-signup'
+                name='email'
+                label='Email Address'
+                required
+                colon={false}
+                rules={[
+                  {
+                    type: 'email',
+                    message: 'The input is not valid E-mail!',
+                  },
+                  {
+                    required: true,
+                    message: 'Please input your E-mail!',
+                  },
+                ]}>
+                <Input
+                  style={{ marginTop: '-1%', marginBottom: '10px' }}
+                  type='email'
+                  placeholder='Enter Your Email Address'
+                  onChange={(e) => handleEmailChange(e)}
+                  value={email} />
+                {emailValidErr === true && (
+                  <div className='error'>Please Enter Valid Email Address</div>
+                )}
+                {uniqueEmailErr === true && (
+                  <div className='error'>This email is already taken. Please choose a different one.</div>
+                )}
+              </Form.Item>
+              <Form.Item
+                className='form-item-password'
+                name='password'
+                label='Password '
+                required
+                colon={false}
+                validateTrigger={['onChange']}
               >
-                <div className="profile-logo-img">
-                  <div className='image-container'>
-                    {image && (
-                      <img src={image} style={{width: '200px', height: '130px', borderRadius: '5px'}}/>)}
-                  </div>
-                  <div className={image ? 'add-profile-img-selected' : 'add-profile'}>{!image && (<div className='button-div'><div className='image-div'><img src={addProfileCameraIcon} alt='camera'/></div><span>Add Profile </span></div>)}</div>
-                </div>
-              </div>
-              <div
-                className={
-                  cameraIconDisplay ? 'camera-icon-hide' : 'camera-icon'
-                }
-                onClick={clickHandler}
-              >
-                <img src={cameraIcon} alt="camera-icon" />
-                <input
-                  type="file"
-                  accept="image/*"
-                  ref={logoHandler}
-                  onChange={changeLogoHandler}
-                  className="input"
+                <Input.Password
+                  style={{ marginTop: '-1%', marginBottom: '10px' }}
+                  className='password-label'
+                  minLength={8}
+                  autoComplete="new-password"
+                  type='password'
+                  placeholder='Enter Your Password '
+                  onChange={(e) => handlePasswordChange(e)}
+                  value={password}
+                  onBlur={handleBlur}
                 />
-              </div>
+                {(passwordcheck || passwordValidate) && (
+                  <div className='password-condition-check-div'>
+                    <Row>
+                      <Col
+                        xs={24}
+                        sm={24}
+                        md={{ offset: 1, span: 22 }}
+                        lg={{ offset: 3, span: 18 }}
+                        xl={{ offset: 4, span: 16 }}
+                      >
+                        <div className="password-condition-div">
+                          <span className="fs-12 jingle-blue fw-600">
+                            Password Must Contain
+                          </span>
+                          <div style={{ marginTop: '10px' }}>
+                            <p className={upperCaseClass}>
+                              {upperCaseValidation && (
+                                <CheckOutlined className="icon-align" />
+                              )}
+                              {!upperCaseValidation && (
+                                <CloseOutlined className="icon-align" />
+                              )}
+                              At least 1 capital letter and 1 small letter
+                            </p>
+                            <p className={digitClass}>
+                              {digitValidation && (
+                                <CheckOutlined className="icon-align" />
+                              )}
+                              {!digitValidation && (
+                                <CloseOutlined className="icon-align" />
+                              )}
+                              At least 1 number
+                            </p>
+                            <p className={charClass}>
+                              {charValidation && (
+                                <CheckOutlined className="icon-align" />
+                              )}
+                              {!charValidation && (
+                                <CloseOutlined className="icon-align" />
+                              )}
+                              At least 8 Characters
+                            </p>
+                            <p className={specialCharClass}>
+                              {specialCharValidation && (
+                                <CheckOutlined className="icon-align" />
+                              )}
+                              {!specialCharValidation && (
+                                <CloseOutlined className="icon-align" />
+                              )}
+                              At least 1 Special Character
+                            </p>
+                          </div>
+                        </div>
+                      </Col>
+                    </Row>
+                  </div>
+                )}
+                {passwordErr === true && (
+                  <div className='error'>Please Enter your Password</div>
+                )}
+              </Form.Item>
+              <Form.Item
+                // style={{ marginTop: '3%' }}
+                className='form-item-password'
+                name='confirm'
+                label='Confirm Password'
+                dependencies={['password']}
+                required
+                colon={false}
+              // rules={[
+              //   {
+              //     required: true,
+              //     message: 'Please Your Confirm Password!',
+              //   },
+              // ]}
+              >
+                <Input.Password
+                  style={{ marginTop: '-1%', marginBottom: '10px' }}
+                  className='password-label'
+                  placeholder='Enter Your Confirm Password'
+                  onChange={(e) => handleConfirmPasswordChange(e)}
+                  value={confirmPassword}
+                />
+                {testConfirmPassword === true && (
+                  <div className='error'>Password and Confirm Password does not match</div>
+                )}
+              </Form.Item>
+              <Form.Item
+                className='form-item-signup'
+                label='GST Number'
+                colon={false}
+                rules={[{ required: true, message: 'Please Enter GST Number!' }]}>
+                <Input
+                  style={{ marginTop: '-1%', marginBottom: '10px' }}
+                  type='text'
+                  placeholder='Enter Your GST Number'
+                  onChange={(e) => setGstNumber(e.target.value.trim())}
+                  value={gstNumber} />
+              </Form.Item>
+              <div className='sign-in-link-div'>Already have an account?  <a className="sign-in-link" onClick={signIn}>
+                Sign In
+              </a></div>
+            </div >
+          }
+          {
+            current === 1 &&
+            <div>
+              <Form.Item
+                className='form-item-signup'
+                name="phone"
+                label="Phone Number"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please Enter Phone Number!',
+                  },
+                ]}>
+                <Input
+                  style={{ marginTop: '-1%', marginBottom: '10px' }}
+                  type='number'
+                  pattern="[0-9]{10}"
+                  placeholder='Please Enter Your Phone Number'
+                  onChange={(e) => handlePhoneNumberChange(e)}
+                  value={phoneNumber} />
+                {phoneNumberErr === true && (
+                  <div className='error'>Please Enter Your Phone Number!</div>
+                )}
+                {uniquePhoneNumberErr === true && (
+                  <div className='error'>This Phone Number is Already Taken. Please Choose a Different One!</div>
+                )}
+              </Form.Item>
+              <Form.Item
+                className='form-item-select'
+                name="Region"
+                label="Region"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please Enter Region!',
+                  },
+                ]}>
+                <Select
+                  style={{ marginTop: '-1%', marginBottom: '10px' }}
+                  placeholder='Select Country'
+                  showSearch
+                  onSearch={() => getCountry()}
+                  onChange={handleCountryChange}
+                  value={selectedCountry?.Country_Name}
+                  optionFilterProp="children"
+                >
+                  {regionDatas.map((country) => (
+                    <Select.Option key={country.Country_Name} value={country.Country_Id} onClick={() => handleCountryChange(country)}>
+                      {country.Country_Name}
+                    </Select.Option>
+                  ))}
+                </Select>
+                {regionErr === true && (
+                  <div className='error'>Please Select Region!</div>
+                )}
+              </Form.Item>
+              <Form.Item
+                className='form-item-select'
+                name="State"
+                label="State/Province"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please Enter State!',
+                  },
+                ]}>
+                <Select
+                  style={{ marginTop: '-1%', marginBottom: '10px' }}
+                  placeholder='Select State/Province'
+                  showSearch
+                  onSearch={(e) => getState(e)}
+                  onChange={handleStateChange}
+                  value={selectedState?.State_Name}
+                  optionFilterProp="children"
+                  disabled={!selectedCountry}
+                >
+                  {stateData.map((state) => (
+                    <Select.Option key={state.State_Name} value={state.State_Id} onClick={() => handleStateChange(state)}>
+                      {state.State_Name}
+                    </Select.Option>
+                  ))}
+                </Select>
+                {stateErr === true && (
+                  <div className='error'>Please Select State/Province!</div>
+                )}
+              </Form.Item>
+              <Form.Item
+                className='form-item-select'
+                name="City/County"
+                label="City/County"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please Enter City/County!',
+                  },
+                ]}>
+                <Select
+                  style={{ marginTop: '-1%', marginBottom: '10px' }}
+                  placeholder="Select City"
+                  showSearch
+                  onChange={handleCityChange}
+                  value={selectedCity?.City_Id}
+                  onSearch={(e) => getCities(e)}
+                  disabled={!selectedState}
+                  optionFilterProp="children"
+                >
+                  {cityData?.map((city) => (
+                    <Select.Option key={city.City_Name} value={city.City_Id} onClick={() => handleCityChange(city)}>
+                      {city.City_Name}
+                    </Select.Option>
+                  ))}
+                </Select>
+                {cityErr === true && (
+                  <div className='error'>Please Select City/County!</div>
+                )}
+              </Form.Item>
+              <Form.Item
+                className='form-item-signup'
+                name="zip"
+                label="Zipcode"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please Enter Zipcode!',
+                  },
+                ]}>
+                <Input
+                  style={{ marginTop: '-1%', marginBottom: '10px' }}
+                  type='text'
+                  placeholder='Enter Zipcode'
+                  onChange={(e) => handleZipCode(e)}
+                  value={zipCode} />
+                {zipcodeErr === true && (
+                  <div className='error'>Please Enter Zipcode</div>
+                )}
+              </Form.Item>
             </div>
+          }
+          {
+            current === 2 &&
+            <div>
+              <Form.Item
+                className='profile-pic'
+                name='profilePic'
+                rules={customRules}>
+                <div
+                  className="user-img-logo-content"
+                  onMouseLeave={cameraIconHandlerHide}
+                >
+                  <div
+                    className="profile-head"
+                    onMouseEnter={cameraIconHandlerDisplay}
+                  >
+                    <div className="profile-logo-img">
+                      <div className='image-container'>
+                        {image && (
+                          <img src={image} style={{ width: '200px', height: '130px', borderRadius: '5px' }} />)}
+                      </div>
+                      <div className={image ? 'add-profile-img-selected' : 'add-profile'}>{!image && (<div className='button-div'><div className='image-div'><img src={addProfileCameraIcon} alt='camera' /></div><span>Add Profile </span></div>)}</div>
+                    </div>
+                  </div>
+                  <div
+                    className={
+                      cameraIconDisplay ? 'camera-icon-hide' : 'camera-icon'
+                    }
+                    onClick={clickHandler}
+                  >
+                    <img src={cameraIcon} alt="camera-icon" />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      ref={logoHandler}
+                      onChange={changeLogoHandler}
+                      className="input"
+                    />
+                  </div>
+                </div>
 
-          </Form.Item>
-        </div>
-      }
-      {
-        current === 3 && (
-          <div>
-            <Cards />
-            <Button className='payment'>Make Payment</Button>
-          </div>
-        )
-      }
-      <div>
-        <Row align='middle' style={{ marginTop: '20px' }}>
-          <Col span={9}>
-            <div className={current === 2 ? 'steps-current2' : 'steps'}>
-              {`Step  ${steps}/3`}
+              </Form.Item>
             </div>
-          </Col>
-          {current <= 2 && (
-            <Col span={15} >
-              <div style={{ display: 'flex', justifyContent: 'right' }}>
-                <div>
+          }
+          {
+            current === 3 && (
+              <div>
+                <Cards />
+                <Button className='payment'>Make Payment</Button>
+              </div>
+            )
+          }
+          <div className='lower-div'>
+            <Row>
+              <Col sm={5} xs={5} md={6} lg={10}>
+                <div className='steps-div'>
+                  <div className={current === 2 ? 'steps-current2' : 'steps'}>
+                    {`Step  ${steps}/3`}
+                  </div>
+                </div>
+              </Col>
+              <Col sm={0} xs={0} md={4} lg={4}>
+                <div className='prev-btn-div'>
                   {current > 0 && (
                     current < 3 && (
-                      <Button className={current === 2 ? 'prev-button-current2' : 'prev-button'} onClick={() => prev()}>
-                        <img src={frontArrow} alt='front-arrow'/>
-                      </Button>
+                      current === 2 ? 
+                        <div className='left-align'><div className='prev-button-current2'><Button  className='prev' onClick={() => prev()}>
+                          <img src={frontArrow} alt='front-arrow' />
+                        </Button></div></div> :
+                        <div className='left-alignment'><div className='prev-button'><Button className='prev' onClick={() => prev()}>
+                          <img src={frontArrow} alt='front-arrow' />
+                        </Button></div></div>
                     )
                   )}
                 </div>
-                <div>
+              </Col>
+              <Col sm={19} xs={19} md={14} lg={10}>
+                <div className='next-btn-div'>
                   {current === 0 ?
-                    <Button className='next-button' onClick={onNextClick}><div className='button-div'><span>Next </span><div className='backArrow'><img src={backArrow} alt='back-arrow'/></div></div></Button> :
+                    <Form.Item>
+                      <div className='right-align-btn'><Button className='next-button' onClick={onNextClick}><div className='button-div'><span>Next </span><div className='backArrow'><img src={backArrow} alt='back-arrow' /></div></div></Button></div>
+                    </Form.Item> :
                     current === 1 ?
-                      <Button className='next-button-current1' onClick={onNextClick}><div className='button-div'><span>Next </span><div className='backArrow'><img src={backArrow} alt='back-arrow'/></div></div></Button> :
                       <Form.Item>
-                        <div>
+                        <div className='right-align-btn'><Button className='next-button-current1' onClick={onNextClick}><div className='button-div'><span>Next </span><div className='backArrow'><img src={backArrow} alt='back-arrow' /></div></div></Button></div>
+                      </Form.Item> :
+                      <Form.Item>
+                        <div className='signup-btn-div'>
                           <Button
                             htmlType="submit"
                             className='signup-button' loading={btnLoading}>Sign Up</Button>
                         </div>
                       </Form.Item>
                   }
+                </div></Col>
+
+            </Row>
+            {/* <Row align='middle' style={{ marginTop: '20px' }}>
+              <Col span={9}>
+                <div className={current === 2 ? 'steps-current2' : 'steps'}>
+                  {`Step  ${steps}/3`}
                 </div>
-              </div>
-            </Col>
-          )}
-        </Row>
+              </Col>
+              {current <= 2 && (
+                <Col span={15} >
+                  <div style={{ display: 'flex', justifyContent: 'right' }}>
+                    <div>
+                      {current > 0 && (
+                        current < 3 && (
+                          <Button className={current === 2 ? 'prev-button-current2' : 'prev-button'} onClick={() => prev()}>
+                            <img src={frontArrow} alt='front-arrow' />
+                          </Button>
+                        )
+                      )}
+                    </div>
+                    <div>
+                      {current === 0 ?
+                        <Button className='next-button' onClick={onNextClick}><div className='button-div'><span>Next </span><div className='backArrow'><img src={backArrow} alt='back-arrow' /></div></div></Button> :
+                        current === 1 ?
+                          <Button className='next-button-current1' onClick={onNextClick}><div className='button-div'><span>Next </span><div className='backArrow'><img src={backArrow} alt='back-arrow' /></div></div></Button> :
+                          <Form.Item>
+                            <div>
+                              <Button
+                                htmlType="submit"
+                                className='signup-button' loading={btnLoading}>Sign Up</Button>
+                            </div>
+                          </Form.Item>
+                      }
+                    </div>
+                  </div>
+                </Col>
+              )}
+            </Row> */}
+          </div>
+        </Form>
       </div>
-    </Form>
+    </div>
   );
 };
 

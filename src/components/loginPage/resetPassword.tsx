@@ -6,6 +6,10 @@ import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import Logo from '../columbusImages/logo.svg';
 import { resetPassword, resetPasswordLinkVerification } from '../../shared/urlHelper';
 import { successNotification, errorNotification } from '../../shared/globalVariables';
+import './resetPassword.scss';
+import mobLogo from '../columbusImages/menuBar-Small-Logo.svg';
+import SignupBackButton from '../../assets/SignupBack.svg';
+
 
 interface passwordProps {
   upperCaseValidation: boolean;
@@ -33,7 +37,7 @@ const ResetPassword: FC<ResetProps> = () => {
   const [newPasswordValid, setNewPasswordValid] = useState<boolean>(false);
   const [linkVerified, setLinkVerified] = useState<boolean>(false);
   const [passwordMatch, setPasswordMatch] = useState<boolean>(false);
-  const [loader, setLoader] = useState<boolean>(true);
+  const [loader, setLoader] = useState<boolean>(false);
   const { id } = useParams();
   const [validation, setValidation] = useState<passwordProps>({
     upperCaseValidation: false,
@@ -58,14 +62,17 @@ const ResetPassword: FC<ResetProps> = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setLoader(true);
     linkVerify();
   }, []);
-  const linkVerify = () => {
+  const linkVerify = () => {    
+    setLoader(true);
     resetPasswordLinkVerification({ id }).then((res) => {
       setLoader(false);
       setLinkVerified(res.success);
-    });
+    }).catch(()=>{
+      setLoader(false);
+    }
+    );
   };
   const empty = () => {
     setNewPassword('');
@@ -122,7 +129,6 @@ const ResetPassword: FC<ResetProps> = () => {
   const signIn = () => {
     navigate('/');
   };
-
   const handlePasswordChange = (e: any) => {
     setNewPassword(e.target.value);
     const upperCaseRegex = /(?=.*[a-z])(?=.*[A-Z])/;
@@ -157,7 +163,7 @@ const ResetPassword: FC<ResetProps> = () => {
       {!loader && (
         linkVerified && (
           <Row className='login'>
-            <Col xs={0} sm={0} md={12} lg={12} xl={12} className='login-left'>
+            <Col xs={0} sm={0} md={12} lg={12} xl={12} className='login-leftside'>
               <Row justify='space-between'>
                 <Col md={{ offset: 8, span: 8 }} lg={{ offset: 8, span: 8 }} xl={{ offset: 8, span: 8 }} className='login-content-div'>
                   <div>
@@ -172,11 +178,29 @@ const ResetPassword: FC<ResetProps> = () => {
                 </Col>
               </Row>
             </Col>
-            <Col xs={24} sm={24} md={12} lg={12} xl={12} className='login-right'>
+            <Col xs={24} sm={24} md={12} lg={12} xl={12} className='login-rightside'>
+              <Row>
+                <Col xs={24} sm={24} md={0} lg={0} xl={0}>
+                  <div className='login-div'>
+                    <div className='mobile-login-logo'><img src={mobLogo} alt='mob-logo'/></div>
+                    <p className='login-main-title'>Welcome to Columbus</p>
+                    <p className='login-sub-title'>&quot; The Discovery Platform &quot;</p>
+                  </div>
+                </Col>
+              </Row>
               <div className='forgot-div'>
                 <div>
-                  <Row className='forgot'>
-                    <Col>
+                  <Row>
+                    <Col sm={24} xs={24} md={0} lg={0} className='reset-header'>
+                      <div className='mob-forgot-div'>
+                        <img src={SignupBackButton} alt='sign-up-back' onClick={() => backHandle()}/>
+                        <div className='heading-div'>
+                          <div className='mob-forgot-heading'> Change Password</div>
+                          <div className='sendlink-label'>Reset Your Password</div>
+                        </div>
+                      </div>
+                    </Col>
+                    <Col xs={0} sm={0} md={24} lg={24} xl={24} className='reset-container'>
                       <Button className='button' onClick={backHandle}><img className='img' src={backArrow} /></Button>
                       <p className='p-forgot'> Change Password <div className='send-emailmessage'>Reset Your Password</div></p>
                     </Col>
@@ -191,7 +215,7 @@ const ResetPassword: FC<ResetProps> = () => {
                   onFinish={handleSubmit}
                 >
                   <Form.Item
-                    className='form-item'
+                    className='form-item-password'
                     label='New Password'
                     name='password'
                     required
@@ -203,8 +227,8 @@ const ResetPassword: FC<ResetProps> = () => {
                     validateTrigger={['onChange']}
                   >
                     <Input.Password
-                      className='label'
-                      style={{ marginTop: '-2%' }}
+                      className='password-label'
+                      style={{ marginTop: '-1%' }}
                       placeholder='Enter Your New Password'
                       autoComplete="new-password"
                       type='password'
@@ -277,7 +301,7 @@ const ResetPassword: FC<ResetProps> = () => {
                     )}
                   </Form.Item>
                   <Form.Item
-                    className='form-item'
+                    className='form-item-password'
                     label='Confirm Password'
                     name='confirmedPassword'
                     required
@@ -287,8 +311,8 @@ const ResetPassword: FC<ResetProps> = () => {
                       },
                     ]}>
                     <Input.Password
-                      style={{ marginTop: '-2%' }}
-                      className='label'
+                      style={{ marginTop: '-1%' }}
+                      className='password-label'
                       placeholder='Enter Your Confirm Password'
                       onChange={(e) => handleConfirmPasswordChange(e)}
                       value={confirmPassword}

@@ -106,11 +106,14 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
       setCountry(sellerDetails.Country);
       setState(sellerDetails.State);
       setCity(sellerDetails.City);
+      setSelectedCountry(sellerDetails.Country);
+      setSelectedState(sellerDetails.State);
       setCountryId(sellerDetails.Country_Id);
       setStateId(sellerDetails.State_Id);
       setLoader(false);
     });
   };
+  
   const { userName, storeName, gstNumber, email, phoneNumber, zipCode } = values;
   const getCountry = async () => {
     await getAllCountries().then((res) => {
@@ -636,7 +639,7 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                             showSearch
                             onChange={handleCityChange}
                             onSearch={(e) => getCities(e)}
-                            disabled={editClick  ? false : true}
+                            disabled={editClick &&(selectedState ? false : true)}
                             optionFilterProp="children"
                           >
                             {cityData?.map((city) => (

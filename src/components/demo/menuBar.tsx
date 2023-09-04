@@ -242,10 +242,10 @@ const MenuBar: React.FC = () => {
             <Route path="/support" element={<BenchMarking />} />
             <Route path="/profile" element={<Profile updateImage={imageUpdate} editProfile={editProfileChange} />} />
             <Route path="/subscription" element={<BenchMarking />} />
-            <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
           </Routes>
         </Content>
       </Layout>
+
     </Layout>
   );
 };
