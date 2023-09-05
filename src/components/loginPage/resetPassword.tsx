@@ -158,7 +158,7 @@ const ResetPassword: FC<ResetProps> = () => {
   return (
     <div>
       {loader && (
-        <div className='loader'><Spin /></div>
+        <div className='spin-Loading'><Spin /></div>
       )}
       {!loader && (
         linkVerified && (
@@ -217,7 +217,7 @@ const ResetPassword: FC<ResetProps> = () => {
                   <Form.Item
                     className='form-item-password'
                     label='New Password'
-                    name='password'
+                    // name='password'
                     required
                     rules={[
                       {

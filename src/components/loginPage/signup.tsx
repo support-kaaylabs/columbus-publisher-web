@@ -484,7 +484,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             <div className='form-signup-mobrow'>
               <Row>
                 <Col sm={3} xs={3} md={0} lg={0}>
-                  <div><img src={SignupBackButton} alt='sign-up-back' onClick={() => prev()}/></div>
+                  <div><img src={SignupBackButton} alt='sign-up-back' onClick={() => prev()} /></div>
                 </Col>
                 <Col sm={21} xs={21} md={24} lg={24}>
                   <div className='signup-label'>Sign Up</div>
@@ -570,7 +570,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               </Form.Item>
               <Form.Item
                 className='form-item-password'
-                name='password'
+                // name='password'
                 label='Password '
                 required
                 colon={false}
@@ -649,19 +649,18 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                 )}
               </Form.Item>
               <Form.Item
-                // style={{ marginTop: '3%' }}
                 className='form-item-password'
                 name='confirm'
                 label='Confirm Password'
                 dependencies={['password']}
                 required
                 colon={false}
-              // rules={[
-              //   {
-              //     required: true,
-              //     message: 'Please Your Confirm Password!',
-              //   },
-              // ]}
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please Enter Your Confirm Password!',
+                  },
+                ]}
               >
                 <Input.Password
                   style={{ marginTop: '-1%', marginBottom: '10px' }}
@@ -893,8 +892,8 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                 <div className='prev-btn-div'>
                   {current > 0 && (
                     current < 3 && (
-                      current === 2 ? 
-                        <div className='left-align'><div className='prev-button-current2'><Button  className='prev' onClick={() => prev()}>
+                      current === 2 ?
+                        <div className='left-align'><div className='prev-button-current2'><Button className='prev' onClick={() => prev()}>
                           <img src={frontArrow} alt='front-arrow' />
                         </Button></div></div> :
                         <div className='left-alignment'><div className='prev-button'><Button className='prev' onClick={() => prev()}>
@@ -923,44 +922,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                       </Form.Item>
                   }
                 </div></Col>
-
             </Row>
-            {/* <Row align='middle' style={{ marginTop: '20px' }}>
-              <Col span={9}>
-                <div className={current === 2 ? 'steps-current2' : 'steps'}>
-                  {`Step  ${steps}/3`}
-                </div>
-              </Col>
-              {current <= 2 && (
-                <Col span={15} >
-                  <div style={{ display: 'flex', justifyContent: 'right' }}>
-                    <div>
-                      {current > 0 && (
-                        current < 3 && (
-                          <Button className={current === 2 ? 'prev-button-current2' : 'prev-button'} onClick={() => prev()}>
-                            <img src={frontArrow} alt='front-arrow' />
-                          </Button>
-                        )
-                      )}
-                    </div>
-                    <div>
-                      {current === 0 ?
-                        <Button className='next-button' onClick={onNextClick}><div className='button-div'><span>Next </span><div className='backArrow'><img src={backArrow} alt='back-arrow' /></div></div></Button> :
-                        current === 1 ?
-                          <Button className='next-button-current1' onClick={onNextClick}><div className='button-div'><span>Next </span><div className='backArrow'><img src={backArrow} alt='back-arrow' /></div></div></Button> :
-                          <Form.Item>
-                            <div>
-                              <Button
-                                htmlType="submit"
-                                className='signup-button' loading={btnLoading}>Sign Up</Button>
-                            </div>
-                          </Form.Item>
-                      }
-                    </div>
-                  </div>
-                </Col>
-              )}
-            </Row> */}
           </div>
         </Form>
       </div>
