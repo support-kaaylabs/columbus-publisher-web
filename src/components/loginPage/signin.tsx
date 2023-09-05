@@ -1,9 +1,8 @@
 import React, { type FC, useState } from 'react';
-import { Button, Col, Form, Input, Row } from 'antd';
+import { Button, Form, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { authenticate } from '../../shared/urlHelper';
 import { errorNotification } from '../../shared/globalVariables';
-import mobLogo from '../columbusImages/menuBar-Small-Logo.svg';
 import './signin.scss';
 interface signinProps {
   signupPageValidation: any;
@@ -70,7 +69,6 @@ const Signin: FC<signinProps> = ({ signupPageValidation, forgotPageValidation, s
         });
     }
   };
-  const subTitleLabel = 'The Discovery Platform';
   return (
     <div>
       <div className='signin-div'>
