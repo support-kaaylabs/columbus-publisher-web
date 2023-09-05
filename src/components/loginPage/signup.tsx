@@ -88,6 +88,9 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
   const [passwordcheck, setPasswordCheck] = useState<boolean>(false);
   const [passwordValidate, setPasswordValidate] = useState<boolean>(false);
   const [btnLoading, setBtnLoading] = useState<boolean>(false);
+  const [stateIsRequired, setStateIsRequired] = useState<boolean>(false);
+  const [cityIsRequired, setCityIsRequired] = useState<boolean>(false);
+
   const [validation, setValidation] = useState<passwordProps>({
     upperCaseValidation: false,
     digitValidation: false,
@@ -176,9 +179,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
           if (password !== confirmPassword) {
             return;
           } else if (password === confirmPassword && email && name && userName && !emailValidErr && !uniqueEmailErr) {
-            console.log('scm dcbej');
             if (!entityErr && !userNameErr && !passwordErr && !passwordTestErr && !testConfirmPassword && isUppercaseValidate && isDigitValidate && isCharacterValidate && isSpecialCharValidate) {
-              console.log('enterreret');
               setCurrent(current + 1);
               setSteps(steps + 1);
             }
@@ -207,16 +208,17 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
           if (!selectedCountry) {
             setRegionErr(true);
           }
-          if (!selectedState) {
+          if (!selectedState && stateIsRequired) {
             setStateErr(true);
           }
-          if (!selectedCity) {
+          if (!selectedCity && cityIsRequired) {
             setCityErr(true);
           }
           if (!zipCode) {
             setZipcodeErr(true);
           }
-          if (phoneNumber && selectedCountry && selectedState && selectedCity && zipCode && !uniquePhoneNumberErr) {
+          
+          if (phoneNumber && selectedCountry && !(!selectedState && stateIsRequired) && !(!selectedCity && cityIsRequired) && zipCode && !uniquePhoneNumberErr) {
             setCurrent(current + 1);
             setSteps(steps + 1);
           }
@@ -246,9 +248,16 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     const params = { id: country };
     await getAllStatesByCountryId(params).then((response) => {
       if (response) {
-        setStateData(response.data);
+        if(response.data.length === 0){
+          setStateIsRequired(false);
+          setStateData(response.data);
+        }else{
+          setStateIsRequired(true);
+          setStateData(response.data);
+        }
       }
     });
+    setCityIsRequired(false);
     setSelectedState(null);
     setSelectedCity(null);
     setRegionErr(false);
@@ -261,8 +270,15 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
     setSelectedState(selectedState || null);
     const params = { id: stateId };
     getAllCitiesByStateId(params).then((res) => {
+
       if (res) {
-        setCityData(res?.data);
+        if(res.data.length === 0){
+          setCityIsRequired(false);
+          setCityData(res.data);
+        }else{
+          setCityIsRequired(true);
+          setCityData(res.data);
+        }
       }
     });
     setSelectedCity(null);
@@ -414,12 +430,12 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             if (res.success) {
               signupPageValidation(false);
               forgotPageValidation(false);
-              successNotification('User Registered Successfully');
+              successNotification('User Registered Successfully!');
               navigate('/');
               empty();
               setBtnLoading(false);
             } else {
-              errorNotification('Unable to Register');
+              errorNotification('Unable to Register!');
               setBtnLoading(false);
             }
           });
@@ -462,6 +478,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
       setPasswordValidate(false);
     }
   };
+
   return (
     <div>
       <div className='signup-div'>
@@ -501,12 +518,12 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             <div>
               <Form.Item
                 className='form-item-signup'
-                name="entity"
+                // name="entity"
+                required
                 label="Publishing Entity Name"
                 rules={[
                   {
                     required: true,
-                    message: 'Please Enter Publishing Entity Name!',
                   },
                 ]}>
                 <Input
@@ -521,22 +538,22 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               </Form.Item>
               <Form.Item
                 className='form-item-signup'
-                name="username"
+                required
+                // name="username"
                 label="UserName"
                 rules={[
                   {
                     required: true,
-                    message: 'Please Enter UserName!',
                   },
                 ]}>
                 <Input
                   style={{ marginTop: '-1%', marginBottom: '10px' }}
                   type='text'
-                  placeholder='Enter Your UserName'
+                  placeholder='Enter Your Username'
                   onChange={(e) => handleUserNameChange(e)}
                   value={userName} />
                 {userNameErr === true && (
-                  <div className='error'>Please Enter your UserName</div>
+                  <div className='error'>Please Enter Your Username</div>
                 )}
               </Form.Item>
               <Form.Item
@@ -548,11 +565,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                 rules={[
                   {
                     type: 'email',
-                    message: 'The input is not valid E-mail!',
-                  },
-                  {
-                    required: true,
-                    message: 'Please input your E-mail!',
+                    message: 'The input is not a valid E-mail!',
                   },
                 ]}>
                 <Input
@@ -645,7 +658,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                   </div>
                 )}
                 {passwordErr === true && (
-                  <div className='error'>Please Enter your Password</div>
+                  <div className='error'>Please Enter Your Password</div>
                 )}
               </Form.Item>
               <Form.Item
@@ -655,12 +668,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                 dependencies={['password']}
                 required
                 colon={false}
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please Enter Your Confirm Password!',
-                  },
-                ]}
               >
                 <Input.Password
                   style={{ marginTop: '-1%', marginBottom: '10px' }}
@@ -669,7 +676,10 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                   onChange={(e) => handleConfirmPasswordChange(e)}
                   value={confirmPassword}
                 />
-                {testConfirmPassword === true && (
+                {confirmPasswordErr === true &&(
+                  <div className='error'>Enter Your Confirm Password</div>
+                )}
+                {testConfirmPassword === true && !confirmPasswordErr && (
                   <div className='error'>Password and Confirm Password does not match</div>
                 )}
               </Form.Item>
@@ -696,13 +706,9 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               <Form.Item
                 className='form-item-signup'
                 name="phone"
+                required
                 label="Phone Number"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please Enter Phone Number!',
-                  },
-                ]}>
+              >
                 <Input
                   style={{ marginTop: '-1%', marginBottom: '10px' }}
                   type='number'
@@ -713,18 +719,18 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                 {phoneNumberErr === true && (
                   <div className='error'>Please Enter Your Phone Number!</div>
                 )}
-                {uniquePhoneNumberErr === true && (
+                {uniquePhoneNumberErr === true && !phoneNumberErr &&(
                   <div className='error'>This Phone Number is Already Taken. Please Choose a Different One!</div>
                 )}
               </Form.Item>
               <Form.Item
                 className='form-item-select'
-                name="Region"
+                // name="Region"
+                required
                 label="Region"
                 rules={[
                   {
                     required: true,
-                    message: 'Please Enter Region!',
                   },
                 ]}>
                 <Select
@@ -748,14 +754,10 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               </Form.Item>
               <Form.Item
                 className='form-item-select'
-                name="State"
+                // name="State"
+                required={stateIsRequired}
                 label="State/Province"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please Enter State!',
-                  },
-                ]}>
+              >
                 <Select
                   style={{ marginTop: '-1%', marginBottom: '10px' }}
                   placeholder='Select State/Province'
@@ -778,14 +780,10 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               </Form.Item>
               <Form.Item
                 className='form-item-select'
-                name="City/County"
+                // name="City/County"
+                required = {cityIsRequired}
                 label="City/County"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please Enter City/County!',
-                  },
-                ]}>
+              >
                 <Select
                   style={{ marginTop: '-1%', marginBottom: '10px' }}
                   placeholder="Select City"
@@ -813,7 +811,6 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                 rules={[
                   {
                     required: true,
-                    message: 'Please Enter Zipcode!',
                   },
                 ]}>
                 <Input
@@ -823,7 +820,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                   onChange={(e) => handleZipCode(e)}
                   value={zipCode} />
                 {zipcodeErr === true && (
-                  <div className='error'>Please Enter Zipcode</div>
+                  <div className='error'>Please Enter Zipcode!</div>
                 )}
               </Form.Item>
             </div>
