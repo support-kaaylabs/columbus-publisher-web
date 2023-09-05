@@ -13,6 +13,12 @@
 
         .ant-form-item {
             margin-bottom: 0px;
+            .ant-form-item-explain-error{
+                color: red;
+                font-size: 13px;
+                font-weight: 600;
+                opacity: 0.7;
+            }
         }
         
         .form-sign-up {
@@ -83,7 +89,9 @@
 
             .error {
                 color: red;
-            }
+                font-size: 13px;
+                font-weight: 600;
+                opacity: 0.7;            }
         }
         
         .form-sign-in {
@@ -260,6 +268,9 @@
 
         .error {
             color: red;
+            font-size: 13px;
+            font-weight: 600;
+            opacity: 0.7;
         }
 
         .profile-div {
@@ -353,6 +364,9 @@
 
                         span {
                             padding-left: 14px;
+                            font-size: 14px;
+                            font-weight: 600;
+                            opacity: 0.8;
                         }
                         }
                         

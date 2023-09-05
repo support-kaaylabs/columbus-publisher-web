@@ -38,6 +38,7 @@ const ResetPassword: FC<ResetProps> = () => {
   const [linkVerified, setLinkVerified] = useState<boolean>(false);
   const [passwordMatch, setPasswordMatch] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(false);
+  const [btnLoading, setBtnLoading] = useState<boolean>(false);
   const { id } = useParams();
   const [validation, setValidation] = useState<passwordProps>({
     upperCaseValidation: false,
@@ -79,6 +80,7 @@ const ResetPassword: FC<ResetProps> = () => {
     setConfirmPassword('');
   };
   const handleSubmit = () => {
+    setBtnLoading(true);
     const params = { id: id, password: newPassword };
     if (!newPassword) {
       setPasswordErr(true);
@@ -90,7 +92,8 @@ const ResetPassword: FC<ResetProps> = () => {
     if (newPassword === confirmPassword) {
       resetPassword(params).then((res: any) => {
         if (res.success) {
-          successNotification('Your Password Updated Successfully');
+          successNotification('Your Password Updated Successfully!');
+          setBtnLoading(false);
           navigate('/');
           empty();
           setLoader(false);
@@ -99,6 +102,7 @@ const ResetPassword: FC<ResetProps> = () => {
         errorNotification('You have Already Used This Password. Try New One!');
         setNewPasswordValid(true);
         setLoader(false);
+        setBtnLoading(false);
       });
     } else {
       setPasswordMatch(true);
@@ -328,7 +332,7 @@ const ResetPassword: FC<ResetProps> = () => {
                     {loader && (
                       <div className='loader'><Spin /></div>
                     )}
-                    <Button htmlType='submit'>Done</Button>
+                    <Button htmlType='submit' loading={btnLoading}>Done</Button>
                   </Form.Item>
                 </Form>
               </div>

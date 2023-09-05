@@ -327,6 +327,7 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
     });
   };
   const handleCancel = () => {
+    getSeller();
     setEditClick(false);
   };
   return (
@@ -639,7 +640,7 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                             showSearch
                             onChange={handleCityChange}
                             onSearch={(e) => getCities(e)}
-                            disabled={editClick &&(selectedState ? false : true)}
+                            disabled={(editClick || !selectedState) ? false : true}
                             optionFilterProp="children"
                           >
                             {cityData?.map((city) => (
