@@ -1,7 +1,6 @@
 import React, { type FC, useEffect, useState, MouseEvent, useRef } from 'react';
 import { Row, Col, Card, Button, Form, Input, Select, Spin } from 'antd';
 import './index.scss';
-import { useNavigate } from 'react-router-dom';
 import { getAllCountries, getAllStatesByCountryId, getAllCitiesByStateId, email_verification, updateSellerDetails, phone_verification, storeImageUpload } from '../../shared/urlHelper';
 import cameraIcon from '../Home/Images/profilepicCamera.svg';
 import { getSellerDetails } from '../../shared/urlHelper';
@@ -65,8 +64,6 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
   const logoHandler = useRef<any>(null);
 
   const [form] = Form.useForm();
-  const navigate = useNavigate();
-
 
   const handleEntityNameChange = (e: any) => {
     setValues({ ...values, userName: e.target.value.trim() });
