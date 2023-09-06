@@ -113,6 +113,13 @@
   }
   .edit-profile {
     padding-bottom: 40%;
+    .img-resolution{
+      margin: 1% 5% 1% 5%;
+      text-align: center;
+      color: #222222;
+      font-weight: 500;
+      font-size: 12px;
+    }
     .store-ptag{
       margin-left: 15%;
       margin-right: 16.5%;
@@ -484,9 +491,18 @@ margin-right: 4%;
     }
     }
   }
+  .img-resolution{
+      
+    text-align: center;
+    color: #222222;
+    font-weight: 500;
+    font-size: 12px;
+  }
   .edit-profile {
     height: 188px;
+    
     .profile-img-div{
+     
     img{
       position: absolute;
       top: 0%;
@@ -563,6 +579,7 @@ margin-right: 4%;
     padding-left: 5%;
     margin-right: 5%;
     height: 38px;
+   
   .ant-input{
     height: 38px;
     background-color: #F2F2F2;

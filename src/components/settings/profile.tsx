@@ -7,6 +7,7 @@ import { getSellerDetails } from '../../shared/urlHelper';
 import { errorNotification, successNotification } from '../../../src/shared/globalVariables';
 import { get } from 'lodash';
 import defaultUser from '../../assets/defaultUser.png';
+import { imageHeight, imageWidth } from '../../shared/helper';
 
 const { Meta } = Card;
 
@@ -37,7 +38,7 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
   const [regionDatas, setRegionDatas] = useState<any[]>([]);
   const [countryId, setCountryId] = useState<any>();
   const [stateData, setStateData] = useState<any[]>([]);
-  const [stateId, setStateId] = useState<any>();
+  const [stateId, setStateId] = useState<any>(null);
   const [cityValue, setCityValue] = useState<any>();
   const [cityData, setCityData] = useState<any[]>([]);
   const [emailErr, setEmailErr] = useState<any>(false);
@@ -47,12 +48,17 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
   const [emailValidErr, setEmailValidErr] = useState<boolean>(false);
   const [uniqueEmailErr, setUniqueEmailerr] = useState(false);
   const [uniquePhoneNumberErr, setUniquePhoneNumberErr] = useState(false);
+  const [stateErr, setStateErr] = useState(false);
+  const [cityErr, setCityErr] = useState(false);
   const [country, setCountry] = useState<any>();
-  const [state, setState] = useState<any>();
-  const [city, setCity] = useState<any>();
+  const [state, setState] = useState<any>(null);
+  const [city, setCity] = useState<any>(null);
   const [phoneNumberErr, setPhoneNumberErr] = useState<boolean>(false);
   const [loader, setLoader] = useState(false);
   const [btnLoading, setBtnLoading] = useState(false);
+  const [stateIsRequired, setStateIsRequired] = useState<boolean>(false);
+  const [cityIsRequired, setCityIsRequired] = useState<boolean>(false);
+  const [formValues, setFormValues] = useState({});
   const [values, setValues] = useState({
     storeName: '',
     userName: '',
@@ -65,6 +71,12 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
 
   const [form] = Form.useForm();
 
+  useEffect(() => {
+    getSeller();
+    getCountry();
+    getAllStatesById();
+  }, []);
+
   const handleEntityNameChange = (e: any) => {
     setValues({ ...values, userName: e.target.value.trim() });
   };
@@ -72,14 +84,9 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
   const handleEditProfile = () => {
     setEditClick(true);
     getAllStatesById();
-    getAllCitiesById();
-    searchCities();
   };
 
-  useEffect(() => {
-    getSeller();
-    getCountry();
-  }, []);
+  
 
   const getSeller = () => {
     setLoader(true);
@@ -91,7 +98,7 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
         gstNumber: sellerDetails.GST_Number, email: userDetails.Email_ID, phoneNumber: userDetails.Phone_Number,
         zipCode: sellerDetails.Pincode
       });
-      form.setFieldsValue({
+      const formObj = {
         Store_Name: sellerDetails.Store_Name,
         User_Name: userDetails.User_Name,
         GST_Number: sellerDetails.GST_Number,
@@ -101,7 +108,9 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
         Phone_Number: userDetails.Phone_Number,
         Zip_Code: sellerDetails.Pincode,
         Email_Address: userDetails.Email_ID,
-      });
+      };
+      form.setFieldsValue(formObj);
+      setFormValues(formObj);
       setImage(userDetails.Image);
       setCountry(sellerDetails.Country);
       setState(sellerDetails.State);
@@ -113,8 +122,9 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
       setLoader(false);
     });
   };
-  
+
   const { userName, storeName, gstNumber, email, phoneNumber, zipCode } = values;
+
   const getCountry = async () => {
     await getAllCountries().then((res) => {
       if (res) {
@@ -149,20 +159,33 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
     const params = { id: countryId };
     await getAllStatesByCountryId(params).then((response) => {
       if (response) {
-        setStateData(response.data);
+        if(response.data.length === 0){
+          setStateIsRequired(false);
+          setStateData(response.data);
+          setStateId(null);
+        }else{
+          setStateIsRequired(true);
+          setStateData(response?.data);
+          const params = { id: stateId };
+          getAllCitiesByStateId(params).then((res) => {
+            if (res) {
+              if(res.data.length === 0){
+                setCityIsRequired(false);
+                setCityData(res.data);
+              }else{
+                setCityIsRequired(true);
+                setCityData(res?.data);
+              }
+            }
+          });
+        }
       }
     });
   };
-  const getAllCitiesById = async () => {
-    const params = { id: stateId };
-    getAllCitiesByStateId(params).then((res) => {
-      if (res) {
-        setCityData(res?.data);
-      }
-    });
-  };
+
   const handleCountryChange = async (value: string) => {
     setCountryId(value);
+    setCityData([]);
     const selectedCountry = regionDatas.find((country) => country.Country_Id === value);
     const country = selectedCountry?.Country_Id;
     setCountry(selectedCountry.Country_Name);
@@ -170,13 +193,20 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
     const params = { id: country };
     await getAllStatesByCountryId(params).then((response) => {
       if (response) {
-        setStateData(response.data);
+        if(response.data.length === 0){
+          setStateIsRequired(false);
+          setStateData(response.data);
+        }else{
+          setStateIsRequired(true);
+          setStateData(response.data);
+        }
       }
     });
     form.setFieldsValue({
       State: undefined,
       City: undefined,
     });
+    setCityIsRequired(false);
     setSelectedState(null);
     setSelectedCity(null);
     setState(null);
@@ -184,20 +214,27 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
   };
 
   const handleStateChange = (value: string) => {
-    const selectedState = stateData.find((state) => state.State_Id === value);
-    const stateId = selectedState.State_Id;
+    const states = stateData.find((state) => state.State_Id === value);
+    const stateId = states.State_Id;
     setStateId(stateId);
-    setSelectedState(selectedState || null);
+    setSelectedState(states || null);
     const params = { id: stateId };
     getAllCitiesByStateId(params).then((res) => {
       if (res) {
-        setCityData(res?.data);
+        if(res.data.length === 0){
+          setCityIsRequired(false);
+          setCityData(res.data);
+        }else{
+          setCityIsRequired(true);
+          setCityData(res.data);
+        }
       }
     });
     form.setFieldsValue({
       City: null,
     });
     setSelectedCity(null);
+    setStateErr(false);
   };
   const cameraIconHandlerHide = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -212,7 +249,6 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
   };
 
   const changeLogoHandler = async (event: any) => {
-    console.log('innnnn');
     const fileUploaded: any = event.target.files[0];
     const reader = new FileReader();
 
@@ -220,23 +256,30 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
       setImage(reader.result);
     };
     if (fileUploaded) {
-      const userId: any = localStorage.getItem('User_ID');
-      reader.readAsDataURL(fileUploaded);
-      storeImageUpload(userId, '', fileUploaded).then((data: any) => {
-        setLoader(true);
-
-        if (data.success) {
-          getSeller();
-          successNotification('Image Uploaded Successfully');
-          setImage(data.response.Location);
-          localStorage.setItem('Image', `${data.response.Location}`);
-          updateImage();
-          setLoader(false);
+      const img = new Image();
+      img.src = URL.createObjectURL(event.target.files[0]);
+      img.onload=()=>{
+        if (img.width === imageWidth && img.height === imageHeight) {
+          const userId: any = localStorage.getItem('User_ID');
+          reader.readAsDataURL(fileUploaded);
+          storeImageUpload(userId, '', fileUploaded).then((data: any) => {
+            setLoader(true);
+            if (data.success) {
+              getSeller();
+              successNotification('Image Uploaded Successfully!');
+              setImage(data.response.Location);
+              localStorage.setItem('Image', `${data.response.Location}`);
+              updateImage();
+              setLoader(false);
+            }else{
+              errorNotification('You Can Only Upload JPG/PNG/JPEG/WEBP Images!');
+            }
+          });
         }else{
-          errorNotification('You Can Only Upload JPG/PNG/JPEG/WEBP Images ');
+          errorNotification('You Can Only Upload Images with 360*360 dimentions!');
         }
-      });
-    } else {
+      };
+    }else {
       setImage(null);
     }
     setSelectedFileList(fileUploaded);
@@ -263,6 +306,7 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
   const handleCityChange = (value: string) => {
     const selectedCity = cityData.find((city) => city.City_Id === value);
     setSelectedCity(selectedCity || null);
+    setCityErr(false);
   };
   const handleSubmit = async () => {
     const userId = localStorage.getItem('User_ID');
@@ -272,11 +316,16 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
     if (reg.test(email) === false) {
       setEmailValidErr(true);
     }
+    if (!selectedState && stateIsRequired) {
+      return setStateErr(true);
+    }
+    if (!selectedCity && cityIsRequired) {
+      return setCityErr(true);
+    }
     const emailParams = { userId, emailId: email, userType: 'merchant' };
     const phoneParams = { userId, phoneNumber: phoneNumber, userType: 'merchant' };
     setBtnLoading(true);
     await email_verification(emailParams).then((res) => {
-      console.log('email Verified', res);
       phone_verification(phoneParams).then(() => {
         const params = {
           userDetails: {
@@ -287,15 +336,15 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
           sellerDetails: {
             Store_Name: storeName.trim(),
             GST_Number: gstNumber,
-            Country: selectedCountry ? selectedCountry.Country_Name : country,
-            State: selectedState ? selectedState.State_Name : state,
-            City: selectedCity ? selectedCity.City_Name : city,
+            Country: get(selectedCountry, 'Country_Name', country),
+            State: get(selectedState, 'State_Name', state),
+            City: get(selectedCity, 'City_Name', city),
             Pincode: zipCode,
             Country_Id: countryId,
             State_Id: stateId,
           }
         };
-        if (!uniqueEmailErr && !uniquePhoneNumberErr && !emailValidErr) {
+        if (!uniqueEmailErr && !uniquePhoneNumberErr && !emailValidErr && !(!selectedState && stateIsRequired) && !(!selectedCity && cityIsRequired) ) {
           updateSellerDetails({ userId }, params).then((res) => {
             if (res.success) {
               getSeller();
@@ -327,8 +376,12 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
     });
   };
   const handleCancel = () => {
-    getSeller();
+    form.setFieldsValue(formValues);
+    setStateErr(false);
+    setCityErr(false);
     setEditClick(false);
+    setStateIsRequired(false);
+    setCityIsRequired(false);
   };
   return (
     <>
@@ -380,6 +433,7 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                         />
                       </div>
                     </div>
+                    <div className='img-resolution'>Image should be in resolution of 360*360</div>
                     <Form.Item
                       className='store-ptag'
                       rules={[{ required: true, message: 'Please Enter Store Name!' }]}>
@@ -448,6 +502,7 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                       </div>
                     </Col>
                     <Col sm={12} md={12} xs={12} lg={0} xl={0}>
+                      <div className='img-resolution'>Image should be in resolution of 360*360</div>
                       <div className='form-store'>
                         <Form.Item
                           className='form-storeName'
@@ -579,7 +634,6 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                             },
                           ]}>
                           <Select
-                            // style={{ marginTop: '-2%' }}
                             placeholder='Select Country'
                             showSearch
                             onSearch={() => getCountry()}
@@ -597,22 +651,16 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                         <Form.Item
                           className='form-item-select'
                           name='State'
-                          required
+                          required={stateIsRequired}
                           label="State/Province"
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Please Enter State!',
-                            },
-                          ]}>
+                        >
                           <Select
-                            // style={{ marginTop: '-2%' }}
                             placeholder='Select State/Province'
                             showSearch
                             onSearch={(e) => getState(e)}
                             onChange={handleStateChange}
                             optionFilterProp="children"
-                            // disabled={!selectedCountry}
+                            value={selectedCity?.City_Id}
                             disabled={editClick ? false : true}
                           >
                             {stateData.map((state) => (
@@ -621,26 +669,24 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                               </Select.Option>
                             ))}
                           </Select>
+                          {stateErr === true && (
+                            <div className='error'>Please Select State/Province!</div>
+                          )}
                         </Form.Item>
                        
                         <Form.Item
                           className='form-item-select'
                           name='City'
-                          required
+                          required={cityIsRequired}
                           label="City/County"
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Please Enter City/County!',
-                            },
-                          ]}>
+                        >
                           <Select
                             style={{ marginTop: '-2%'}}
                             placeholder="Select City"
                             showSearch
                             onChange={handleCityChange}
                             onSearch={(e) => getCities(e)}
-                            disabled={(editClick || !selectedState) ? false : true}
+                            disabled={editClick ? false : true}
                             optionFilterProp="children"
                           >
                             {cityData?.map((city) => (
@@ -649,6 +695,9 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                               </Select.Option>
                             ))}
                           </Select>
+                          {cityErr === true && (
+                            <div className='error'>Please Select City/County!</div>
+                          )}
                         </Form.Item>
                         <Form.Item
                           className='form-item'
@@ -666,7 +715,7 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                             type='text'
                             placeholder='Enter Zip code'
                             onChange={(e) => handleZipCode(e)}
-                            disabled={editClick ? false : true}
+                            disabled={(editClick && selectedState) ? false : true}
                           />
                         </Form.Item>
                       </Col>

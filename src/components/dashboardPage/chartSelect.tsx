@@ -5,7 +5,7 @@ import { chartSelectType } from '../../shared/type';
 const ChartSelect: React.FC<chartSelectType> = ({chartMode, setChartMode }) => {
   return (
     <div className='select-div'>
-      <p>Chart</p>
+      <p>Activity Insights</p>
       <Select
         defaultValue={chartMode}
         style={{ width: 140 }}

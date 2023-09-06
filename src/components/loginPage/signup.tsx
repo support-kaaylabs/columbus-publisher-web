@@ -419,11 +419,11 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             Phone_Number: phoneNumber,
             Store_Name: name.trim(),
             GST_Number: gstNumber,
-            Country: selectedCountry?.Country_Name,
+            Country: get(selectedCountry, 'Country_Name'),
+            State: get(selectedState, 'State_Name'),
+            City: get(selectedCity, 'City_Name'),
             Country_Id: countryId,
-            State: selectedState?.State_Name,
             State_Id: stateId,
-            City: selectedCity?.City_Name,
             Pincode: zipCode,
           };
           sellerRegister(params, selectedFileList).then((res) => {
@@ -558,23 +558,20 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               </Form.Item>
               <Form.Item
                 className='form-item-signup'
-                name='email'
+                // name='email'
                 label='Email Address'
                 required
-                colon={false}
-                rules={[
-                  {
-                    type: 'email',
-                    message: 'The input is not a valid E-mail!',
-                  },
-                ]}>
+                colon={false}>
                 <Input
                   style={{ marginTop: '-1%', marginBottom: '10px' }}
                   type='email'
                   placeholder='Enter Your Email Address'
                   onChange={(e) => handleEmailChange(e)}
                   value={email} />
-                {emailValidErr === true && (
+                {emailErr && (
+                  <div className='error'>Please Enter Email</div>
+                )}
+                {emailValidErr === true && !emailErr &&(
                   <div className='error'>Please Enter Valid Email Address</div>
                 )}
                 {uniqueEmailErr === true && (
@@ -705,13 +702,17 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
             <div>
               <Form.Item
                 className='form-item-signup'
-                name="phone"
+                // name="phone"
                 required
+                rules={[{
+                  required: true,
+                  message: 'Please Enter Your Phone Number!'
+                }]}
                 label="Phone Number"
               >
                 <Input
                   style={{ marginTop: '-1%', marginBottom: '10px' }}
-                  type='number'
+                  // type='number'
                   pattern="[0-9]{10}"
                   placeholder='Please Enter Your Phone Number'
                   onChange={(e) => handlePhoneNumberChange(e)}
@@ -719,7 +720,7 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
                 {phoneNumberErr === true && (
                   <div className='error'>Please Enter Your Phone Number!</div>
                 )}
-                {uniquePhoneNumberErr === true && !phoneNumberErr &&(
+                {uniquePhoneNumberErr && !phoneNumberErr &&(
                   <div className='error'>This Phone Number is Already Taken. Please Choose a Different One!</div>
                 )}
               </Form.Item>
@@ -806,13 +807,9 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               </Form.Item>
               <Form.Item
                 className='form-item-signup'
-                name="zip"
+                // name="zip"
                 label="Zipcode"
-                rules={[
-                  {
-                    required: true,
-                  },
-                ]}>
+                required>
                 <Input
                   style={{ marginTop: '-1%', marginBottom: '10px' }}
                   type='text'

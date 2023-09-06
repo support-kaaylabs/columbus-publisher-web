@@ -90,7 +90,7 @@ const Signin: FC<signinProps> = ({ signupPageValidation, forgotPageValidation, s
                 <label>Email Address</label>
                 <Input
                   type="email"
-                  placeholder="Enter Your Email-Id"
+                  placeholder="Enter Your Email"
                   onChange={(e) => setEmail(e.target.value)}
                   value={emailId}
                 />
