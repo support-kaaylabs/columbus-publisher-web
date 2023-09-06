@@ -105,10 +105,7 @@ const ForgotPassword: FC<forgotProps> = ({ signupPageValidation, forgotPageValid
             )}
           </Form.Item>
           <Form.Item className='get-link' >
-            <Button htmlType='submit'>Get Link</Button>
-            {loader && (
-              <div className='spin-Loading'><Spin/></div>
-            )}
+            <Button htmlType='submit' loading={loader}>Get Link</Button>
             {forgotLinkSent && !loader &&(
               <div className='mail-message'>Mail has been sent to your Mail Account. Please Check Your Mail to Reset Your Password.</div>
             )}

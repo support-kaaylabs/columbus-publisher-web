@@ -84,10 +84,11 @@ const ResetPassword: FC<ResetProps> = () => {
     const params = { id: id, password: newPassword };
     if (!newPassword) {
       setPasswordErr(true);
+      setBtnLoading(false);
     }
     if (!confirmPassword) {
       setConfirmPasswordErr(true);
-      return;
+      setBtnLoading(false);
     }
     if (newPassword === confirmPassword) {
       resetPassword(params).then((res: any) => {
@@ -169,7 +170,7 @@ const ResetPassword: FC<ResetProps> = () => {
           <Row className='login'>
             <Col xs={0} sm={0} md={12} lg={12} xl={12} className='login-leftside'>
               <Row justify='space-between'>
-                <Col md={{ offset: 8, span: 8 }} lg={{ offset: 8, span: 8 }} xl={{ offset: 8, span: 8 }} className='login-content-div'>
+                <Col sm={0} xs={0} md={24} lg={24} xl={24} className='login-content-div'>
                   <div>
                     <div className='login-title'>
                       <p className='login-main-title'>Welcome to Columbus</p>
