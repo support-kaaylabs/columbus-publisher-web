@@ -3,6 +3,7 @@ import { Button, Form, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { authenticate } from '../../shared/urlHelper';
 import { errorNotification } from '../../shared/globalVariables';
+import './signin.scss';
 interface signinProps {
   signupPageValidation: any;
   forgotPageValidation: any;
@@ -69,63 +70,69 @@ const Signin: FC<signinProps> = ({ signupPageValidation, forgotPageValidation, s
     }
   };
   return (
-    <Form
-      name="basic"
-      initialValues={{ remember: true }}
-      onFinish={handleSubmit}
-      size={'large'}
-      className='form'
-      style={{ marginTop: '18%' }}
-    >
-      <Form.Item className='form-sign-in'>
-        <p>Sign In</p>
-      </Form.Item>
-      <Form.Item>
-        {
-          <div
-            className='form-email-address'>
-            <label>Email Address</label>
-            <Input
-              type="email"
-              placeholder="Enter Your Email-Id"
-              onChange={(e) => setEmail(e.target.value)}
-              value={emailId}
-            />
-          </div>
-        }
-      </Form.Item>
-
-      <Form.Item>
-        {
-          <div className="form-password">
-            <label>Password</label>
-            <Input.Password
-              placeholder="Enter Your Password"
-              onChange={(e) => setPassword(e.target.value.trim())}
-              value={password}
-            />
-          </div>
-        }
-      </Form.Item>
-
-      <Form.Item>
-        <a className="form-forgot"
-          onClick={forgotClick}
+    <div>
+      <div className='signin-div'>
+        <Form
+          name="basic"
+          initialValues={{ remember: true }}
+          onFinish={handleSubmit}
+          size={'large'}
+          className='form'
+          style={{ marginTop: '18%' }}
         >
+          <Form.Item className='form-sign-in'>
+            <div>Sign In</div>
+          </Form.Item>
+          <Form.Item>
+            {
+              <div
+                className='form-email-address'>
+                <label>Email Address</label>
+                <Input
+                  type="email"
+                  placeholder="Enter Your Email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={emailId}
+                />
+              </div>
+            }
+          </Form.Item>
+
+          <Form.Item>
+            {
+              <div className="form-password">
+                <label>Password</label>
+                <Input.Password
+                  placeholder="Enter Your Password"
+                  onChange={(e) => setPassword(e.target.value.trim())}
+                  value={password}
+                />
+              </div>
+            }
+          </Form.Item>
+
+          <Form.Item>
+            <a className="form-forgot"
+              onClick={forgotClick}
+            >
           Forgot password
-        </a>
-        <Button
-          htmlType="submit"
-          className='form-button'
-          size='large'
-          block
-          loading={btnLoading}
-        >
+            </a>
+            <Button
+              htmlType="submit"
+              className='form-button'
+              size='large'
+              block
+              loading={btnLoading}
+            >
           Sign In
-        </Button>
-        <p className='form-account'>Don&apos;t have an account? <span className='form-signup' onClick={signupClick}>Sign Up</span></p>
-      </Form.Item>
-    </Form>
+            </Button>
+            <p className='form-account'>Don&apos;t have an account? <span className='form-signup' onClick={signupClick}>Sign Up</span></p>
+          </Form.Item>
+        </Form>
+      </div>
+      {/* </Col> */}
+      {/* // </Row> */}
+    </div>
   );
 };
 
