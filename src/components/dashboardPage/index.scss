@@ -137,66 +137,14 @@
 @media screen and (min-width: 767px) {
   .dashboard {
     padding: 20px 25px;
-    
-  .dashboard-chart {
-    .chart-select {
-      padding: 17px 20px;
-
-      .select-div {
-        .pTag {
-          font-size: 18px;
-        }
-
-        .select-dropdown {
-          display: flex;
-
-          .dynamicBtn {
-            display: flex;
-            width: 196px;
-            height: 40px;
-            margin-right: 10px;
-
-            .chart-dropdown-prev {
-              width: 40px;
-              height: 40px;
-            }
-
-            .chart-dropdown-data-yearly,
-            .chart-dropdown-data-monthly,
-            .chart-dropdown-data-weekly {
-              width: 116px;
-            }
-
-            .chart-dropdown-data-weekly {
-              font-size: 11px;
-            }
-
-            .chart-dropdown-next {
-              width: 40px;
-              height: 40px;
-            }
-          }
-
-          .ant-select {
-            height: 40px;
-          }
-        }
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .dashboard {
-    padding: 30px 20px;
 
     .dashboard-chart {
       .chart-select {
-        padding: 17px 6px;
+        padding: 17px 20px;
 
         .select-div {
           .pTag {
-            font-size: 11px;
+            font-size: 18px;
           }
 
           .select-dropdown {
@@ -204,55 +152,108 @@
 
             .dynamicBtn {
               display: flex;
-              width: 132px;
-              height: 32px;
-              margin-right: 5px;
+              width: 196px;
+              height: 40px;
+              margin-right: 10px;
 
               .chart-dropdown-prev {
-                width: 32px;
-                height: 32px;
+                width: 40px;
+                height: 40px;
               }
 
               .chart-dropdown-data-yearly,
               .chart-dropdown-data-monthly,
               .chart-dropdown-data-weekly {
-                width: 68px;
-              }
-
-              .chart-dropdown-data-yearly,
-              .chart-dropdown-data-monthly {
-                font-size: 12px;
+                width: 116px;
               }
 
               .chart-dropdown-data-weekly {
-                font-size: 7px;
-                opacity: 1;
+                font-size: 11px;
               }
 
               .chart-dropdown-next {
-                width: 32px;
-                height: 32px;
+                width: 40px;
+                height: 40px;
               }
             }
 
             .ant-select {
-              width: 88px !important;
-              height: 32px;
-
-              .ant-select-selector {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: 7px 11px;
-              }
+              height: 40px;
             }
           }
         }
       }
     }
+  }
 
-    .chart-flow {
-      overflow-x: auto;
+  @media screen and (max-width: 767px) {
+    .dashboard {
+      padding: 30px 20px;
+
+      .dashboard-chart {
+        .chart-select {
+          padding: 17px 6px;
+
+          .select-div {
+            .pTag {
+              font-size: 11px;
+            }
+
+            .select-dropdown {
+              display: flex;
+
+              .dynamicBtn {
+                display: flex;
+                width: 132px;
+                height: 32px;
+                margin-right: 5px;
+
+                .chart-dropdown-prev {
+                  width: 32px;
+                  height: 32px;
+                }
+
+                .chart-dropdown-data-yearly,
+                .chart-dropdown-data-monthly,
+                .chart-dropdown-data-weekly {
+                  width: 68px;
+                }
+
+                .chart-dropdown-data-yearly,
+                .chart-dropdown-data-monthly {
+                  font-size: 12px;
+                }
+
+                .chart-dropdown-data-weekly {
+                  font-size: 7px;
+                  opacity: 1;
+                }
+
+                .chart-dropdown-next {
+                  width: 32px;
+                  height: 32px;
+                }
+              }
+
+              .ant-select {
+                width: 88px !important;
+                height: 32px;
+
+                .ant-select-selector {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  padding: 7px 11px;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .chart-flow {
+        overflow-x: auto;
+      }
     }
   }
 }
