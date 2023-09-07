@@ -326,6 +326,7 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
     const phoneParams = { userId, phoneNumber: phoneNumber, userType: 'merchant' };
     setBtnLoading(true);
     await email_verification(emailParams).then((res) => {
+      console.log(res, 'response================>');
       phone_verification(phoneParams).then(() => {
         const params = {
           userDetails: {
@@ -436,6 +437,7 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                     <div className='img-resolution'>Image should be in resolution of 360*360</div>
                     <Form.Item
                       className='store-ptag'
+                      name='storename'
                       rules={[{ required: true, message: 'Please Enter Store Name!' }]}>
                       <Input
                         className='edit-card-label'
@@ -506,6 +508,7 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                       <div className='form-store'>
                         <Form.Item
                           className='form-storeName'
+                          name='storename'
                           rules={[{ required: true, message: 'Please Enter Store Name!' }]}>
                           <Input
                             className='edit-card-label'
@@ -526,7 +529,7 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
               <div className='right-Column-div'>
                 <div >
                   <Form
-                    name="control-hooks"
+                    // name="control-hooks"
                     size={'large'}
                     form={form}
                     autoComplete='off'
@@ -539,7 +542,6 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                       <Col sm={24} md={12} xs={24} lg={12} xl={12} className='form-col'>
                         <Form.Item
                           className='form-item'
-                          required
                           name="User_Name"
                           label="Username"
                           rules={[{ required: true, message: 'Enter Your Name' }]}                    >
@@ -566,45 +568,45 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                               message: 'Please input your E-mail!',
                             },
                           ]}>
-                          <Input
-                            type='email'
-                            placeholder='Enter Your Email Address'
-                            onChange={(e) => handleEmailChange(e)}
-                            value={email}
-                            disabled={editClick ? false : true}
-                          />
-                          {emailValidErr === true && !emailErr && (
-                            <div className='error'>Please Enter Valid Email Address</div>
-                          )}
-                          {uniqueEmailErr === true && (
-                            <div className='error'>This email is already taken. Please choose a different one.</div>
-                          )}
+                          <div>
+                            <Input
+                              type='email'
+                              placeholder='Enter Your Email Address'
+                              onChange={(e) => handleEmailChange(e)}
+                              value={email}
+                              disabled={editClick ? false : true}
+                            />
+                            {uniqueEmailErr === true && (
+                              <div className='error'>This email is already taken. Please choose a different one.</div>
+                            )}
+                          </div>
                         </Form.Item>
                         <Form.Item
                           className='form-item'
                           name='Phone_Number'
                           label="Phone Number"
-                          required
                           rules={[
                             {
                               required: true,
-                              message: 'Please Enter Phone Number!',
+                              message: 'Please Enter Your Phone Number!',
                             },
                           ]}>
-                          <Input
-                            type='number'
-                            pattern="[0-9]{10}"
-                            placeholder='Please Enter Your Phone Number'
-                            onChange={(e) => handlePhoneNumberChange(e)}
-                            value={phoneNumber}
-                            disabled={editClick ? false : true}
-                          />
-                          {phoneNumberErr === true && (
-                            <div className='error'>Please Enter your Phone Number!</div>
-                          )}
-                          {uniquePhoneNumberErr === true && !phoneNumberErr && (
-                            <div className='error'>This Phone Number is already taken. Please choose a different one</div>
-                          )}
+                          <div>
+                            <Input
+                              type='number'
+                              pattern="[0-9]{10}"
+                              placeholder='Please Enter Your Phone Number'
+                              onChange={(e) => handlePhoneNumberChange(e)}
+                              value={phoneNumber}
+                              disabled={editClick ? false : true}
+                            />
+                            {/* {phoneNumberErr === true && (
+                              <div className='error'>Please Enter your Phone Number!</div>
+                            )} */}
+                            {uniquePhoneNumberErr === true && (
+                              <div className='error'>This Phone Number is already taken. Please choose a different one</div>
+                            )}
+                          </div>
                         </Form.Item>
                         <Form.Item
                           className='form-item'
@@ -619,7 +621,6 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                             disabled={editClick ? false : true}
                           />
                         </Form.Item>
-                        
                       </Col>
                       <Col sm={24} md={12} xs={24} lg={12} xl={12} className='form-col'>
                         <Form.Item
@@ -654,24 +655,26 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                           required={stateIsRequired}
                           label="State/Province"
                         >
-                          <Select
-                            placeholder='Select State/Province'
-                            showSearch
-                            onSearch={(e) => getState(e)}
-                            onChange={handleStateChange}
-                            optionFilterProp="children"
-                            value={selectedCity?.City_Id}
-                            disabled={editClick ? false : true}
-                          >
-                            {stateData.map((state) => (
-                              <Select.Option key={state.State_Name} value={state.State_Id} onClick={() => handleStateChange(state)}>
-                                {state.State_Name}
-                              </Select.Option>
-                            ))}
-                          </Select>
-                          {stateErr === true && (
-                            <div className='error'>Please Select State/Province!</div>
-                          )}
+                          <div>
+                            <Select
+                              placeholder='Select State/Province'
+                              showSearch
+                              onSearch={(e) => getState(e)}
+                              onChange={handleStateChange}
+                              optionFilterProp="children"
+                              value={selectedCity?.City_Id}
+                              disabled={editClick ? false : true}
+                            >
+                              {stateData.map((state) => (
+                                <Select.Option key={state.State_Name} value={state.State_Id} onClick={() => handleStateChange(state)}>
+                                  {state.State_Name}
+                                </Select.Option>
+                              ))}
+                            </Select>
+                            {stateErr === true && (
+                              <div className='error'>Please Select State/Province!</div>
+                            )}
+                          </div>
                         </Form.Item>
                        
                         <Form.Item

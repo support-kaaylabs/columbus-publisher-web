@@ -7,6 +7,7 @@ import ResetPassword from './components/loginPage/resetPassword';
 import MenuBar from './components/demo/menuBar';
 import MobileMenuBar from './components/demo/mobileMenuBar';
 import Signup from './components/loginPage/signup';
+import SignupForm from './components/loginPage/signupform';
 
 const App: FC = () => {
   const [loginVisible, setLoginVisible] = useState(false);  
@@ -32,7 +33,8 @@ const App: FC = () => {
         <Routes>
           <Route path="/" element={<LoginPage signupValidate={false} setLoginVisible={setLoginVisible} />} />
           <Route path="/reset-password/:id" element={<ResetPassword signupPageValidation={false} forgotPageValidation={false}/>} />
-          <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
+          {/* <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} /> */}
+          <Route path="signupform" element={<SignupForm signupPageValidation={false} forgotPageValidation={false}/>}/>
         </Routes>
       )}
     </ConfigProvider>
