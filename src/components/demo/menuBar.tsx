@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './menuBar.scss';
-import { Link, Routes, Route, useNavigate} from 'react-router-dom';
+import { Link, Routes, Route, useNavigate } from 'react-router-dom';
 import { Layout, Menu, Button, Card, Col, Row, Dropdown } from 'antd';
 import DashboardIcon from '../columbusImages/dashboard-icon.svg';
 import BenchMarkingIcon from '../columbusImages/benchmarking-icon.svg';
@@ -39,21 +39,22 @@ const MenuBar: React.FC = () => {
   const [image, setImage] = useState('');
   const [updateImage, setUpdateImage] = useState<number>(0);
   const [profileChange, setProfileChange] = useState<number>(0);
+  const [profileClr, setProfileClr] = useState<boolean>(false);
   const navigate = useNavigate();
   const userName: string | null = window.localStorage.getItem('User_Name');
   const userEmail: string | null = window.localStorage.getItem('User_Email');
 
-  useEffect(()=>{
+  useEffect(() => {
     const userProfile: string | null = `${window.localStorage.getItem('Image')}`;
     const imageUrl = userProfile === 'null' ? defaultUser : userProfile;
     setImage(imageUrl);
   }, [updateImage, profileChange]);
 
-  const imageUpdate = ()=>{
+  const imageUpdate = () => {
     setUpdateImage(updateImage + 1);
   };
 
-  const editProfileChange = ()=>{
+  const editProfileChange = () => {
     setProfileChange(profileChange + 1);
   };
 
@@ -64,13 +65,21 @@ const MenuBar: React.FC = () => {
     window.location.href = '/';
   };
 
-  const myProfileClick = ()=>{
+  const myProfileClick = () => {
     navigate('/profile');
   };
   const [openKey, setOpenKey] = useState(['dashboard']);
   const currentKey = (window.location.href).split('/')[3];
   useEffect(() => {
-    if(currentKey === 'profile') setOpenKey(['settings']);
+    if (!(openKey[0] === 'settings')) { 
+      if (currentKey === 'profile') setProfileClr(true);
+    }
+    else {      
+      setProfileClr(false);
+    }
+    if (currentKey === 'profile') {
+      setOpenKey(['settings']);
+    }
   }, [currentKey]);
   const onOpenKeyHandler = (key: string[]) => {
     setOpenKey([key[1]]);
@@ -89,23 +98,26 @@ const MenuBar: React.FC = () => {
   };
 
   const profileCard = (
-    <Card className='profile-card' title={<img src={DarkCLogo} />} extra={<a onClick={logoutClick}>Sign out</a>}>
+    <Card className='profile-dropdown-web' title={<img src={DarkCLogo} alt='img' />} extra={<a onClick={logoutClick}>Sign out</a>}>
       <Row>
-        <Col className='image-col'>
-          <img src={image? image : defaultUser} alt='img' />
+        <Col span={8} className='img-col'>
+          <div className='img-col-div'>
+            <img src={image ? image : defaultUser} alt='img' />
+          </div>
         </Col>
-        <Col className='user-col'>
-          <div className='user-div'>
-            <div className='user-name'>{userName}</div>
-            <div className='user-email'>{userEmail}</div>
-            <div className='user-button-div'>
+        <Col span={16} className='user-col'>
+          <div className='user-col-div'>
+            <div className='user-detail'>
+              <div className='user-name'>{userName}</div>
+              <div className='user-email'>{userEmail}</div>
+            </div>
+            <div className='user-profile-button'>
               <a onClick={myProfileClick}>My Profile</a>
             </div>
           </div>
         </Col>
       </Row>
     </Card>
-
   );
 
   const handleDropdownVisibleChange = () => {
@@ -177,6 +189,7 @@ const MenuBar: React.FC = () => {
           <Menu.SubMenu key='settings' title='Settings' icon={<img src={SettingsIcon} alt='settings-icon' className='menuBar-icons' />} className='settings-dropdown'>
             <Menu.Item
               key='profile'
+              className={profileClr ? 'profile-text': ''}
             >
               <Link to='/profile' />
               Profile
@@ -212,9 +225,7 @@ const MenuBar: React.FC = () => {
               overlay={profileCard}
               visible={dropdownVisible}
               onVisibleChange={handleDropdownVisibleChange}
-            >
-              <span></span>
-            </Dropdown>
+            ><span /></Dropdown>
           </div>
         </Header>
         <Content
@@ -223,18 +234,18 @@ const MenuBar: React.FC = () => {
           <Routes>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/benchmarking" element={<BenchMarking />} />
-            <Route path="/management" element={<Management />} />
-            <Route path="/metrics" element={<Matrics />} />
-            <Route path="/analysis" element={<Analysis />} />
-            <Route path="/shoutout" element={<ShoutOut />} />
-            <Route path="/knowledgeHub" element={<KnowledgeHub />} />
-            <Route path="/support" element={<Support />} />
+            <Route path="/management" element={<BenchMarking />} />
+            <Route path="/metrics" element={<BenchMarking />} />
+            <Route path="/analysis" element={<BenchMarking />} />
+            <Route path="/shoutout" element={<BenchMarking />} />
+            <Route path="/knowledgeHub" element={<BenchMarking />} />
+            <Route path="/support" element={<BenchMarking />} />
             <Route path="/profile" element={<Profile updateImage={imageUpdate} editProfile={editProfileChange} />} />
-            <Route path="/subscription" element={<Subscription />} />
-            <Route path="/signup" element={<Signup signupPageValidation={false} forgotPageValidation={false} />} />
+            <Route path="/subscription" element={<BenchMarking />} />
           </Routes>
         </Content>
       </Layout>
+
     </Layout>
   );
 };

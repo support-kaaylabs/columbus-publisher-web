@@ -8,6 +8,8 @@ export const defaultPagination = {
 };
 
 export const errorNotification = (data: any) => {
+  console.log('error notification');
+  
   notification.error({
     message: 'Error',
     description: data,

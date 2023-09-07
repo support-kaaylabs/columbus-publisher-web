@@ -75,6 +75,9 @@
         .settings-dropdown {
           .ant-menu-sub {
             height: 92px;
+            .profile-text {              
+              color: #C20155 !important;
+            }
           }
         }
 
@@ -116,9 +119,6 @@
               &:hover {
                 background: transparent;
               }
-
-              .ant-menu-title-content {}
-
             }
 
             .select-border {
@@ -179,17 +179,17 @@
       height: 80px;
       z-index: 1;
 
-        .header-collapsed-button {
-          padding: 0px;
-          width: unset;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+      .header-collapsed-button {
+        padding: 0px;
+        width: unset;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-          &:hover {
-            background: transparent;
-          }
+        &:hover {
+          background: transparent;
         }
+      }
 
       .user-profile {
         cursor: pointer;
@@ -226,96 +226,390 @@
     }
   }
 }
-.ant-dropdown{
-  width: 426px;
-  height: 191px;
-  padding: 0px !important;
 
-  .ant-dropdown-menu-submenu .ant-dropdown-menu{
-    padding: 0px !important;
-  }
-  .ant-dropdown-menu-submenu .ant-dropdown-menu .ant-dropdown-menu-submenu-title-active{
-    background-color: transparent;
-  }
-  .ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item{
-    padding: 0px !important;
-  }
-  .ant-card{
-    width: 426px;
-    height: 191px;
-    border-radius: 5px;
-    position: absolute;
-    top: 20%;
-    right: -10%;
-    .ant-card-head-title{
-      height: 42px;
-      img{
-        height: 39px;
-        width: 39px;
-      }
-      
-
-    }
-    .ant-card-extra{
-      a{
-        font-weight: 700;
-        font-size: 15px;
-        color: #222222;
-      }
-    }
-    .ant-card-head{
-    width: 426px;
-    height: 42px;
-    border-bottom: 3px solid #F2F2F2;
-    border-radius: 10px;
-    justify-content: space-between;
-    }
-    .ant-card-body{
-    .image-col{
-      img{
-        height: 91px;
-        width: 91px;
-        border-radius: 5px;
-      }
-    }
-    .user-col{
-      width: auto;
-      .user-div{
-        padding-left: 30%;
-        .user-name{
-          font-weight: 700;
-          font-size: 20px;
-          color: #222222;
+@media screen and (max-width: 375px) {
+  .ant-dropdown {
+    box-shadow: 0px 0px 6px #00000029;
+    top: 69px !important;
+    left: 5px !important;
+    .profile-dropdown-mobile {
+      width: 309px;
+      height: 168px;
+      .ant-card-head {
+        box-shadow: 0px 0px 6px #00000029;
+        min-height: 37px !important;
+        padding: 0px 10px;
+        .ant-card-head-wrapper {
+          .ant-card-head-title {
+            display: flex;
+          }
+          .ant-card-extra {
+            a {
+              font-family: 'Gilroy-medium';
+              font-size: 15px;
+              font-weight: bold;
+              color: #222222;
+            }
+          }
         }
-        .user-button-div{
-          padding-top: 25%;
-          color: #c20155;
-          text-decoration: underline;
-          font-weight: 700;
-          font-size: 14px;
-          a{
-            color: #c20155;
+      }
+      .ant-card-body {
+        padding: 0px;
+        height: 127px;
+        border-radius: 0 0 8px 8px;
+        .ant-row {
+          height: 100%;
+          align-items: center;
+          .img-col {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            .img-col-div {
+              width: 83px;
+              height: 83px;
+              border-radius: 4px;
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 4px;
+              }
+            }
+          }
+          .user-col {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            padding: 10px 5px 10px 20px;
+            .user-col-div {
+              width: 100%;
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-around;
+              .user-detail {
+                .user-name {
+                  font-family: 'Gilroy-medium';
+                  font-size: 20px;
+                  font-weight: bold;
+                  color: #222222;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                }
+                .user-email {
+                  font-family: 'Gilroy-medium';
+                  font-size: 15px;
+                  font-weight: 500;
+                  color: #222222;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                }
+              }
+              .user-profile-button {
+                a {
+                  font-family: 'Gilroy-medium';
+                  font-size: 14px;
+                  font-weight: bold;                
+                  text-decoration: underline;
+                  color: #C20155;
+                }
+              }
+            }
           }
         }
       }
     }
   }
-  @media only screen and (max-width: 600px){
-    .ant-card {
-     height:100px;
-     width: 50px;
+}
+@media screen and (min-width: 375px) and (max-width: 425px) {
+  .ant-dropdown {
+    box-shadow: 0px 0px 6px #00000029;
+    top: 69px !important;
+    left: 5px !important;
+    .profile-dropdown-mobile {
+      width: 364px;
+      height: 168px;
+      .ant-card-head {
+        box-shadow: 0px 0px 6px #00000029;
+        min-height: 37px !important;
+        padding: 0px 15px;
+        .ant-card-head-wrapper {
+          .ant-card-head-title {
+            display: flex;
+          }
+          .ant-card-extra {
+            a {
+              font-family: 'Gilroy-medium';
+              font-size: 15px;
+              font-weight: bold;
+              color: #222222;
+            }
+          }
+        }
+      }
+      .ant-card-body {
+        padding: 0px;
+        height: 127px;
+        border-radius: 0 0 8px 8px;
+        .ant-row {
+          height: 100%;
+          align-items: center;
+          .img-col {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            .img-col-div {
+              width: 83px;
+              height: 83px;
+              border-radius: 4px;
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 4px;
+              }
+            }
+          }
+          .user-col {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            padding: 10px 5px 10px 20px;
+            .user-col-div {
+              width: 100%;
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-around;
+              .user-detail {
+                .user-name {
+                  font-family: 'Gilroy-medium';
+                  font-size: 20px;
+                  font-weight: bold;
+                  color: #222222;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                }
+                .user-email {
+                  font-family: 'Gilroy-medium';
+                  font-size: 15px;
+                  font-weight: 500;
+                  color: #222222;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                }
+              }
+              .user-profile-button {
+                a {
+                  font-family: 'Gilroy-medium';
+                  font-size: 14px;
+                  font-weight: bold;                
+                  text-decoration: underline;
+                  color: #C20155;
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
-  @media only screen and (max-width: 800px) and (min-width: 600px){
-    p {
-      margin-left: 5%;
-     }
-  }
-  @media only screen and (max-width: 1400px) and (min-width: 800px){
-    p {
-      margin-left: 3%;
-     }
-  }
-
 }
+@media screen and (min-width: 425px) and (max-width: 767px) {
+  .ant-dropdown {
+    box-shadow: 0px 0px 6px #00000029;
+    top: 69px !important;
+    left: 5px !important;
+    .profile-dropdown-mobile {
+      width: 415px;
+      height: 168px;
+      .ant-card-head {
+        box-shadow: 0px 0px 6px #00000029;
+        min-height: 37px !important;
+        padding: 0px 25px;
+        .ant-card-head-wrapper {
+          .ant-card-head-title {
+            display: flex;
+          }
+          .ant-card-extra {
+            a {
+              font-family: 'Gilroy-medium';
+              font-size: 15px;
+              font-weight: bold;
+              color: #222222;
+            }
+          }
+        }
+      }
+      .ant-card-body {
+        padding: 0px;
+        height: 127px;
+        border-radius: 0 0 8px 8px;
+        .ant-row {
+          height: 100%;
+          align-items: center;
+          .img-col {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            .img-col-div {
+              width: 83px;
+              height: 83px;
+              border-radius: 4px;
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 4px;
+              }
+            }
+          }
+          .user-col {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            padding: 10px 5px 10px 20px;
+            .user-col-div {
+              width: 100%;
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-around;
+              .user-detail {
+                .user-name {
+                  font-family: 'Gilroy-medium';
+                  font-size: 20px;
+                  font-weight: bold;
+                  color: #222222;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                }
+                .user-email {
+                  font-family: 'Gilroy-medium';
+                  font-size: 15px;
+                  font-weight: 500;
+                  color: #222222;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                }
+              }
+              .user-profile-button {
+                a {
+                  font-family: 'Gilroy-medium';
+                  font-size: 14px;
+                  font-weight: bold;                
+                  text-decoration: underline;
+                  color: #C20155;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 767px) {
+  .ant-dropdown {
+    box-shadow: 0px 0px 6px #00000029;
+    top: 87px !important;
+    .profile-dropdown-web {
+      width: 426px;
+      height: 192px;
+      .ant-card-head {
+        box-shadow: 0px 0px 6px #00000029;
+        min-height: 42px;
+        .ant-card-head-wrapper {
+          .ant-card-head-title {            
+            display: flex;
+          }
+          .ant-card-extra {
+            a {
+              font-family: 'Gilroy-medium';
+              font-size: 15px;
+              font-weight: bold;
+              color: #222222;
+            }
+          }
+        }
+      }
+      .ant-card-body {
+        padding: 0px;height: 150px;
+        border-radius: 0 0 8px 8px;
+        .ant-row {
+          height: 100%;
+          align-items: center;
+          .img-col {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            .img-col-div {
+              width: 94px;
+              height: 94px;
+              border-radius: 4px;
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 4px;
+              }
+            }
+          }
+          .user-col {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            padding: 10px 5px 10px 20px;
+            .user-col-div {
+              width: 100%;
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-around;
+              .user-detail {
+                .user-name {
+                  font-family: 'Gilroy-medium';
+                  font-size: 20px;
+                  font-weight: bold;
+                  color: #222222;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                }
+                .user-email {
+                  font-family: 'Gilroy-medium';
+                  font-size: 15px;
+                  font-weight: 500;
+                  color: #222222;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                }
+              }
+              .user-profile-button {
+                a {
+                  font-family: 'Gilroy-medium';
+                  font-size: 14px;
+                  font-weight: bold;                
+                  text-decoration: underline;
+                  color: #C20155;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
