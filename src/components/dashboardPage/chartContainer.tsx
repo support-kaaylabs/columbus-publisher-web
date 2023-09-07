@@ -9,7 +9,7 @@ import CtaBgIcon from '../columbusImages/dashboard-cta-background-icon.svg';
 import { chartContainerDataType } from '../../shared/type';
 import './chartContainer.scss';
 
-const ChartContainer: React.FC<chartContainerDataType> = ({ viewsTotalCount, viewsStartDate, clicksTotalCount, clicksStartDate, ctaTotalCount, ctaStartDate }) => {
+const ChartContainer: React.FC<chartContainerDataType> = ({ viewsTotalCount, viewsStartDate, clicksTotalCount, clicksStartDate, ctaTotalCount, ctaStartDate, endDate }) => {
   return (
     <Row gutter={[24, 8]} className='dashboard-container'>
       <Col xs={24} sm={24} md={24} lg={8}>
@@ -17,7 +17,7 @@ const ChartContainer: React.FC<chartContainerDataType> = ({ viewsTotalCount, vie
           <div className='chart-container-column-left'>
             <p className='actions'>Impressions</p>
             <p className='impressions-counts'>{viewsTotalCount}</p>
-            <p className='date'>{viewsStartDate} - Till Date</p>
+            <p className='date'>{viewsStartDate} - {endDate.length > 0 ? endDate : 'Till Date'}</p>
           </div>
           <div className='chart-container-column-right'>
             <div className='background'>
@@ -34,7 +34,7 @@ const ChartContainer: React.FC<chartContainerDataType> = ({ viewsTotalCount, vie
           <div className='chart-container-column-left'>
             <p className='actions'>Clicks</p>
             <p className='clicks-counts'>{clicksTotalCount}</p>
-            <p className='date'>{clicksStartDate} - Till Date</p>
+            <p className='date'>{viewsStartDate} - {endDate.length > 0 ? endDate : 'Till Date'}</p>
           </div>
           <div className='chart-container-column-right'>
             <div className='background'>
@@ -51,7 +51,7 @@ const ChartContainer: React.FC<chartContainerDataType> = ({ viewsTotalCount, vie
           <div className='chart-container-column-left'>
             <p className='actions'>Call to Action</p>
             <p className='cta-counts'>{ctaTotalCount}</p>
-            <p className='date'>{ctaStartDate} - Till Date</p>
+            <p className='date'>{viewsStartDate} - {endDate.length > 0 ? endDate : 'Till Date'}</p>
           </div>
           <div className='chart-container-column-right'>
             <div className='background'>

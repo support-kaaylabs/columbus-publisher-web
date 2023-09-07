@@ -34,6 +34,11 @@ const ApexChart: React.FC<chartDataType> = ({ viewDate, viewCount, clickCount, c
       type: 'date',
       categories: viewDate,
     },
+    yaxis: {
+      title: {
+        text: 'Counts'
+      },
+    },
     colors: ['#4099FF', '#13C64F', '#F7Af2D'],
     fill: {
       type: 'gradient',
@@ -52,7 +57,7 @@ const ApexChart: React.FC<chartDataType> = ({ viewDate, viewCount, clickCount, c
   if(pageWidth < 768) {    
     wd = 600;
   } else {
-    wd= '99%';
+    wd= '100%';
   }
   
   return (

@@ -26,17 +26,36 @@ export interface chartContainerDataType {
   viewsStartDate: string;
   clicksStartDate: string;
   ctaStartDate: string;
+  endDate: string;
 }
 export interface respDataType {
   success: boolean;
   count: any;
   data: any[];
   user: string;
+  onBoard: any;
+  weekDate?: any;
+  endDate?: any;
+  displayName: string | number;
 }
 
 export interface chartSelectType {
   setChartMode?: any;
   chartMode?: string;
+  crntYear: number;
+  userOnboardYear: number;
+  yearCount: number;
+  crntMonth: number;
+  userOnboardMonth: number;
+  monthCount: number;
+  weekYear: number;
+  weekMonth: number;
+  weekDate: number;
+  userOnboardDate: number;
+  weekCount: number;
+  prevButtonHandler: () => void;
+  nextButtonHandler: () => void;
+  displayName: number | string;
 }
 export interface currentKeyType {
   currentKey: string;
@@ -46,4 +65,9 @@ export interface menuBarKeyType {
   key: string;
   keyPath: string[];
   domEvent: any;
+}
+
+export interface postMethodDataType {
+    datePosition?: number | string;
+    yearPosition?: number;
 }
