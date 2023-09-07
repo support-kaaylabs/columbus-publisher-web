@@ -9,7 +9,7 @@ import CtaBgIcon from '../columbusImages/dashboard-cta-background-icon.svg';
 import { chartContainerDataType } from '../../shared/type';
 import './chartContainer.scss';
 
-const ChartContainer: React.FC<chartContainerDataType> = ({ viewsTotalCount, viewsStartDate, clicksTotalCount, clicksStartDate, ctaTotalCount, ctaStartDate, endDate }) => {
+const ChartContainer: React.FC<chartContainerDataType> = ({ viewsTotalCount, viewsStartDate, clicksTotalCount, ctaTotalCount, endDate }) => {
   return (
     <Row gutter={[24, 8]} className='dashboard-container'>
       <Col xs={24} sm={24} md={24} lg={8}>

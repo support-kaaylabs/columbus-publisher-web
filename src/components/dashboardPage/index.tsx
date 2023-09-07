@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Spin } from 'antd';
-import { getPublisherChartData, getPublisherChartYearlyData, getPublisherChartYearlyPrevData, getPublisherChartMonthlyData, getPublisherChartMonthlyPrevData, getPublisherChartWeeklyData, getPublisherChartWeeklyPrevData, getPublisherChartWeeklyNextData } from '../../shared/urlHelper';
+import { getPublisherChartYearlyData, getPublisherChartYearlyPrevData, getPublisherChartMonthlyData, getPublisherChartMonthlyPrevData, getPublisherChartWeeklyData, getPublisherChartWeeklyPrevData, getPublisherChartWeeklyNextData } from '../../shared/urlHelper';
 import { errorNotification } from '../../shared/globalVariables';
 import { get } from 'lodash';
 import { chartDataType, curValue, respDataType, chartContainerDataType, postMethodDataType } from '../../shared/type';
