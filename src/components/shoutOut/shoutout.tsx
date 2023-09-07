@@ -2,6 +2,7 @@ import React, { type FC } from 'react';
 import {Row, Col} from 'antd';
 import CommingSoon from '../../assets/Group 56838.svg';
 import './shoutout.scss';
+
 const ShoutOut:FC = () => {
   return(
     <div>

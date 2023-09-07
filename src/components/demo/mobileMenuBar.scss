@@ -105,6 +105,9 @@
             .settings-dropdown {
               .ant-menu-sub {
                 height: 92px;
+                .profile-text {              
+                  color: #C20155 !important;
+                }
 
                 .select-border {
                   position: absolute;
@@ -153,8 +156,6 @@
                     background: transparent;
                   }
 
-                  .ant-menu-title-content {}
-
                 }
 
                 .ant-menu-item-selected {
@@ -194,3 +195,4 @@
     }
   }
 }
+

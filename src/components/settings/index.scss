@@ -39,6 +39,10 @@
   }
 
 .spin-Loading {
+  
+  .ant-spin-dot-item {
+    background-color: #570026;
+  }
   .ant-spin-dot {
     position: absolute !important;
     top: 30%;
@@ -47,7 +51,7 @@
 }
 .profile-col {
   padding-left: 2%;
-  // padding-right: 20px;
+  padding-right: 0%;
   
 
   .ant-card {
@@ -74,11 +78,14 @@
 
     .ant-card-meta {
       text-align: center;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
 
     .ant-card-meta-title {
       font-size: 22px;
+      text-overflow: ellipsis;
+      white-space: pre-wrap;
+      padding: 0% 4% 0 4%;
     }
 
     .ant-btn-div {
@@ -106,6 +113,13 @@
   }
   .edit-profile {
     padding-bottom: 40%;
+    .img-resolution{
+      margin: 1% 5% 1% 5%;
+      text-align: center;
+      color: #222222;
+      font-weight: 500;
+      font-size: 12px;
+    }
     .store-ptag{
       margin-left: 15%;
       margin-right: 16.5%;
@@ -260,9 +274,9 @@
         border: 1px solid #a9a9a9;
         border-radius: 5px !important;
         &:hover{
-color: #222222;
-border-color: #a9a9a9;
-border-width: 2px solid #a9a9a9;
+        color: #222222;
+        border-color: #a9a9a9;
+        border-width: 2px solid #a9a9a9;
 
         }
       }
@@ -323,7 +337,6 @@ border-width: 2px solid #a9a9a9;
           color: white;
           position: absolute;
           right: 0;
-          // transform: translateY(-50%);
         }
       }
       .form-item-select {
@@ -406,6 +419,14 @@ border-width: 2px solid #a9a9a9;
       }
     }
   }
+  @media only screen and (max-width: 900px) and (min-width: 300px){
+    .right-Column-div {
+      margin-left: 2%;;
+    }
+  }
+}
+.ant-select {
+  display: block;
 }
 .ant-select .ant-select-lg .ant-select-in-form-item, .ant-select-selector{
 background-color: #8a1616;
@@ -415,13 +436,15 @@ margin-bottom: 10px !important;
 padding-top: 5px !important;
 }
 .mobile-profile-col{
-  padding: 2%;
-  // padding-left: 2%;
+  padding-bottom: 2%;
+  padding-right: 2%;
+  padding-left: 2%;
+  margin-left: 2%;
   .ant-card {
     box-shadow: 0px 2px 6px #00000033;
     border-radius: 5px;
     height: 188px;
-margin-right: 2%;
+margin-right: 4%;
     .img-col{
       .img {
         border-radius: 5px !important;
@@ -435,6 +458,9 @@ margin-right: 2%;
     
     .ant-card-body {
       padding: 0px !important;
+      .ant-row {
+        flex-flow: unset;
+      }
     }
 
   .card-profile-body{
@@ -442,6 +468,11 @@ margin-right: 2%;
       margin-top: 25%;
       text-align: center;
       margin-bottom: 15%;
+    }
+    @media screen and (max-width: 800px) and (min-width: 700px){
+      .ant-card-meta{
+        margin-bottom: 10%;
+      }
     }
 
     .ant-card-meta-title {
@@ -460,9 +491,18 @@ margin-right: 2%;
     }
     }
   }
+  .img-resolution{
+      
+    text-align: center;
+    color: #222222;
+    font-weight: 500;
+    font-size: 12px;
+  }
   .edit-profile {
     height: 188px;
+    
     .profile-img-div{
+     
     img{
       position: absolute;
       top: 0%;
@@ -539,6 +579,7 @@ margin-right: 2%;
     padding-left: 5%;
     margin-right: 5%;
     height: 38px;
+   
   .ant-input{
     height: 38px;
     background-color: #F2F2F2;
