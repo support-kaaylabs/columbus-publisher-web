@@ -1,5 +1,6 @@
 import Http from './api';
 import { getAPIUrl } from './env';
+import { postMethodDataType } from '../shared/type';
 
 const http = new Http(getAPIUrl());
 
@@ -52,9 +53,17 @@ export const getPublisherChartData = () => http.get('get-publisher-chart-data');
 
 export const getPublisherChartYearlyData = () => http.get('get-publisher-chart-yearly-data');
 
+export const getPublisherChartYearlyPrevData = (data: postMethodDataType) => http.post('get-publisher-chart-yearly-data-prev', data);
+
 export const getPublisherChartMonthlyData = () => http.get('get-publisher-chart-monthly-data');
 
+export const getPublisherChartMonthlyPrevData = (data: postMethodDataType) => http.post('get-publisher-chart-monthly-data-prev', data); 
+
 export const getPublisherChartWeeklyData = () => http.get('get-publisher-chart-weekly-data');
+
+export const getPublisherChartWeeklyPrevData = (data: postMethodDataType) => http.post('get-publisher-chart-weekly-data-prev', data);
+
+export const getPublisherChartWeeklyNextData = (data: postMethodDataType) => http.post('get-publisher-chart-weekly-data-next', data);
 
 export const getSellerDetails = () => http.get('get-seller-details');
 
