@@ -56,6 +56,7 @@ export interface chartSelectType {
   prevButtonHandler: () => void;
   nextButtonHandler: () => void;
   displayName: number | string;
+  loading: boolean;
 }
 export interface currentKeyType {
   currentKey: string;
