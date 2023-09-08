@@ -33,7 +33,7 @@ const App: FC = () => {
         <Routes>
           <Route path="/" element={<LoginPage signupValidate={false} setLoginVisible={setLoginVisible} />} />
           <Route path="/reset-password/:id" element={<ResetPassword signupPageValidation={false} forgotPageValidation={false}/>} />
-          <Route path="signupform" element={<SignupForm signupPageValidation={false} forgotPageValidation={false}/>}/>
+          <Route path="/signup" element={<SignupForm signupPageValidation={false} forgotPageValidation={false}/>}/>
         </Routes>
       )}
     </ConfigProvider>
