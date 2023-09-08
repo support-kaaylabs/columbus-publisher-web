@@ -1,6 +1,6 @@
 import React, { useState, type FC, useEffect, useRef, MouseEvent } from 'react';
 import { Form, Input, Button, Select, Row, Col } from 'antd';
-import { CameraOutlined, ArrowLeftOutlined, ArrowRightOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import Cards from './card';
 import { useNavigate } from 'react-router-dom';
 import { successNotification, errorNotification } from '../../../src/shared/globalVariables';
@@ -11,8 +11,6 @@ import backArrow from '../../assets/BackArroww.svg';
 import frontArrow from '../../assets/frontArroww.svg';
 import addProfileCameraIcon from '../../assets/Icon feather-camera.svg';
 import SignupBackButton from '../../assets/SignupBack.svg';
-import './signup.scss';
-
 
 interface Country {
   Country_Id: number;
@@ -726,14 +724,9 @@ const Signup: FC<signupProps> = ({ signupPageValidation, forgotPageValidation })
               </Form.Item>
               <Form.Item
                 className='form-item-select'
-                // name="Region"
                 required
                 label="Region"
-                rules={[
-                  {
-                    required: true,
-                  },
-                ]}>
+              >
                 <Select
                   style={{ marginTop: '-1%', marginBottom: '10px' }}
                   placeholder='Select Country'
