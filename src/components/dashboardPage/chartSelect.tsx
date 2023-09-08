@@ -19,7 +19,8 @@ const ChartSelect: React.FC<chartSelectType> = ({
   weekCount,
   prevButtonHandler,
   nextButtonHandler,
-  displayName
+  displayName,
+  loading
 }) => {
   return (
     <div className='select-div'>
@@ -32,7 +33,7 @@ const ChartSelect: React.FC<chartSelectType> = ({
                 <img src={DashboardPrevIcon} alt='dashboard-prev-icon' />
               </button>
               <div className='chart-dropdown-data-yearly'>
-                {displayName}
+                {!loading && displayName}
               </div>
               <button type='button' onClick={nextButtonHandler} className='chart-dropdown-next' disabled={yearCount > 0 ? false : true}>
                 <img src={DashboardNextIcon} alt='dashboard-next-icon' />
@@ -45,7 +46,7 @@ const ChartSelect: React.FC<chartSelectType> = ({
                 <img src={DashboardPrevIcon} alt='dashboard-prev-icon' />
               </button>
               <div className='chart-dropdown-data-monthly'>
-                {displayName}
+                {!loading && displayName}
               </div>
               <button type='button' onClick={nextButtonHandler} className='chart-dropdown-next' disabled={monthCount > 0 ? false : true}>
                 <img src={DashboardNextIcon} alt='dashboard-next-icon' />
@@ -58,7 +59,7 @@ const ChartSelect: React.FC<chartSelectType> = ({
                 <img src={DashboardPrevIcon} alt='dashboard-prev-icon' />
               </button>
               <div className='chart-dropdown-data-weekly'>
-                {displayName}
+                {!loading && displayName}
               </div>
               <button type='button' onClick={nextButtonHandler} className='chart-dropdown-next' disabled={weekCount > 0 ? false : true}>
                 <img src={DashboardNextIcon} alt='dashboard-next-icon' />

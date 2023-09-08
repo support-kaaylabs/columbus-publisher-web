@@ -263,7 +263,8 @@ const DashboardPage: React.FC = () => {
             weekCount={weekCount}
             prevButtonHandler={prevButtonHandler}
             nextButtonHandler={nextButtonHandler}
-            displayName={displayName}      
+            displayName={displayName}
+            loading={loading}      
           />
         </div>
         {loading && (<div className='chart-loading'>
