@@ -11,7 +11,6 @@ import addProfileCameraIcon from '../../assets/Icon feather-camera.svg';
 import { getAllCountries, getAllStatesByCountryId, getAllCitiesByStateId, email_phone_verify, sellerRegister } from '../../../src/shared/urlHelper';
 import './signup.scss';
 import { get } from 'lodash';
-import Cards from './card';
 import { imageHeight, imageWidth } from '../../shared/helper';
 
 interface Country {
@@ -65,7 +64,6 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
   const [uniquePhoneNumberErr, setUniquePhoneNumberErr] = useState(false);
   const [passwordcheck, setPasswordCheck] = useState<boolean>(false);
   const [passwordValidate, setPasswordValidate] = useState<boolean>(false);
-  const [passwordTestErr, setPasswordTestErr] = useState<boolean>(false);
   const [confirmPassword, setConfirmPassword] = useState<any>();
   const [regionDatas, setRegionDatas] = useState<any[]>([]);
   const [cityData, setCityData] = useState<any[]>([]);
@@ -216,7 +214,6 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
       charClass: isCharacterValidate ? 'check-success' : 'check-error',
       specialCharClass: isSpecialCharValidate ? 'check-success' : 'check-error',
     });
-    setPasswordTestErr(false);
     setPasswordCheck(true);
   };
 
