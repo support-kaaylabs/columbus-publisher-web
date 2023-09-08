@@ -326,7 +326,6 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
     const phoneParams = { userId, phoneNumber: phoneNumber, userType: 'merchant' };
     setBtnLoading(true);
     await email_verification(emailParams).then((res) => {
-      console.log(res, 'response================>');
       phone_verification(phoneParams).then(() => {
         const params = {
           userDetails: {
@@ -529,7 +528,6 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
               <div className='right-Column-div'>
                 <div >
                   <Form
-                    // name="control-hooks"
                     size={'large'}
                     form={form}
                     autoComplete='off'
@@ -600,9 +598,6 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                               value={phoneNumber}
                               disabled={editClick ? false : true}
                             />
-                            {/* {phoneNumberErr === true && (
-                              <div className='error'>Please Enter your Phone Number!</div>
-                            )} */}
                             {uniquePhoneNumberErr === true && (
                               <div className='error'>This Phone Number is already taken. Please choose a different one</div>
                             )}

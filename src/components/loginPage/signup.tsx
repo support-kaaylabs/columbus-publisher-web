@@ -11,8 +11,6 @@ import backArrow from '../../assets/BackArroww.svg';
 import frontArrow from '../../assets/frontArroww.svg';
 import addProfileCameraIcon from '../../assets/Icon feather-camera.svg';
 import SignupBackButton from '../../assets/SignupBack.svg';
-// import './signup.scss';
-
 
 interface Country {
   Country_Id: number;

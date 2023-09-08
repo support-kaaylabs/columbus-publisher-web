@@ -4,7 +4,6 @@ import './index.scss';
 import Logo from '../columbusImages/logo.svg';
 import { useNavigate } from 'react-router-dom';
 import Signin from './signin';
-import Signup from './signup';
 import SignupForm from './signupform';
 import ForgotPassword from './ForgotPassword';
 import mobLogo from '../columbusImages/menuBar-Small-Logo.svg';
@@ -61,7 +60,6 @@ const LoginPage: FC<Props> = ({ signupValidate, setLoginVisible }) => {
           </Col>
           <Col sm={24} xs={24} md={24} lg={24}>
             {signup &&
-          // <Signup signupPageValidation={signupPageValidation} forgotPageValidation={forgotPageValidation} />
           <SignupForm signupPageValidation={signupPageValidation} forgotPageValidation={forgotPageValidation} />
             }
             {forgot &&
