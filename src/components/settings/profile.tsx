@@ -390,152 +390,152 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
           <div className='text-div'>
             {editClick ? (<p>Edit Profile</p>) : (<p>Profile</p>)}
           </div>
-          <Row>
-            <Col sm={0} md={0} xs={0} lg={6} xl={6} className='profile-col'>
-              {!editClick ? (
-                <Card
-                  className='ant-card'
-                  cover={<img src={image? image: defaultUser} alt='profile-img' className='img' />}
-                >
-                  <Meta title={`${storeName}`} />
-                  <div className='ant-btn-div'>
-                    <Button  className='btn-edit' onClick={handleEditProfile}>Edit Profile</Button>
-                  </div>
-                </Card>
-              ) : (
-                <Card
-                  cover={<img src={image? image: defaultUser} alt='profile-img' className='img' />}
-                  loading={loader}
-                >
-                  <div className='edit-profile'>
-                    <div
-                      className="user-img-logo-content"
-                      onMouseLeave={cameraIconHandlerHide}
-                    >
-                      <div
-                        className="profile-head"
-                        onMouseEnter={cameraIconHandlerDisplay}
-                      >
-                      </div>
-                      <div
-                        className={
-                          cameraIconDisplay ? 'camera-icon-hide' : 'camera-icon'
-                        }
-                        onClick={clickHandler}
-                      >
-                        <img src={cameraIcon} alt="camera-icon" />
-                        <input
-                          type="file"
-                          accept="image/*"
-                          ref={logoHandler}
-                          onChange={changeLogoHandler}
-                          className="input"
-                        />
-                      </div>
+          <Form
+            size={'large'}
+            form={form}
+            autoComplete='off'
+            initialValues={{ remember: true }}
+            className='form'
+            layout='vertical'
+            onFinish={handleSubmit}
+          >
+            <Row>
+              <Col sm={0} md={0} xs={0} lg={6} xl={6} className='profile-col'>
+                {!editClick ? (
+                  <Card
+                    className='ant-card'
+                    cover={<img src={image? image: defaultUser} alt='profile-img' className='img' />}
+                  >
+                    <Meta title={`${storeName}`} />
+                    <div className='ant-btn-div'>
+                      <Button  className='btn-edit' onClick={handleEditProfile}>Edit Profile</Button>
                     </div>
-                    <div className='img-resolution'>Image should be in resolution of 360*360</div>
-                    <Form.Item
-                      className='store-ptag'
-                      name='storename'
-                      rules={[{ required: true, message: 'Please Enter Store Name!' }]}>
-                      <Input
-                        className='edit-card-label'
-                        type='text'
-                        placeholder='Enter your Store Name'
-                        onChange={(e) => handleStoreNameChange(e)}
-                        value={`${storeName}`}
-                        disabled={editClick ? false : true}
-                      />
-                    </Form.Item>
-                  </div>
-                </Card>
-              )}
-            </Col >
-            <Col sm={24} md={24} xs={24} lg={0} xl={0} className='mobile-profile-col'>
-              {!editClick ? (
-                <Card>
-                  <Row>
-                    <Col sm={12} md={12} xs={12} lg={0} xl={0} className='img-col'>
-                      <img src={image? image: defaultUser} alt='profile-img' className='img' />
-                    </Col>
-                    <Col sm={12} md={12} xs={12} lg={0} xl={0} className='card-profile-body'>
-                      <div>
-                        <Meta title={`${storeName}`} />
-                        <div className='ant-button-div'><Button className='ant-btn' onClick={handleEditProfile}>Edit Profile</Button></div>
-                      </div>
-                    </Col>
-                  </Row>
-                </Card>
-              ) : (
-                <Card>
-                  <Row align='middle'>
-                    <Col sm={12} md={12} xs={12} lg={0} xl={0}>
-
-                      <div className='edit-profile'>
-                        <div className='profile-img-div'>
-                          <img src={image? image: defaultUser} alt='profile-img' className='img' />
+                  </Card>
+                ) : (
+                  <Card
+                    cover={<img src={image? image: defaultUser} alt='profile-img' className='img' />}
+                    loading={loader}
+                  >
+                    <div className='edit-profile'>
+                      <div
+                        className="user-img-logo-content"
+                        onMouseLeave={cameraIconHandlerHide}
+                      >
+                        <div
+                          className="profile-head"
+                          onMouseEnter={cameraIconHandlerDisplay}
+                        >
                         </div>
                         <div
-                          className="user-img-logo-content"
-                          onMouseLeave={cameraIconHandlerHide}
+                          className={
+                            cameraIconDisplay ? 'camera-icon-hide' : 'camera-icon'
+                          }
+                          onClick={clickHandler}
                         >
-                          <div
-                            className="profile-head"
-                            onMouseEnter={cameraIconHandlerDisplay}
-                          >
-                          </div>
-                          <div
-                            className={
-                              cameraIconDisplay ? 'camera-icon-hide' : 'camera-icon'
-                            }
-                            onClick={clickHandler}
-                          >
-                            <img src={cameraIcon} alt="camera-icon" />
-                            <input
-                              type="file"
-                              accept="image/*"
-                              ref={logoHandler}
-                              onChange={changeLogoHandler}
-                              className="input"
-                            />
-                          </div>
+                          <img src={cameraIcon} alt="camera-icon" />
+                          <input
+                            type="file"
+                            accept="image/*"
+                            ref={logoHandler}
+                            onChange={changeLogoHandler}
+                            className="input"
+                          />
                         </div>
                       </div>
-                    </Col>
-                    <Col sm={12} md={12} xs={12} lg={0} xl={0}>
                       <div className='img-resolution'>Image should be in resolution of 360*360</div>
-                      <div className='form-store'>
-                        <Form.Item
-                          className='form-storeName'
-                          name='storename'
-                          rules={[{ required: true, message: 'Please Enter Store Name!' }]}>
-                          <Input
-                            className='edit-card-label'
-                            type='text'
-                            placeholder='Enter your Store Name'
-                            onChange={(e) => handleStoreNameChange(e)}
-                            value={`${storeName}`}
-                            disabled={editClick ? false : true}
-                          />
-                        </Form.Item>
-                      </div>
-                    </Col>
-                  </Row>
-                </Card>
-              )}
-            </Col>
-            <Col sm={24} md={24} xs={24} lg={18} xl={18} className='form-col'>
-              <div className='right-Column-div'>
-                <div >
-                  <Form
-                    size={'large'}
-                    form={form}
-                    autoComplete='off'
-                    initialValues={{ remember: true }}
-                    className='form'
-                    layout='vertical'
-                    onFinish={handleSubmit}
-                  >
+                      <Form.Item
+                        className='store-ptag'
+                        name='storename'
+                        rules={[{ required: true, message: 'Please Enter Store Name!' }]}>
+                        <Input
+                          className='edit-card-label'
+                          type='text'
+                          placeholder='Enter your Store Name'
+                          onChange={(e) => handleStoreNameChange(e)}
+                          value={`${storeName}`}
+                          disabled={editClick ? false : true}
+                        />
+                      </Form.Item>
+                    </div>
+                  </Card>
+                )}
+              </Col >
+              <Col sm={24} md={24} xs={24} lg={0} xl={0} className='mobile-profile-col'>
+                {!editClick ? (
+                  <Card>
+                    <Row>
+                      <Col sm={12} md={12} xs={12} lg={0} xl={0} className='img-col'>
+                        <img src={image? image: defaultUser} alt='profile-img' className='img' />
+                      </Col>
+                      <Col sm={12} md={12} xs={12} lg={0} xl={0} className='card-profile-body'>
+                        <div>
+                          <Meta title={`${storeName}`} />
+                          <div className='ant-button-div'><Button className='ant-btn' onClick={handleEditProfile}>Edit Profile</Button></div>
+                        </div>
+                      </Col>
+                    </Row>
+                  </Card>
+                ) : (
+                  <Card>
+                    <Row align='middle'>
+                      <Col sm={12} md={12} xs={12} lg={0} xl={0}>
+
+                        <div className='edit-profile'>
+                          <div className='profile-img-div'>
+                            <img src={image? image: defaultUser} alt='profile-img' className='img' />
+                          </div>
+                          <div
+                            className="user-img-logo-content"
+                            onMouseLeave={cameraIconHandlerHide}
+                          >
+                            <div
+                              className="profile-head"
+                              onMouseEnter={cameraIconHandlerDisplay}
+                            >
+                            </div>
+                            <div
+                              className={
+                                cameraIconDisplay ? 'camera-icon-hide' : 'camera-icon'
+                              }
+                              onClick={clickHandler}
+                            >
+                              <img src={cameraIcon} alt="camera-icon" />
+                              <input
+                                type="file"
+                                accept="image/*"
+                                ref={logoHandler}
+                                onChange={changeLogoHandler}
+                                className="input"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </Col>
+                      <Col sm={12} md={12} xs={12} lg={0} xl={0}>
+                        <div className='img-resolution'>Image should be in resolution of 360*360</div>
+                        <div className='form-store'>
+                          <Form.Item
+                            className='form-storeName'
+                            name='storename'
+                            rules={[{ required: true, message: 'Please Enter Store Name!' }]}>
+                            <Input
+                              className='edit-card-label'
+                              type='text'
+                              placeholder='Enter your Store Name'
+                              onChange={(e) => handleStoreNameChange(e)}
+                              value={`${storeName}`}
+                              disabled={editClick ? false : true}
+                            />
+                          </Form.Item>
+                        </div>
+                      </Col>
+                    </Row>
+                  </Card>
+                )}
+              </Col>
+              <Col sm={24} md={24} xs={24} lg={18} xl={18} className='form-col'>
+                <div className='right-Column-div'>
+                  <div >
                     <Row className='form-row'>
                       <Col sm={24} md={12} xs={24} lg={12} xl={12} className='form-col'>
                         <Form.Item
@@ -738,11 +738,11 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                         </Col>
                       </Row> 
                     )}
-                  </Form>
+                  </div>
                 </div>
-              </div>
-            </Col>
-          </Row>
+              </Col>
+            </Row>
+          </Form>
         </div>
       ):(
         <Spin  className='spin-Loading' size="large" style={{alignSelf: 'center'}}/>
