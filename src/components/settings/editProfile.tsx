@@ -46,12 +46,13 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
     phoneNumber: '',
     zipcode: '',
     emailAddress: '',
+    countryId: '' || null,
   });
   const [regionDatas, setRegionDatas] = useState<any[]>([]);
   const [cityData, setCityData] = useState<any[]>([]);
   const [stateData, setStateData] = useState<any[]>([]);
-  const [countryId, setCountryId] = useState<any>();
-  const [stateId, setStateId] = useState<any>();
+  const [countryId, setCountryId] = useState<any>(null);
+  const [stateId, setStateId] = useState<any>(null);
   const [cityValue, setCityValue] = useState<any>();
   const [stateErr, setStateErr] = useState(false);
   const [cityErr, setCityErr] = useState(false);
@@ -91,6 +92,8 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
         phoneNumber: userDetails.Phone_Number,
         zipcode: sellerDetails.Pincode,
         emailAddress: userDetails.Email_ID,
+        stateId:sellerDetails.State_Id,
+        countryId: sellerDetails.Country_Id
       };
       setEntityName(sellerDetails.Store_Name);
       setEmail(userDetails.Email_ID);
@@ -102,7 +105,7 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
       setLoader(false);
     });
   };
-
+  
   const getCountry = async () => {
     await getAllCountries().then((res) => {
       if (res) {
@@ -134,20 +137,20 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
   };
 
   const handleCountryChange = async (value: string) => {
-    console.log(value, 'vlaue of country');
-
+    setCityData([]);
+    setStateId(null);
     setCountryId(value);
     const selectedCountry = regionDatas.find((country) => country.Country_Id === value);
     const country = selectedCountry?.Country_Id;
-    // setSelectedCountry(selectedCountry || null);
     setSelectedCountry(selectedCountry?.Country_Name);
     const params = { id: country };
     await getAllStatesByCountryId(params).then((response) => {
       if (response) {
         if(response.data.length === 0){
-          console.log('no value');
           setStateIsRequired(false);
           setStateData(response.data);
+          setStateId(null);
+
         }else{
           setStateIsRequired(true);
           setStateData(response.data);
@@ -158,13 +161,11 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
     setSelectedState(null);
     setSelectedCity(null);
   };
-  console.log(selectedState,selectedCity, 'null or not');
   const handleStateChange = (value: string) => {
     const selectedState = stateData.find((state) => state.State_Id === value);
     const stateId = selectedState.State_Id;
     setStateId(stateId);
     setSelectedState(selectedState?.State_Name);
-    // setSelectedState(selectedState || null);
     const params = { id: stateId };
     getAllCitiesByStateId(params).then((res) => {
 
@@ -184,9 +185,7 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
 
   const handleCityChange = (value: string) => {
     const selectedCity = cityData.find((city) => city.City_Id === value);
-    // setSelectedCity(selectedCity || null);
     setSelectedCity(selectedCity?.City_Name);
-    console.log(selectedCity, 'ciciicici');
     setCityErr(false);
   };
   const cameraIconHandlerHide = (e: MouseEvent<HTMLDivElement>) => {
@@ -238,9 +237,7 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
     // setSelectedFileList(fileUploaded);
   };
   const onFinish= async (values: any)=>{
-    console.log(values, 'form Values');
     const {emailAddress,gstNumber,phoneNumber,region,state,city,zipcode,userName,storeName} = values;
-    console.log(emailAddress,gstNumber,phoneNumber,region,state,city,zipcode,userName,storeName, 'values destructured');
 
     const userId = localStorage.getItem('User_ID');
     if (!selectedState && stateIsRequired) {
@@ -271,7 +268,7 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
             State_Id: stateId,
           }
         };
-        console.log(selectedCountry,selectedState,selectedCity,'papapapappapapapa', params);
+        console.log('papapapappapapapa', params);
         if (!uniqueEmailErr && !uniquePhoneNumberErr && !(!selectedState && stateIsRequired) && !(!selectedCity && cityIsRequired) ) {
           updateSellerDetails({ userId }, params).then((res) => {
             if (res.success) {
@@ -303,14 +300,9 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
       }
     });
   };
-
+  
   const handleEditProfile = () => {
     setEditClick(true);
-    // getAllStatesById();
-  };
-
-  const onFinishFailed=(values: any)=>{
-    console.log(values, 'form failed Values');
   };
 
   const onCancel =()=>{
@@ -321,7 +313,6 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
     setCityErr(false);
     setEditClick(false);
   };
-  const {state,city} = initialValues;
 
   const handleUserNameChange = (e: any) =>{
     setName(e.target.value);
@@ -356,7 +347,6 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
           form={form}
           name='control-hooks'
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           layout='vertical'
         >
           <Row>
@@ -641,7 +631,6 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
                           onSearch={(e) => getState(e)}
                           onChange={handleStateChange}
                           value={selectedState}
-                          // value={selectedState?selectedState.State_Name: state}
                           optionFilterProp="children"
                           disabled={!editClick}
                         >
@@ -669,7 +658,7 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
                           value={selectedCity}
                           onSearch={(e) => getCities(e)}
                           optionFilterProp="children"
-                          disabled={!editClick}
+                          disabled={(editClick || !selectedState)? false: true}
                         >
                           {cityData?.map((city) => (
                             <Select.Option key={city.City_Name} value={city.City_Id} onClick={() => handleCityChange(city)}>
