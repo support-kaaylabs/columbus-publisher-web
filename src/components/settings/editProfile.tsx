@@ -65,18 +65,18 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
   const [uniquePhoneNumberErr, setUniquePhoneNumberErr] = useState(false);
   const [cameraIconDisplay, setCameraIconDisplay] = useState<any>(true);
 
-  // const [entityName,setEntityName] = useState();
-  // const [name, setName] = useState();
-  // const [email, setEmail] = useState();
-  // const [phone, setPhone] = useState();
-  // const [gst, setgst] = useState();
-  // const [zip,setZip] = useState();
+  const [entityName,setEntityName] = useState();
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [phone, setPhone] = useState();
+  const [gst, setgst] = useState();
+  const [zip,setZip] = useState();
 
 
   useEffect(()=>{
     getSeller();
     getCountry();
-  },[]);
+  },[editClick]);
 
   const getSeller = () => {
     setLoader(true);
@@ -92,6 +92,9 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
         zipcode: sellerDetails.Pincode,
         emailAddress: userDetails.Email_ID,
       };
+      setEntityName(sellerDetails.Store_Name);
+      setEmail(userDetails.Email_ID);
+      setPhone(userDetails.Phone_Number);
       form.setFieldsValue(initialFormValues);
       setInitialValues(initialFormValues);
       setLoader(false);
@@ -283,13 +286,16 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
         }
       }).catch((err) => {
         const phoneErr = get(err, 'error.phoneError', '');
-        if (phoneErr) {
+        if (phoneErr) {        
+          console.log(phoneErr,'phoneErrhhhhhhhhhh');
+
           return setUniquePhoneNumberErr(true);
         }
       });
     }).catch((err) => {
       const mailErr = get(err, 'error.mailError', '');
       if (mailErr) {
+        console.log(mailErr,'mailErrororor');
         return setUniqueEmailerr(true);
       }
     });
@@ -305,10 +311,34 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
   };
 
   const onCancel =()=>{
+    console.log(initialValues, 'initial Values');
     form.setFieldsValue(initialValues);
+    setEditClick(false);
     console.log('fkfkj');
   };
   const {state,city} = initialValues;
+
+  const handleUserNameChange = (e: any) =>{
+    setName(e.target.value);
+  };
+
+  const handleEmailChange = (e: any) =>{
+    setEmail(e.target.value);
+    setUniqueEmailerr(false);
+  };
+
+  const handlePhoneNumberChange = (e: any) =>{
+    setPhone(e.target.value);
+    setUniquePhoneNumberErr(false);
+  };
+
+  const handleGSTNumberChange = (e: any) =>{
+    setgst(e.target.value);
+  };
+
+  const handleZipcodeChange = (e: any) =>{
+    setZip(e.target.value);
+  };
 
   return(
     <>
@@ -331,7 +361,7 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
                   className='ant-card'
                   cover={<img src={image? image: defaultUser} alt='profile-img' className='img' />}
                 >
-                  {/* <Meta title={`${storeName}`} /> */}
+                  <Meta title={`${entityName}`} />
                   <div className='ant-btn-div'>
                     <Button  className='btn-edit' onClick={handleEditProfile}>Edit Profile</Button>
                   </div>
@@ -406,7 +436,7 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
                     </Col>
                     <Col sm={12} md={12} xs={12} lg={0} xl={0} className='card-profile-body'>
                       <div>
-                        {/* <Meta title={`${storeName}`} /> */}
+                        <Meta title={`${entityName}`} />
                         <div className='ant-button-div'><Button className='ant-btn' onClick={handleEditProfile}>Edit Profile</Button></div>
                       </div>
                     </Col>
@@ -498,6 +528,8 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
                       >
                         <Input
                           placeholder='Enter Your Username'
+                          onChange={e=>handleUserNameChange(e)}
+                          value={name}
                           disabled={editClick ? false : true}
                         />
                       </Form.Item>
@@ -516,14 +548,18 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
                           },
                         ]}
                       >
-                        <Input
-                          type='email'
-                          placeholder='Enter Your Email Address'
-                          disabled={editClick ? false : true}
-                        />
-                        {uniqueEmailErr === true && (
-                          <div className='error'>This email is already taken. Please choose a different one.</div>
-                        )}
+                        <div>
+                          <Input
+                            type='email'
+                            placeholder='Enter Your Email Address'
+                            onChange={(e)=>handleEmailChange(e)}
+                            value={email}
+                            disabled={!editClick}
+                          />
+                          {uniqueEmailErr === true && (
+                            <div className='error'>This email is already taken. Please choose a different one.</div>
+                          )}
+                        </div>
                       </Form.Item>
                       <Form.Item
                         className='form-item'
@@ -534,12 +570,17 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
                           message: 'Please Enter Your Phone Number'
                         }]}
                       >
-                        <Input
-                          placeholder='Enter Your Phone Number'
-                        />
-                        {uniquePhoneNumberErr && (
-                          <div className='error'>This Phone Number is Already Taken. Please Choose a Different One!</div>
-                        )}
+                        <div>
+                          <Input
+                            placeholder='Enter Your Phone Number'
+                            onChange={(e)=>handlePhoneNumberChange(e)}
+                            value={phone}
+                            disabled={!editClick}
+                          />
+                          {uniquePhoneNumberErr && (
+                            <div className='error'>This Phone Number is Already Taken. Please Choose a Different One!</div>
+                          )}
+                        </div>
                       </Form.Item>
                       <Form.Item
                         className='form-item'
@@ -547,7 +588,10 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
                         label='GST Number'
                       >
                         <Input
-                          placeholder='Enter Your GST Number'/>
+                          placeholder='Enter Your GST Number'
+                          onChange={(e)=>handleGSTNumberChange(e)}
+                          value={gst}
+                          disabled={editClick ? false : true}/>
                       </Form.Item>
                     </Col>
                     <Col sm={24} md={12} xs={24} lg={12} xl={12} className='form-col'>
@@ -634,7 +678,10 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
                         }]}
                       >
                         <Input
-                          placeholder='Enter Your Zipcode'/>
+                          placeholder='Enter Your Zipcode'
+                          onChange={(e)=>handleZipcodeChange(e)}
+                          value={zip}
+                          disabled={editClick ? false : true}/>
                       </Form.Item>
                     </Col>
                   </Row>
