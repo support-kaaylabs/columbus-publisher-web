@@ -256,12 +256,11 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
             State_Id: stateId,
           }
         };
-        console.log('papapapappapapapa', params);
         if (!uniqueEmailErr && !uniquePhoneNumberErr && !(!selectedState && stateIsRequired) && !(!selectedCity && cityIsRequired) ) {
           updateSellerDetails({ userId }, params).then((res) => {
             if (res.success) {
               getSeller();
-              successNotification('Updated Successfully');
+              successNotification('Updated Successfully!');
               localStorage.setItem('User_Name', `${userName}`);
               localStorage.setItem('User_Email', `${emailAddress}`);
               editProfile();
@@ -269,11 +268,11 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
               setEditClick(false);
             } else {
               setBtnLoading(false);
-              errorNotification('Unable to Update');
+              errorNotification('Unable to Update!');
             }
           });
         } else {
-          errorNotification('Please Fill All the Fields');
+          errorNotification('Please Fill All the Fields!');
         }
       }).catch((err) => {
         const phoneErr = get(err, 'error.phoneError', '');

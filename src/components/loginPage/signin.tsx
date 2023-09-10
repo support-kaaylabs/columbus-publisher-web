@@ -31,7 +31,7 @@ const Signin: FC<signinProps> = ({ signupPageValidation, forgotPageValidation, s
     };
 
     if (emailId === '' && password === '') {
-      errorNotification('Please Enter the Email and Password');
+      errorNotification('Please Enter the Email and Password!');
       setBtnLoading(false);
     } else {
       authenticate(params)
@@ -64,7 +64,7 @@ const Signin: FC<signinProps> = ({ signupPageValidation, forgotPageValidation, s
           setLoginVisible(true);
         })
         .catch(() => {
-          errorNotification('Please Enter valid Email and Password');
+          errorNotification('Please Enter valid Email and Password!');
           setBtnLoading(false);
         });
     }
