@@ -1,6 +1,6 @@
 import React, { type FC, useEffect, useState, MouseEvent, useRef } from 'react';
 import { Row, Col, Card, Button, Form, Input, Select, Spin } from 'antd';
-import './index.scss';
+// import './index.scss';
 import { getAllCountries, getAllStatesByCountryId, getAllCitiesByStateId, email_verification, updateSellerDetails, phone_verification, storeImageUpload } from '../../shared/urlHelper';
 import cameraIcon from '../Home/Images/profilepicCamera.svg';
 import { getSellerDetails } from '../../shared/urlHelper';

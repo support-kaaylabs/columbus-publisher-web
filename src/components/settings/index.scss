@@ -350,7 +350,8 @@
           color: #222222;
           opacity: 0.8;
           font-weight: 700;
-          margin-top: -8px;
+          margin-top: 1%;
+          padding-top: 2.5% !important;
           .ant-select-selection-item {
             font-weight: 800;
           }
@@ -391,7 +392,14 @@
       
         .form-item {
           margin-bottom: 0px;
-
+          input[type="number"]::-webkit-inner-spin-button,
+          input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+          }
+          input[type="number"] {
+            -moz-appearance: textfield;
+          }
           label {
             font-size: 14px;
             color: #222222;
@@ -413,7 +421,6 @@
             border-radius: 5px;
             margin-bottom: 10px !important;
             border: none !important;
-            margin-top: -8px;
           }
         }
       }

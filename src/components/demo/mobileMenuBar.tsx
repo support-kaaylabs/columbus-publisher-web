@@ -23,6 +23,7 @@ import KnowledgeHub from '../knowledgeHub/knowledgeHub';
 import Profile from '../settings/profile';
 import Subscription from '../settings/subscription';
 import Support from '../support/support';
+import EditProfile from '../settings/editProfile';
 import DarkCLogo from '../../assets/Smaller Logo Dark BG.svg';
 import defaultUser from '../../assets/defaultUser.png';
 import { menuBarKeyType } from '../../shared/type';
@@ -246,7 +247,7 @@ const MobileMenuBar: React.FC = () => {
           <Route path="/shoutout" element={<BenchMarking />} />
           <Route path="/knowledgeHub" element={<BenchMarking />} />
           <Route path="/support" element={<BenchMarking />} />
-          <Route path="/profile" element={<Profile updateImage={imageUpdate} editProfile={editProfileChange} />} />
+          <Route path="/profile" element={<EditProfile updateImage={imageUpdate} editProfile={editProfileChange} />} />
           <Route path="/subscription" element={<BenchMarking />} />
         </Routes>
       </Content>

@@ -622,6 +622,7 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
               >
                 <div>
                   <Input
+                    type='number'
                     placeholder='Enter Your Phone Number'
                     onChange={(e) => handlePhoneNumberChange(e)}
                     value={phoneNumber} />
