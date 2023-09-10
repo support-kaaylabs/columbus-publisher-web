@@ -83,6 +83,8 @@ const DashboardPage: React.FC = () => {
     if (chartMode.includes('Yearly')) {
       setWeekCount(0);
       setMonthCount(0);
+      setCrntMonth(month);
+      setCrntYear(year);
       const dynmicBtn = chartMode.slice(-4);
       if ((dynmicBtn === 'prev' || dynmicBtn === 'next') && crntYear !== year) {
         const datas: postMethodDataType = {
@@ -139,6 +141,8 @@ const DashboardPage: React.FC = () => {
     } else if (chartMode.includes('Weekly')) {
       setMonthCount(0);
       setYearCount(0);
+      setCrntMonth(month);
+      setCrntYear(year);
       const dynmicBtn = chartMode.slice(-4);
       if (dynmicBtn === 'prev' && (weekYear === userOnboardYear && weekMonth === userOnboardMonth ? weekDate > userOnboardDate : 1) ) {
         const datas: postMethodDataType = {
