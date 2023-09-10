@@ -107,6 +107,7 @@ const DashboardPage: React.FC = () => {
     } else if (chartMode.includes('Monthly')) {
       setWeekCount(0);
       setYearCount(0);
+      setCrntYear(year);
       const dynmicBtn = chartMode.slice(-4);
       if ((dynmicBtn === 'prev' || dynmicBtn === 'next') && (crntYear === userOnboardYear ? crntMonth !== month : 1)) {
         let yearPosition;
