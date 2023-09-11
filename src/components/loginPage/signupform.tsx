@@ -58,7 +58,7 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
   const [selectedCity, setSelectedCity] = useState(null);
   const [cityValue, setCityValue] = useState<any>();
   const [countryId, setCountryId] = useState<any>();
-  const [stateId, setStateId] = useState<any>();
+  const [stateId, setStateId] = useState<any>(null);
   const [stateErr, setStateErr] = useState(false);
   const [cityErr, setCityErr] = useState(false);
   const [stateIsRequired, setStateIsRequired] = useState<boolean>(false);
@@ -134,10 +134,10 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
 
   const handleStateChange = (value: string) => {
     const selectedState = stateData.find((state) => state.State_Id === value);
-    const stateId = selectedState.State_Id;
-    setStateId(stateId);
+    const state = selectedState.State_Id;
+    setStateId(state);
     setSelectedState(selectedState?.State_Name);
-    const params = { id: stateId };
+    const params = { id: state };
     getAllCitiesByStateId(params).then((res) => {
 
       if (res) {
@@ -224,6 +224,8 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
     setUniquePhoneNumberErr(false);
   };
 
+  const blockInvalidChar = (e: any) => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault();
+
   const signIn = () => {
     signupPageValidation(false);
     forgotPageValidation(false);
@@ -238,7 +240,6 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
     setGstNumber('');
     setPhoneNumber('');
     setZipCode('');
-    setSelectedFileList({});
   };
   const cameraIconHandlerDisplay = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -293,10 +294,10 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
             Store_Name: name.trim(),
             GST_Number: gstNumber,
             Country: selectedCountry,
-            State: selectedState,
-            City: selectedCity,
+            State: selectedState || '',
+            City: selectedCity || '',
             Country_Id: countryId,
-            State_Id: stateId,
+            State_Id: stateId || null,
             Pincode: zipCode,
           };
           sellerRegister(params, selectedFileList).then((res) => {
@@ -305,8 +306,8 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
               forgotPageValidation(false);
               successNotification('User Registered Successfully!');
               navigate('/');
-              empty();
               setBtnLoading(false);
+              empty();
             } else {
               errorNotification('Unable to Register!');
               setBtnLoading(false);
@@ -611,6 +612,7 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
                     type='number'
                     placeholder='Enter Your Phone Number'
                     onChange={(e) => handlePhoneNumberChange(e)}
+                    onKeyDown={blockInvalidChar}
                     value={phoneNumber} />
                   {uniquePhoneNumberErr && (
                     <div className='error'>This Phone Number is Already Taken. Please Choose a Different One!</div>
