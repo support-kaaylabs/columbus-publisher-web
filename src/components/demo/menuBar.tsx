@@ -23,6 +23,7 @@ import Analysis from '../selections/analysis';
 import ShoutOut from '../shoutOut/shoutout';
 import KnowledgeHub from '../knowledgeHub/knowledgeHub';
 import Profile from '../settings/profile';
+import EditProfile from '../settings/editProfile';
 import Subscription from '../settings/subscription';
 import Support from '../support/support';
 import Signup from '../loginPage/signup';
@@ -240,7 +241,7 @@ const MenuBar: React.FC = () => {
             <Route path="/shoutout" element={<BenchMarking />} />
             <Route path="/knowledgeHub" element={<BenchMarking />} />
             <Route path="/support" element={<BenchMarking />} />
-            <Route path="/profile" element={<Profile updateImage={imageUpdate} editProfile={editProfileChange} />} />
+            <Route path="/profile" element={<EditProfile updateImage={imageUpdate} editProfile={editProfileChange} />} />
             <Route path="/subscription" element={<BenchMarking />} />
           </Routes>
         </Content>

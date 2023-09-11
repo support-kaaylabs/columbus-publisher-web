@@ -1,130 +1,99 @@
-import React, { type FC, useEffect, useState, MouseEvent, useRef } from 'react';
-import { Row, Col, Card, Button, Form, Input, Select, Spin } from 'antd';
-// import './index.scss';
+import React,{type FC, useState, useEffect, MouseEvent, useRef} from 'react';
+import {Form, Button, Input, Select, Card, Col, Row, Spin} from 'antd';
 import { getAllCountries, getAllStatesByCountryId, getAllCitiesByStateId, email_verification, updateSellerDetails, phone_verification, storeImageUpload } from '../../shared/urlHelper';
-import cameraIcon from '../Home/Images/profilepicCamera.svg';
 import { getSellerDetails } from '../../shared/urlHelper';
 import { errorNotification, successNotification } from '../../../src/shared/globalVariables';
 import { get } from 'lodash';
+import cameraIcon from '../Home/Images/profilepicCamera.svg';
 import defaultUser from '../../assets/defaultUser.png';
 import { imageHeight, imageWidth } from '../../shared/helper';
+import './index.scss';
 
 const { Meta } = Card;
 
-interface Country {
-  Country_Id: number;
-  Country_Name: string;
-}
-
-interface State {
-  State_Id: string;
-  State_Name: string;
-}
-
-interface City {
-  City_Id: string;
-  City_Name: string;
-}
 
 interface ImageUpdate{
   updateImage: any;
   editProfile: any;
 }
-const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
-  const [image, setImage] = useState<any>();
-  const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
-  const [selectedState, setSelectedState] = useState<State | null>(null);
-  const [selectedCity, setSelectedCity] = useState<City | null>(null);
-  const [regionDatas, setRegionDatas] = useState<any[]>([]);
-  const [countryId, setCountryId] = useState<any>();
-  const [stateData, setStateData] = useState<any[]>([]);
-  const [stateId, setStateId] = useState<any>(null);
-  const [cityValue, setCityValue] = useState<any>();
-  const [cityData, setCityData] = useState<any[]>([]);
-  const [emailErr, setEmailErr] = useState<any>(false);
-  const [editClick, setEditClick] = useState<boolean>(false);
-  const [cameraIconDisplay, setCameraIconDisplay] = useState<any>(true);
-  const [selectedFileList, setSelectedFileList] = useState({});
-  const [emailValidErr, setEmailValidErr] = useState<boolean>(false);
-  const [uniqueEmailErr, setUniqueEmailerr] = useState(false);
-  const [uniquePhoneNumberErr, setUniquePhoneNumberErr] = useState(false);
-  const [stateErr, setStateErr] = useState(false);
-  const [cityErr, setCityErr] = useState(false);
-  const [country, setCountry] = useState<any>();
-  const [state, setState] = useState<any>(null);
-  const [city, setCity] = useState<any>(null);
-  const [phoneNumberErr, setPhoneNumberErr] = useState<boolean>(false);
-  const [loader, setLoader] = useState(false);
-  const [btnLoading, setBtnLoading] = useState(false);
-  const [stateIsRequired, setStateIsRequired] = useState<boolean>(false);
-  const [cityIsRequired, setCityIsRequired] = useState<boolean>(false);
-  const [formValues, setFormValues] = useState({});
-  const [values, setValues] = useState({
-    storeName: '',
-    userName: '',
-    gstNumber: '',
-    email: '',
-    phoneNumber: '',
-    zipCode: '',
-  });
-  const logoHandler = useRef<any>(null);
+const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
 
   const [form] = Form.useForm();
+  const logoHandler = useRef<any>(null);
 
-  useEffect(() => {
+  const [image, setImage] = useState<any>();
+  const [loader, setLoader] = useState(false);
+  const [editClick, setEditClick] = useState<boolean>(false);
+  const [initialValues, setInitialValues] = useState({
+    storeName: '', userName: '',
+    gstNumber: '',
+    region: '' ,
+    state: '' || null,
+    city: '' || null,
+    phoneNumber: '',
+    zipcode: '',
+    emailAddress: '',
+    countryId: '' || null,
+    stateId: '' || null,
+  });
+  const [regionDatas, setRegionDatas] = useState<any[]>([]);
+  const [cityData, setCityData] = useState<any[]>([]);
+  const [stateData, setStateData] = useState<any[]>([]);
+  const [countryId, setCountryId] = useState<any>(null);
+  const [stateId, setStateId] = useState<any>(null);
+  const [cityValue, setCityValue] = useState<any>();
+  const [stateErr, setStateErr] = useState(false);
+  const [cityErr, setCityErr] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedState, setSelectedState] = useState(null);
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [stateIsRequired, setStateIsRequired] = useState<boolean>(false);
+  const [cityIsRequired, setCityIsRequired] = useState<boolean>(false);
+  const [btnLoading, setBtnLoading] = useState(false);
+  const [uniqueEmailErr, setUniqueEmailerr] = useState(false);
+  const [uniquePhoneNumberErr, setUniquePhoneNumberErr] = useState(false);
+  const [cameraIconDisplay, setCameraIconDisplay] = useState<any>(true);
+
+  const [entityName,setEntityName] = useState();
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [phone, setPhone] = useState<number>();
+  const [gst, setgst] = useState();
+  const [zip,setZip] = useState();
+
+
+  useEffect(()=>{
     getSeller();
     getCountry();
-    getAllStatesById();
-  }, []);
-
-  const handleEntityNameChange = (e: any) => {
-    setValues({ ...values, userName: e.target.value.trim() });
-  };
-
-  const handleEditProfile = () => {
-    setEditClick(true);
-    getAllStatesById();
-  };
-
-  
+  },[editClick]);
 
   const getSeller = () => {
-    setLoader(true);
+    // setLoader(true);
     getSellerDetails().then((res) => {
       const userDetails = res.data[0];
       const sellerDetails = res.data[1];
-      setValues({
-        ...values, storeName: sellerDetails.Store_Name, userName: userDetails.User_Name,
-        gstNumber: sellerDetails.GST_Number, email: userDetails.Email_ID, phoneNumber: userDetails.Phone_Number,
-        zipCode: sellerDetails.Pincode
-      });
-      const formObj = {
-        Store_Name: sellerDetails.Store_Name,
-        User_Name: userDetails.User_Name,
-        GST_Number: sellerDetails.GST_Number,
-        Country: sellerDetails.Country,
-        State: sellerDetails.State,
-        City: sellerDetails.City,
-        Phone_Number: userDetails.Phone_Number,
-        Zip_Code: sellerDetails.Pincode,
-        Email_Address: userDetails.Email_ID,
+      const initialFormValues = {storeName: sellerDetails.Store_Name, userName: userDetails.User_Name,
+        gstNumber: sellerDetails.GST_Number,
+        region: sellerDetails.Country,
+        state: sellerDetails.State,
+        city: sellerDetails.City,
+        phoneNumber: userDetails.Phone_Number,
+        zipcode: sellerDetails.Pincode,
+        emailAddress: userDetails.Email_ID,
+        stateId:sellerDetails.State_Id,
+        countryId: sellerDetails.Country_Id
       };
-      form.setFieldsValue(formObj);
-      setFormValues(formObj);
-      setImage(userDetails.Image);
-      setCountry(sellerDetails.Country);
-      setState(sellerDetails.State);
-      setCity(sellerDetails.City);
-      setSelectedCountry(sellerDetails.Country);
+      setEntityName(sellerDetails.Store_Name);
+      setEmail(userDetails.Email_ID);
+      setPhone(userDetails.Phone_Number);
       setSelectedState(sellerDetails.State);
-      setCountryId(sellerDetails.Country_Id);
-      setStateId(sellerDetails.State_Id);
-      setLoader(false);
+      setSelectedCity(sellerDetails.City);
+      form.setFieldsValue(initialFormValues);
+      setInitialValues(initialFormValues);
+      // setLoader(false);
     });
   };
-
-  const { userName, storeName, gstNumber, email, phoneNumber, zipCode } = values;
-
+  
   const getCountry = async () => {
     await getAllCountries().then((res) => {
       if (res) {
@@ -132,14 +101,18 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
       }
     });
   };
-
-  const getState = (value?: any) => {
+  const getState = (value: any) => {
     const params = { id: countryId, searchValue: value };
     getAllStatesByCountryId(params).then((response) => {
       if (response) {
         setStateData(response.data);
       }
     });
+  };
+
+  const getCities = (value: any) => {
+    setCityValue(value);
+    searchCities();
   };
 
   const searchCities = () => {
@@ -150,76 +123,40 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
       }
     });
   };
-  const getCities = (value: any) => {
-    setCityValue(value);
-    searchCities();
-  };
-
-  const getAllStatesById = async () => {
-    const params = { id: countryId };
-    await getAllStatesByCountryId(params).then((response) => {
-      if (response) {
-        if(response.data.length === 0){
-          setStateIsRequired(false);
-          setStateData(response.data);
-          setStateId(null);
-        }else{
-          setStateIsRequired(true);
-          setStateData(response?.data);
-          const params = { id: stateId };
-          getAllCitiesByStateId(params).then((res) => {
-            if (res) {
-              if(res.data.length === 0){
-                setCityIsRequired(false);
-                setCityData(res.data);
-              }else{
-                setCityIsRequired(true);
-                setCityData(res?.data);
-              }
-            }
-          });
-        }
-      }
-    });
-  };
 
   const handleCountryChange = async (value: string) => {
-    setCountryId(value);
     setCityData([]);
+    setStateId(null);
+    setCountryId(value);
     const selectedCountry = regionDatas.find((country) => country.Country_Id === value);
     const country = selectedCountry?.Country_Id;
-    setCountry(selectedCountry.Country_Name);
-    setSelectedCountry(selectedCountry || null);
+    setSelectedCountry(selectedCountry?.Country_Name);
     const params = { id: country };
     await getAllStatesByCountryId(params).then((response) => {
       if (response) {
         if(response.data.length === 0){
           setStateIsRequired(false);
           setStateData(response.data);
+          setStateId(null);
+
         }else{
           setStateIsRequired(true);
           setStateData(response.data);
         }
       }
     });
-    form.setFieldsValue({
-      State: undefined,
-      City: undefined,
-    });
     setCityIsRequired(false);
     setSelectedState(null);
     setSelectedCity(null);
-    setState(null);
-    setCity(null);
   };
-
   const handleStateChange = (value: string) => {
-    const states = stateData.find((state) => state.State_Id === value);
-    const stateId = states.State_Id;
+    const selectedState = stateData.find((state) => state.State_Id === value);
+    const stateId = selectedState.State_Id;
     setStateId(stateId);
-    setSelectedState(states || null);
+    setSelectedState(selectedState?.State_Name);
     const params = { id: stateId };
     getAllCitiesByStateId(params).then((res) => {
+
       if (res) {
         if(res.data.length === 0){
           setCityIsRequired(false);
@@ -230,11 +167,14 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
         }
       }
     });
-    form.setFieldsValue({
-      City: null,
-    });
     setSelectedCity(null);
     setStateErr(false);
+  };
+
+  const handleCityChange = (value: string) => {
+    const selectedCity = cityData.find((city) => city.City_Id === value);
+    setSelectedCity(selectedCity?.City_Name);
+    setCityErr(false);
   };
   const cameraIconHandlerHide = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -282,85 +222,57 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
     }else {
       setImage(null);
     }
-    setSelectedFileList(fileUploaded);
+    // setSelectedFileList(fileUploaded);
   };
+  const onFinish= async (values: any)=>{
+    const {emailAddress,gstNumber,phoneNumber,zipcode,userName,storeName} = values;
 
-  const handlePhoneNumberChange = (e: any) => {
-    setValues({ ...values, phoneNumber: e.target.value.trim() });
-    setUniquePhoneNumberErr(false);
-    setPhoneNumberErr(false);
-  };
-
-  const handleEmailChange = (e: any) => {
-    setValues({ ...values, email: e.target.value.trim() });
-    setEmailValidErr(false);
-    setUniqueEmailerr(false);
-    setEmailErr(false);
-  };
-  const handleStoreNameChange = (e: any) => {
-    setValues({ ...values, storeName: e.target.value.trim() });
-  };
-  const handleZipCode = (e: any) => {
-    setValues({ ...values, zipCode: e.target.value.trim() });
-  };
-  const handleCityChange = (value: string) => {
-    const selectedCity = cityData.find((city) => city.City_Id === value);
-    setSelectedCity(selectedCity || null);
-    setCityErr(false);
-  };
-  const handleSubmit = async () => {
     const userId = localStorage.getItem('User_ID');
-
-    //eslint-disable-next-line
-    const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (reg.test(email) === false) {
-      setEmailValidErr(true);
-    }
     if (!selectedState && stateIsRequired) {
       return setStateErr(true);
     }
     if (!selectedCity && cityIsRequired) {
       return setCityErr(true);
     }
-    const emailParams = { userId, emailId: email, userType: 'merchant' };
+    const emailParams = { userId, emailId: emailAddress, userType: 'merchant' };
     const phoneParams = { userId, phoneNumber: phoneNumber, userType: 'merchant' };
     setBtnLoading(true);
-    await email_verification(emailParams).then((res) => {
+    await email_verification(emailParams).then(() => {
       phone_verification(phoneParams).then(() => {
         const params = {
           userDetails: {
             User_Name: userName.trim(),
-            Email_ID: email.trim(),
+            Email_ID: emailAddress.trim(),
             Phone_Number: phoneNumber,
           },
           sellerDetails: {
             Store_Name: storeName.trim(),
             GST_Number: gstNumber,
-            Country: get(selectedCountry, 'Country_Name', country),
-            State: get(selectedState, 'State_Name', state),
-            City: get(selectedCity, 'City_Name', city),
-            Pincode: zipCode,
+            Country: selectedCountry,
+            State: selectedState,
+            City: selectedCity,
+            Pincode: zipcode,
             Country_Id: countryId,
             State_Id: stateId,
           }
         };
-        if (!uniqueEmailErr && !uniquePhoneNumberErr && !emailValidErr && !(!selectedState && stateIsRequired) && !(!selectedCity && cityIsRequired) ) {
+        if (!uniqueEmailErr && !uniquePhoneNumberErr && !(!selectedState && stateIsRequired) && !(!selectedCity && cityIsRequired) ) {
           updateSellerDetails({ userId }, params).then((res) => {
             if (res.success) {
               getSeller();
-              successNotification('Updated Successfully');
+              successNotification('Updated Successfully!');
               localStorage.setItem('User_Name', `${userName}`);
-              localStorage.setItem('User_Email', `${email}`);
+              localStorage.setItem('User_Email', `${emailAddress}`);
               editProfile();
               setBtnLoading(false);
               setEditClick(false);
             } else {
               setBtnLoading(false);
-              errorNotification('Unable to Update');
+              errorNotification('Unable to Update!');
             }
           });
         } else {
-          errorNotification('Please Fill All the Fields');
+          errorNotification('Please Fill All the Fields!');
         }
       }).catch((err) => {
         const phoneErr = get(err, 'error.phoneError', '');
@@ -375,29 +287,85 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
       }
     });
   };
-  const handleCancel = () => {
-    form.setFieldsValue(formValues);
+  
+  const getAllStatesById = async () => {
+    const {countryId, stateId} = initialValues;
+    const params = { id: countryId };
+    await getAllStatesByCountryId(params).then((response) => {
+      if (response) {
+        if(response.data.length === 0){
+          setStateIsRequired(false);
+          setStateData(response.data);
+          setStateId(null);
+        }else{
+          setStateIsRequired(true);
+          setStateData(response?.data);
+          const params = { id: stateId };
+          getAllCitiesByStateId(params).then((res) => {
+            if (res) {
+              if(res.data.length === 0){
+                setCityIsRequired(false);
+                setCityData(res.data);
+              }else{
+                setCityIsRequired(true);
+                setCityData(res?.data);
+              }
+            }
+          });
+        }
+      }
+    });
+  };
+
+  const handleEditProfile = () => {
+    setEditClick(true);
+    getAllStatesById();
+  };
+
+  const onCancel =()=>{
+    form.setFieldsValue(initialValues);
+    setUniqueEmailerr(false);
+    setUniquePhoneNumberErr(false);
     setStateErr(false);
     setCityErr(false);
     setEditClick(false);
-    setStateIsRequired(false);
-    setCityIsRequired(false);
   };
-  return (
+
+  const handleUserNameChange = (e: any) =>{
+    setName(e.target.value);
+  };
+
+  const handleEmailChange = (e: any) =>{
+    setEmail(e.target.value);
+    setUniqueEmailerr(false);
+  };
+
+  const handlePhoneNumberChange = (e: any) =>{
+    // const val = parseInt(e.target.value);
+    setPhone(e.target.value);
+    setUniquePhoneNumberErr(false);
+  };
+
+  const handleGSTNumberChange = (e: any) =>{
+    setgst(e.target.value);
+  };
+
+  const handleZipcodeChange = (e: any) =>{
+    setZip(e.target.value);
+  };
+
+  return(
     <>
       {!loader? (
         <div>
           <div className='text-div'>
             {editClick ? (<p>Edit Profile</p>) : (<p>Profile</p>)}
-          </div>
+          </div>      
           <Form
-            size={'large'}
             form={form}
-            autoComplete='off'
-            initialValues={{ remember: true }}
-            className='form'
+            name='control-hooks'
+            onFinish={onFinish}
             layout='vertical'
-            onFinish={handleSubmit}
           >
             <Row>
               <Col sm={0} md={0} xs={0} lg={6} xl={6} className='profile-col'>
@@ -406,7 +374,7 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                     className='ant-card'
                     cover={<img src={image? image: defaultUser} alt='profile-img' className='img' />}
                   >
-                    <Meta title={`${storeName}`} />
+                    <Meta title={`${entityName}`} />
                     <div className='ant-btn-div'>
                       <Button  className='btn-edit' onClick={handleEditProfile}>Edit Profile</Button>
                     </div>
@@ -445,16 +413,15 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                       <div className='img-resolution'>Image should be in resolution of 360*360</div>
                       <Form.Item
                         className='store-ptag'
-                        name='storename'
-                        rules={[{ required: true, message: 'Please Enter Store Name!' }]}>
+                        name='storeName'
+                        rules={[{
+                          required: true,
+                          message: 'Please Enter Your Store Name'
+                        }]}
+                      >
                         <Input
                           className='edit-card-label'
-                          type='text'
-                          placeholder='Enter your Store Name'
-                          onChange={(e) => handleStoreNameChange(e)}
-                          value={`${storeName}`}
-                          disabled={editClick ? false : true}
-                        />
+                          placeholder='Enter Your Store Name'/>
                       </Form.Item>
                     </div>
                   </Card>
@@ -469,7 +436,7 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                       </Col>
                       <Col sm={12} md={12} xs={12} lg={0} xl={0} className='card-profile-body'>
                         <div>
-                          <Meta title={`${storeName}`} />
+                          <Meta title={`${entityName}`} />
                           <div className='ant-button-div'><Button className='ant-btn' onClick={handleEditProfile}>Edit Profile</Button></div>
                         </div>
                       </Col>
@@ -515,16 +482,17 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                         <div className='img-resolution'>Image should be in resolution of 360*360</div>
                         <div className='form-store'>
                           <Form.Item
-                            className='form-storeName'
-                            name='storename'
-                            rules={[{ required: true, message: 'Please Enter Store Name!' }]}>
+                            className='store-ptag'
+                            name='storeName'
+                            rules={[{
+                              required: true,
+                              message: 'Please Enter Your Store Name'
+                            }]}
+                          >
                             <Input
                               className='edit-card-label'
-                              type='text'
-                              placeholder='Enter your Store Name'
-                              onChange={(e) => handleStoreNameChange(e)}
-                              value={`${storeName}`}
-                              disabled={editClick ? false : true}
+                              placeholder='Enter Your Store Name'
+                              value={`${entityName}`}
                             />
                           </Form.Item>
                         </div>
@@ -540,22 +508,24 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                       <Col sm={24} md={12} xs={24} lg={12} xl={12} className='form-col'>
                         <Form.Item
                           className='form-item'
-                          name="User_Name"
-                          label="Username"
-                          rules={[{ required: true, message: 'Enter Your Name' }]}                    >
+                          name='userName'
+                          label='Username'
+                          rules={[{
+                            required: true,
+                            message: 'Please Enter Your Username'
+                          }]}
+                        >
                           <Input
-                            type='text'
-                            placeholder='Enter Your User Name'
-                            onChange={(e) => handleEntityNameChange(e)}
-                            disabled={editClick ? false : true}
+                            placeholder='Enter Your Username'
+                            onChange={e=>handleUserNameChange(e)}
+                            value={name}
+                            disabled={!editClick}
                           />
                         </Form.Item>
                         <Form.Item
                           className='form-item'
-                          name='Email_Address'
+                          name='emailAddress'
                           label='Email Address'
-                          required
-                          colon={false}
                           rules={[
                             {
                               type: 'email',
@@ -563,16 +533,17 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                             },
                             {
                               required: true,
-                              message: 'Please input your E-mail!',
+                              message: 'Please Enter Your Email Address',
                             },
-                          ]}>
+                          ]}
+                        >
                           <div>
                             <Input
                               type='email'
                               placeholder='Enter Your Email Address'
-                              onChange={(e) => handleEmailChange(e)}
+                              onChange={(e)=>handleEmailChange(e)}
                               value={email}
-                              disabled={editClick ? false : true}
+                              disabled={!editClick}
                             />
                             {uniqueEmailErr === true && (
                               <div className='error'>This email is already taken. Please choose a different one.</div>
@@ -581,63 +552,60 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                         </Form.Item>
                         <Form.Item
                           className='form-item'
-                          name='Phone_Number'
-                          label="Phone Number"
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Please Enter Your Phone Number!',
-                            },
-                          ]}>
+                          name='phoneNumber'
+                          label='Phone Number'
+                          rules={[{
+                            required: true,
+                            message: 'Please Enter Your Phone Number'
+                          }]}
+                        >
                           <div>
                             <Input
-                              type='number'
-                              pattern="[0-9]{10}"
-                              placeholder='Please Enter Your Phone Number'
-                              onChange={(e) => handlePhoneNumberChange(e)}
-                              value={phoneNumber}
-                              disabled={editClick ? false : true}
+                              type="number"                            
+                              placeholder='Enter Your Phone Number'
+                              onChange={(e)=>handlePhoneNumberChange(e)}
+                              value={phone}
+                              disabled={!editClick}
                             />
-                            {uniquePhoneNumberErr === true && (
-                              <div className='error'>This Phone Number is already taken. Please choose a different one</div>
+                            {uniquePhoneNumberErr && (
+                              <div className='error'>This Phone Number is Already Taken. Please Choose a Different One!</div>
                             )}
                           </div>
                         </Form.Item>
                         <Form.Item
                           className='form-item'
-                          name='GST_Number'
+                          name='gstNumber'
                           label='GST Number'
-                          colon={false}
                         >
                           <Input
-                            type='text'
-                            placeholder='Enter your GST Number'
-                            onChange={(e) => setValues({ ...values, gstNumber: e.target.value.trim() })}
-                            disabled={editClick ? false : true}
+                            placeholder='Enter Your GST Number'
+                            onChange={(e)=>handleGSTNumberChange(e)}
+                            value={gst}
+                            disabled={!editClick}
                           />
                         </Form.Item>
                       </Col>
                       <Col sm={24} md={12} xs={24} lg={12} xl={12} className='form-col'>
                         <Form.Item
                           className='form-item-select'
-                          name='Country'
-                          required
+                          name='region'
                           label="Region"
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Please Enter Region!',
-                            },
-                          ]}>
+                          rules={[{
+                            required:true,
+                            message: 'Please Select Region'
+                          }]}
+                        >
                           <Select
+                            style={{ marginTop: '-1%', marginBottom: '10px' }}
                             placeholder='Select Country'
                             showSearch
                             onSearch={() => getCountry()}
                             onChange={handleCountryChange}
+                            value={selectedCountry}
                             optionFilterProp="children"
-                            disabled={editClick ? false : true}
+                            disabled={!editClick}
                           >
-                            {regionDatas.map((country) => (
+                            {regionDatas.map((country: any) => (
                               <Select.Option key={country.Country_Name} value={country.Country_Id} onClick={() => handleCountryChange(country)}>
                                 {country.Country_Name}
                               </Select.Option>
@@ -646,46 +614,46 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                         </Form.Item>
                         <Form.Item
                           className='form-item-select'
-                          name='State'
+                          // name='state'
+                          initialValue={selectedState}
                           required={stateIsRequired}
                           label="State/Province"
                         >
-                          <div>
-                            <Select
-                              placeholder='Select State/Province'
-                              showSearch
-                              onSearch={(e) => getState(e)}
-                              onChange={handleStateChange}
-                              optionFilterProp="children"
-                              value={selectedCity?.City_Id}
-                              disabled={editClick ? false : true}
-                            >
-                              {stateData.map((state) => (
-                                <Select.Option key={state.State_Name} value={state.State_Id} onClick={() => handleStateChange(state)}>
-                                  {state.State_Name}
-                                </Select.Option>
-                              ))}
-                            </Select>
-                            {stateErr === true && (
-                              <div className='error'>Please Select State/Province!</div>
-                            )}
-                          </div>
+                          <Select
+                            style={{ marginTop: '-1%', marginBottom: '10px' }}
+                            placeholder='Select State/Province'
+                            showSearch
+                            onSearch={(e) => getState(e)}
+                            onChange={handleStateChange}
+                            value={selectedState}
+                            optionFilterProp="children"
+                            disabled={!editClick}
+                          >
+                            {stateData.map((state: any) => (
+                              <Select.Option key={state.State_Name} value={state.State_Id} onClick={() => handleStateChange(state)}>
+                                {state.State_Name}
+                              </Select.Option>
+                            ))}
+                          </Select>
+                          {stateErr === true && (
+                            <div className='error'>Please Select State/Province!</div>
+                          )}
                         </Form.Item>
-                       
                         <Form.Item
                           className='form-item-select'
-                          name='City'
-                          required={cityIsRequired}
+                          // name='city'
+                          required = {cityIsRequired}
                           label="City/County"
                         >
                           <Select
-                            style={{ marginTop: '-2%'}}
+                            style={{ marginTop: '-1%', marginBottom: '10px' }}
                             placeholder="Select City"
                             showSearch
                             onChange={handleCityChange}
+                            value={selectedCity}
                             onSearch={(e) => getCities(e)}
-                            disabled={editClick ? false : true}
                             optionFilterProp="children"
+                            disabled={(editClick || !selectedState)? false: true}
                           >
                             {cityData?.map((city) => (
                               <Select.Option key={city.City_Name} value={city.City_Id} onClick={() => handleCityChange(city)}>
@@ -699,22 +667,18 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                         </Form.Item>
                         <Form.Item
                           className='form-item'
-                          name='Zip_Code'
-                          required
-                          label="ZipCode"
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Please Enter ZipCode!',
-                            },
-                          ]}>
+                          name='zipcode'
+                          label='Zipcode'
+                          rules={[{
+                            required: true,
+                            message: 'Please Enter Your Zipcode'
+                          }]}
+                        >
                           <Input
-                            style={{ marginTop: '-2%', marginBottom: '10px' }}
-                            type='text'
-                            placeholder='Enter Zip code'
-                            onChange={(e) => handleZipCode(e)}
-                            disabled={(editClick && selectedState) ? false : true}
-                          />
+                            placeholder='Enter Your Zipcode'
+                            onChange={(e)=>handleZipcodeChange(e)}
+                            value={zip}
+                            disabled={editClick ? false : true}/>
                         </Form.Item>
                       </Col>
                     </Row>
@@ -723,7 +687,7 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
                         <Col sm={24} md={12} xs={24} lg={12} xl={12} >
                           <Form.Item>
                             <div className='cancel-Button-div'>
-                              <Button className='cancel-Button' onClick={handleCancel}>Cancel</Button>
+                              <Button className='cancel-Button' onClick={onCancel}>Cancel</Button>
                             </div>
                           </Form.Item>
                         </Col>
@@ -746,10 +710,9 @@ const Profile: FC<ImageUpdate> = ({updateImage, editProfile}) => {
         </div>
       ):(
         <Spin  className='spin-Loading' size="large" style={{alignSelf: 'center'}}/>
-      )
-      }
+      )}
     </>
   );
 };
 
-export default Profile;
+export default EditProfile;

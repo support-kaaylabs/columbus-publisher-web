@@ -13,21 +13,6 @@ import './signup.scss';
 import { get } from 'lodash';
 import { imageHeight, imageWidth } from '../../shared/helper';
 
-interface Country {
-  Country_Id: number;
-  Country_Name: string;
-}
-
-interface State {
-  State_Id: string;
-  State_Name: string;
-}
-
-interface City {
-  City_Id: string;
-  City_Name: string;
-}
-
 interface passwordProps {
   upperCaseValidation: boolean;
   digitValidation: boolean;
@@ -68,9 +53,9 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
   const [regionDatas, setRegionDatas] = useState<any[]>([]);
   const [cityData, setCityData] = useState<any[]>([]);
   const [stateData, setStateData] = useState<any[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
-  const [selectedState, setSelectedState] = useState<State | null>(null);
-  const [selectedCity, setSelectedCity] = useState<City | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedState, setSelectedState] = useState(null);
+  const [selectedCity, setSelectedCity] = useState(null);
   const [cityValue, setCityValue] = useState<any>();
   const [countryId, setCountryId] = useState<any>();
   const [stateId, setStateId] = useState<any>();
@@ -124,10 +109,11 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
   };
 
   const handleCountryChange = async (value: string) => {
+    setCityData([]);
     setCountryId(value);
     const selectedCountry = regionDatas.find((country) => country.Country_Id === value);
     const country = selectedCountry?.Country_Id;
-    setSelectedCountry(selectedCountry || null);
+    setSelectedCountry(selectedCountry?.Country_Name);
     const params = { id: country };
     await getAllStatesByCountryId(params).then((response) => {
       if (response) {
@@ -150,7 +136,7 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
     const selectedState = stateData.find((state) => state.State_Id === value);
     const stateId = selectedState.State_Id;
     setStateId(stateId);
-    setSelectedState(selectedState || null);
+    setSelectedState(selectedState?.State_Name);
     const params = { id: stateId };
     getAllCitiesByStateId(params).then((res) => {
 
@@ -170,7 +156,7 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
 
   const handleCityChange = (value: string) => {
     const selectedCity = cityData.find((city) => city.City_Id === value);
-    setSelectedCity(selectedCity || null);
+    setSelectedCity(selectedCity?.City_Name);
     setCityErr(false);
   };
 
@@ -278,7 +264,7 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
         if (img.width === imageWidth && img.height === imageHeight) {
           setSelectedFileList(fileUploaded);
           reader.readAsDataURL(fileUploaded);
-          successNotification('Your Profile Picture Successfully updated');
+          successNotification('Your Profile Picture Successfully updated!');
         } else {
           errorNotification('You Can Only Upload Images with 360*360 dimentions!');
         }
@@ -306,9 +292,9 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
             Phone_Number: phoneNumber,
             Store_Name: name.trim(),
             GST_Number: gstNumber,
-            Country: selectedCountry ? get(selectedCountry, 'Country_Name') : '',
-            State: get(selectedState, 'State_Name'),
-            City: get(selectedCity, 'City_Name'),
+            Country: selectedCountry,
+            State: selectedState,
+            City: selectedCity,
             Country_Id: countryId,
             State_Id: stateId,
             Pincode: zipCode,
@@ -622,6 +608,7 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
               >
                 <div>
                   <Input
+                    type='number'
                     placeholder='Enter Your Phone Number'
                     onChange={(e) => handlePhoneNumberChange(e)}
                     value={phoneNumber} />
@@ -636,7 +623,7 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
                 label="Region"
                 rules={[{
                   required: true,
-                  message: 'Please Enter Your Region'
+                  message: 'Please Select Region'
                 }]}
               >
                 <Select
@@ -644,7 +631,7 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
                   showSearch
                   onSearch={() => getCountry()}
                   onChange={handleCountryChange}
-                  value={selectedCountry?.Country_Name}
+                  value={selectedCountry}
                   optionFilterProp="children"
                 >
                   {regionDatas.map((country) => (
@@ -665,7 +652,7 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
                   showSearch
                   onSearch={(e) => getState(e)}
                   onChange={handleStateChange}
-                  value={selectedState?.State_Name}
+                  value={selectedState}
                   optionFilterProp="children"
                   disabled={!selectedCountry}
                 >
@@ -689,7 +676,7 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
                   placeholder="Select City"
                   showSearch
                   onChange={handleCityChange}
-                  value={selectedCity?.City_Id}
+                  value={selectedCity}
                   onSearch={(e) => getCities(e)}
                   disabled={!selectedState}
                   optionFilterProp="children"
@@ -761,6 +748,7 @@ const SignupForm: FC<signupProps> = ({ signupPageValidation, forgotPageValidatio
                 </div>
 
               </Form.Item>
+              <div className='img-resolution'>Image should be in resolution of 360*360</div>
             </div>
           }
           {/* {

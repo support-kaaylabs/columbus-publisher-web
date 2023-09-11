@@ -205,7 +205,7 @@ const ResetPassword: FC<ResetProps> = () => {
                         </div>
                       </div>
                     </Col>
-                    <Col>
+                    <Col sm={0} xs={0} md={24} lg={24} className='reset-container'>
                       <Button className='button' onClick={backHandle}><img className='img' src={backArrow} alt='back-arrow' /></Button>
                       <p className='p-forgot'> Change Password <div className='send-emailmessage'>Reset Your Password</div></p>
                     </Col>
@@ -224,86 +224,83 @@ const ResetPassword: FC<ResetProps> = () => {
                     label='New Password'
                     // name='password'
                     required
-                    rules={[
-                      {
-                        message: 'Please Enter Your New Password!',
-                      },
-                    ]}
                     validateTrigger={['onChange']}
                   >
-                    <Input.Password
-                      className='password-label'
-                      style={{ marginTop: '-1%' }}
-                      placeholder='Enter Your New Password'
-                      autoComplete="new-password"
-                      type='password'
-                      onChange={(e) => handlePasswordChange(e)}
-                      value={newPassword}
-                      onBlur={handleBlur}
-                    />
-                    {(passwordcheck || passwordValidate) && (
-                      <div className='password-condition-check-div'>
-                        <Row>
-                          <Col
-                            xs={24}
-                            sm={24}
-                            md={{ offset: 1, span: 22 }}
-                            lg={{ offset: 3, span: 18 }}
-                            xl={{ offset: 4, span: 16 }}
-                          >
-                            <div className="password-condition-div">
-                              <span className="fs-12 jingle-blue fw-600">
+                    <div>
+                      <Input.Password
+                        className='password-label'
+                        style={{ marginTop: '-1%' }}
+                        placeholder='Enter Your New Password'
+                        autoComplete="new-password"
+                        type='password'
+                        onChange={(e) => handlePasswordChange(e)}
+                        value={newPassword}
+                        onBlur={handleBlur}
+                      />
+                      {(passwordcheck || passwordValidate) && (
+                        <div className='password-condition-check-div'>
+                          <Row>
+                            <Col
+                              xs={24}
+                              sm={24}
+                              md={{ offset: 1, span: 22 }}
+                              lg={{ offset: 3, span: 18 }}
+                              xl={{ offset: 4, span: 16 }}
+                            >
+                              <div className="password-condition-div">
+                                <span className="fs-12 jingle-blue fw-600">
                                 Password Must Contain
-                              </span>
-                              <div style={{ marginTop: '10px' }}>
-                                <p className={upperCaseClass}>
-                                  {upperCaseValidation && (
-                                    <CheckOutlined className="icon-align" />
-                                  )}
-                                  {!upperCaseValidation && (
-                                    <CloseOutlined className="icon-align" />
-                                  )}
+                                </span>
+                                <div style={{ marginTop: '10px' }}>
+                                  <p className={upperCaseClass}>
+                                    {upperCaseValidation && (
+                                      <CheckOutlined className="icon-align" />
+                                    )}
+                                    {!upperCaseValidation && (
+                                      <CloseOutlined className="icon-align" />
+                                    )}
                                   At least 1 capital letter and 1 small letter
-                                </p>
-                                <p className={digitClass}>
-                                  {digitValidation && (
-                                    <CheckOutlined className="icon-align" />
-                                  )}
-                                  {!digitValidation && (
-                                    <CloseOutlined className="icon-align" />
-                                  )}
+                                  </p>
+                                  <p className={digitClass}>
+                                    {digitValidation && (
+                                      <CheckOutlined className="icon-align" />
+                                    )}
+                                    {!digitValidation && (
+                                      <CloseOutlined className="icon-align" />
+                                    )}
                                   At least 1 number
-                                </p>
-                                <p className={charClass}>
-                                  {charValidation && (
-                                    <CheckOutlined className="icon-align" />
-                                  )}
-                                  {!charValidation && (
-                                    <CloseOutlined className="icon-align" />
-                                  )}
+                                  </p>
+                                  <p className={charClass}>
+                                    {charValidation && (
+                                      <CheckOutlined className="icon-align" />
+                                    )}
+                                    {!charValidation && (
+                                      <CloseOutlined className="icon-align" />
+                                    )}
                                   At least 8 Characters
-                                </p>
-                                <p className={specialCharClass}>
-                                  {specialCharValidation && (
-                                    <CheckOutlined className="icon-align" />
-                                  )}
-                                  {!specialCharValidation && (
-                                    <CloseOutlined className="icon-align" />
-                                  )}
+                                  </p>
+                                  <p className={specialCharClass}>
+                                    {specialCharValidation && (
+                                      <CheckOutlined className="icon-align" />
+                                    )}
+                                    {!specialCharValidation && (
+                                      <CloseOutlined className="icon-align" />
+                                    )}
                                   At least 1 Special Character
-                                </p>
+                                  </p>
+                                </div>
                               </div>
-                            </div>
-                          </Col>
-                        </Row>
-                      </div>
-                    )}
-                    {passwordErr === true && (
-                      <div className='error'>Please Enter Your New Password!</div>
-                    )}
-                    {newPasswordValid === true && (
-                      <div className='error'>You have Already Used This Password. Try New One</div>
-                    )}
+                            </Col>
+                          </Row>
+                        </div>
+                      )}
+                      {passwordErr === true && (
+                        <div className='error'>Please Enter Your New Password!</div>
+                      )}
+                      {newPasswordValid === true && !passwordErr &&(
+                        <div className='error'>You have Already Used This Password. Try New One</div>
+                      )}
+                    </div>
                   </Form.Item>
                   <Form.Item
                     className='form-item-password'
@@ -315,19 +312,21 @@ const ResetPassword: FC<ResetProps> = () => {
                         message: 'Please Enter Your Confirm Password!',
                       },
                     ]}>
-                    <Input.Password
-                      style={{ marginTop: '-1%' }}
-                      className='password-label'
-                      placeholder='Enter Your Confirm Password'
-                      onChange={(e) => handleConfirmPasswordChange(e)}
-                      value={confirmPassword}
-                    />
-                    {confirmPasswordErr === true && (
+                    <div>
+                      <Input.Password
+                        style={{ marginTop: '-1%' }}
+                        className='password-label'
+                        placeholder='Enter Your Confirm Password'
+                        onChange={(e) => handleConfirmPasswordChange(e)}
+                        value={confirmPassword}
+                      />
+                      {/* {confirmPasswordErr === true && (
                       <div className='error'>Please Enter Your Confirm Password!</div>
-                    )}
-                    {passwordMatch === true && (
-                      <div className='error'>New Password and Confirm Password are not Matched!</div>
-                    )}
+                    )} */}
+                      {passwordMatch === true && (
+                        <div className='error'>New Password and Confirm Password are not Matched!</div>
+                      )}
+                    </div>
                   </Form.Item>
                   <Form.Item className='get-link'>
                     {loader && (
