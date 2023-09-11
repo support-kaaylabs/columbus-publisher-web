@@ -67,8 +67,11 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
     getCountry();
   },[editClick]);
 
+  const blockInvalidChar = (e: any) => ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault();
+
+
   const getSeller = () => {
-    // setLoader(true);
+    setLoader(true);
     getSellerDetails().then((res) => {
       const userDetails = res.data[0];
       const sellerDetails = res.data[1];
@@ -90,7 +93,7 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
       setSelectedCity(sellerDetails.City);
       form.setFieldsValue(initialFormValues);
       setInitialValues(initialFormValues);
-      // setLoader(false);
+      setLoader(false);
     });
   };
   
@@ -222,16 +225,19 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
     }else {
       setImage(null);
     }
-    // setSelectedFileList(fileUploaded);
   };
   const onFinish= async (values: any)=>{
     const {emailAddress,gstNumber,phoneNumber,zipcode,userName,storeName} = values;
 
     const userId = localStorage.getItem('User_ID');
-    if (!selectedState && stateIsRequired) {
+    if ((selectedState === '' ||
+    selectedCity === null ||
+    selectedCity === undefined) && stateIsRequired) {
       return setStateErr(true);
     }
-    if (!selectedCity && cityIsRequired) {
+    if ((selectedCity === '' ||
+    selectedCity === null ||
+    selectedCity === undefined) && cityIsRequired) {
       return setCityErr(true);
     }
     const emailParams = { userId, emailId: emailAddress, userType: 'merchant' };
@@ -341,7 +347,6 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
   };
 
   const handlePhoneNumberChange = (e: any) =>{
-    // const val = parseInt(e.target.value);
     setPhone(e.target.value);
     setUniquePhoneNumberErr(false);
   };
@@ -374,7 +379,7 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
                     className='ant-card'
                     cover={<img src={image? image: defaultUser} alt='profile-img' className='img' />}
                   >
-                    <Meta title={`${entityName}`} />
+                    <Meta title={`${entityName? entityName: ''}`} />
                     <div className='ant-btn-div'>
                       <Button  className='btn-edit' onClick={handleEditProfile}>Edit Profile</Button>
                     </div>
@@ -436,7 +441,7 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
                       </Col>
                       <Col sm={12} md={12} xs={12} lg={0} xl={0} className='card-profile-body'>
                         <div>
-                          <Meta title={`${entityName}`} />
+                          <Meta title={`${entityName? entityName: ''}`} />
                           <div className='ant-button-div'><Button className='ant-btn' onClick={handleEditProfile}>Edit Profile</Button></div>
                         </div>
                       </Col>
@@ -564,6 +569,7 @@ const EditProfile: FC<ImageUpdate>=({updateImage, editProfile})=>{
                               type="number"                            
                               placeholder='Enter Your Phone Number'
                               onChange={(e)=>handlePhoneNumberChange(e)}
+                              onKeyDown={blockInvalidChar}
                               value={phone}
                               disabled={!editClick}
                             />
