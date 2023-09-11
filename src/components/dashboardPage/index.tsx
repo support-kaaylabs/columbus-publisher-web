@@ -81,6 +81,10 @@ const DashboardPage: React.FC = () => {
     //   chartModeFunc(getPublisherChartData);
     // } else
     if (chartMode.includes('Yearly')) {
+      setWeekCount(0);
+      setMonthCount(0);
+      setCrntMonth(month);
+      setCrntYear(year);
       const dynmicBtn = chartMode.slice(-4);
       if ((dynmicBtn === 'prev' || dynmicBtn === 'next') && crntYear !== year) {
         const datas: postMethodDataType = {
@@ -101,6 +105,9 @@ const DashboardPage: React.FC = () => {
         chartModeFunc(getPublisherChartYearlyData);
       }
     } else if (chartMode.includes('Monthly')) {
+      setWeekCount(0);
+      setYearCount(0);
+      setCrntYear(year);
       const dynmicBtn = chartMode.slice(-4);
       if ((dynmicBtn === 'prev' || dynmicBtn === 'next') && (crntYear === userOnboardYear ? crntMonth !== month : 1)) {
         let yearPosition;
@@ -133,6 +140,10 @@ const DashboardPage: React.FC = () => {
         chartModeFunc(getPublisherChartMonthlyData);
       }
     } else if (chartMode.includes('Weekly')) {
+      setMonthCount(0);
+      setYearCount(0);
+      setCrntMonth(month);
+      setCrntYear(year);
       const dynmicBtn = chartMode.slice(-4);
       if (dynmicBtn === 'prev' && (weekYear === userOnboardYear && weekMonth === userOnboardMonth ? weekDate > userOnboardDate : 1) ) {
         const datas: postMethodDataType = {
