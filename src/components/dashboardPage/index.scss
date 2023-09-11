@@ -159,6 +159,10 @@
               .chart-dropdown-prev {
                 width: 40px;
                 height: 40px;
+
+                .dashboard-btn-icon {
+                  font-size: 14px;
+                }
               }
 
               .chart-dropdown-data-yearly,
@@ -174,6 +178,10 @@
               .chart-dropdown-next {
                 width: 40px;
                 height: 40px;
+
+                .dashboard-btn-icon {
+                  font-size: 14px;
+                }
               }
             }
 
@@ -185,75 +193,83 @@
       }
     }
   }
+}
 
-  @media screen and (max-width: 767px) {
-    .dashboard {
-      padding: 30px 20px;
+@media screen and (max-width: 767px) {
+  .dashboard {
+    padding: 30px 20px;
 
-      .dashboard-chart {
-        .chart-select {
-          padding: 17px 6px;
+    .dashboard-chart {
+      .chart-select {
+        padding: 17px 6px;
 
-          .select-div {
-            .pTag {
-              font-size: 11px;
-            }
+        .select-div {
+          .pTag {
+            font-size: 11px;
+          }
 
-            .select-dropdown {
+          .select-dropdown {
+            display: flex;
+
+            .dynamicBtn {
               display: flex;
+              width: 132px;
+              height: 32px;
+              margin-right: 5px;
 
-              .dynamicBtn {
-                display: flex;
-                width: 132px;
+              .chart-dropdown-prev {
+                width: 32px;
                 height: 32px;
-                margin-right: 5px;
 
-                .chart-dropdown-prev {
-                  width: 32px;
-                  height: 32px;
-                }
-
-                .chart-dropdown-data-yearly,
-                .chart-dropdown-data-monthly,
-                .chart-dropdown-data-weekly {
-                  width: 68px;
-                }
-
-                .chart-dropdown-data-yearly,
-                .chart-dropdown-data-monthly {
+                .dashboard-btn-icon {
                   font-size: 12px;
-                }
-
-                .chart-dropdown-data-weekly {
-                  font-size: 7px;
-                  opacity: 1;
-                }
-
-                .chart-dropdown-next {
-                  width: 32px;
-                  height: 32px;
                 }
               }
 
-              .ant-select {
-                width: 88px !important;
+              .chart-dropdown-data-yearly,
+              .chart-dropdown-data-monthly,
+              .chart-dropdown-data-weekly {
+                width: 68px;
+              }
+
+              .chart-dropdown-data-yearly,
+              .chart-dropdown-data-monthly {
+                font-size: 12px;
+              }
+
+              .chart-dropdown-data-weekly {
+                font-size: 7px;
+                opacity: 1;
+              }
+
+              .chart-dropdown-next {
+                width: 32px;
                 height: 32px;
 
-                .ant-select-selector {
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  padding: 7px 11px;
+                .dashboard-btn-icon {
+                  font-size: 12px;
                 }
+              }
+            }
+
+            .ant-select {
+              width: 88px !important;
+              height: 32px;
+
+              .ant-select-selector {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 7px 11px;
               }
             }
           }
         }
       }
+    }
 
-      .chart-flow {
-        overflow-x: auto;
-      }
+    .chart-flow {
+      overflow-x: auto;
     }
   }
 }

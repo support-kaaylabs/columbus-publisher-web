@@ -1,8 +1,7 @@
 import React from 'react';
 import { Select } from 'antd';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { chartSelectType } from '../../shared/type';
-import DashboardPrevIcon from '../columbusImages/dashboard-prev-icon.svg';
-import DashboardNextIcon from '../columbusImages/dashboard-next-icon.svg';
 const ChartSelect: React.FC<chartSelectType> = ({
   chartMode,
   setChartMode,
@@ -19,7 +18,8 @@ const ChartSelect: React.FC<chartSelectType> = ({
   weekCount,
   prevButtonHandler,
   nextButtonHandler,
-  displayName
+  displayName,
+  loading
 }) => {
   return (
     <div className='select-div'>
@@ -28,40 +28,64 @@ const ChartSelect: React.FC<chartSelectType> = ({
         <div className='dynamicBtn'>
           {chartMode?.includes('Yearly') &&
             <>
-              <button type='button' onClick={prevButtonHandler} className='chart-dropdown-prev' disabled={crntYear > userOnboardYear ? false : true}>
-                <img src={DashboardPrevIcon} alt='dashboard-prev-icon' />
+              <button type='button' 
+                onClick={prevButtonHandler} 
+                className='chart-dropdown-prev' 
+                disabled={crntYear > userOnboardYear ? false : true}
+              >
+                {<LeftOutlined className='dashboard-btn-icon' />}
               </button>
               <div className='chart-dropdown-data-yearly'>
-                {displayName}
+                {!loading && displayName}
               </div>
-              <button type='button' onClick={nextButtonHandler} className='chart-dropdown-next' disabled={yearCount > 0 ? false : true}>
-                <img src={DashboardNextIcon} alt='dashboard-next-icon' />
+              <button type='button' 
+                onClick={nextButtonHandler} 
+                className='chart-dropdown-next' disabled={yearCount > 0 ? false : true}
+              >
+                {<RightOutlined className='dashboard-btn-icon' />}
               </button>
             </>
           }
           {chartMode?.includes('Monthly') &&
             <>
-              <button type='button' onClick={prevButtonHandler} className='chart-dropdown-prev' disabled={crntYear >= userOnboardYear && (crntYear === userOnboardYear ? crntMonth !== userOnboardMonth : 1) ? false : true}>
-                <img src={DashboardPrevIcon} alt='dashboard-prev-icon' />
+              <button type='button' 
+                onClick={prevButtonHandler} 
+                className='chart-dropdown-prev' 
+                disabled={crntYear >= userOnboardYear && 
+                (crntYear === userOnboardYear ? crntMonth !== userOnboardMonth : 1) ? false : true}
+              >
+                {<LeftOutlined className='dashboard-btn-icon' />}
               </button>
               <div className='chart-dropdown-data-monthly'>
-                {displayName}
+                {!loading && displayName}
               </div>
-              <button type='button' onClick={nextButtonHandler} className='chart-dropdown-next' disabled={monthCount > 0 ? false : true}>
-                <img src={DashboardNextIcon} alt='dashboard-next-icon' />
+              <button type='button' 
+                onClick={nextButtonHandler} 
+                className='chart-dropdown-next' 
+                disabled={monthCount > 0 ? false : true}
+              >
+                {<RightOutlined className='dashboard-btn-icon' />}
               </button>
             </>
           }
           {chartMode?.includes('Weekly') &&
             <>
-              <button type='button' onClick={prevButtonHandler} className='chart-dropdown-prev' disabled={weekYear >= userOnboardYear && (weekYear === userOnboardYear && weekMonth === userOnboardMonth ? weekDate > userOnboardDate : 1) ? false : true}>
-                <img src={DashboardPrevIcon} alt='dashboard-prev-icon' />
+              <button type='button' onClick={prevButtonHandler} 
+                className='chart-dropdown-prev' 
+                disabled={weekYear >= userOnboardYear && 
+                (weekYear === userOnboardYear && weekMonth === userOnboardMonth ? weekDate > userOnboardDate : 1) ? false : true}
+              >
+                {<LeftOutlined className='dashboard-btn-icon' />}
               </button>
               <div className='chart-dropdown-data-weekly'>
-                {displayName}
+                {!loading && displayName}
               </div>
-              <button type='button' onClick={nextButtonHandler} className='chart-dropdown-next' disabled={weekCount > 0 ? false : true}>
-                <img src={DashboardNextIcon} alt='dashboard-next-icon' />
+              <button type='button' 
+                onClick={nextButtonHandler} 
+                className='chart-dropdown-next' 
+                disabled={weekCount > 0 ? false : true}
+              >
+                {<RightOutlined className='dashboard-btn-icon' />}
               </button>
             </>
           }
